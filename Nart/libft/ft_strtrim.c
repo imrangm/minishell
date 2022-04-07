@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nart.h                                             :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:46 by nmadi            ###   ########.fr       */
+/*   Created: 2021/10/08 01:11:38 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/08 01:56:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NART_H
-# define NART_H
-# include "../central.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-void	minishell(void);
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	int		i;
 
-#endif
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	i = ft_strlen(s1);
+	while (*s1 && ft_strchr(set, s1[i]))
+		i--;
+	return (ft_substr((char *) s1, 0, i + 1));
+}

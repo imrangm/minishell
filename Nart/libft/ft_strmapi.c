@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nart.h                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:46 by nmadi            ###   ########.fr       */
+/*   Created: 2021/10/09 18:36:54 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/09 18:44:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NART_H
-# define NART_H
-# include "../central.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-void	minishell(void);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	int		i;
+	char	*str;
 
-#endif
+	if (!s)
+		return (0);
+	i = 0;
+	str = (char *) malloc(ft_strlen(s) + 1 * sizeof(char));
+	if (!str)
+		return (0);
+	while (s[i] != '\0')
+	{
+		str[i] = f(i, s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

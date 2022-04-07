@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nart.h                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:46 by nmadi            ###   ########.fr       */
+/*   Created: 2021/09/26 17:56:09 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/05 20:56:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NART_H
-# define NART_H
-# include "../central.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-void	minishell(void);
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}

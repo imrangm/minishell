@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nart.h                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:46 by nmadi            ###   ########.fr       */
+/*   Created: 2021/10/08 02:05:32 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/08 02:10:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NART_H
-# define NART_H
-# include "../central.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-void	minishell(void);
+void	ft_putendl_fd(char *s, int fd)
+{
+	int		i;
 
-#endif
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+}

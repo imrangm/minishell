@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nart.h                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:16:46 by nmadi            ###   ########.fr       */
+/*   Created: 2021/10/03 04:13:17 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/03 04:26:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NART_H
-# define NART_H
-# include "../central.h"
-# include "libft/libft.h"
+#include "libft.h"
 
-void	minishell(void);
+void	*ft_calloc(size_t count, size_t size)
+{
+	char	*mem;
 
-#endif
+	mem = (char *) malloc(count * size);
+	if (mem == 0)
+		return (0);
+	ft_bzero(mem, count * size);
+	return (mem);
+}
