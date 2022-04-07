@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 12:53:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 16:23:14 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:17:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@
 
 void	minishell(void);
 void	interpret(char *str);
+char	**parse(char *str);
 
 #endif
