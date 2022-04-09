@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/07 12:55:48 by nmadi             #+#    #+#              #
-#    Updated: 2022/04/07 18:11:05 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/09 18:18:08 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = minishell
 
 SRCS = main.c \
 		minishell.c \
-		interpret.c \
-		parse.c \
+		is_valid.c \
 
 .SILENT:
 
