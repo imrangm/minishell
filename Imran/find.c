@@ -6,12 +6,15 @@
 /*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imran             #+#    #+#             */
-/*   Updated: 2022/04/08 17:14:12 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/09 18:21:38 by imran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "imran.h"
 
+/*
+** returns the PATH variable from the environment
+*/
 char	*get_path(void)
 {
 	extern char			**environ;
@@ -35,7 +38,9 @@ char	*get_path(void)
 	}
 	return (NULL);
 }
-
+/*
+** Splits the PATH variable by delimiter and returns paths 
+*/
 char	**split_path(char *path)
 {
 	char	**strs;
@@ -59,6 +64,10 @@ char	**split_path(char *path)
 	return (strs);
 }
 
+/*
+** checks if the command exists by going through different paths
+** specified in the environment
+*/
 char	*find_exec(char *prg, char	**paths)
 {
 	int		i;
@@ -74,7 +83,9 @@ char	*find_exec(char *prg, char	**paths)
 	}
 	return (NULL);
 }
-
+/*
+** culmination of previous functions to return command path
+*/
 char	*cmd_path(char	*cmd)
 {
 	char	*path;

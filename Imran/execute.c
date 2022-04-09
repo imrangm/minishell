@@ -6,18 +6,24 @@
 /*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/09 11:03:22 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/09 18:19:22 by imran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "imran.h"
 
+/*
+** Print error from the system and exit program
+*/
 void	err_print(int error)
 {
 	perror("Error");
 	exit (error);
 }
 
+/*
+** free memory allocated through ft_split
+*/
 void	ft_free_arg(char **arr)
 {
 	int	i;
@@ -32,7 +38,10 @@ void	ft_free_arg(char **arr)
 	arr = NULL;
 }
 
-void	process(int pid)
+/*
+** Main or parent process to monitor child process
+*/
+void	monitor(int pid)
 {
 	int	wstatus;
 	int	code;
@@ -46,6 +55,11 @@ void	process(int pid)
 	}
 }
 
+/*
+** creating new process and using it to execute a shell command;
+** execve uses cmd_path in find.c to check if the command exists
+** and return its path
+*/
 void	execute(char *line)
 {
 	extern char	**environ;
@@ -64,6 +78,6 @@ void	execute(char *line)
 	else
 	{
 		ft_free_arg(arg);
-		process(pid);
+		monitor(pid);
 	}
 }
