@@ -6,12 +6,16 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:05:40 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 18:19:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/09 18:18:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nart.h"
 
+/*
+* Displays a prompt and adds
+* each entered input to history.
+*/
 void	minishell(void)
 {
 	char	*line;
@@ -23,7 +27,8 @@ void	minishell(void)
 			break ;
 		if (line[0])
 			add_history(line);
-		// interpret(line);
+		if (is_valid(line))
+			; //* Exec.
 		free(line);
 	}
 }
