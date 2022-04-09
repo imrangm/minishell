@@ -6,7 +6,7 @@
 /*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/08 17:11:29 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/09 11:03:41 by imran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../central.h"
 # include <stdio.h>
+# include <string.h>
 
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);

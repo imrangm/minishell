@@ -6,7 +6,7 @@
 /*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/08 17:44:25 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/09 11:03:22 by imran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ void	process(int pid)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
-		if (code == 0)
-			exit (EXIT_SUCCESS);
-		else
-			exit(code);
+		if (code != 0)
+			strerror(code);
 	}
 }
 
