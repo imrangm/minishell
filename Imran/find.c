@@ -6,7 +6,7 @@
 /*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imran             #+#    #+#             */
-/*   Updated: 2022/04/09 19:38:47 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/09 19:44:18 by imran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char	*find_exec(char *prg, char	**paths)
 		}
 		i++;
 	}
+	ft_free_arg(paths);
 	return (NULL);
 }
 /*
