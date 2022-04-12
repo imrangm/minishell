@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   dev.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 13:05:40 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/12 17:42:44 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/12 17:41:08 by nmadi             #+#    #+#             */
+/*   Updated: 2022/04/12 17:48:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nart.h"
 
-/*
-* Displays a prompt and adds
-* each entered input to history.
-*/
-void	minishell(void)
+char	**dev(char *str, int i)
 {
-	char	*line;
-
-	while (1)
+	while (str[i] && str[i] != '|')
 	{
-		line = readline("$ ");
-		if (!line)
-			break ;
-		if (line[0])
-			add_history(line);
-		if (is_valid(line))
-			printf("Valid.\n");
-
-		free(line);
+		if ()
+		i++;
 	}
 }
