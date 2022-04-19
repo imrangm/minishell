@@ -3,40 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/09 18:19:22 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/19 11:26:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "imran.h"
-
-/*
-** Print error from the system and exit program
-*/
-void	err_print(int error)
-{
-	perror("Error");
-	exit (error);
-}
-
-/*
-** free memory allocated through ft_split
-*/
-void	ft_free_arg(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		arr[i] = NULL;
-	}
-	free (arr);
-	arr = NULL;
-}
 
 /*
 ** Main or parent process to monitor child process

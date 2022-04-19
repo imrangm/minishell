@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imran <imran@student.42.fr>                +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/10 12:03:01 by imran            ###   ########.fr        #
+#    Updated: 2022/04/19 11:28:10 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ NAME= minishell
 INCLUDE= imran.h
 
 SRCS= 	execute.c \
+		pipe.c \
 		find.c \
+		free.c \
+		error.c \
 		main.c \
 
 CFLAGS= -Wall -Wextra -Werror
