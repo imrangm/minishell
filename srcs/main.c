@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/04 01:43:11 by nmadi             #+#    #+#             */
-/*   Updated: 2021/10/08 01:44:18 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
+/*   Updated: 2022/04/20 19:49:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+/*
+** Using readline library to create shell command-line
+** and executing the commands through user input
+*/
+int	main(int ac, char **av)
 {
-	size_t		dl;
-	size_t		sl;
-	size_t		tot;
-	size_t		i;
+	char	*line;
 
-	dl = ft_strlen(dst);
-	sl = ft_strlen(src);
-	tot = sl + dl;
-	i = 0;
-	if (dl >= dstsize)
-		return (sl + dstsize);
-	while (src[i] != '\0' && dstsize - dl - 1)
+	(void) ac;
+	(void) av;
+
+	while (1)
 	{
-		dst[dl] = src[i];
-		dl++;
-		i++;
+		line = readline("$ ");
+		if (!line)
+			break ;
+		if (line[0])
+		{
+			add_history(line);
+			if (ft_strchr(line, '|'))
+				pipes(line);
+			else
+				execute(line);
+		}
+		free(line);
 	}
-	dst[dl] = '\0';
-	return (tot);
 }

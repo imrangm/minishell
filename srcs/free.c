@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/19 11:26:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:49:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "imran.h"
+#include "../includes/minishell.h"
 
 /*
 ** free memory allocated through ft_split

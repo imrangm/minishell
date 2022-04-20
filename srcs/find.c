@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imran <imran@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imran             #+#    #+#             */
-/*   Updated: 2022/04/09 19:44:18 by imran            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:49:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "imran.h"
+#include "../includes/minishell.h"
 
 /*
 ** returns the PATH variable from the environment
@@ -39,7 +39,7 @@ char	*get_path(void)
 	return (NULL);
 }
 /*
-** Splits the PATH variable by delimiter and returns paths 
+** Splits the PATH variable by delimiter and returns paths
 */
 char	**split_path(char *path)
 {

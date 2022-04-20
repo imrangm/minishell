@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 15:26:38 by nmadi             #+#    #+#             */
-/*   Updated: 2021/10/15 15:32:43 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
+/*   Updated: 2022/04/20 19:49:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+/*
+** Print error from the system and exit program
+*/
+void	err_print(int error)
 {
-	while (*lst)
-	{
-		del((*lst)->content);
-		free(*(lst));
-		(*lst) = (*lst)->next;
-	}
+	perror("Error");
+	exit (error);
 }
+
+void	err_free_parent(int **pipes, int *pids)
+{
+	ft_free(pipes);
+	free(pids);
+	// exit(code);
+}
+
+void	err_free_pipex(int **pipes, char ***args)
+{
+	ft_free(pipes);
+	ft_free_args(args);
+	perror("Error");
+	// exit (error);
+}
+

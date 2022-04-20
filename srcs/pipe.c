@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 13:07:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:50:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "imran.h"
+#include "../includes/minishell.h"
 
 /*
-** Child processes created to run the programs 
+** Child processes created to run the programs
 */
 void	first_child(int nchild, char **arg, int **pipes)
 {
@@ -175,7 +175,7 @@ void	create_pipes(int nchild, char **cmd)
 		pipes[i++] = malloc(sizeof(int) * 2);
 		// if (!pipes[i])
 		// 	err_free_pipex(pipes, arg, 3);
-	}	
+	}
 	i = 0;
 	while (i < nchild - 1)
 	{

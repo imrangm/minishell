@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   central.h                                          :+:      :+:    :+:   */
+/*   all_includes.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:13:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/07 13:08:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:53:17 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CENTRAL_H
-# define CENTRAL_H
+#ifndef ALL_INCLUDES_H
+# define ALL_INCLUDES_H
 
 //? printf, readline, rl_*, & add_history, strerror, perror
 #include <stdio.h>

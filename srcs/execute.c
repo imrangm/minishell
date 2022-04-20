@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/19 11:26:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:49:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "imran.h"
+#include "../includes/minishell.h"
 
 /*
 ** Main or parent process to monitor child process

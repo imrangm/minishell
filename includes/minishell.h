@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   imran.h                                            :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 13:06:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 19:53:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IMRAN_H
-# define IMRAN_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-# include "../central.h"
-# include "libft/libft.h"
+# include "../includes/all_includes.h"
+# include "../libs/libft/libft.h"
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
