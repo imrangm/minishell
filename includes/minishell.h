@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/21 02:59:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 03:27:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ char	**ft_split_path(char *s, char c);
 int		is_valid_input(char *str);
 int		are_valid_backslashes(char *str, char quote);
 int		are_valid_quotes(char *str);
+int		is_valid_redirection_syntax(char *str, char quote);
 
 #endif

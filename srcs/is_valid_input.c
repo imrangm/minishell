@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 02:03:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/21 03:06:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 03:28:22 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ int	is_valid_input(char *str)
 	{
 		if (!are_valid_quotes(str))
 			return (0);
+		if (!is_valid_redirection_syntax(str, '\"')
+			|| !is_valid_redirection_syntax(str, '\'') )
+		{
+			ft_putstr_fd("Error: Invalid redirection syntax.\n", 2);
+			return (0);
+		}
 	}
 	else
 	{
