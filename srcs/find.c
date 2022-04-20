@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 19:49:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/20 20:46:25 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_path(void)
 
 	i = 0;
 	j = 0;
-	find = "PATH";
+	find = "PATH=";
 	while (environ[i] != NULL)
 	{
 		j = 0;
