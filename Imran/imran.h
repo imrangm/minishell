@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 08:30:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:06:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_free_arg(char **arr);
 void	pipes(char *line);
 void	execute(char *line);
 void	err_print(int error);
-void	err_free_parent(int **pipes, int *pids, int code);
-void	err_free_pipex(int **pipes, char ***args, int error);
+void	err_free_parent(int **pipes, int *pids);
+void	err_free_pipex(int **pipes, char ***args);
 void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);

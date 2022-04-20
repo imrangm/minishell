@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 08:57:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 13:07:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	parent(int nchild, int **pipes, int *pids)
 	{
 		code = WEXITSTATUS(wstatus);
 		if (code != 0)
-			err_free_parent(pipes, pids, code);
+			err_free_parent(pipes, pids);
 	}
 }
 
@@ -158,24 +158,29 @@ void	create_process(int nchild, char ***arg, int **pipes)
 void	create_pipes(int nchild, char **cmd)
 {
 	int		i;
-	int		j;
 	int		**pipes;
 	char	***arg;
 
 	i = 0;
-	j = 0;
 	arg = malloc (sizeof (char **) * nchild);
 	while (i < nchild)
-		arg[i++] = ft_split(cmd[j++], ' ');
+	{
+		arg[i] = ft_split(cmd[i], ' ');
+		i++;
+	}
 	i = 0;
 	pipes = malloc(sizeof(int *) * (nchild));
 	while (i < nchild)
+	{
 		pipes[i++] = malloc(sizeof(int) * 2);
+		// if (!pipes[i])
+		// 	err_free_pipex(pipes, arg, 3);
+	}	
 	i = 0;
 	while (i < nchild - 1)
 	{
 		if (pipe(pipes[i]) == -1)
-			err_free_pipex(pipes, arg, 3);
+			err_free_pipex(pipes, arg);
 		i++;
 	}
 	create_process (nchild, arg, pipes);
@@ -210,6 +215,5 @@ void	pipes(char *line)
 
 	cmd = ft_split(line, '|');
 	n = count_pipes(line) + 1;
-	// printf("%d\n", n);
 	create_pipes(n, cmd);
 }
