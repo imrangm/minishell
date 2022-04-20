@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 19:53:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/20 21:05:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	err_free_pipex(int **pipes, char ***args);
 void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
+char	**ft_split_path(char *s, char c);
 
 #endif
