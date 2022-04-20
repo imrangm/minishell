@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 02:03:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/21 02:40:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 03:06:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,15 @@
 
 int	is_valid_input(char *str)
 {
-	return (contains_backslashes(str) && contains_unclosed_quotes(str));
+	if (are_valid_backslashes(str, '\"') || are_valid_backslashes(str, '\''))
+	{
+		if (!are_valid_quotes(str))
+			return (0);
+	}
+	else
+	{
+		ft_putstr_fd("Error: Backslashes are not permitted.\n", 2);
+		return (0);
+	}
+	return (1);
 }

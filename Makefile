@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/21 02:21:51 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/21 02:58:52 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ SRCS=	main.c \
 		error.c \
 		ft_split_path.c \
 		is_valid_input.c \
-		contains_backslashes.c \
-		contains_unclosed_quotes.c
+		are_valid_backslashes.c \
+		are_valid_quotes.c
 
 CC = gcc
 

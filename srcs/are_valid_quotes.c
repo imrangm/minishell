@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contains_unclosed_quotes.c                         :+:      :+:    :+:   */
+/*   are_valid_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 02:22:03 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/21 02:40:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 02:58:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	contains_unclosed_quotes(char *str)
+int	are_valid_quotes(char *str)
 {
 	int	i;
 	int	single_quote_count;
