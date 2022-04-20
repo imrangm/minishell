@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 21:05:00 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 02:24:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,10 @@ void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**ft_split_path(char *s, char c);
+
+//* Parsing
+int		is_valid_input(char *str);
+int		contains_backslashes(char *str);
+int		contains_unclosed_quotes(char *str);
 
 #endif

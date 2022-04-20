@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   contains_backslashes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/21 02:17:47 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/21 02:20:55 by nmadi             #+#    #+#             */
+/*   Updated: 2022/04/21 02:36:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** Using readline library to create shell command-line
-** and executing the commands through user input
-*/
-int	main(void)
+int	contains_backslashes(char *str)
 {
-	char	*line;
+	int	i;
+	int	db_quote_mode;
 
-	while (1)
+	i = 0;
+	db_quote_mode = 0;
+	while (str[i])
 	{
-		line = readline("$> ");
-		if (!line)
-			break ;
-		if (line[0])
+		if (str[i] == '\"' && !db_quote_mode)
+			db_quote_mode = 1;
+		else if (str[i] == '\"' && db_quote_mode)
+			db_quote_mode = 0;
+		if (str[i] == '\\' && !db_quote_mode)
 		{
-			add_history(line);
-			if (is_valid_input(line))
-			{
-				if (ft_strchr(line, '|'))
-					pipes(line);
-				else
-					execute(line);
-			}
+			ft_putstr_fd("Error: Backslashes are not permitted.\n", 2);
+			return (0);
 		}
-		free(line);
+		i++;
 	}
+	return (1);
 }
