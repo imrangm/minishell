@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imran             #+#    #+#             */
-/*   Updated: 2022/04/19 13:34:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/20 08:57:14 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes)
 			close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[*i - 1][0], STDIN_FILENO);
+	dup2(pipes[(*i) - 1][0], STDIN_FILENO);
 	dup2(pipes[*i][1], STDOUT_FILENO);
-	close(pipes[*i - 1][0]);
+	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
@@ -116,9 +116,7 @@ void	parent(int nchild, int **pipes, int *pids)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
-		if (code == 0)
-			err_free_parent(pipes, pids, 0);
-		else
+		if (code != 0)
 			err_free_parent(pipes, pids, code);
 	}
 }
@@ -157,7 +155,7 @@ void	create_process(int nchild, char ***arg, int **pipes)
 ** Create the pipes and populate arg variable with program names;
 ** Passing them onto create_process function
 */
-void	create_pipes(int nchild, char **line)
+void	create_pipes(int nchild, char **cmd)
 {
 	int		i;
 	int		j;
@@ -165,10 +163,10 @@ void	create_pipes(int nchild, char **line)
 	char	***arg;
 
 	i = 0;
-	j = 2;
+	j = 0;
 	arg = malloc (sizeof (char **) * nchild);
 	while (i < nchild)
-		arg[i++] = ft_split(line[j++], ' ');
+		arg[i++] = ft_split(cmd[j++], ' ');
 	i = 0;
 	pipes = malloc(sizeof(int *) * (nchild));
 	while (i < nchild)
