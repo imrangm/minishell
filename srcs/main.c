@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 00:43:52 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 02:10:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 int	main(void)
 {
 	char		*line;
-	extern int	rl_catch_signals;
-
-	rl_catch_signals = 0;
 
 	while (isatty(STDIN_FILENO))
 	{
