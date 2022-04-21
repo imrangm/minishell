@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 02:22:03 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/21 03:08:11 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 02:49:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	are_valid_quotes(char *str)
 			single_quote_count++;
 		i++;
 	}
-	if (single_quote_count % 2)
+	if (single_quote_count % 2 || double_quote_count % 2)
 	{
-		ft_putstr_fd("Error: Unclosed single quotes are not permitted.\n",
+		ft_putstr_fd("Error: Unclosed quotes are not permitted.\n",
 			2);
 		return (0);
 	}

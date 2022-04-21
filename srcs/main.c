@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 02:10:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 02:41:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 */
 int	main(void)
 {
-	char		*line;
+	char	*line;
 
 	while (isatty(STDIN_FILENO))
 	{
