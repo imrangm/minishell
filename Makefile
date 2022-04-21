@@ -6,65 +6,49 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/21 03:27:24 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/22 00:45:34 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME= minishell
+NAME=		minishell
 
-SRCS=	main.c \
- 		execute.c \
-		pipe.c \
-		find.c \
-		free.c \
-		error.c \
-		ft_split_path.c \
-		is_valid_input.c \
-		are_valid_backslashes.c \
-		are_valid_quotes.c \
-		is_valid_redirection_syntax.c
+SRCS=		main.c \
+ 			execute.c \
+			pipe.c \
+			find.c \
+			free.c \
+			error.c \
+			ft_split_path.c \
+			is_valid_input.c \
+			are_valid_backslashes.c \
+			are_valid_quotes.c \
+			is_valid_redirection_syntax.c \
+			handle_signals.c
 
-CC = gcc
-
-CFLAGS= -Wall -Wextra -Werror
-
-LIBFT = ./libs/libft/libft.a
-
-OBJS_DIR = ./objs
-
-SRCS_DIR = ./srcs
-
-LDFLAGS = -lreadline
-
-LIBS = -L /lib/x86_64-linux-gnu/libreadline.so.8 -lreadline -pthread
-
-INCS = -I /usr/include/
+CC =		gcc
 
 .SILENT:
 
-OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:c=o))
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
 
-$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+CFLAGS=		-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+
+LIBFT_A =	./libs/libft/libft.a
+
+SRCS_DIR =	./srcs
+
+OBJS =		$(addprefix $(SRCS_DIR)/, $(SRCS:c=o))
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./libs/libft/
 	@echo "\033[0;32mCompiled libft.\033[0m"
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT_A) $(LDFLAGS) -o $(NAME)
 	@echo "\033[0;32mCompiled minishell.\033[0m"
 
 all: $(NAME)
 
-linux: $(OBJS)
-	$(MAKE) -C ./libs/libft/
-	@echo "\033[0;32mCompiled libft.\033[0m"
-	$(CC) $(CFLAGS) $(LIBS) $(INCS) $(OBJS) $(LDFLAGS) $(LIBFT) -o $(NAME)
-	@echo "\033[0;32mCompiled minishell.\033[0m"
-
 clean:
 	rm -rf $(OBJS)
-	rm -rf $(OBJS_DIR)
 	@echo "\033[0;32mCleaned minishell object files.\033[0m"
 	$(MAKE) clean -C ./libs/libft/
 	@echo "\033[0;32mCleaned libft object files.\033[0m"

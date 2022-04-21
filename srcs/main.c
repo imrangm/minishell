@@ -6,17 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/21 21:14:48 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 00:43:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-* Ctrl + C = SIGINT - Should display a new prompt on a new line
-* Ctrl + D = EOF (Not a signal) - Should exit the shell
-* Ctrl + \ = SIGQUIT - Should do nothing
-*/
 
 /*
 ** Using readline library to create shell command-line
@@ -24,10 +18,15 @@
 */
 int	main(void)
 {
-	char	*line;
+	char		*line;
+	extern int	rl_catch_signals;
+
+	rl_catch_signals = 0;
 
 	while (isatty(STDIN_FILENO))
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &handle_signals);
 		line = readline("$> ");
 		if (!line)
 			break ;
