@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/20 19:52:02 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/21 18:06:38 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ INCLUDE= imran.h
 
 SRCS= 	execute.c \
 		pipe.c \
+		here_doc.c \
+		chars_split.c \
 		find.c \
 		free.c \
 		error.c \

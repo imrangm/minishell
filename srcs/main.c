@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 19:49:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 18:06:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	main(int ac, char **av)
 			add_history(line);
 			if (ft_strchr(line, '|'))
 				pipes(line);
+			if (ft_strnstr(line, "<<", ft_strlen(line)))
+				here_ops(line);
 			else
 				execute(line);
 		}

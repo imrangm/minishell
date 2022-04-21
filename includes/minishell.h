@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 19:53:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/21 18:03:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ void	err_free_pipex(int **pipes, char ***args);
 void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
+char	**chars_split(char *str, char *charset);
+void	here_ops(char *line);
 
 #endif
