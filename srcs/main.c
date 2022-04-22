@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 02:41:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:37:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(void)
 {
 	char	*line;
 
+	set_in_minishell_var(1);
 	while (isatty(STDIN_FILENO))
 	{
 		signal(SIGQUIT, SIG_IGN);
@@ -38,6 +39,7 @@ int	main(void)
 					execute(line);
 			}
 		}
+		set_in_minishell_var(1);
 		free(line);
 	}
 }

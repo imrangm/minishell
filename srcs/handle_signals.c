@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/22 00:44:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:40:06 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,15 @@ void	handle_signals(int signum)
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	rl_redisplay();
+	if (set_in_minishell_var(-1) == 1)
+		rl_redisplay();
+}
+
+int	set_in_minishell_var(int is_true)
+{
+	static int in_minishell;
+
+	if (is_true != -1)
+		in_minishell = is_true;
+	return (in_minishell);
 }

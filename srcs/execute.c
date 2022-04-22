@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/20 20:37:58 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:38:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	execute(char *line)
 	int		pid;
 
 	arg = ft_split(line, ' ');
+	set_in_minishell_var(0);
 	pid = fork();
 	if (pid == -1)
 		exit (1);

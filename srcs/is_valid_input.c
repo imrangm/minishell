@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 02:03:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/22 02:43:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:08:28 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_input(char *str)
 {
-	if (!are_valid_quotes(str) || !are_valid_backslashes(str))
-		return (0);
+	(void) str;	// if (!are_valid_quotes(str) || !are_valid_backslashes(str))
+	// 	return (0);
 	return (1);
 }

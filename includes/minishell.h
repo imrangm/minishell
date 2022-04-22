@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 02:45:52 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:33:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+
+typedef struct s_data
+{
+	int	in_main_shell;
+} t_data;
+
 
 char	*find_exec(char *prg, char	**paths);
 char	*cmd_path(char	*cmd);
@@ -40,5 +46,7 @@ int		is_valid_redirection_syntax(char *str, char quote);
 
 //* Signals
 void	handle_signals(int signum);
+int		set_in_minishell_var(int is_true);
+
 
 #endif
