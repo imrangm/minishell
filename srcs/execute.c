@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 17:57:07 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 18:24:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	monitor(int pid)
 		if (code != 0)
 			strerror(code);
 	}
-	set_in_minishell_var(0);
+	in_minishell_var(0);
 }
 
 /*
@@ -41,7 +41,7 @@ void	execute(char *line)
 	char		**arg;
 	int			pid;
 
-	set_in_minishell_var(0);
+	in_minishell_var(0);
 	arg = ft_split(line, ' ');
 	pid = fork();
 	if (pid == -1)

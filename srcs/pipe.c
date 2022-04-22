@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 17:58:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/22 18:24:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void	pipes(char *line)
 	int		n;
 	char 	**cmd;
 
-	set_in_minishell_var(0);
+	in_minishell_var(0);
 	cmd = ft_split(line, '|');
 	n = count_pipes(line) + 1;
 	create_pipes(n, cmd);
