@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/23 04:22:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/23 19:48:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,10 @@ void	ft_free_args(char ***arr);
 char	**ft_split_path(char *s, char c);
 
 //* Parsing
-int		is_valid_input(char *str);
-int		are_valid_backslashes(char *str);
-int		are_valid_quotes(char *str);
-int		is_valid_redirection_syntax(char *str, char quote);
+int		preliminary_check(char *str);
 
 //* Signals
 void	handle_signals(int signum);
 int		in_minishell_var(int is_true);
-
-int		is_valid_syntax(char *str);
-char	**ft_split_line(char *str);
 
 #endif
