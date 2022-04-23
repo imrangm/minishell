@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/22 18:24:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/23 04:22:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,8 @@ int		is_valid_redirection_syntax(char *str, char quote);
 //* Signals
 void	handle_signals(int signum);
 int		in_minishell_var(int is_true);
+
+int		is_valid_syntax(char *str);
+char	**ft_split_line(char *str);
 
 #endif
