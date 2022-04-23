@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/23 19:48:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/23 21:19:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_data
 	int	in_main_shell;
 } t_data;
 
+# define DQUOTE 34
+# define SQUOTE 39
 
 char	*find_exec(char *prg, char	**paths);
 char	*cmd_path(char	*cmd);
