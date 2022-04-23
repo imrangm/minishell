@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/23 21:19:18 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/24 00:52:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ char	**ft_split_path(char *s, char c);
 
 //* Parsing
 int		preliminary_check(char *str);
+int		p_contains_unclosed_quotes(char *str);
+int		p_is_cmd_syntax(char *str);
+int		p_starts_with_redirection(char *str);
 
 //* Signals
 void	handle_signals(int signum);

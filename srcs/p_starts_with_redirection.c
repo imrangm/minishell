@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preliminary_check.c                                :+:      :+:    :+:   */
+/*   p_starts_with_redirection.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/24 00:53:05 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/24 00:52:48 by nmadi             #+#    #+#             */
+/*   Updated: 2022/04/24 00:53:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 /*
-* Checks for incorrect redirection syntax,
-* forbidden chars, and unclosed quotes.
+* Checks if the line starts with > or >>
 */
-int	preliminary_check(char *str)
+int	p_starts_with_redirection(char *str)
 {
 	int	i;
-	int	quote;
 
 	i = 0;
-	quote = 0;
-	if (!p_is_cmd_syntax(str) && !p_starts_with_redirection(str))
-		return (0);
-	if (p_contains_unclosed_quotes(str))
-		return (0);
-	return (1);
+	while (str[i] == 32)
+		i++;
+	if (str[i + 1])
+	{
+		if (str[i] == '>' && str[i + 1] == '>')
+			return (1);
+		else if (str[i] == '>' && str[i + 1] != '>')
+			return (1);
+	}
+	return (0);
 }

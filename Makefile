@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/23 19:44:37 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/24 00:52:58 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,20 +21,23 @@ SRCS=		main.c \
 			ft_split_path.c \
 			handle_signals.c \
 			preliminary_check.c \
+			p_contains_unclosed_quotes.c \
+			p_is_cmd_syntax.c \
+			p_starts_with_redirection.c \
 
 CC =		gcc
 
 # For Nart's home
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
 
 # For Nart's 42
-LDFLAGS =	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# LDFLAGS =	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
 
 # For Nart's home
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
 # For Nart's 42
-CFLAGS=		-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+# CFLAGS=		-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 LIBFT_A =	./libs/libft/libft.a
 
