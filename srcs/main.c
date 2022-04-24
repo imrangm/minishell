@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imran             #+#    #+#             */
-/*   Updated: 2022/04/24 14:20:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/24 15:01:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	main(void)
 			add_history(line);
 			if (preliminary_check(line))
 			{
-				printf("Passed.\n");
-				// if (ft_strchr(line, '|'))
-				// 	pipes(line);
-				// else
-				// 	execute(line);
+				// printf("Passed.\n");
+				if (ft_strchr(line, '|'))
+					pipes(line);
+				else
+					execute(line);
 			}
 		}
 		in_minishell_var(1);
