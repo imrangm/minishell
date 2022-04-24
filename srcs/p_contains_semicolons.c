@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preliminary_check.c                                :+:      :+:    :+:   */
+/*   p_contains_semicolons.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/24 16:37:39 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/24 16:32:42 by nmadi             #+#    #+#             */
+/*   Updated: 2022/04/24 16:37:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-* Checks for incorrect redirection syntax,
-* forbidden chars, and unclosed quotes.
-*/
-int	preliminary_check(char *str)
+int	p_contains_semicolons(char *str)
 {
-	if (!p_first_element(str))
-		return (0);
-	if (p_contains_unclosed_quotes(str))
-		return (0);
-	if (p_contains_backslashes(str) || p_contains_semicolons(str))
-		return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ';')
+		{
+			ft_putstr_fd("Error: Semicolons are forbidden.\n", 2);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
