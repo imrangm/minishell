@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/24 16:44:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/24 17:00:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int		p_first_element(char *str);
 int		p_contains_backslashes(char *str);
 int		p_contains_semicolons(char *str);
 int		p_contains_invalid_redirs(char *str);
-// int		p_valid_redirection_syntax(str); // TODO
-// int		p_valid_flag_syntax(char *str); // TODO
 
 //* Signals
 void	handle_signals(int signum);
