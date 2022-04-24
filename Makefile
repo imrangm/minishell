@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/24 16:37:00 by nmadi            ###   ########.fr        #
+#    Updated: 2022/04/24 16:44:10 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS=		main.c \
 			p_first_element.c \
 			p_contains_backslashes.c \
 			p_contains_semicolons.c \
+			p_contains_invalid_redirs.c \
 
 CC =		gcc
 
