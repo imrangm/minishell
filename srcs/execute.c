@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/21 11:35:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/23 05:36:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	monitor(int pid)
 void	execute(char *line)
 {
 	extern char	**environ;
-	char	**arg;
-	int		pid;
+	char		**arg;
+	int			pid;
 
 	arg = ft_split(line, ' ');
 	pid = fork();

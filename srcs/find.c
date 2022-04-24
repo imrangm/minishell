@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/21 11:36:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/24 06:15:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	*find_exec(char *prg, char	**paths)
 	ft_free_arg(paths);
 	return (NULL);
 }
+
 /*
 ** culmination of previous functions to return command path
 */
@@ -96,6 +97,8 @@ char	*cmd_path(char	*cmd)
 	char	**paths;
 	char	*output;
 
+	if (ft_strchr(cmd, '/'))
+		return (cmd);
 	path = get_path();
 	paths = split_path(path);
 	output = find_exec(cmd, paths);

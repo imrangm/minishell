@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/21 18:29:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/24 17:31:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ int	main(int ac, char **av)
 			add_history(line);
 			if (ft_strchr(line, '|'))
 				pipes(line);
-			if (ft_strnstr(line, "<<", ft_strlen(line)))
+			else if (ft_strnstr(line, "<<", ft_strlen(line)))
 				here_ops(line);
+			else if (ft_strnstr(line, ">>", ft_strlen(line)))
+				append(line);
+			else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
+				file(line);
 			else
 				execute(line);
 		}

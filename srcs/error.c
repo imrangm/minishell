@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/20 19:49:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/23 05:37:14 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,3 @@ void	err_free_pipex(int **pipes, char ***args)
 	perror("Error");
 	// exit (error);
 }
-

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/21 18:03:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/24 16:34:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**chars_split(char *str, char *charset);
 void	here_ops(char *line);
+void	file(char *line);
+void	append(char *line);
 
 #endif

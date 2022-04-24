@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:04:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/21 18:18:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/24 16:30:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	here_parent(int pid)
 {
 	int	wstatus;
 	int	code;
-	
+
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 	{

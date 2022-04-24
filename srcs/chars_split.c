@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/21 18:00:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/23 05:37:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		char_is_separator(char c, char *charset)
 	return (0);
 }
 
-int		count_words(char *str, char *charset)
+int	count_words(char *str, char *charset)
 {
 	int	i;
 	int	words;
