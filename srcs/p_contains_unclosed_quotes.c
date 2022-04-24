@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 00:48:29 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/24 00:50:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/24 14:49:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	p_extension(char *str, int *i, int *qf, int quote_type)
 {
-	*qf = 1;
+	(*qf) = 1;
 	(*i)++;
 	while (str[(*i)])
 	{
 		if (str[(*i)] == quote_type)
 		{
-			*qf = 0;
+			(*qf) = 0;
 			break ;
 		}
-		i++;
+		(*i)++;
 	}
 }
 
@@ -44,8 +44,13 @@ int	p_contains_unclosed_quotes(char *str)
 	{
 		if (str[i] == DQUOTE)
 			p_extension(str, &i, &dqf, DQUOTE);
-		if (str[i] == SQUOTE)
-			p_extension(str, &i, &sqf, SQUOTE);
+		if (str[i])
+		{
+			if (str[i] == SQUOTE)
+				p_extension(str, &i, &sqf, SQUOTE);
+		}
+		else
+			break ;
 		i++;
 	}
 	if (dqf || sqf)

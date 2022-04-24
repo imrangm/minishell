@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/24 01:01:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/24 13:59:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ typedef struct s_data
 {
 	int	in_main_shell;
 } t_data;
+
+typedef struct	s_input
+{
+	char			*operator; //? << < > >> |
+	char			**prev_cmd;
+	char			**next_cmd;
+	struct s_input	*prev;
+	struct s_input	*next;
+}	t_input;
 
 # define DQUOTE 34
 # define SQUOTE 39
@@ -43,7 +52,7 @@ char	**ft_split_path(char *s, char c);
 //* Parsing
 int		preliminary_check(char *str);
 int		p_contains_unclosed_quotes(char *str);
-int		p_is_cmd_syntax(char *str);
+int		p_first_element(char *str);
 int		p_starts_with_redirection(char *str);
 // int		p_valid_redirection_syntax(str); // TODO
 // int		p_valid_flag_syntax(char *str); // TODO
