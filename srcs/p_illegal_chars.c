@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_contains_semicolons.c                            :+:      :+:    :+:   */
+/*   p_illegal_chars.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:32:42 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/24 16:37:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/26 01:41:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	p_contains_semicolons(char *str)
+static int	is_char_illegal(char c)
+{
+	return (c == '\\' || c == ';' || c == '&' || c == '#' || c == '~'
+		|| c == '!' || c == '?' || c == '!' || c == '`' || c == '^');
+}
+
+/*
+* Detects illegal characters and prints to stderr.
+*/
+int	p_illegal_chars(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == ';')
+		if (is_char_illegal(str[i]))
 		{
-			ft_putstr_fd("Error: Semicolons are forbidden.\n", 2);
+			ft_putstr_fd("Error: ", 2);
+			ft_putchar_fd(str[i], 2);
+			ft_putstr_fd(" is a forbidden character.\n", 2);
 			return (1);
 		}
 		i++;
