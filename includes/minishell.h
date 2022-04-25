@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:32:39 by imran             #+#    #+#             */
-/*   Updated: 2022/04/24 17:00:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:51:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ typedef struct s_data
 	int	in_main_shell;
 } t_data;
 
-typedef struct	s_input
+typedef struct	s_pipe
 {
-	char			*operator; //? << < > >> |
-	char			**prev_cmd;
-	char			**next_cmd;
+	char			**cmd;
 	struct s_input	*prev;
 	struct s_input	*next;
-}	t_input;
+}	t_pipe;
 
 # define DQUOTE 34
 # define SQUOTE 39
