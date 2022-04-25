@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/24 06:15:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:30:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_path(void)
 
 	i = 0;
 	j = 0;
-	find = "PATH";
+	find = "PATH=";
 	while (environ[i] != NULL)
 	{
 		j = 0;
@@ -53,7 +53,7 @@ char	**split_path(char *path)
 	j = 0;
 	fwd = 5;
 	newpath = &path[fwd];
-	strs = ft_split(newpath, ':');
+	strs = ft_split_path(newpath, ':');
 	while (strs[i])
 	{
 		j = ft_strlen(strs[i]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/23 06:26:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:33:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	parent(int nchild, int **pipes, int *pids)
 		if (code != 0)
 			err_free_parent(pipes, pids);
 	}
+	in_minishell_var(1);
 }
 
 /*
@@ -213,10 +214,8 @@ void	pipes(char *line)
 	int		n;
 	char 	**cmd;
 
+	in_minishell_var(0);
 	cmd = ft_split(line, '|');
-	// if (ft_strnstr(cmd[0], "<<", ft_strlen(cmd[0])))
-	// {	
-	// }
 	n = count_pipes(line) + 1;
 	create_pipes(n, cmd);
 }

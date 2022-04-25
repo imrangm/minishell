@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   p_contains_unclosed_quotes.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/24 00:48:29 by nmadi             #+#    #+#             */
+/*   Updated: 2022/04/24 14:49:33 by nmadi            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+static void	p_extension(char *str, int *i, int *qf, int quote_type)
+{
+	(*qf) = 1;
+	(*i)++;
+	while (str[(*i)])
+	{
+		if (str[(*i)] == quote_type)
+		{
+			(*qf) = 0;
+			break ;
+		}
+		(*i)++;
+	}
+}
+
+/*
+* Checks for unclosed single quotes
+* and unclosed double quotes.
+*/
+int	p_contains_unclosed_quotes(char *str)
+{
+	int	i;
+	int	sqf;
+	int	dqf;
+
+	i = 0;
+	sqf = 0;
+	dqf = 0;
+	while (str[i])
+	{
+		if (str[i] == DQUOTE)
+			p_extension(str, &i, &dqf, DQUOTE);
+		if (str[i])
+		{
+			if (str[i] == SQUOTE)
+				p_extension(str, &i, &sqf, SQUOTE);
+		}
+		else
+			break ;
+		i++;
+	}
+	if (dqf || sqf)
+	{
+		ft_putstr_fd("Error: Unclosed quote detected.\n", 2);
+		return (1);
+	}
+	return (0);
+}

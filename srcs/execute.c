@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/23 05:36:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:30:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	monitor(int pid)
 		if (code != 0)
 			strerror(code);
 	}
+	in_minishell_var(0);
 }
 
 /*
@@ -40,6 +41,7 @@ void	execute(char *line)
 	char		**arg;
 	int			pid;
 
+	in_minishell_var(0);
 	arg = ft_split(line, ' ');
 	pid = fork();
 	if (pid == -1)
