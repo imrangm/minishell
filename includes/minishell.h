@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/26 01:33:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:05:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,21 @@ typedef struct s_data
 	int	in_main_shell;
 } t_data;
 
-typedef struct	s_pipe
+typedef struct s_redirs
 {
-	char			**cmd;
-	struct s_input	*prev;
-	struct s_input	*next;
-}	t_pipe;
+	char	*infile;
+	char	*outfile;
+	char	*append;
+	char	*heredoc;
+} t_redirs;
+
+typedef struct s_pipe
+{
+	char		*fcmd;
+	t_redirs		rd;
+	void		*prev;
+	void		*next;
+} t_pipe;
 
 # define DQUOTE 34
 # define SQUOTE 39
