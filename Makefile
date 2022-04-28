@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/27 17:16:25 by imustafa         ###   ########.fr        #
+#    Updated: 2022/04/28 22:12:44 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,12 @@ SRCS=		main.c \
 CC =		gcc
 
 # For Nart's home
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
+CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
 
 # For Nart's 42
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # For Dale's Linux
 # LDFLAGS =	-lreadline
