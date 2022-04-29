@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/27 17:15:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/04/29 16:07:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	here_ops(char *line);
 void	file(char *line);
 void	append(char *line);
 char	**ft_split_path(char *s, char c);
+char	*expand_env(char *str);
 
 //* Parsing
 int		preliminary_check(char *str);

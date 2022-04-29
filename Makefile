@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/04/28 22:12:44 by imustafa         ###   ########.fr        #
+#    Updated: 2022/04/29 16:07:04 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS=		main.c \
 			p_first_element.c \
 			p_illegal_chars.c \
 			p_contains_invalid_redirs.c \
+			expand_env.c \
 
 CC =		gcc
 
