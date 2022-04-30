@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:25:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/30 19:31:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/04/30 20:10:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	b_pwd(void)
 	char	*cwd;
 	char	*pwd;
 
+	cwd = NULL;
 	pwd = getcwd(cwd, sizeof(cwd));
 	if (!pwd)
 		return (1);
