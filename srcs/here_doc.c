@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:04:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/24 16:30:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:30:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	*read_line(char *lim)
 	return (final);
 }
 
-void	here_ops(char *line)
+void	here_ops(t_pipe *p)
 {
 	char	**split;
 	char	*lim;
@@ -101,9 +101,9 @@ void	here_ops(char *line)
 	fdi = open("infile_tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fdi == -1)
 		exit (1);
-	split = chars_split(line, "<<");
+	split = chars_split(p->fcmd, "<<");
 	lim = ft_strtrim(split[1], " ");
-	printf("%s, %s", split[0], split[1]);
+	// printf("%s, %s", split[0], split[1]);
 	text = read_line(lim);
 	write(fdi, text, strlen(text));
 	close(fdi);

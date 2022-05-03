@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/27 17:15:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/03 19:39:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_redirs
 typedef struct s_pipe
 {
 	char		*fcmd;
-	t_redirs		rd;
+	t_redirs	rd;
 	void		*prev;
 	void		*next;
 } t_pipe;
@@ -46,6 +46,7 @@ typedef struct s_pipe
 char	*find_exec(char *prg, char	**paths);
 char	*cmd_path(char	*cmd);
 void	ft_free_arg(char **arr);
+int		count_pipes(char *line);
 void	pipes(char *line);
 void	execute(char *line);
 void	err_print(int error);
@@ -55,10 +56,13 @@ void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**chars_split(char *str, char *charset);
-void	here_ops(char *line);
-void	file(char *line);
-void	append(char *line);
+void	here_ops(t_pipe *p);
+void	file(t_pipe *p);
+void	append(t_pipe *p);
 char	**ft_split_path(char *s, char c);
+int		find_sym(char **line, char *sym);
+void	process(char *line, t_redirs *rd);
+void	split_pipe(char *line);
 
 //* Parsing
 int		preliminary_check(char *str);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:44:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/24 17:28:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/03 18:33:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ void	append_process(int fdo, char *cmd)
 	}
 }
 
-void	append(char *line)
+void	append(t_pipe *p)
 {
 	char	**split;
 	char	*file;
 	int		fdo;
 
-	split = chars_split(line, ">>");
+	split = chars_split(p->fcmd, ">>");
 	file = ft_strtrim(split[1], " ");
 	fdo = open(file, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fdo == -1)

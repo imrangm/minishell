@@ -13,6 +13,7 @@
 NAME=		minishell
 
 SRCS=		main.c \
+			process.c \
  			execute.c \
 			pipe.c \
 			find.c \
