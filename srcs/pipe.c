@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/25 22:33:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/04 20:01:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 /*
 ** Child processes created to run the programs
 */
-void	first_child(int nchild, char **arg, int **pipes)
+void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
+	int			fdi;
+	int			fdo;
 	extern char	**environ;
 
 	i = 0;
@@ -30,7 +32,18 @@ void	first_child(int nchild, char **arg, int **pipes)
 			close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[0][1], STDOUT_FILENO);
+	if (p[i]->rd.infile)
+	{
+		fdi = open(p[i]->rd.infile, O_RDONLY, 0);
+		dup2(fdi, STDIN_FILENO);
+	}
+	if (p[i]->rd.outfile)
+	{
+		fdo = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
+	else 
+		dup2(pipes[0][1], STDOUT_FILENO);
 	close(pipes[0][1]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
@@ -40,9 +53,11 @@ void	first_child(int nchild, char **arg, int **pipes)
 	}
 }
 
-void	mid_child(int *i, int nchild, char **arg, int **pipes)
+void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			j;
+	int			fdi;
+	int			fdo;
 	extern char	**environ;
 
 	j = 0;
@@ -54,8 +69,20 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes)
 			close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[(*i) - 1][0], STDIN_FILENO);
-	dup2(pipes[*i][1], STDOUT_FILENO);
+	if (p[*i + 1]->rd.infile)
+	{
+		fdi = open(p[*i + 1]->rd.infile, O_RDONLY, 0);
+		dup2(fdi, STDIN_FILENO);
+	}
+	else
+		dup2(pipes[(*i) - 1][0], STDIN_FILENO);
+	if (p[*i + 1]->rd.outfile)
+	{
+		fdo = open(p[*i + 1]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
+	else 
+		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
@@ -66,10 +93,12 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes)
 	}
 }
 
-void	last_child(int nchild, char **arg, int **pipes)
+void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
+	int			fdi;
+	int			fdo;
 	extern char	**environ;
 
 	i = nchild - 1;
@@ -81,7 +110,19 @@ void	last_child(int nchild, char **arg, int **pipes)
 		close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[i - 1][0], STDIN_FILENO);
+	// printf("infile: %s\n", p[i]->rd.infile);
+	if (p[i]->rd.infile)
+	{
+		fdi = open(p[i]->rd.infile, O_RDONLY, 0);
+		dup2(fdi, STDIN_FILENO);
+	}
+	else
+		dup2(pipes[i - 1][0], STDIN_FILENO);
+	if (p[i]->rd.outfile)
+	{
+		fdo = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
 	close(pipes[i - 1][0]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
@@ -125,7 +166,7 @@ void	parent(int nchild, int **pipes, int *pids)
 /*
 ** Create the processes to run the number of programs passed by user
 */
-void	create_process(int nchild, char ***arg, int **pipes)
+void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 {
 	int	*pids;
 	int	i;
@@ -140,11 +181,11 @@ void	create_process(int nchild, char ***arg, int **pipes)
 		if (pids[i] == 0)
 		{
 			if (i == 0)
-				first_child(nchild, arg[i], pipes);
+				first_child(nchild, arg[i], pipes, p);
 			if (i < nchild - 1)
-				mid_child(&i, nchild, arg[i], pipes);
+				mid_child(&i, nchild, arg[i], pipes, p);
 			if (i == nchild - 1)
-				last_child(nchild, arg[i], pipes);
+				last_child(nchild, arg[i], pipes, p);
 		}
 		i++;
 	}
@@ -156,7 +197,7 @@ void	create_process(int nchild, char ***arg, int **pipes)
 ** Create the pipes and populate arg variable with program names;
 ** Passing them onto create_process function
 */
-void	create_pipes(int nchild, char **cmd)
+void	create_pipes(int nchild, char **cmd, t_pipe **p)
 {
 	int		i;
 	int		**pipes;
@@ -184,7 +225,7 @@ void	create_pipes(int nchild, char **cmd)
 			err_free_pipex(pipes, arg);
 		i++;
 	}
-	create_process (nchild, arg, pipes);
+	create_process (nchild, arg, pipes, p);
 }
 
 /*
@@ -209,13 +250,20 @@ int	count_pipes(char *line)
 /*
 ** Split the line into different commands
 */
-void	pipes(char *line)
+void	pipes(char *line, t_pipe **p)
 {
 	int		n;
+	int		i;
 	char 	**cmd;
 
 	in_minishell_var(0);
 	cmd = ft_split(line, '|');
+	i = 0;
+	while (cmd[i])
+	{
+		cmd[i] = cmd_copy(cmd[i]);
+		i++;
+	}
 	n = count_pipes(line) + 1;
-	create_pipes(n, cmd);
+	create_pipes(n, cmd, p);
 }

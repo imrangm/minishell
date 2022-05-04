@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:04:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/03 18:30:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:14:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 ** Setting up here_doc operator in bash shell 
 */
 
-void	here_child(char *fd, char **arg)
+void	here_child(char **arg)
 {
 	extern char	**environ;
 	int			f;
 
-	f = open(fd, O_RDONLY, 0);
+	f = open("tmp", O_RDONLY, 0);
 	if (f == -1)
 		exit(1);
 	dup2(f, STDIN_FILENO);
 	close(f);
-	unlink(fd);
+	unlink("tmp");
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 		err_print(127);
 }
@@ -45,7 +45,7 @@ void	here_parent(int pid)
 	}
 }
 
-static void	here_process(char *fdi, char *cmd)
+void	here_process(char *cmd)
 {
 	int		pid;
 	char	**arg;
@@ -55,7 +55,7 @@ static void	here_process(char *fdi, char *cmd)
 	if (pid == -1)
 		exit (1);
 	if (pid == 0)
-		here_child(fdi, arg);
+		here_child(arg);
 	else
 	{
 		ft_free_arg(arg);
@@ -91,21 +91,16 @@ static char	*read_line(char *lim)
 	return (final);
 }
 
-void	here_ops(t_pipe *p)
+void	here_ops(char *line, t_redirs *rd)
 {
-	char	**split;
-	char	*lim;
 	char	*text;
 	int		fdi;
 
-	fdi = open("infile_tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fdi == -1)
 		exit (1);
-	split = chars_split(p->fcmd, "<<");
-	lim = ft_strtrim(split[1], " ");
-	// printf("%s, %s", split[0], split[1]);
-	text = read_line(lim);
+	text = read_line(rd->heredoc);
 	write(fdi, text, strlen(text));
 	close(fdi);
-	here_process("infile_tmp", split[0]);
+	here_process(line);
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/03 18:14:30 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:14:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,34 +56,24 @@ void	file_process(int fdi, int fdo, char *cmd)
 	}
 }
 
-void	file(t_pipe *p)
+void	file(char *line, t_redirs *rd)
 {
 	int		fdi;
 	int		fdo;
-	int		i;
-	char	**line_split;
 
 	fdi = 0;
 	fdo = 1;
-	line_split = chars_split(p->fcmd, "<>");
-	i = 0;
-	while (line_split[i] != NULL)
-	{
-		line_split[i] = ft_strtrim(line_split[i], " ");
-		i++;
-	}
-	if (p->rd.infile && p->rd.outfile)
-	{
-		fdi = open(line_split[1], O_RDONLY, 0);
-		fdo = open(line_split[2], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	}
-	if (p->rd.infile && !p->rd.outfile)
-		fdi = open(line_split[1], O_RDONLY, 0);
-	if (p->rd.outfile && !p->rd.infile)
-		fdo = open(line_split[1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (rd->infile)
+		fdi = open(rd->infile, O_RDONLY, 0);
+	if (rd->heredoc)
+		fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (rd->outfile)
+		fdo = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (rd->append)
+		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fdi == -1)
 		perror("File not found");
 	if (fdo == -1)
 		perror("Could not create outfile");
-	file_process(fdi, fdo, line_split[0]);
+	file_process(fdi, fdo, line);
 }

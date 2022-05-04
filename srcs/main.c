@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/03 18:19:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:21:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,15 @@ int	main(void)
 		if (line[0])
 		{
 			add_history(line);
-			split_pipe(line);
+			if (preliminary_check(line))
+			{
+				if (ft_strchr(line, '|'))
+					split_pipe(line);
+				else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
+					split_rd(line);
+				else
+					execute(line);
+			}
 		}
 		in_minishell_var(1);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/03 20:13:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/04 20:17:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,22 @@ int	find_sym(char **line, char *sym)
 	return (0);
 }
 
-void	sym_check(t_pipe *p)
+void	sym_check(char *line, t_redirs *rd)
 {
-	if (preliminary_check(p->fcmd))
-	{
-		// if (ft_strchr(fcmd, '|'))
-		// 	pipes(line);
-		if (p->rd.heredoc)
-			here_ops(p);
-		else if (p->rd.infile || p->rd.outfile)
-			file(p);
-		else if (p->rd.append)
-			append(p);
-		else
-			execute(p->fcmd);
-	}
+	if (rd->heredoc)
+		here_ops(line, rd);
+	else if (rd->infile || rd->outfile || rd->append)
+		file(line, rd);
 }
 
-void	process(char *fcmd, t_redirs *rd)
+void	process(char *line, t_redirs *rd)
 {
 	char 	**out;
 	char	**redir;
 	int		i;
+	int		fd;
 
-	out = ft_split(fcmd, ' ');
+	out = ft_split(line, ' ');
 	i = 0;
 	while (out[i] != NULL)
 	{
@@ -79,7 +71,14 @@ void	process(char *fcmd, t_redirs *rd)
 		else if (ft_strnstr(out[i], ">>", ft_strlen(out[i])))
 		{
 			if (!ft_strncmp(out[i], ">>", 2))
+			{
+				if (rd->append)
+				{
+					fd = open(rd->append, O_CREAT, 0644);
+					close(fd);
+				}
 				rd->append = out[i + 1];
+			}
 			else
 			{
 				redir = chars_split(out[i], ">>");
@@ -90,7 +89,14 @@ void	process(char *fcmd, t_redirs *rd)
 		else if (ft_strnstr(out[i], ">", ft_strlen(out[i])))
 		{
 			if (!ft_strncmp(out[i], ">", 1))
+			{
+				if (rd->outfile)
+				{
+					fd = open(rd->outfile, O_CREAT, 0644);
+					close(fd);
+				}
 				rd->outfile = out[i + 1];
+			}
 			else
 			{
 				redir = ft_split(out[i], '>');
@@ -102,35 +108,55 @@ void	process(char *fcmd, t_redirs *rd)
 	}
 }
 
+char	*cmd_copy(char *input)
+{
+	int		i;
+	char	*copy;
+
+	i = 0;
+	while (input[i] != '\0')
+	{
+		if (input[i] == '<' || input[i] == '>')
+			break;
+		i++;
+	}
+	copy = ft_substr(input, 0, i);
+	return (copy);
+}
+
 void	split_pipe(char *line)
 {
 	char	**cmd;
-	char	*fcmd;
 	t_pipe	**p;
 	int		i;
 	int		c;
 
 	i = 0;
-	if (ft_strchr(line, '|') || ft_strchr(line, '<') || ft_strchr(line, '>'))
+	
+	c = count_pipes(line) + 1;
+	p = malloc(sizeof(t_pipe *) * c);
+	i = 0;
+	cmd = ft_split(line, '|');
+	while (cmd[i])
 	{
-		c = count_pipes(line) + 1;
-		p = malloc(sizeof(t_pipe *) * c);
-		i = 0;
-		cmd = ft_split(line, '|');
-		while (cmd[i])
-		{
-			fcmd = ft_strtrim(cmd[i], " ");
-			p[i] = malloc(sizeof(t_pipe));
-			p[i]->fcmd = fcmd;
-			// printf("%d: %s\n", i, p[i]->fcmd);
-			process(fcmd, &p[i]->rd);
-			sym_check(p[i]);
-			i++;	
-		}
+		cmd[i] = ft_strtrim(cmd[i], " ");
+		p[i] = malloc(sizeof(t_pipe));
+		process(cmd[i], &p[i]->rd);
+		p[i]->fcmd = cmd_copy(cmd[i]);
+		// printf("%d: %s\n", i, p[i]->fcmd);
+		i++;
 	}
-	else
-	{
-		//only one pipe structure with following struct as null
-		execute(line);
-	}
+	pipes(line, p);
+}
+
+void	split_rd(char *line)
+{
+	t_redirs	*rd;
+	char		*cmd;
+
+	rd = malloc(sizeof(t_redirs));
+	line = ft_strtrim(line, " ");
+	cmd = cmd_copy("line");
+	process(line, rd);
+	sym_check(cmd, rd);
 }
