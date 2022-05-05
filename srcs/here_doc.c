@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:04:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/04 20:14:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/05 14:22:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	here_parent(int pid)
 		if (code != 0)
 			exit(code);
 	}
+	if (access("tmp", F_OK) == 0)
+		unlink("tmp");
 }
 
 void	here_process(char *cmd)
@@ -63,7 +65,7 @@ void	here_process(char *cmd)
 	}
 }
 
-static char	*read_line(char *lim)
+char	*read_line(char *lim)
 {
 	char	buf[2];
 	char	*line;
@@ -102,5 +104,11 @@ void	here_ops(char *line, t_redirs *rd)
 	text = read_line(rd->heredoc);
 	write(fdi, text, strlen(text));
 	close(fdi);
-	here_process(line);
+	if (rd->lastin == 'h')
+		here_process(line);
+	else
+	{
+		unlink("tmp");
+		file(line, rd);
+	}
 }

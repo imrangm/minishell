@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/04 20:14:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/05 08:22:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,13 @@ void	file(char *line, t_redirs *rd)
 	int		fdi;
 	int		fdo;
 
-	fdi = 0;
-	fdo = 1;
-	if (rd->infile)
+	fdi = dup(0);
+	fdo = dup(1);
+	if (rd->infile && rd->lastin == 'i')
 		fdi = open(rd->infile, O_RDONLY, 0);
-	if (rd->heredoc)
-		fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (rd->outfile)
+	if (rd->outfile && rd->lastout == 'o')
 		fdo = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (rd->append)
+	if (rd->append && rd->lastout == 'a')
 		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fdi == -1)
 		perror("File not found");

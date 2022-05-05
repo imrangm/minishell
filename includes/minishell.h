@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/04 20:13:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/05 06:34:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,17 @@ typedef struct s_data
 typedef struct s_redirs
 {
 	char	*infile;
+	char	*heredoc;
 	char	*outfile;
 	char	*append;
-	char	*heredoc;
+	char	lastin;
+	char	lastout;
 } t_redirs;
 
 typedef struct s_pipe
 {
 	char		*fcmd;
-	char		**lr; //line reference
 	t_redirs	rd;
-	void		*prev;
-	void		*next;
 } t_pipe;
 
 # define DQUOTE 34
@@ -57,6 +56,7 @@ void	ft_free(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**chars_split(char *str, char *charset);
+char	*read_line(char *lim);
 void	here_ops(char *line, t_redirs *rd);
 void	file_parent(int *pid);
 void	file(char *line, t_redirs *rd);

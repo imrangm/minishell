@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/04 20:17:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/05 14:16:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,23 @@ int	find_sym(char **line, char *sym)
 	i = 0;
 	while (line[i] != NULL)
 	{
-		if (ft_strnstr(line[i], sym, ft_strlen(line[i])))
+		if (ft_strncmp(line[i], sym, ft_strlen(line[i])) == 0)
 			return (i);
 		i++;
 	}
 	return (0);
 }
 
-void	sym_check(char *line, t_redirs *rd)
+void set_sym(char **out, t_redirs *rd)
 {
-	if (rd->heredoc)
-		here_ops(line, rd);
-	else if (rd->infile || rd->outfile || rd->append)
-		file(line, rd);
+	if (find_sym(out, "<<") > find_sym(out, "<"))
+		rd->lastin = 'h';
+	else
+		rd->lastin = 'i';
+	if (find_sym(out, ">>") > find_sym(out, ">"))
+		rd->lastout = 'a';
+	else
+		rd->lastout = 'o';
 }
 
 void	process(char *line, t_redirs *rd)
@@ -55,7 +59,7 @@ void	process(char *line, t_redirs *rd)
 				redir = chars_split(out[i], "<<");
 				rd->heredoc = redir[1];
 			}
-			// printf("%s\n", rd->heredoc);
+			// printf("h: %s\n", rd->heredoc);
 		}
 		else if (ft_strchr(out[i], '<'))
 		{
@@ -66,7 +70,7 @@ void	process(char *line, t_redirs *rd)
 				redir = ft_split(out[i], '<');
 				rd->infile = redir[1];
 			}
-			// printf("%s\n", rd->infile);
+			// printf("i: %s\n", rd->infile);
 		}
 		else if (ft_strnstr(out[i], ">>", ft_strlen(out[i])))
 		{
@@ -84,7 +88,7 @@ void	process(char *line, t_redirs *rd)
 				redir = chars_split(out[i], ">>");
 				rd->append = redir[1];
 			}
-			// printf("%s\n", rd->append);
+			// printf("a: %s\n", rd->append);
 		}
 		else if (ft_strnstr(out[i], ">", ft_strlen(out[i])))
 		{
@@ -102,10 +106,11 @@ void	process(char *line, t_redirs *rd)
 				redir = ft_split(out[i], '>');
 				rd->outfile = redir[1];
 			}
-			// printf("%s\n", rd->outfile);
+			// printf("o: %s\n", rd->outfile);
 		}
 		i++;
 	}
+	set_sym(out, rd);
 }
 
 char	*cmd_copy(char *input)
@@ -156,7 +161,12 @@ void	split_rd(char *line)
 
 	rd = malloc(sizeof(t_redirs));
 	line = ft_strtrim(line, " ");
-	cmd = cmd_copy("line");
+	cmd = cmd_copy(line);
+	// printf("%s\n", cmd);
 	process(line, rd);
-	sym_check(cmd, rd);
+	// printf("%c\n", rd->lastin);
+	if (rd->heredoc)
+		here_ops(cmd, rd);
+	else if (rd->infile|| rd->outfile || rd->append)
+		file(cmd, rd);
 }

@@ -6,11 +6,37 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/04 20:01:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/05 14:17:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	here_pipe(t_pipe *p)
+{
+	int		fdi;
+	char	*text;
+	
+	fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fdi == -1)
+		exit (1);
+	text = read_line(p->rd.heredoc);
+	write(fdi, text, strlen(text));
+	close(fdi);
+	// printf("%c\n", p->rd.lastin);
+	if (p->rd.lastin == 'h')
+	{
+		fdi = open("tmp", O_RDONLY, 0);
+		if (fdi == -1)
+			exit(1);
+		dup2(fdi, STDIN_FILENO);
+	}
+	else
+	{
+		fdi = open(p->rd.infile, O_RDONLY, 0);
+		dup2(fdi, STDIN_FILENO);
+	}
+}
 
 /*
 ** Child processes created to run the programs
@@ -25,6 +51,8 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 
 	i = 0;
 	j = 0;
+	fdi = dup(0);
+	fdo = dup(1);
 	while (j < nchild - 1)
 	{
 		close(pipes[j][0]);
@@ -32,14 +60,22 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 			close(pipes[j][1]);
 		j++;
 	}
-	if (p[i]->rd.infile)
+	// printf("i1: %d\n", i);
+	if (p[i]->rd.heredoc)
+		here_pipe(p[i]);
+	else if (p[i]->rd.infile && p[i]->rd.lastin == 'i')
 	{
 		fdi = open(p[i]->rd.infile, O_RDONLY, 0);
 		dup2(fdi, STDIN_FILENO);
 	}
-	if (p[i]->rd.outfile)
+	if (p[i]->rd.outfile && p[i]->rd.lastout == 'o')
 	{
 		fdo = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
+	else if (p[i]->rd.append && p[i]->rd.lastout == 'a')
+	{
+		fdo = open(p[i]->rd.append, O_CREAT | O_RDWR | O_APPEND, 0644);
 		dup2(fdo, STDOUT_FILENO);
 	}
 	else 
@@ -61,6 +97,8 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 	extern char	**environ;
 
 	j = 0;
+	fdi = dup(0);
+	fdo = dup(1);
 	while (j < nchild - 1)
 	{
 		if (*i - 1 != j)
@@ -69,16 +107,24 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 			close(pipes[j][1]);
 		j++;
 	}
-	if (p[*i + 1]->rd.infile)
+	// printf("i2: %d, data: %s, status: %c\n", *i, p[*i]->rd.heredoc, p[*i]->rd.lastin);
+	if (p[*i]->rd.heredoc)
+		here_pipe(p[*i]);
+	else if (p[*i]->rd.infile && p[*i]->rd.lastin == 'i')
 	{
-		fdi = open(p[*i + 1]->rd.infile, O_RDONLY, 0);
+		fdi = open(p[*i]->rd.infile, O_RDONLY, 0);
 		dup2(fdi, STDIN_FILENO);
 	}
 	else
 		dup2(pipes[(*i) - 1][0], STDIN_FILENO);
-	if (p[*i + 1]->rd.outfile)
+	if (p[*i]->rd.outfile)
 	{
-		fdo = open(p[*i + 1]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fdo = open(p[*i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
+	else if (p[*i]->rd.append && p[*i]->rd.lastout == 'a')
+	{
+		fdo = open(p[*i]->rd.append, O_CREAT | O_RDWR | O_APPEND, 0644);
 		dup2(fdo, STDOUT_FILENO);
 	}
 	else 
@@ -103,6 +149,8 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 
 	i = nchild - 1;
 	j = 0;
+	fdi = dup(0);
+	fdo = dup(1);
 	while (j < nchild - 1)
 	{
 		if (i - 1 != j)
@@ -111,16 +159,24 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 		j++;
 	}
 	// printf("infile: %s\n", p[i]->rd.infile);
-	if (p[i]->rd.infile)
+	// printf("i3: %d, data: %s, status: %c\n", i, p[i]->rd.outfile, p[i]->rd.lastout);
+	if (p[i]->rd.heredoc)
+		here_pipe(p[i]);
+	else if (p[i]->rd.infile && p[i]->rd.lastin == 'i')
 	{
 		fdi = open(p[i]->rd.infile, O_RDONLY, 0);
 		dup2(fdi, STDIN_FILENO);
 	}
 	else
 		dup2(pipes[i - 1][0], STDIN_FILENO);
-	if (p[i]->rd.outfile)
+	if (p[i]->rd.outfile && p[i]->rd.lastout == 'o')
 	{
 		fdo = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		dup2(fdo, STDOUT_FILENO);
+	}
+	else if (p[i]->rd.append && p[i]->rd.lastout == 'a')
+	{
+		fdo = open(p[i]->rd.append, O_CREAT | O_RDWR | O_APPEND, 0644);
 		dup2(fdo, STDOUT_FILENO);
 	}
 	close(pipes[i - 1][0]);
@@ -160,6 +216,8 @@ void	parent(int nchild, int **pipes, int *pids)
 		if (code != 0)
 			err_free_parent(pipes, pids);
 	}
+	if (access("tmp", F_OK) == 0)
+		unlink("tmp");
 	in_minishell_var(1);
 }
 
