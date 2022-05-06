@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 14:51:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 18:50:39 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int		in_minishell_var(int is_true);
 int		b_env(void);
 int		b_pwd(void);
 int		b_cd(char *new_path);
+int		b_echo(char *str, char *flag, char **args);
 
 #endif

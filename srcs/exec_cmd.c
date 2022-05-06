@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 15:01:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 18:50:32 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	exec_cmd(char **arg, char **envp)
 	if (is_builtin(arg[0]) == 1)
 		exit(0);
 	else if (is_builtin(arg[0]) == 2)
-		; //? echo
+		b_echo(arg[0], arg[1], arg);
 	else if (is_builtin(arg[0]) == 3)
 		b_cd(arg[1]);
 	else if (is_builtin(arg[0]) == 4)
