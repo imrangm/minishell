@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/30 19:42:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:51:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	file(char *line);
 void	append(char *line);
 char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
+int		exec_cmd(char **arg, char **envp);
 
 //* Parsing
 int		preliminary_check(char *str);

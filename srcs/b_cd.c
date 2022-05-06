@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/30 19:57:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 15:05:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	b_cd(char *new_path)
 	pwd = getcwd(cwd, sizeof(cwd));
 	if (!pwd)
 		return (1);
-	joined = join_paths(pwd, new_path);
+	if (pwd[0] == '/' && !pwd[2])
+		joined = ft_strjoin(pwd, new_path);
+	else
+		joined = join_paths(pwd, new_path);
 	chdir(joined);
 	printf("%s\n", joined);
 	free(joined);

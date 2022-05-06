@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/25 22:30:51 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 14:53:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void	execute(char *line)
 		exit (1);
 	if (pid == 0)
 	{
-		if (execve(cmd_path(arg[0]), arg, environ) == -1)
-			err_print(127);
+		exec_cmd(arg, environ);
 	}
 	else
 	{
