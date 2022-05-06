@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 18:57:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/06 19:06:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,23 @@ void	print_without_last_nl(char *str)
 int	b_echo(char *str, char *flag, char **args)
 {
 	int	i;
+	int	normal_mode;
 
 	i = 1;
+	normal_mode = ft_strncmp(flag, "-n", ft_strlen(str));
 	if (!ft_strncmp(str, "echo", ft_strlen(str)))
 	{
-		if (!ft_strncmp(flag, "-n", ft_strlen(str)))
-		{
+		if (!normal_mode)
 			i = 2;
-			while (args[i])
-			{
-				print_without_last_nl(args[i]);
-				i++;
-			}
-		}
-		else
+		while (args[i])
 		{
-			while (args[i])
-			{
-				if (!args[i + 1])
-					printf("%s\n", args[i]);
-				else
-					printf("%s", args[i]);
-				i++;
-			}
+			if (!normal_mode)
+				print_without_last_nl(args[i]);
+			else if (!args[i + 1])
+				printf("%s\n", args[i]);
+			else
+				printf("%s", args[i]);
+			i++;
 		}
 	}
 	return (0);
