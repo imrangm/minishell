@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/07 18:01:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/07 19:29:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@ void	ft_putchar(int c)
 void	print_with_stripped_quotes(char *str, int space, int nl)
 {
 	int	i;
-	int	q;
+	int	d;
 
 	i = 0;
-	q = 0;
-	if (str[0] == '\"' || str[0] == '\'')
-	{
-		i++;
-		q = 1;
-	}
+	d = 0;
 	while (str[i])
 	{
-		if (i == (int) ft_strlen(str) - 1 && q)
-			break ;
-		ft_putchar(str[i]);
+		if ((str[i] == '\"' || str[i] == '\'') && !d)
+			d = str[i];
+		else if (str[i] == d)
+			d = 0;
+		else
+			ft_putchar(str[i]);
 		i++;
 	}
 	if (nl)
