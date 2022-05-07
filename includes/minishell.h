@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 18:50:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/07 16:54:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	file(char *line);
 void	append(char *line);
 char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
-int		exec_cmd(char **arg, char **envp);
+int		exec_cmd(char **args, char **envp);
 
 //* Parsing
 int		preliminary_check(char *str);
@@ -77,6 +77,6 @@ int		in_minishell_var(int is_true);
 int		b_env(void);
 int		b_pwd(void);
 int		b_cd(char *new_path);
-int		b_echo(char *str, char *flag, char **args);
+int		b_echo(char **args);
 
 #endif

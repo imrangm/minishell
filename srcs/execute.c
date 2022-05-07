@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/06 14:53:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/07 17:10:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	execute(char *line)
 		exit (1);
 	if (pid == 0)
 	{
-		exec_cmd(arg, environ);
+		exec_cmd(arg, environ); // ! Return this to execve (Note for Nart)
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 18:50:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/07 17:16:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,23 @@ int	is_builtin(char *str)
 	return (0);
 }
 
-int	exec_cmd(char **arg, char **envp)
+int	exec_cmd(char **args, char **envp)
 {
-	if (is_builtin(arg[0]) == 1)
-		exit(0);
-	else if (is_builtin(arg[0]) == 2)
-		b_echo(arg[0], arg[1], arg);
-	else if (is_builtin(arg[0]) == 3)
-		b_cd(arg[1]);
-	else if (is_builtin(arg[0]) == 4)
+	if (is_builtin(args[0]) == 1)
+		exit(0); //! I want it to exit the parent process. Help!
+	else if (is_builtin(args[0]) == 2)
+		b_echo(args);
+	else if (is_builtin(args[0]) == 3)
+		b_cd(args[1]);
+	else if (is_builtin(args[0]) == 4)
 		b_pwd();
-	else if (is_builtin(arg[0]) == 5)
+	else if (is_builtin(args[0]) == 5)
 		; //? export
-	else if (is_builtin(arg[0]) == 6)
+	else if (is_builtin(args[0]) == 6)
 		; //? unset
-	else if (is_builtin(arg[0]) == 7)
+	else if (is_builtin(args[0]) == 7)
 		; //? env
-	else if (execve(cmd_path(arg[0]), arg, envp) == -1)
+	else if (execve(cmd_path(args[0]), args, envp) == -1)
 		err_print(127);
 	return (0);
 }
