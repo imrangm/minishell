@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/04 13:44:18 by imustafa         ###   ########.fr        #
+#    Updated: 2022/05/07 19:50:14 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ SRCS=		main.c \
 			here_doc.c \
 			file.c \
 			error.c \
-			chars_split.c \
+			ft_split_chars.c \
 			ft_split_path.c \
+			ft_split_line.c \
 			handle_signals.c \
 			preliminary_check.c \
 			p_contains_unclosed_quotes.c \
@@ -33,7 +34,7 @@ SRCS=		main.c \
 CC =		gcc
 
 # For Nart's home
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3 -lcurses
 CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
 
 # For Nart's 42

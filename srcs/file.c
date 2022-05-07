@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/05 08:22:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/07 08:13:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ void	file(char *line, t_redirs *rd)
 		perror("File not found");
 	if (fdo == -1)
 		perror("Could not create outfile");
-	file_process(fdi, fdo, line);
+	if (fdi != -1 && fdo != -1)
+		file_process(fdi, fdo, line);
 }
