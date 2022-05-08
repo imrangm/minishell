@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/07 19:55:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/08 11:26:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ void	file_parent(int *pid);
 void	file(char *line, t_redirs *rd);
 char	**ft_split_path(char *s, char c);
 int		find_sym(char **line, char *sym);
+char	*redir_cpy(char *input);
+char	*rm_redir(char *input);
 
 //* Struct
 char	*cmd_copy(char *input);
 void	process(char *line, t_redirs *rd);
-void 	split_rd(char *line);
+void	split_rd(char *line);
 void	split_pipe(char *line);
 
 //* Error and free

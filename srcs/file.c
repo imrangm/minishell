@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/07 08:13:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/08 20:00:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ void	file_process(int fdi, int fdo, char *cmd)
 	}
 }
 
+void	reset(t_redirs *rd)
+{
+	rd->infile = NULL;
+	rd->outfile = NULL;
+	rd->append = NULL;
+	rd->lastin = 0;
+	rd->lastin = 0;
+}
+
 void	file(char *line, t_redirs *rd)
 {
 	int		fdi;
@@ -75,4 +84,5 @@ void	file(char *line, t_redirs *rd)
 		perror("Could not create outfile");
 	if (fdi != -1 && fdo != -1)
 		file_process(fdi, fdo, line);
+	reset(rd);
 }
