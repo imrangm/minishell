@@ -24,6 +24,6 @@ int	p_is_empty_input(char *str)
 	while (str[i] == 32 || str[i] == '\t')
 		i++;
 	if (!str[i])
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }

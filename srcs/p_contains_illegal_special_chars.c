@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:32:42 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/08 23:04:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/09 02:17:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	p_contains_illegal_special_chars(char *str)
 	{
 		if (set_quote_mode(str[i], &quote))
 			i++;
-		else if (str[i] && is_illegal_char(str[i]) && !quote)
+		if (str[i] && is_illegal_char(str[i]) && !quote)
 			return (print_forbidden_char_error(str[i], 1));
 		else if (str[i] && str[i] == '!' && str[i + 1] != 32
 				&& str[i + 1] && quote == '\"')
