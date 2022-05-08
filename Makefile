@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/08 22:17:40 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/08 23:03:56 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ SRCS=		main.c \
 			handle_signals.c \
 			preliminary_check.c \
 			p_contains_unclosed_quotes.c \
-			p_first_element.c \
-			p_illegal_chars.c \
+			p_is_empty_input.c \
+			p_contains_illegal_special_chars.c \
 			p_contains_invalid_redirs.c \
 			expand_env.c \
 			b_env.c \

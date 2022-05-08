@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 00:48:29 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/26 16:23:05 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/08 22:22:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	p_extension(char *str, int *i, int *qf, int quote_type)
 	(*i)++;
 	while (str[(*i)])
 	{
-		if (str[(*i)] == quote_type)
+		if (str[(*i)] == quote_type && str[(*i) - 1] != '\\' && (*i) != 0)
 		{
 			(*qf) = 0;
 			break ;

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/07 16:54:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/08 23:04:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int		exec_cmd(char **args, char **envp);
 //* Parsing
 int		preliminary_check(char *str);
 int		p_contains_unclosed_quotes(char *str);
-int		p_first_element(char *str);
-int		p_illegal_chars(char *str);
+int		p_is_empty_input(char *str);
+int		p_contains_illegal_special_chars(char *str);
 int		p_contains_invalid_redirs(char *str);
 
 //* Signals
