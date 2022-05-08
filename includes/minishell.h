@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/08 23:04:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/09 02:22:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_data
 {
-	int	in_main_shell;
+	int	last_exit_status;
 } t_data;
 
 typedef struct s_redirs
