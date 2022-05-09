@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/10 02:49:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/10 02:55:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,21 @@ int	env_exists(char *var_name, char **envp)
 
 // char	*append_env(char *var_name, char *value, char **envp)
 // {
-// 	;
+	// int		i;
+	// char	**new_envp;
+
+	// i = 0;
+	// new_envp = (char **) malloc(sizeof(char *) * get_size(envp) + 1)
+	// if (!new_envp)
+		// return (NULL);
+	// while (envp[i])
+	// {
+	// 	ft_strlcpy(new_envp[i], envp[i], ft_strlen(envp[i]));
+	// 	i++;
+	// }
+	// ft_strlcpy(new_envp[i], value, ft_strlen(value));
+	// new_envp[++i] = 0;
+	// return (new_envp);
 // }
 
 // char	*modify_env(char *value, char **envp)
