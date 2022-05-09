@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/07 19:50:14 by imustafa         ###   ########.fr        #
+#    Updated: 2022/05/09 05:27:07 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRCS=		main.c \
 			pipe.c \
 			find.c \
 			free.c \
-			here_doc.c \
 			file.c \
 			error.c \
 			ft_split_chars.c \

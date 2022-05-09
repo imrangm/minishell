@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/08 11:26:04 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/09 16:38:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct s_data
 {
 	int	in_main_shell;
-} t_data;
+}	t_data;
 
 typedef struct s_redirs
 {
@@ -33,16 +33,24 @@ typedef struct s_redirs
 	char	*append;
 	char	lastin;
 	char	lastout;
-} t_redirs;
+}	t_redirs;
 
 typedef struct s_pipe
 {
 	char		*fcmd;
 	t_redirs	rd;
-} t_pipe;
+}	t_pipe;
 
 # define DQUOTE 34
 # define SQUOTE 39
+
+//* Checks
+int		check_pipe(char *line);
+int		check_redir(char *line);
+
+//* I/O redirection
+void	file_parent(int *pid);
+void	file(char *line, t_redirs *rd);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
@@ -52,11 +60,7 @@ void	pipes(char *line, t_pipe **p);
 void	execute(char *line);
 char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
-void	here_ops(char *line, t_redirs *rd);
-void	file_parent(int *pid);
-void	file(char *line, t_redirs *rd);
 char	**ft_split_path(char *s, char c);
-int		find_sym(char **line, char *sym);
 char	*redir_cpy(char *input);
 char	*rm_redir(char *input);
 
