@@ -6,21 +6,20 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:19:34 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/30 20:00:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/09 16:52:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	b_env(void)
+int	b_env(t_data *data)
 {
 	int			i;
-	extern char	**environ;
 
 	i = 0;
-	while (environ[i])
+	while (data->envp[i])
 	{
-		printf("%s\n", environ[i]);
+		printf("%s\n", data->envp[i]);
 		i++;
 	}
 	return (0);

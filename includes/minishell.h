@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/09 02:22:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/10 02:49:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 typedef struct s_data
 {
-	int	last_exit_status;
+	int		last_exit_status;
+	char	**envp;
 } t_data;
 
 typedef struct s_redirs
@@ -74,9 +75,13 @@ void	handle_signals(int signum);
 int		in_minishell_var(int is_true);
 
 //* Builtins
-int		b_env(void);
+int		b_env(t_data *data);
 int		b_pwd(void);
 int		b_cd(char *new_path);
 int		b_echo(char **args);
+
+//* EV functions
+char	*get_env_value(char *str, char **envp);
+int		env_exists(char *var_name, char **envp);
 
 #endif

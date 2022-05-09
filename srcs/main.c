@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/09 02:22:43 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/10 02:16:44 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,14 @@
 ** and executing the commands through user input
 */
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_data	data;
 
+	(void) argc;
+	(void) argv;
+	data.envp = envp;
 	in_minishell_var(1);
 	while (isatty(STDIN_FILENO))
 	{
