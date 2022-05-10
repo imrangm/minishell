@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/10 19:35:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 00:57:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,11 @@ int		b_echo(char **args);
 //* EV functions
 char	*get_env_value(char *str, char **envp);
 int		env_exists(char *var_name, char **envp);
+void	add_env(char *var_name, char *value, char **envp);
+void	unset_env(char *var_name, char **envp);
+void	modify_env(char *var_name, char *value, char **envp);
+char	**append_env(char *var_name, char *value, char **envp);
+char	**clone_env(char **envp, int extra_slot);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 00:53:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 00:57:09 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,14 @@ void	unset_env(char *var_name, char **envp)
 	}
 	envp[i] = 0;
 	envp[++i] = 0;
+}
+
+void	add_env(char *var_name, char *value, char **envp)
+{
+	if (env_exists(var_name, envp))
+		modify_env(var_name, value, envp);
+	else
+		append_env(var_name, value, envp);
 }
 
 //! For testing purposes
