@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/10 21:16:51 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 00:53:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,23 @@ void	unset_env(char *var_name, char **envp)
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
+			printf("\n\n\nFreeing %s\n\n\n\n", envp[i]);
 			free(envp[i]);
-			envp[i] = join_env_var_and_value(var_name, value);
+			envp[i] = NULL;
 			break ;
 		}
 		i++;
 	}
+	while (envp[i + 1])
+	{
+		free(envp[i]);
+		envp[i] = NULL;
+		envp[i] = (char *) malloc(sizeof(char) * (ft_strlen(envp[i + 1]) + 1));
+		ft_strlcpy(envp[i], envp[i + 1], ft_strlen(envp[i + 1]) + 1);
+		i++;
+	}
+	envp[i] = 0;
+	envp[++i] = 0;
 }
 
 //! For testing purposes
@@ -149,9 +160,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	data.envp = clone_env(envp, 1);
-	data.envp = append_env("Cat", "Potato", data.envp);
-	modify_env("HOME", "/Rossiya", data.envp);
-	modify_env("PATH", "Vjope:ya ne znayu:bla", data.envp);
+	data.envp = append_env("Car", "Mercedes", data.envp);
+	data.envp = append_env("Food", "Burger", data.envp);
+	data.envp = append_env("Language", "English", data.envp);
+	unset_env("LOGNAME", data.envp);
+	unset_env("Language", data.envp);
+	unset_env("Car", data.envp);
 	b_env(&data);
 	int i = 0;
 	while (data.envp[i])
