@@ -6,11 +6,30 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/09 16:39:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:33:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+/*
+** Count the number of pipe characters in the line
+*/
+int	count_pipes(char *line)
+{
+	int	i;
+	int	p;
+
+	i = 0;
+	p = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '|')
+			p++;
+		i++;
+	}
+	return (p);
+}
 
 char	*redir_cpy(char *input)
 {
@@ -62,8 +81,7 @@ void	split_pipe(char *line)
 	c = count_pipes(line) + 1;
 	p = malloc(sizeof(t_pipe *) * c);
 	i = 0;
-	line = ft_strtrim(line, "\n");
-	check_line(line);
+
 	cmd = ft_split(line, '|');
 	while (cmd[i])
 	{
@@ -71,7 +89,7 @@ void	split_pipe(char *line)
 		p[i] = malloc(sizeof(t_pipe));
 		process(cmd[i], &p[i]->rd);
 		p[i]->fcmd = cmd_copy(cmd[i]);
-		printf("cmd(%d): %s\n", i, cmd[i]);
+		// printf("cmd(%d): %s\n", i, cmd[i]);
 		i++;
 	}
 	pipes(line, p);
@@ -84,12 +102,8 @@ void	split_rd(char *line)
 	char		*ln;
 
 	rd = malloc(sizeof(t_redirs));
-	line = ft_strtrim(line, "\n");
-	line = ft_strtrim(line, " ");
 	cmd = cmd_copy(line);
-	printf("%s\n", cmd);
 	ln = redir_cpy(line);
-	printf("%s\n", ln);
 	process(ln, rd);
 	file(cmd, rd);
 }

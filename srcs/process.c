@@ -6,220 +6,100 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/09 16:42:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/10 21:48:58 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	count_redir(char *input)
+static int	ft_isspace(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\f' || c == '\r' || c == '\n')
+		return (1);
+	else
+		return (0);
+}
+
+int	check_space(char *str)
 {
 	int	i;
 	int	c;
 
 	i = 0;
 	c = 0;
-	while (input[i])
+	while (str[i])
 	{
-		if (input[i] == '>' || input[i] == '<')
+		if (ft_isspace(str[i]))
 			c++;
 		i++;
 	}
-	return (c);
+	if (i == c)
+		return (1);
+	return (0);
 }
 
-/*
-** work in progress
-*/ 
-
-// void	assign_sym(char *sym, t_redirs *rd)
-// {
-// 	if (sym == "<<")
-// 		rd->lastin = 'h';
-// 	else if (sym == "<")
-// 		rd->lastin = 'i';
-// 	if (sym == ">>")
-// 		rd->lastout = 'a';
-// 	else if (sym == "<")
-// 		rd->lastout = 'o';
-// }
-
-// void	assign(char **out, t_redirs *rd, char *sym, int *i)
-// {
-// 	char	**redir;
-
-// 	if (ft_strnstr(out[*i], sym, ft_strlen(out[*i])))
-// 	{
-// 		if (ft_strlen(out[*i]) == ft_strlen(sym))
-// 		{
-// 			// check_syntax(out[i + 1]);
-// 			rd->heredoc = out[*i + 1];
-// 		}
-// 		else if (count_redir(out[*i]) == 2)
-// 		{
-// 			out[*i] = ft_strtrim(out[*i], "<>");
-// 			printf("2: %s\n", out[*i]);
-// 			rd->heredoc = out[*i];
-// 		}
-// 		else
-// 		{
-// 			redir = ft_split_chars(out[*i], sym);
-// 			// check_syntax(redir[1]);
-// 			rd->heredoc = redir[1];
-// 		}
-
-// 		assign_sym(sym, rd);
-// 		// printf("s: %s\n", rd->heredoc);
-// 	}
-// }
-
-void	check(char **out, t_redirs *rd)
+void	create_file(char *file)
 {
-	int		i;
-	int		j;
-	char	**redir;
-	int		fd;
+	int	fd;
 
-	i = 0;
-	rd->lastin = 0;
-	rd->lastout = 0;
-	while (out[i] != NULL)
+	fd = open(file, O_CREAT | O_TRUNC, 0644);
+	close(fd);
+}
+
+void	assign_file(char *file, t_redirs *rd, char t)
+{
+	if (t == 'h')
 	{
-		out[i] = ft_strtrim(out[i], " ");
-		printf("out(%d): %s\n", i, out[i]);
-		if (ft_strnstr(out[i], "<<", ft_strlen(out[i])))
-		{
-			if (ft_strlen(out[i]) == 2)
-			{
-				rd->heredoc = out[i + 1];
-			}
-			else if (count_redir(out[i]) == 2)
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				printf("2: %s\n", out[i]);
-				rd->heredoc = out[i];
-			}
-			else
-			{
-				redir = ft_split(out[i], '<');
-				j = 0;
-				while (redir[j + 1])
-				{
-					printf("rd: %s\n", redir[j]);
-					read_line(redir[j]);
-					j++;
-				}
-				rd->heredoc = redir[j];
-			}
-			printf("h: %s\n", rd->heredoc);
-			rd->lastin = 'h';
-		}
-		else if (ft_strnstr(out[i], "<", ft_strlen(out[i])))
-		{
-			if (ft_strlen(out[i]) == 1)
-			{
-				printf("1: %s\n", out[i + 1]);
-				rd->infile = out[i + 1];
-			}
-			else if (count_redir(out[i]) == 1)
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				printf("2: %s\n", out[i]);
-				rd->infile = out[i];
-			}
-			else
-			{
-				redir = ft_split(out[i], '<');
-				j = 0;
-				while (redir[j + 1])
-				{
-					printf("3: %s\n", redir[j]);
-					j++;
-				}	
-				rd->infile = redir[j];
-			}
-			printf("i: %s\n", rd->infile);
-			rd->lastin = 'i';
-		}
-		else if (ft_strnstr(out[i], ">>", ft_strlen(out[i])))
-		{
-			if (rd->append)
-			{
-				fd = open(rd->append, O_CREAT | O_TRUNC, 0644);
-				close(fd);
-			}
-			if (ft_strlen(out[i]) == 2)
-			{
-				printf("1: %s\n", out[i]);
-				rd->append = out[i + 1];
-			}
-			else if (count_redir(out[i]) == 2)
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				printf("2: %s\n", out[i]);
-				rd->append = out[i];
-			}
-			else
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				redir = ft_split(out[i], '>');
-				j = 0;
-				while (redir[j + 1])
-				{
-					fd = open(redir[j], O_CREAT | O_TRUNC, 0644);
-					close(fd);
-					j++;
-				}	
-				rd->append = redir[j];
-			}
-			printf("a: %s\n", rd->append);
-			rd->lastout = 'a';
-		}
-		else if (ft_strnstr(out[i], ">", ft_strlen(out[i])))
-		{
-			if (rd->outfile)
-			{
-				fd = open(rd->outfile, O_CREAT | O_TRUNC, 0644);
-				close(fd);
-			}
-			if (ft_strlen(out[i]) == 1)
-			{
-				rd->outfile = out[i + 1];
-				printf("1: %s\n", out[i + 1]);
-			}
-			else if (count_redir(out[i]) == 1)
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				printf("2: %s\n", out[i]);
-				rd->outfile = out[i];
-			}
-			else
-			{
-				out[i] = ft_strtrim(out[i], "<>");
-				redir = ft_split(out[i], '>');
-				j = 0;
-				while (redir[j + 1])
-				{
-					fd = open(redir[j], O_CREAT | O_TRUNC, 0644);
-					printf("3: %s\n", redir[j]);
-					close(fd);
-					j++;
-				}
-				rd->outfile = redir[j];
-			}
-			printf("o: %s\n", rd->outfile);
-			rd->lastout = 'o';
-		}
-		i++;
+		rd->heredoc = file;
+		rd->lastin = 'h';
+	}
+	if (t == 'i')
+	{
+		rd->infile = file;
+		rd->lastin = 'i';
+	}
+	if (t == 'a')
+	{
+		if (rd->append)
+			create_file(rd->append);
+		rd->append = file;
+		rd->lastout = 'a';
+	}
+	if (t == 'o')
+	{
+		if (rd->outfile)
+			create_file(rd->outfile);
+		rd->outfile = file;
+		rd->lastout = 'o';
 	}
 }
 
 void	process(char *line, t_redirs *rd)
 {
 	char	**out;
+	char	*file;
+	int		i;
 
-	out = ft_split(line, ' ');
-	check(out, rd);
-	printf("lastin: %c\n", rd->lastin);
-	printf("lastout: %c\n", rd->lastout);
+	i = 0;
+	rd->lastin = 0;
+	rd->lastout = 0;
+	out = ft_split_rd(line);
+	while (out[i + 1] != NULL)
+	{
+		file = ft_strtrim(out[i + 1], " ");
+		if (ft_strncmp(out[i], "<<", 2) == 0)
+		{
+			if (rd->heredoc)
+				read_line(rd->heredoc);
+			assign_file(file, rd, 'h');
+		}
+		else if (ft_strncmp(out[i], "<", 1) == 0)
+			assign_file(file, rd, 'i');
+		else if (ft_strncmp(out[i], ">>", 2) == 0)
+			assign_file(file, rd, 'a');
+		else if (ft_strncmp(out[i], ">", 1) == 0)
+			assign_file(file, rd, 'o');
+		i++;
+	}
 }

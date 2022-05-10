@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preliminary_check.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/27 16:55:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/10 08:05:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ int	preliminary_check(char *str)
 	if (p_illegal_chars(str))
 		return (0);
 	if (p_contains_invalid_redirs(str))
+		return (0);
+	if (check_end(str))
+		return (0);
+	if (check_pipe(str))
+		return (0);
+	if (check_redir(str))
 		return (0);
 	return (1);
 }

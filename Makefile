@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/09 05:27:07 by imustafa         ###   ########.fr        #
+#    Updated: 2022/05/10 20:18:58 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,16 @@ SRCS=		main.c \
 			process.c \
  			execute.c \
 			pipe.c \
+			fork.c \
 			find.c \
 			free.c \
 			file.c \
 			error.c \
+			check.c \
 			ft_split_chars.c \
 			ft_split_path.c \
 			ft_split_line.c \
+			ft_split_rd.c \
 			handle_signals.c \
 			preliminary_check.c \
 			p_contains_unclosed_quotes.c \

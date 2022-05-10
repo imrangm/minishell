@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/07 19:51:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/10 19:33:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 ** and executing the commands through user input
 */
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 
+	(void) argc;
+	(void) argv;
+	(void) envp;
 	in_minishell_var(1);
 	while (isatty(STDIN_FILENO))
 	{
@@ -32,6 +35,7 @@ int	main(void)
 		if (line[0])
 		{
 			add_history(line);
+			line = ft_strtrim(line, "\n ");
 			if (preliminary_check(line))
 			{
 				if (ft_strchr(line, '|'))
