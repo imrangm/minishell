@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 18:11:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 23:39:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	env_exists(char *var_name, char **envp)
 		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name))
 			&& envp[i][ft_strlen(var_name)] == '=')
 			return(1);
+		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name)))
+			return(1);
 		i++;
 	}
 	return (0);
@@ -55,6 +57,8 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	char	*var_name_and_equal;
 	char	*full_env_entry;
 
+	if (!value)
+		return (ft_strdup(var_name));
 	equal = (char *) malloc(sizeof(char) * 2);
 	if (!equal)
 		return (NULL);
@@ -99,7 +103,10 @@ char	**append_env(char *var_name, char *value, char **envp)
 	new_envp = clone_env(envp, 1);
 	while (new_envp[i])
 		i++;
-	new_envp[i] = join_env_var_and_value(var_name, value);
+	if (value)
+		new_envp[i] = join_env_var_and_value(var_name, value);
+	else
+		new_envp[i] = ft_strdup(var_name);
 	i = 0;
 	while (envp[i])
 	{
@@ -120,7 +127,10 @@ void	modify_env(char *var_name, char *value, char **envp)
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
 			free(envp[i]);
-			envp[i] = join_env_var_and_value(var_name, value);
+			if (!value)
+				envp[i] = ft_strdup(var_name);
+			else
+				envp[i] = join_env_var_and_value(var_name, value);
 			break ;
 		}
 		i++;
@@ -132,6 +142,8 @@ void	unset_env(char *var_name, char **envp)
 	int	i;
 
 	i = 0;
+	if (!env_exists(var_name, envp))
+		return ;
 	while (envp[i])
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
@@ -162,25 +174,3 @@ char	**add_env(char *var_name, char *value, char **envp)
 		return (append_env(var_name, value, envp));
 	return (envp);
 }
-
-// //! For testing purposes
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_data	data;
-// 	data.envp = clone_env(envp, 1);
-// 	data.envp = append_env("Car", "Mercedes", data.envp);
-// 	data.envp = append_env("Food", "Burger", data.envp);
-// 	data.envp = append_env("Language", "English", data.envp);
-// 	unset_env("LOGNAME", data.envp);
-// 	unset_env("Language", data.envp);
-// 	unset_env("Car", data.envp);
-// 	b_env(&data);
-// 	int i = 0;
-// 	while (data.envp[i])
-// 	{
-// 		free(data.envp[i]);
-// 		i++;
-// 	}
-// 	free(data.envp);
-// 	return (0);
-// }

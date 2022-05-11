@@ -26,18 +26,12 @@ int	exec_cmd_child(char **args, t_data *data)
 	}
 	else if (!ft_strncmp(args[0], "env", ft_strlen(args[0])))
 	{
-		b_env(data->envp);
+		b_env(data->envp, 0);
 		kill(getpid(), 9);
 	}
 	else if (execve(cmd_path(args[0], data), args, data->envp) == -1)
 		return (-1);
 	//! Add an if-statement here that checks if the first command
 	//! is the minishell exec so that I increment SHLVL then pass the envp to the execve
-	// else if (!ft_strncmp(args[0], "export", ft_strlen(args[0])))
-	// 	printf("Entered export from the wrong place.\n");
-	// else if (!ft_strncmp(args[0], "unset", ft_strlen(args[0])))
-	// 	printf("Entered unset from the wrong place.\n");
-	// else if (!ft_strncmp(args[0], "env", ft_strlen(args[0])))
-	// 	printf("Entered env from the wrong place.\n");
 	return (0);
 }

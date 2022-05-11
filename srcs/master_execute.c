@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 19:35:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 20:20:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	monitor(int pid, t_data *data)
 			data->last_exit_status = code;
 			strerror(code);
 		}
+		else
+			data->last_exit_status = 0;
 	}
 	in_minishell_var(0);
 }

@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_atoi.c                                           :+:      :+:    :+:   */
+/*   are_digits.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 17:55:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 22:26:55 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/11 22:28:56 by nmadi             #+#    #+#             */
+/*   Updated: 2022/05/11 22:43:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	ft_isspace(char c)
+int	are_digits(char *str)
 {
-	if (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\f' || c == '\r' || c == '\n')
-		return (1);
-	else
-		return (0);
-}
-
-long long m_atoi(const char *str)
-{
-	int			i;
-	int			sign;
-	long long	result;
+	int	i;
 
 	i = 0;
-	sign = 1;
-	result = 0;
-	while (ft_isspace(str[i]))
+	if (str[i] == '-')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (str[i])
 	{
-		if (str[i] == '-')
-			sign = -1;
+		if (!ft_isdigit(str[i]))
+			return (0);
 		i++;
 	}
-	while (ft_isdigit(str[i]))
-		result = result * 10 + (str[i++] - '0');
-	return (result * sign);
+	return (1);
 }

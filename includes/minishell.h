@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 19:56:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 23:29:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	handle_signals(int signum);
 int		in_minishell_var(int is_true);
 
 //* Builtins
-int		b_env(char **envp);
+int		b_env(char **envp, int export_mode);
 int		b_pwd(void);
 int		b_cd(char *new_path);
 int		b_echo(char **args, t_data *data);
@@ -138,7 +138,7 @@ char	**append_env(char *var_name, char *value, char **envp);
 char	**clone_env(char **envp, int extra_slot);
 char	*get_export_value_side(char *str, int lhs);
 
+long long m_atoi(const char *str);
+int		are_digits(char *str);
 
-//* Misc functions
-int		m_atoi(const char *str);
 #endif
