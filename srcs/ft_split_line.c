@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/10 19:33:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/11 15:53:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,23 @@ char	*cmd_copy(char *input)
 {
 	int		i;
 	int		j;
+	int		size;
 	char	*copy;
 
 	i = 0;
 	j = 0;
-	copy = malloc(sizeof(char *));
-	while (input[i] != '\0')
+	size = 0;
+	while (input[i] && input[i] != '<' && input[i] != '>')
 	{
-		if (input[i] == '\"' || input[i] == '\'')
-			i++;
-		if (input[i] == '<' || input[i] == '>')
-			break ;
-		copy[j] = input[i];
-		j++;
+		size++;
 		i++;
 	}
+	copy = (char *) malloc(sizeof(char) * (size + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (input[i] && input[i] != '<' && input[i] != '>')
+		copy[j++] = input[i++];
 	copy[j] = '\0';
 	return (copy);
 }
@@ -80,8 +82,6 @@ void	split_pipe(char *line)
 	i = 0;
 	c = count_pipes(line) + 1;
 	p = malloc(sizeof(t_pipe *) * c);
-	i = 0;
-
 	cmd = ft_split(line, '|');
 	while (cmd[i])
 	{

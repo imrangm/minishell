@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/24 17:00:31 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:52:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ static int	handle_double(char *str, int i)
 int	p_contains_invalid_redirs(char *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (str[i])
+	j = ft_strlen(str);
+	while (i < j)
 	{
-		if (str[i + 1])
+		if (i + 1 < j)
 		{
 			if (handle_single(str, i))
 			{
@@ -43,7 +45,7 @@ int	p_contains_invalid_redirs(char *str)
 				return (1);
 			}
 		}
-		if (str[i + 2])
+		if (i + 2 < j)
 		{
 			if (handle_double(str, i))
 			{

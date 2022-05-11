@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:13:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:35:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
-	t_data	data;
+	// t_data	data;
 
 	(void) argc;
 	(void) argv;
-	data.envp = envp;
+	(void) envp;
+	// data.envp = envp;
 	in_minishell_var(1);
 	while (isatty(STDIN_FILENO))
 	{
