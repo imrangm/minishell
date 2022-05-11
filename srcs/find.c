@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/25 22:30:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:14:40 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 /*
 ** returns the PATH variable from the environment
 */
-char	*get_path(void)
+char	*get_path(t_data *data)
 {
-	extern char			**environ;
 	int					i;
 	unsigned long		j;
 	char				*find;
@@ -25,13 +24,13 @@ char	*get_path(void)
 	i = 0;
 	j = 0;
 	find = "PATH=";
-	while (environ[i] != NULL)
+	while (data->envp[i] != NULL)
 	{
 		j = 0;
-		while (environ[i][j] == find[j])
+		while (data->envp[i][j] == find[j])
 		{
 			if (j == ft_strlen(find) - 1)
-				return (environ[i]);
+				return (data->envp[i]);
 			j++;
 		}
 		i++;
@@ -91,7 +90,7 @@ char	*find_exec(char *prg, char	**paths)
 /*
 ** culmination of previous functions to return command path
 */
-char	*cmd_path(char	*cmd)
+char	*cmd_path(char*cmd, t_data *data)
 {
 	char	*path;
 	char	**paths;
@@ -99,7 +98,7 @@ char	*cmd_path(char	*cmd)
 
 	if (ft_strchr(cmd, '/'))
 		return (cmd);
-	path = get_path();
+	path = get_path(data);
 	paths = split_path(path);
 	output = find_exec(cmd, paths);
 	if (!output)

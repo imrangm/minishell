@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 15:49:45 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:12:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	is_builtin(char *str)
 
 //! Enhance this
 
-int	exec_cmd(char **args, char **envp)
+int	exec_cmd(char **args, t_data *data)
 {
 	if (is_builtin(args[0]) == 1)
 		exit(0); //! I want it to exit the parent process. Help!
@@ -44,12 +44,12 @@ int	exec_cmd(char **args, char **envp)
 	else if (is_builtin(args[0]) == 4)
 		b_pwd();
 	else if (is_builtin(args[0]) == 5)
-		add_env(args[1], args[2], envp); //? export
+		add_env(args[1], args[2], data->envp); //? export
 	else if (is_builtin(args[0]) == 6)
-		unset_env(args[1], envp); //? unset
+		unset_env(args[1], data->envp); //? unset
 	else if (is_builtin(args[0]) == 7)
-		b_env(envp); //? env
-	else if (execve(cmd_path(args[0]), args, envp) == -1)
+		b_env(data->envp); //? env
+	else if (execve(cmd_path(args[0], data), args, data->envp) == -1)
 		return (-1);
 	return (0);
 }

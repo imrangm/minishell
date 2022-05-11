@@ -6,15 +6,14 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:05:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:12:40 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	file_child(int fdi, int fdo, char **arg, t_redirs *rd)
+void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 {
-	extern char	**environ;
 	int			f;
 
 	if (rd->heredoc && rd->lastin == 'h')
@@ -35,7 +34,7 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd)
 	dup2(fdo, STDOUT_FILENO);
 	// close(fdi);
 	// close(fdo);
-	if (execve(cmd_path(arg[0]), arg, environ) == -1)
+	if (execve(cmd_path(arg[0], data), arg, data->envp) == -1)
 		err_print(127);
 }
 
@@ -53,7 +52,7 @@ void	file_parent(int *pid)
 	}
 }
 
-void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd)
+void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 {
 	int		pid[2];
 	char	**arg;
@@ -63,7 +62,7 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd)
 	if (pid[0] == -1)
 		exit (1);
 	if (pid[0] == 0)
-		file_child(fdi, fdo, arg, rd);
+		file_child(fdi, fdo, arg, rd, data);
 	else
 	{
 		ft_free_arg(arg);
@@ -107,7 +106,7 @@ char	*read_line(char *lim)
 	return (final);
 }
 
-void	file(char *line, t_redirs *rd)
+void	file(char *line, t_redirs *rd, t_data *data)
 {
 	int		fdi;
 	int		fdo;
@@ -129,7 +128,7 @@ void	file(char *line, t_redirs *rd)
 	if (rd->append && rd->lastout == 'a')
 		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fdi != -1 && fdo != -1)
-		file_process(fdi, fdo, line, rd);
+		file_process(fdi, fdo, line, rd, data);
 	else
 		perror("File error");
 	reset(rd);

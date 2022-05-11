@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:11:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:12:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	monitor(int pid)
 ** execve uses cmd_path in find.c to check if the command exists
 ** and return its path
 */
-void	master_execute(char *line)
+void	master_execute(char *line, t_data *data)
 {
-	extern char	**environ;
 	char		**arg;
 	int			pid;
 
@@ -49,7 +48,7 @@ void	master_execute(char *line)
 		exit (1);
 	if (pid == 0)
 	{
-		if (execve(cmd_path(arg[0]), arg, environ) == -1)
+		if (execve(cmd_path(arg[0], data), arg, data->envp) == -1)
 			err_print(127);
 	}
 	else

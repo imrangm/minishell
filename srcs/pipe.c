@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:54:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:05:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	create_pipes(int nchild, char **cmd, t_pipe **p)
 			err_free_pipex(pipes, arg);
 		i++;
 	}
-	create_process (nchild, arg, pipes, p);
+	create_process(nchild, arg, pipes, p);
 }
 
 /*

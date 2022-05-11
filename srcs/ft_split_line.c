@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:53:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:05:40 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*cmd_copy(char *input)
 	return (copy);
 }
 
-void	split_pipe(char *line)
+void	split_pipe(char *line, t_data *data)
 {
 	char	**cmd;
 	t_pipe	**p;
@@ -89,13 +89,14 @@ void	split_pipe(char *line)
 		p[i] = malloc(sizeof(t_pipe));
 		process(cmd[i], &p[i]->rd);
 		p[i]->fcmd = cmd_copy(cmd[i]);
+		p[i]->data = data;
 		// printf("cmd(%d): %s\n", i, cmd[i]);
 		i++;
 	}
 	pipes(line, p);
 }
 
-void	split_rd(char *line)
+void	split_rd(char *line, t_data *data)
 {
 	t_redirs	*rd;
 	char		*cmd;
@@ -105,5 +106,5 @@ void	split_rd(char *line)
 	cmd = cmd_copy(line);
 	ln = redir_cpy(line);
 	process(ln, rd);
-	file(cmd, rd);
+	file(cmd, rd, data);
 }

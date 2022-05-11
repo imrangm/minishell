@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 15:11:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:14:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_pipe
 	char		*fcmd;
 	t_redirs	rd;
 	t_fork		fr;
+	t_data		*data;
 }	t_pipe;
 
 # define DQUOTE 34
@@ -61,14 +62,14 @@ int		check_redir(char *line);
 
 //* I/O redirection
 void	file_parent(int *pid);
-void	file(char *line, t_redirs *rd);
+void	file(char *line, t_redirs *rd, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
-char	*cmd_path(char	*cmd);
+char	*cmd_path(char*cmd, t_data *data);
 int		count_pipes(char *line);
 void	pipes(char *line, t_pipe **p);
-void	master_execute(char *line);
+void	master_execute(char *line, t_data *data);
 char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
 char	**ft_split_path(char *s, char c);
@@ -82,8 +83,8 @@ int		check_space(char *str);
 //* Struct
 char	*cmd_copy(char *input);
 void	process(char *line, t_redirs *rd);
-void	split_rd(char *line);
-void	split_pipe(char *line);
+void	split_rd(char *line, t_data *data);
+void	split_pipe(char *line, t_data *data);
 
 //* Pipe
 void	here_pipe(t_pipe *p);
@@ -104,11 +105,10 @@ void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**chars_split(char *str, char *charset);
 void	here_ops(char *line);
-void	file(char *line, t_redirs *rd);
 void	append(char *line);
 char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
-int		exec_cmd(char **args, char **envp);
+int		exec_cmd(char **args, t_data *data);
 
 //* Parsing
 int		preliminary_check(char *str);

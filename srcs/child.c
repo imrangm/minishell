@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 08:02:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/11 16:13:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
-	extern char	**environ;
 
 	i = 0;
 	j = 0;
@@ -34,7 +33,7 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	if (!redir_out(p, i))
 		dup2(pipes[0][1], STDOUT_FILENO);
 	close(pipes[0][1]);
-	if (execve(cmd_path(arg[0]), arg, environ) == -1)
+	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
@@ -44,8 +43,7 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 
 void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 {
-	int			j;
-	extern char	**environ;
+	int	j;
 
 	j = 0;
 	while (j < nchild - 1)
@@ -62,7 +60,7 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
-	if (execve(cmd_path(arg[0]), arg, environ) == -1)
+	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
@@ -72,9 +70,8 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 
 void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
-	int			i;
-	int			j;
-	extern char	**environ;
+	int	i;
+	int	j;
 
 	i = nchild - 1;
 	j = 0;
@@ -89,7 +86,7 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 	redir_out(p, i);
 	close(pipes[i - 1][0]);
-	if (execve(cmd_path(arg[0]), arg, environ) == -1)
+	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
