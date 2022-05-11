@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 18:42:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:43:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	is_parent_function(char *str)
 	if (!ft_strncmp(str, "export", ft_strlen(str)))
 		return (1);
 	else if (!ft_strncmp(str, "unset", ft_strlen(str)))
-		return (1);
-	else if (!ft_strncmp(str, "env", ft_strlen(str)))
 		return (1);
 	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
 		return (1);

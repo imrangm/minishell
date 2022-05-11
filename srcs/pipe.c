@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:05:53 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:45:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	pipes(char *line, t_pipe **p)
 		i++;
 	}
 	create_pipes(n, cmd, p);
-	free(cmd);
+	ft_free_arg(cmd);
 }
