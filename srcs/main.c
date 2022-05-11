@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/10 02:16:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:05:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,13 @@ int	main(int argc, char **argv, char **envp)
 		if (line[0])
 		{
 			add_history(line);
+			line = ft_strtrim(line, "\n ");
 			if (preliminary_check(line))
 			{
 				if (ft_strchr(line, '|'))
-					pipes(line);
-				else if (ft_strnstr(line, "<<", ft_strlen(line)))
-					here_ops(line);
-				else if (ft_strnstr(line, ">>", ft_strlen(line)))
-					append(line);
+					split_pipe(line);
 				else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
-					file(line);
+					split_rd(line);
 				else
 					execute(line);
 			}

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chars_split.c                                      :+:      :+:    :+:   */
+/*   ft_split_chars.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/23 05:37:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:06:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int		char_is_separator(char c, char *charset)
+int	char_is_separator(char c, char *charset)
 {
 	int	i;
 
@@ -38,7 +38,7 @@ int	count_words(char *str, char *charset)
 	while (str[i] != '\0')
 	{
 		if (char_is_separator(str[i + 1], charset) == 1
-				&& char_is_separator(str[i], charset) == 0)
+			&& char_is_separator(str[i], charset) == 0)
 			words++;
 		i++;
 	}
@@ -75,7 +75,7 @@ void	write_split(char **split, char *str, char *charset)
 			j = 0;
 			while (char_is_separator(str[i + j], charset) == 0)
 				j++;
-			split[word] = (char*)malloc(sizeof(char) * (j + 1));
+			split[word] = (char *) malloc (sizeof(char) * (j + 1));
 			write_word(split[word], str + i, charset);
 			i += j;
 			word++;
@@ -83,13 +83,13 @@ void	write_split(char **split, char *str, char *charset)
 	}
 }
 
-char	**chars_split(char *str, char *charset)
+char	**ft_split_chars(char *str, char *charset)
 {
 	char	**res;
 	int		words;
 
 	words = count_words(str, charset);
-	res = (char**)malloc(sizeof(char*) * (words + 1));
+	res = (char **)malloc(sizeof(char *) * (words + 1));
 	res[words] = 0;
 	write_split(res, str, charset);
 	return (res);

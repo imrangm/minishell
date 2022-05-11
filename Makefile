@@ -6,23 +6,27 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/10 19:50:30 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/11 15:06:07 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
+			process.c \
  			execute.c \
 			pipe.c \
+			fork.c \
+			child.c \
 			find.c \
 			free.c \
-			here_doc.c \
 			file.c \
-			append.c \
 			error.c \
-			chars_split.c \
+			check.c \
+			ft_split_chars.c \
 			ft_split_path.c \
+			ft_split_line.c \
+			ft_split_rd.c \
 			handle_signals.c \
 			preliminary_check.c \
 			p_contains_unclosed_quotes.c \
@@ -39,11 +43,11 @@ SRCS=		main.c \
 
 CC =		gcc
 
-# For Nart's home
+# For home
 # LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
 # CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
 
-# For Nart's 42
+# For 42
 LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
 CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 

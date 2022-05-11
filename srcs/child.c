@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 10:40:16 by imustafa          #+#    #+#             */
-/*   Updated: 2022/04/23 10:42:08 by imustafa         ###   ########.fr       */
+/*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
+/*   Updated: 2022/05/11 08:02:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	first_child_here(int nchild, char **arg, int **pipes)
+/*
+** Child processes created to run the programs
+*/
+void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
@@ -27,7 +30,9 @@ void	first_child_here(int nchild, char **arg, int **pipes)
 			close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[0][1], STDOUT_FILENO);
+	redir_in(p, i);
+	if (!redir_out(p, i))
+		dup2(pipes[0][1], STDOUT_FILENO);
 	close(pipes[0][1]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
@@ -37,23 +42,26 @@ void	first_child_here(int nchild, char **arg, int **pipes)
 	}
 }
 
-void	first_child_infile(int nchild, char **arg, int **pipes)
+void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 {
-	int			i;
 	int			j;
 	extern char	**environ;
 
-	i = 0;
 	j = 0;
 	while (j < nchild - 1)
 	{
-		close(pipes[j][0]);
-		if (i != j)
+		if (*i - 1 != j)
+			close(pipes[j][0]);
+		if (*i != j)
 			close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[0][1], STDOUT_FILENO);
-	close(pipes[0][1]);
+	if (!redir_in(p, (*i)))
+		dup2(pipes[(*i) - 1][0], STDIN_FILENO);
+	if (!redir_out(p, (*i)))
+		dup2(pipes[*i][1], STDOUT_FILENO);
+	close(pipes[(*i) - 1][0]);
+	close(pipes[*i][1]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
 		ft_free(pipes);
@@ -62,7 +70,7 @@ void	first_child_infile(int nchild, char **arg, int **pipes)
 	}
 }
 
-void	last_child_append(int nchild, char **arg, int **pipes)
+void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
@@ -77,32 +85,9 @@ void	last_child_append(int nchild, char **arg, int **pipes)
 		close(pipes[j][1]);
 		j++;
 	}
-	dup2(pipes[i - 1][0], STDIN_FILENO);
-	close(pipes[i - 1][0]);
-	if (execve(cmd_path(arg[0]), arg, environ) == -1)
-	{
-		ft_free(pipes);
-		ft_free_arg(arg);
-		err_print(127);
-	}
-}
-
-void	last_child_outfile(int nchild, char **arg, int **pipes)
-{
-	int			i;
-	int			j;
-	extern char	**environ;
-
-	i = nchild - 1;
-	j = 0;
-	while (j < nchild - 1)
-	{
-		if (i - 1 != j)
-			close(pipes[j][0]);
-		close(pipes[j][1]);
-		j++;
-	}
-	dup2(pipes[i - 1][0], STDIN_FILENO);
+	if (!redir_in(p, i))
+		dup2(pipes[i - 1][0], STDIN_FILENO);
+	redir_out(p, i);
 	close(pipes[i - 1][0]);
 	if (execve(cmd_path(arg[0]), arg, environ) == -1)
 	{
