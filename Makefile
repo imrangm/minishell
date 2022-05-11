@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/11 15:11:25 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/11 18:24:00 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,10 @@ SRCS=		main.c \
 			b_pwd.c \
 			b_echo.c \
 			b_cd.c \
-			exec_cmd.c \
+			exec_cmd_child.c \
+			exec_cmd_parent.c \
 			utils_env.c \
+			m_atoi.c \
 
 CC =		gcc
 

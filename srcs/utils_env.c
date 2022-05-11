@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 15:07:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:11:49 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ void	unset_env(char *var_name, char **envp)
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
-			printf("\n\n\nFreeing %s\n\n\n\n", envp[i]);
 			free(envp[i]);
 			envp[i] = NULL;
 			break ;
@@ -155,12 +154,13 @@ void	unset_env(char *var_name, char **envp)
 	envp[++i] = 0;
 }
 
-void	add_env(char *var_name, char *value, char **envp)
+char	**add_env(char *var_name, char *value, char **envp)
 {
 	if (env_exists(var_name, envp))
 		modify_env(var_name, value, envp);
 	else
-		append_env(var_name, value, envp);
+		return (append_env(var_name, value, envp));
+	return (envp);
 }
 
 // //! For testing purposes

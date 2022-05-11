@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 16:14:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:30:06 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void	here_ops(char *line);
 void	append(char *line);
 char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
-int		exec_cmd(char **args, t_data *data);
+int		exec_cmd_child(char **args, t_data *data);
+char	**exec_cmd_parent(char **args, t_data *data);
+int		is_parent_function(char *str);
 
 //* Parsing
 int		preliminary_check(char *str);
@@ -116,6 +118,7 @@ int		p_contains_unclosed_quotes(char *str);
 int		p_is_empty_input(char *str);
 int		p_contains_illegal_special_chars(char *str);
 int		p_contains_invalid_redirs(char *str);
+int		m_atoi(const char *str);
 
 //* Signals
 void	handle_signals(int signum);
@@ -130,11 +133,12 @@ int		b_echo(char **args);
 //* EV functions
 char	*get_env_value(char *str, char **envp);
 int		env_exists(char *var_name, char **envp);
-void	add_env(char *var_name, char *value, char **envp);
+char	**add_env(char *var_name, char *value, char **envp);
 void	unset_env(char *var_name, char **envp);
 void	modify_env(char *var_name, char *value, char **envp);
 char	**append_env(char *var_name, char *value, char **envp);
 char	**clone_env(char **envp, int extra_slot);
+char	*get_export_value_side(char *str, int lhs);
 
 
 #endif

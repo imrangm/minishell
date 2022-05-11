@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:18:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:02:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	dup2(fdo, STDOUT_FILENO);
 	// close(fdi);
 	// close(fdo);
-	if (exec_cmd(arg, data) == -1)
+	if (exec_cmd_child(arg, data) == -1)
 		err_print(127);
 }
 
@@ -58,6 +58,12 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 	char	**arg;
 
 	arg = ft_split(cmd, ' ');
+	if (!ft_strncmp(arg[0], "env", ft_strlen(arg[0])))
+	{
+		b_env(data->envp); //? env
+		ft_free_arg(arg);
+		return ;
+	}
 	pid[0] = fork();
 	if (pid[0] == -1)
 		exit (1);
