@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 18:02:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 19:05:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
-		err_print(127);
+		err_print(127, p[0]->data);
 	}
 }
 
@@ -64,7 +64,7 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
-		err_print(127);
+		err_print(127, p[0]->data);
 	}
 }
 
@@ -90,6 +90,6 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
-		err_print(127);
+		err_print(127, p[0]->data);
 	}
 }

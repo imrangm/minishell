@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:05:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 19:05:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	here_pipe(t_pipe *p)
 	{
 		fdi = open("tmp", O_RDONLY, 0);
 		if (fdi == -1)
+		{
+			p[0].data->last_exit_status = 1;
 			exit(1);
+		}
 		dup2(fdi, STDIN_FILENO);
 	}
 	else
@@ -91,7 +94,7 @@ void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
-			err_print(4);
+			err_print(4, p[0]->data);
 		if (pids[i] == 0)
 		{
 			if (i == 0)

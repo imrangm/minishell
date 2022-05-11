@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 18:30:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 19:56:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,9 @@ typedef struct s_pipe
 # define DQUOTE 34
 # define SQUOTE 39
 
-//* Checks
-int		check_end(char *line);
-int		check_pipe(char *line);
-int		check_redir(char *line);
 
 //* I/O redirection
-void	file_parent(int *pid);
+void	file_parent(int *pid, t_data *data);
 void	file(char *line, t_redirs *rd, t_data *data);
 
 //* Execution
@@ -97,7 +93,7 @@ int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
 
 //* Error and free
-void	err_print(int error);
+void	err_print(int error, t_data *data);
 void	err_free_parent(int **pipes, int *pids);
 void	err_free_pipex(int **pipes, char ***args);
 void	ft_free(int **arr);
@@ -113,12 +109,14 @@ char	**exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char *str);
 
 //* Parsing
-int		preliminary_check(char *str);
+int		preliminary_check(char *str, t_data *data);
 int		p_contains_unclosed_quotes(char *str);
 int		p_is_empty_input(char *str);
 int		p_contains_illegal_special_chars(char *str);
 int		p_contains_invalid_redirs(char *str);
-int		m_atoi(const char *str);
+int		p_check_end(char *line);
+int		p_check_pipe(char *line);
+int		p_check_redir(char *line);
 
 //* Signals
 void	handle_signals(int signum);
@@ -128,7 +126,7 @@ int		in_minishell_var(int is_true);
 int		b_env(char **envp);
 int		b_pwd(void);
 int		b_cd(char *new_path);
-int		b_echo(char **args);
+int		b_echo(char **args, t_data *data);
 
 //* EV functions
 char	*get_env_value(char *str, char **envp);
@@ -141,4 +139,6 @@ char	**clone_env(char **envp, int extra_slot);
 char	*get_export_value_side(char *str, int lhs);
 
 
+//* Misc functions
+int		m_atoi(const char *str);
 #endif

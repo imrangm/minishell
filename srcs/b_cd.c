@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/06 15:05:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 20:11:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ int	b_cd(char *new_path)
 	char	*joined;
 
 	cwd = NULL;
-	printf("%s\n", getcwd(cwd, sizeof(cwd)));
 	if (new_path[0] == '/' || new_path[0] == '.')
 	{
 		chdir(new_path);
-		printf("%s\n", getcwd(cwd, sizeof(cwd)));
 		return (0);
 	}
 	pwd = getcwd(cwd, sizeof(cwd));
@@ -58,7 +56,6 @@ int	b_cd(char *new_path)
 	else
 		joined = join_paths(pwd, new_path);
 	chdir(joined);
-	printf("%s\n", joined);
 	free(joined);
 	free(pwd);
 	free(cwd);

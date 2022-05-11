@@ -16,12 +16,7 @@ int	exec_cmd_child(char **args, t_data *data)
 {
 	if (!ft_strncmp(args[0], "echo", ft_strlen(args[0])))
 	{
-		b_echo(args);
-		kill(getpid(), 9);
-	}
-	else if (!ft_strncmp(args[0], "cd", ft_strlen(args[0])))
-	{
-		b_cd(args[1]);
+		b_echo(args, data);
 		kill(getpid(), 9);
 	}
 	else if (!ft_strncmp(args[0], "pwd", ft_strlen(args[0])))

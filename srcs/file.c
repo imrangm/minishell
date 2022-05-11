@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 18:02:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 19:05:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	{
 		f = open("tmp", O_RDONLY, 0);
 		if (f == -1)
+		{
+			data->last_exit_status = 1;
 			exit(1);
+		}
 		dup2(f, STDIN_FILENO);
 		close(f);
 		unlink("tmp");
@@ -35,10 +38,10 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	// close(fdi);
 	// close(fdo);
 	if (exec_cmd_child(arg, data) == -1)
-		err_print(127);
+		err_print(127, data);
 }
 
-void	file_parent(int *pid)
+void	file_parent(int *pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -48,7 +51,10 @@ void	file_parent(int *pid)
 	{
 		code = WEXITSTATUS(wstatus);
 		if (code != 0)
+		{
+			data->last_exit_status = code;
 			exit(code);
+		}
 	}
 }
 
@@ -72,7 +78,7 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 	else
 	{
 		ft_free_arg(arg);
-		file_parent(pid);
+		file_parent(pid, data);
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:34:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/10 21:48:31 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/11 19:57:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	count_redir(char *input)
 	return (c);
 }
 
-int	check_end(char *line)
+int	p_check_end(char *line)
 {
 	int	len;
 
@@ -45,7 +45,7 @@ int	check_end(char *line)
 	return (0);
 }
 
-int	check_pipe(char *line)
+int	p_check_pipe(char *line)
 {
 	int		i;
 	char	**check;
@@ -62,7 +62,7 @@ int	check_pipe(char *line)
 	return (0);
 }
 
-int	check_redir(char *line)
+int	p_check_redir(char *line)
 {
 	int		i;
 	char	**out;

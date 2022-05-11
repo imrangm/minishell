@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:14:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 18:53:56 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char	*cmd_path(char*cmd, t_data *data)
 	if (!output)
 	{
 		perror("command not found");
+		data->last_exit_status = 127;
 		exit(127);
 	}
 	return (output);

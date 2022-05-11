@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 18:11:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 19:35:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Main or parent process to monitor child process
 */
-void	monitor(int pid)
+void	monitor(int pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -25,7 +25,10 @@ void	monitor(int pid)
 	{
 		code = WEXITSTATUS(wstatus);
 		if (code != 0)
+		{
+			data->last_exit_status = code;
 			strerror(code);
+		}
 	}
 	in_minishell_var(0);
 }
@@ -74,11 +77,11 @@ void	master_execute(char *line, t_data *data)
 	if (pid == 0)
 	{
 		if (exec_cmd_child(arg, data) == -1)
-			err_print(127);
+			err_print(127, data);
 	}
 	else
 	{
 		ft_free_arg(arg);
-		monitor(pid);
+		monitor(pid, data);
 	}
 }
