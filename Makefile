@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/10 20:18:58 by imustafa         ###   ########.fr        #
+#    Updated: 2022/05/11 07:58:19 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS=		main.c \
  			execute.c \
 			pipe.c \
 			fork.c \
+			child.c \
 			find.c \
 			free.c \
 			file.c \

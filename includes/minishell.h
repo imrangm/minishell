@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/10 21:47:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/11 08:04:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ typedef struct s_redirs
 
 typedef struct s_fork
 {
-	int		fd;
+	int		nchild;
+	char	**arg;
+	int		**pipes;
+	char	**envp;
 }	t_fork;
 
 typedef struct s_pipe
@@ -88,6 +91,8 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p);
 void	last_child(int nchild, char **arg, int **pipes, t_pipe **p);
 void	parent(int nchild, int **pipes, int *pids);
 void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p);
+int		redir_in(t_pipe **p, int i);
+int		redir_out(t_pipe **p, int i);
 
 //* Error and free
 void	err_print(int error);

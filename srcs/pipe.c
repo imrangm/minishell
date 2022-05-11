@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/10 18:46:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/11 08:42:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void	create_pipes(int nchild, char **cmd, t_pipe **p)
 	while (i < nchild)
 	{
 		pipes[i++] = malloc(sizeof(int) * 2);
-		// if (!pipes[i])
-		// 	err_free_pipex(pipes, arg, 3);
 	}
 	i = 0;
 	while (i < nchild - 1)
