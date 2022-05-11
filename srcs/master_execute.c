@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:12:53 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:17:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	master_execute(char *line, t_data *data)
 		exit (1);
 	if (pid == 0)
 	{
-		if (execve(cmd_path(arg[0], data), arg, data->envp) == -1)
+		if (exec_cmd(arg, data) == -1)
 			err_print(127);
 	}
 	else

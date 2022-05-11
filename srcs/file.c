@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:12:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:18:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	dup2(fdo, STDOUT_FILENO);
 	// close(fdi);
 	// close(fdo);
-	if (execve(cmd_path(arg[0], data), arg, data->envp) == -1)
+	if (exec_cmd(arg, data) == -1)
 		err_print(127);
 }
 

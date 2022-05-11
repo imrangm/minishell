@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 16:13:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 16:17:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	if (!redir_out(p, i))
 		dup2(pipes[0][1], STDOUT_FILENO);
 	close(pipes[0][1]);
-	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
+	if (exec_cmd(arg, p[0]->data) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
@@ -60,7 +60,7 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
-	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
+	if (exec_cmd(arg, p[0]->data) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
@@ -86,7 +86,7 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 	redir_out(p, i);
 	close(pipes[i - 1][0]);
-	if (execve(cmd_path(arg[0], p[0]->data), arg, p[0]->data->envp) == -1)
+	if (exec_cmd(arg, p[0]->data) == -1)
 	{
 		ft_free(pipes);
 		ft_free_arg(arg);
