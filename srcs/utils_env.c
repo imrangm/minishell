@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 00:57:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:07:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,24 +163,24 @@ void	add_env(char *var_name, char *value, char **envp)
 		append_env(var_name, value, envp);
 }
 
-//! For testing purposes
-int	main(int argc, char **argv, char **envp)
-{
-	t_data	data;
-	data.envp = clone_env(envp, 1);
-	data.envp = append_env("Car", "Mercedes", data.envp);
-	data.envp = append_env("Food", "Burger", data.envp);
-	data.envp = append_env("Language", "English", data.envp);
-	unset_env("LOGNAME", data.envp);
-	unset_env("Language", data.envp);
-	unset_env("Car", data.envp);
-	b_env(&data);
-	int i = 0;
-	while (data.envp[i])
-	{
-		free(data.envp[i]);
-		i++;
-	}
-	free(data.envp);
-	return (0);
-}
+// //! For testing purposes
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_data	data;
+// 	data.envp = clone_env(envp, 1);
+// 	data.envp = append_env("Car", "Mercedes", data.envp);
+// 	data.envp = append_env("Food", "Burger", data.envp);
+// 	data.envp = append_env("Language", "English", data.envp);
+// 	unset_env("LOGNAME", data.envp);
+// 	unset_env("Language", data.envp);
+// 	unset_env("Car", data.envp);
+// 	b_env(&data);
+// 	int i = 0;
+// 	while (data.envp[i])
+// 	{
+// 		free(data.envp[i]);
+// 		i++;
+// 	}
+// 	free(data.envp);
+// 	return (0);
+// }

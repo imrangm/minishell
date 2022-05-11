@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/11 15:06:07 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/11 15:11:25 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=		minishell
 
 SRCS=		main.c \
 			process.c \
- 			execute.c \
+ 			master_execute.c \
 			pipe.c \
 			fork.c \
 			child.c \

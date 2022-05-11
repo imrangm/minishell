@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   master_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 15:05:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:11:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	monitor(int pid)
 ** execve uses cmd_path in find.c to check if the command exists
 ** and return its path
 */
-void	execute(char *line)
+void	master_execute(char *line)
 {
 	extern char	**environ;
 	char		**arg;

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 15:05:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/11 15:11:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*find_exec(char *prg, char	**paths);
 char	*cmd_path(char	*cmd);
 int		count_pipes(char *line);
 void	pipes(char *line, t_pipe **p);
-void	execute(char *line);
+void	master_execute(char *line);
 char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
 char	**ft_split_path(char *s, char c);
@@ -122,7 +122,7 @@ void	handle_signals(int signum);
 int		in_minishell_var(int is_true);
 
 //* Builtins
-int		b_env(t_data *data);
+int		b_env(char **envp);
 int		b_pwd(void);
 int		b_cd(char *new_path);
 int		b_echo(char **args);
