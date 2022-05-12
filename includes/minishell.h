@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 23:29:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/12 15:28:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_data
 {
 	int		last_exit_status;
+	int		shlvl;
 	char	**envp;
 } t_data;
 
@@ -54,7 +55,6 @@ typedef struct s_pipe
 
 # define DQUOTE 34
 # define SQUOTE 39
-
 
 //* I/O redirection
 void	file_parent(int *pid, t_data *data);
@@ -107,6 +107,7 @@ char	*expand_env(char *str);
 int		exec_cmd_child(char **args, t_data *data);
 char	**exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char *str);
+int		p_env_error(char *str);
 
 //* Parsing
 int		preliminary_check(char *str, t_data *data);
@@ -128,17 +129,19 @@ int		b_pwd(void);
 int		b_cd(char *new_path);
 int		b_echo(char **args, t_data *data);
 
-//* EV functions
-char	*get_env_value(char *str, char **envp);
-int		env_exists(char *var_name, char **envp);
-char	**add_env(char *var_name, char *value, char **envp);
-void	unset_env(char *var_name, char **envp);
-void	modify_env(char *var_name, char *value, char **envp);
-char	**append_env(char *var_name, char *value, char **envp);
-char	**clone_env(char **envp, int extra_slot);
-char	*get_export_value_side(char *str, int lhs);
-
-long long m_atoi(const char *str);
-int		are_digits(char *str);
+//* Environment Variables
+char		*get_env_value(char *str, char **envp);
+int			env_exists(char *var_name, char **envp);
+char		**add_env(char *var_name, char *value, char **envp);
+void		unset_env(char *var_name, char **envp);
+void		modify_env(char *var_name, char *value, char **envp);
+char		**append_env(char *var_name, char *value, char **envp);
+char		**clone_env(char **envp, int extra_slot);
+char		*get_export_value_side(char *str, int lhs);
+char		**expand_envs(char **str, char **envp);
+long long	m_atoi(const char *str);
+int			are_digits(char *str);
+char		*get_export_value_side(char *str, int lhs);
+// void		set_shlvl(int *shlvl, int value, char **envp);
 
 #endif

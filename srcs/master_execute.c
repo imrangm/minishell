@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 20:20:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/12 15:46:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ char	*get_export_value_side(char *str, int lhs)
 		if (str[i] == '=' && lhs)
 			return (ft_substr(str, 0, i));
 		else if (str[i] == '=' && !lhs)
+		{
 			rhs_start_index = i;
+			break ; //! Added for a=b=c
+		}
 		i++;
 	}
 	if (rhs_start_index)
-		return (ft_substr(str, rhs_start_index + 1, i - rhs_start_index));
+		return (ft_substr(str, rhs_start_index + 1, ft_strlen(str) - rhs_start_index));
 	return (NULL);
 }
 
@@ -67,12 +70,15 @@ void	master_execute(char *line, t_data *data)
 
 	in_minishell_var(0);
 	line = cmd_copy(line);
-	arg = ft_split(line, ' ');
+	arg = expand_envs(ft_split(line, ' '), data->envp);
+	// arg = ft_split(line, ' ');
 	if (is_parent_function(arg[0]))
 	{
 		data->envp = exec_cmd_parent(arg, data);
 		return ;
 	}
+	// if (!ft_strncmp(arg[0], "./minishell", arg[0]) && )
+	// 	modify_env("SHLVL", )
 	pid = fork();
 	if (pid == -1)
 		exit (1);

@@ -6,11 +6,23 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 23:39:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/12 15:41:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	count_up_to_equal(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		i++;
+	}
+	return (i);
+}
 
 /*
 * Proprietary get_env()
@@ -22,10 +34,10 @@ char	*get_env_value(char *str, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(str, envp[i], ft_strlen(str))
-			&& envp[i][ft_strlen(str)] == '=')
-			return(ft_substr(ft_strchr(envp[i], '='),
-					1, ft_strlen(ft_strchr(envp[i], '='))));
+		if (!ft_strchr(envp[i], '='))
+			return (ft_strdup(" "));
+		if (!ft_strncmp(str, envp[i], count_up_to_equal(str)) && envp[i][ft_strlen(str)] == '=')
+			return(ft_substr(ft_strchr(envp[i], '='), 1, ft_strlen(ft_strchr(envp[i], '='))));
 		i++;
 	}
 	return (NULL);
@@ -41,9 +53,12 @@ int	env_exists(char *var_name, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name))
-			&& envp[i][ft_strlen(var_name)] == '=')
-			return(1);
+		if (ft_strchr(envp[i], '='))
+		{
+			if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name))
+				&& envp[i][ft_strlen(var_name)] == '=')
+				return(1);
+		}
 		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name)))
 			return(1);
 		i++;
@@ -57,6 +72,7 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	char	*var_name_and_equal;
 	char	*full_env_entry;
 
+	printf("Debug: var_name = %s\n", var_name);
 	if (!value)
 		return (ft_strdup(var_name));
 	equal = (char *) malloc(sizeof(char) * 2);

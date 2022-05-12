@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/11 23:43:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/12 15:48:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ char	**exec_cmd_parent(char **args, t_data *data)
 			ft_free_arg(args);
 			return (data->envp);
 		}
-		while (args[i]) //! Check syntax first before proceeding here because you can assign multiple vars and they can be unassigned
+		while (args[i])
 		{
 			if (strchr(args[i], '='))
-				data->envp = add_env(get_export_value_side(args[i], 1), get_export_value_side(args[i], 0), data->envp); //? export
+				data->envp = add_env(get_export_value_side(args[i], 1)
+							, get_export_value_side(args[i], 0), data->envp); //? export
 			else
 				data->envp = add_env(args[i], NULL, data->envp);
 			i++;

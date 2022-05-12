@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/11 22:29:40 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/12 15:28:21 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRCS=		main.c \
 			p_is_empty_input.c \
 			p_contains_illegal_special_chars.c \
 			p_contains_invalid_redirs.c \
-			expand_env.c \
 			b_env.c \
 			b_pwd.c \
 			b_echo.c \
@@ -43,6 +42,9 @@ SRCS=		main.c \
 			utils_env.c \
 			m_atoi.c \
 			are_digits.c \
+			expand_envs.c \
+			p_env_error.c \
+			# utils_shlvl.c \
 
 CC =		gcc
 
