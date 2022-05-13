@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 18:53:56 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/13 06:11:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*get_path(t_data *data)
 	}
 	return (NULL);
 }
+
 /*
 ** Splits the PATH variable by delimiter and returns paths
 */

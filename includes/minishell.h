@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/12 15:28:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/13 06:22:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ char	*rm_redir(char *input);
 int		count_redir(char *input);
 int		char_is_separator(char c, char *charset);
 int		check_space(char *str);
+int		word_count(char *input);
+char	*first_word(char *input);
+char	*find_cmd(char *input);
 
 //* Struct
 char	*cmd_copy(char *input);

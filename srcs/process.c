@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/10 21:48:58 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/13 06:08:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	process(char *line, t_redirs *rd)
 	while (out[i + 1] != NULL)
 	{
 		file = ft_strtrim(out[i + 1], " ");
+		if (word_count(file) > 1)
+			file = first_word(file);
 		if (ft_strncmp(out[i], "<<", 2) == 0)
 		{
 			if (rd->heredoc)
