@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 18:45:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/14 19:57:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ void	assign_infile(char *file, t_redirs *rd, char t)
 {
 	if (t == 'h')
 	{
+		if (rd->heredoc)
+			read_line(rd->heredoc);
 		rd->heredoc = file;
-		rd->lastin = 'h';
 	}
 	if (t == 'i')
-	{
 		rd->infile = file;
-		rd->lastin = 'i';
-	}
+	rd->lastin = t;
 }
 
 void	assign_outfile(char *file, t_redirs *rd, char t)
@@ -42,7 +41,6 @@ void	assign_outfile(char *file, t_redirs *rd, char t)
 			empty_file(rd->append);
 		else
 			rd->append = file;
-		rd->lastout = 'a';
 	}
 	if (t == 'o')
 	{
@@ -50,8 +48,8 @@ void	assign_outfile(char *file, t_redirs *rd, char t)
 			empty_file(rd->outfile);
 		else
 			rd->outfile = file;
-		rd->lastout = 'o';
 	}
+	rd->lastout = t;
 }
 
 void	process(char *line, t_redirs *rd)
@@ -67,11 +65,7 @@ void	process(char *line, t_redirs *rd)
 	{
 		file = first_word(out[i + 1]);
 		if (ft_strncmp(out[i], "<<", 2) == 0)
-		{
-			if (rd->heredoc)
-				read_line(rd->heredoc);
 			assign_infile(file, rd, 'h');
-		}
 		else if (ft_strncmp(out[i], "<", 1) == 0)
 			assign_infile(file, rd, 'i');
 		else if (ft_strncmp(out[i], ">>", 2) == 0)
