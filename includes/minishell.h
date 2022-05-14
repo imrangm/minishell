@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/13 06:22:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:17:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_data
 	int		last_exit_status;
 	int		shlvl;
 	char	**envp;
-} t_data;
+}	t_data;
 
 typedef struct s_redirs
 {
@@ -58,7 +58,10 @@ typedef struct s_pipe
 
 //* I/O redirection
 void	file_parent(int *pid, t_data *data);
-void	file(char *line, t_redirs *rd, t_data *data);
+void	create_file(char *line, t_redirs *rd, t_data *data);
+void	reset_rd(t_redirs *rd);
+int		multi_cmd_redir(char *input);
+void	split_multi_cmd_redir(char **input, t_redirs *rd, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
@@ -77,7 +80,9 @@ int		char_is_separator(char c, char *charset);
 int		check_space(char *str);
 int		word_count(char *input);
 char	*first_word(char *input);
+char	*rem_words(char *input);
 char	*find_cmd(char *input);
+char	*cmd_unquote(char *input);
 
 //* Struct
 char	*cmd_copy(char *input);
@@ -121,6 +126,7 @@ int		p_contains_invalid_redirs(char *str);
 int		p_check_end(char *line);
 int		p_check_pipe(char *line);
 int		p_check_redir(char *line);
+char	*cmd_unquote(char *input);
 
 //* Signals
 void	handle_signals(int signum);

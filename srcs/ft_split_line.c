@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/13 06:21:40 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/14 18:17:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,11 @@ void	split_rd(char *line, t_data *data)
 	else
 		cmd = cmd_copy(line);
 	ln = redir_cpy(line);
-	process(ln, rd);
-	file(cmd, rd, data);
+	if (multi_cmd_redir(line))
+		split_multi_cmd_redir(ft_split_rd(line), rd, data);
+	else
+	{
+		process(ln, rd);
+		create_file(cmd, rd, data);
+	}
 }

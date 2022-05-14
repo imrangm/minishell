@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 22:50:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/14 17:36:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 	}
 }
 
-void	reset(t_redirs *rd)
+void	reset_rd(t_redirs *rd)
 {
 	rd->infile = NULL;
 	rd->outfile = NULL;
 	rd->append = NULL;
 	rd->heredoc = NULL;
+	rd->lastin = 0;
+	rd->lastout = 0;
 }
 
 char	*read_line(char *lim)
@@ -118,7 +120,7 @@ char	*read_line(char *lim)
 	return (final);
 }
 
-void	file(char *line, t_redirs *rd, t_data *data)
+void	create_file(char *line, t_redirs *rd, t_data *data)
 {
 	int		fdi;
 	int		fdo;
@@ -143,5 +145,5 @@ void	file(char *line, t_redirs *rd, t_data *data)
 		file_process(fdi, fdo, line, rd, data);
 	else
 		perror("File error");
-	reset(rd);
+	reset_rd(rd);
 }

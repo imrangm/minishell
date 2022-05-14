@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/12 15:46:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/14 18:01:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	master_execute(char *line, t_data *data)
 	int		pid;
 
 	in_minishell_var(0);
-	line = cmd_copy(line);
-	arg = expand_envs(ft_split(line, ' '), data->envp);
-	// arg = ft_split(line, ' ');
+	// line = cmd_unquote(line);
+	// arg = expand_envs(ft_split(line, ' '), data->envp);
+	arg = ft_split(line, ' ');
 	if (is_parent_function(arg[0]))
 	{
 		data->envp = exec_cmd_parent(arg, data);
