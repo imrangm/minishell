@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:15:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 20:28:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/15 20:19:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ int	multi_cmd_redir(char *input)
 	return (0);
 }
 
+char	*set_arg(int i, char *input)
+{
+	char	*arg;
+
+	if (i > 1)
+		arg = rem_words(input);
+	else
+		arg = ft_strdup("");
+	return (arg);
+}
+
+char	*set_cmd(char *s1, char *s2)
+{
+	char	*cmd;
+
+	if (s1[0] == '>' || s1[0] == '<')
+		cmd = find_cmd(s2);
+	else
+		cmd = cmd_copy(s1);
+	return (cmd);
+}
+
 void	split_multi_cmd_redir(char **input, t_redirs *rd, t_data *data)
 {
 	char	*args;
@@ -40,25 +62,18 @@ void	split_multi_cmd_redir(char **input, t_redirs *rd, t_data *data)
 	char	*file;
 	int		i;
 
-	if (input[0][0] == '>' || input[0][0] == '<')
-		cmd = find_cmd(input[1]);
-	else
-		cmd = cmd_copy(input[0]);
+	cmd = set_cmd(input[0], input[1]);
 	i = 0;
 	while (input[i + 2])
 	{
 		if (word_count(input[i]) > 0)
 		{
-			if (i > 1)
-				args = rem_words(input[i]);
-			else
-				args = ft_strdup("");
+			args = set_arg(i, input[i]);
 			redir = input[i + 1];
 			file = first_word(input[i + 2]);
 			empty_file(file);
 			cmd = ft_strjoin(cmd, args);
 			redir = ft_strjoin(redir, file);
-			printf("cmd: %s, redir: %s\n", cmd, redir);
 		}
 		i++;
 	}

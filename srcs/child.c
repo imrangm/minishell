@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 19:05:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/15 20:08:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	}
 	redir_in(p, i);
 	if (!redir_out(p, i))
-		dup2(pipes[0][1], STDOUT_FILENO);
-	close(pipes[0][1]);
+		dup2(pipes[i][1], STDOUT_FILENO);
+	close(pipes[i][1]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 	{
 		ft_free(pipes);

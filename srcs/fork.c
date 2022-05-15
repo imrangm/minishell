@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 19:05:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/15 19:42:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	here_pipe(t_pipe *p)
 		fdi = open(p->rd.infile, O_RDONLY, 0);
 		dup2(fdi, STDIN_FILENO);
 	}
+	close(fdi);
 }
 
 int	redir_in(t_pipe **p, int i)

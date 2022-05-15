@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 17:36:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/15 17:45:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 		if (access("tmp", F_OK))
 			unlink("tmp");
 		dup2(fdi, STDIN_FILENO);
+		close(fdi);
 	}
 	dup2(fdo, STDOUT_FILENO);
-	// close(fdi);
-	// close(fdo);
+	close(fdo);
 	if (exec_cmd_child(arg, data) == -1)
 		err_print(127, data);
 }
@@ -80,16 +80,6 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 		ft_free_arg(arg);
 		file_parent(pid, data);
 	}
-}
-
-void	reset_rd(t_redirs *rd)
-{
-	rd->infile = NULL;
-	rd->outfile = NULL;
-	rd->append = NULL;
-	rd->heredoc = NULL;
-	rd->lastin = 0;
-	rd->lastout = 0;
 }
 
 char	*read_line(char *lim)

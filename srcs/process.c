@@ -6,11 +6,21 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 19:57:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/15 19:49:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	reset_rd(t_redirs *rd)
+{
+	rd->infile = NULL;
+	rd->outfile = NULL;
+	rd->append = NULL;
+	rd->heredoc = NULL;
+	rd->lastin = 0;
+	rd->lastout = 0;
+}
 
 void	empty_file(char *file)
 {

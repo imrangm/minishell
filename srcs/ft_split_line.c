@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 18:17:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/15 20:20:11 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,24 @@ char	*cmd_copy(char *input)
 	return (copy);
 }
 
+void	split_rd(char *line, t_data *data)
+{
+	t_redirs	*rd;
+	char		*cmd;
+	char		*ln;
+
+	rd = malloc(sizeof(t_redirs));
+	cmd = set_cmd(line, line);
+	ln = redir_cpy(line);
+	if (multi_cmd_redir(line))
+		split_multi_cmd_redir(ft_split_rd(line), rd, data);
+	else
+	{
+		process(ln, rd);
+		create_file(cmd, rd, data);
+	}
+}
+
 void	split_pipe(char *line, t_data *data)
 {
 	char	**cmd;
@@ -88,31 +106,10 @@ void	split_pipe(char *line, t_data *data)
 		cmd[i] = ft_strtrim(cmd[i], " ");
 		p[i] = malloc(sizeof(t_pipe));
 		process(cmd[i], &p[i]->rd);
-		p[i]->fcmd = cmd_copy(cmd[i]);
+		p[i]->fcmd = set_cmd(cmd[i], cmd[i]);
 		p[i]->data = data;
-		// printf("cmd(%d): %s\n", i, cmd[i]);
+		// printf("cmd(%d): %s, fcmd: %s\n", i, cmd[i], p[i]->fcmd);
 		i++;
 	}
 	pipes(line, p);
-}
-
-void	split_rd(char *line, t_data *data)
-{
-	t_redirs	*rd;
-	char		*cmd;
-	char		*ln;
-
-	rd = malloc(sizeof(t_redirs));
-	if (line[0] == '<' || line[0] == '>')
-		cmd = find_cmd(line);
-	else
-		cmd = cmd_copy(line);
-	ln = redir_cpy(line);
-	if (multi_cmd_redir(line))
-		split_multi_cmd_redir(ft_split_rd(line), rd, data);
-	else
-	{
-		process(ln, rd);
-		create_file(cmd, rd, data);
-	}
 }

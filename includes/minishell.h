@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/14 20:17:31 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/15 20:19:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <termios.h>
+# include <fcntl.h>
 
 typedef struct s_data
 {
@@ -61,6 +62,8 @@ void	file_parent(int *pid, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
 void	reset_rd(t_redirs *rd);
 void	empty_file(char *file);
+char	*set_arg(int i, char *input);
+char	*set_cmd(char *s1, char *s2);
 int		multi_cmd_redir(char *input);
 void	split_multi_cmd_redir(char **input, t_redirs *rd, t_data *data);
 
