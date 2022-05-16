@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 19:42:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 17:55:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ int	redir_in(t_pipe **p, int i)
 	}
 	else if (p[i]->rd.infile && p[i]->rd.lastin == 'i')
 	{
-		fd = open(p[i]->rd.infile, O_RDONLY, 0);
+		fd = open(p[i]->rd.infile, O_RDONLY | O_CLOEXEC);
 		dup2(fd, STDIN_FILENO);
+		close(fd);
 		return (1);
 	}
 	else
@@ -67,14 +68,18 @@ int	redir_out(t_pipe **p, int i)
 
 	if (p[i]->rd.outfile && p[i]->rd.lastout == 'o')
 	{
-		fd = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fd = open(p[i]->rd.outfile, O_CREAT | O_RDWR | O_TRUNC
+				| O_CLOEXEC, 0644);
 		dup2(fd, STDOUT_FILENO);
+		close(fd);
 		return (1);
 	}
 	else if (p[i]->rd.append && p[i]->rd.lastout == 'a')
 	{
-		fd = open(p[i]->rd.append, O_CREAT | O_RDWR | O_APPEND, 0644);
+		fd = open(p[i]->rd.append, O_CREAT | O_RDWR | O_APPEND |
+				O_CLOEXEC, 0644);
 		dup2(fd, STDOUT_FILENO);
+		close(fd);
 		return (1);
 	}
 	else

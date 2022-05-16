@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 17:45:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 18:08:11 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 	int		fdo;
 	char	*text;
 
-	fdi = dup(0);
-	fdo = dup(1);
+	fdi = 0;
+	fdo = 1;
 	if (rd->heredoc && rd->lastin == 'h')
 	{
 		fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -126,11 +126,11 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 		close(fdi);
 	}
 	if (rd->infile && rd->lastin == 'i')
-		fdi = open(rd->infile, O_RDONLY, 0);
+		fdi = open(rd->infile, O_RDONLY | O_CLOEXEC);
 	if (rd->outfile && rd->lastout == 'o')
-		fdo = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fdo = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
 	if (rd->append && rd->lastout == 'a')
-		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND, 0644);
+		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
 	if (fdi != -1 && fdo != -1)
 		file_process(fdi, fdo, line, rd, data);
 	else

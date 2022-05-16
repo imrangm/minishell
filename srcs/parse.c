@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 07:24:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 08:05:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ char	*find_cmd(char *input)
 		{
 			args = set_arg(i, out[i]);
 			cmd = ft_strjoin(cmd, args);
-			printf("%d\n out: %s, cmd: %s\n", i, out[i], cmd);
 		}
 		i++;
 	}
