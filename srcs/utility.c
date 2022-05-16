@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 18:43:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 06:39:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,33 @@ int	check_space(char *str)
 	if (i == c)
 		return (1);
 	return (0);
+}
+
+char	*line_unquote(char *input)
+{
+	int		i;
+	int		j;
+	int		size;
+	char	*copy;
+
+	i = 0;
+	j = 0;
+	size = 0;
+	while (input[i++])
+	{
+		if (input[i] == '\'' || input[i] == '\"')
+			i++;
+		size++;
+	}
+	copy = (char *) malloc(sizeof(char) * (size + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (input[i++])
+	{
+		if (input[i] != '\'' || input[i] != '\"')
+			copy[j++] = input[i++];
+	}
+	copy[j] = '\0';
+	return (copy);
 }

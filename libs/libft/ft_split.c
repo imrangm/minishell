@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:42:57 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/11 11:25:58 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 06:49:58 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char	**ft_split(char const *s, char c)
 {
 	char	**res;
 	int		words;
+	int		i;
 
 	if (!s)
 		return (NULL);
@@ -89,5 +90,8 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	res[words] = 0;
 	write_split(res, s, c);
+	i = 0;
+	while (res[i++])
+		res[i] = ft_strtrim(res[i], " ");
 	return (res);
 }

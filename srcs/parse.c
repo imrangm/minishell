@@ -6,40 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 18:48:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 07:12:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*cmd_unquote(char *input)
-{
-	int		i;
-	int		j;
-	int		size;
-	char	*copy;
-
-	i = 0;
-	j = 0;
-	size = 0;
-	while (input[i++])
-	{
-		if (input[i] == '\'' || input[i] == '\"')
-			i++;
-		size++;
-	}
-	copy = (char *) malloc(sizeof(char) * (size + 1));
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (input[i++])
-	{
-		if (input[i] != '\'' || input[i] != '\"')
-			copy[j++] = input[i++];
-	}
-	copy[j] = '\0';
-	return (copy);
-}
 
 int	word_count(char *input)
 {
@@ -81,29 +52,47 @@ char	*rem_words(char *input)
 	return (word);
 }
 
+char	*set_arg(int i, char *input)
+{
+	char	*arg;
+
+	if (i > 1)
+		arg = rem_words(input);
+	else
+		arg = ft_strdup("");
+	return (arg);
+}
+
+char	*set_cmd(char *s1, char *s2)
+{
+	char	*cmd;
+
+	if (s1[0] == '>' || s1[0] == '<')
+		cmd = rem_words(s2);
+	else
+		cmd = cmd_copy(s1);
+	return (cmd);
+}
+
 char	*find_cmd(char *input)
 {
 	int		i;
-	int		j;
 	char	*cmd;
+	char	*args;
 	char	**out;
 
-	i = 0;
 	out = ft_split_rd(input);
-	i = 0;
-	while (out[i + 1])
+	cmd = set_cmd(out[0], out[1]);
+	i = 1;
+	while (out[i])
 	{
 		if (word_count(out[i]) > 0)
-			break ;
+		{
+			args = set_arg(i, out[i]);
+			cmd = ft_strjoin(cmd, args);
+		}
 		i++;
 	}
-	j = 0;
-	while (out[i][j + 1])
-	{
-		if (out[i][j] == ' ' && out[i][j + 1] != ' ')
-			break ;
-		j++;
-	}
-	cmd = ft_substr(out[i], ++j, ft_strlen(out[i]));
+	ft_free_arg(out);
 	return (cmd);
 }

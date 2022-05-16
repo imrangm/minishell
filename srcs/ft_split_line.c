@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 20:20:11 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 06:50:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,11 @@ void	split_rd(char *line, t_data *data)
 {
 	t_redirs	*rd;
 	char		*cmd;
-	char		*ln;
 
 	rd = malloc(sizeof(t_redirs));
-	cmd = set_cmd(line, line);
-	ln = redir_cpy(line);
-	if (multi_cmd_redir(line))
-		split_multi_cmd_redir(ft_split_rd(line), rd, data);
-	else
-	{
-		process(ln, rd);
-		create_file(cmd, rd, data);
-	}
+	cmd = find_cmd(line);
+	process(line, rd);
+	create_file(cmd, rd, data);
 }
 
 void	split_pipe(char *line, t_data *data)
@@ -103,12 +96,10 @@ void	split_pipe(char *line, t_data *data)
 	cmd = ft_split(line, '|');
 	while (cmd[i])
 	{
-		cmd[i] = ft_strtrim(cmd[i], " ");
 		p[i] = malloc(sizeof(t_pipe));
 		process(cmd[i], &p[i]->rd);
-		p[i]->fcmd = set_cmd(cmd[i], cmd[i]);
+		p[i]->fcmd = find_cmd(cmd[i]);
 		p[i]->data = data;
-		// printf("cmd(%d): %s, fcmd: %s\n", i, cmd[i], p[i]->fcmd);
 		i++;
 	}
 	pipes(line, p);

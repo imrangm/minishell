@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/15 20:19:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 06:42:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	file_parent(int *pid, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
 void	reset_rd(t_redirs *rd);
 void	empty_file(char *file);
-char	*set_arg(int i, char *input);
 char	*set_cmd(char *s1, char *s2);
-int		multi_cmd_redir(char *input);
-void	split_multi_cmd_redir(char **input, t_redirs *rd, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
@@ -86,7 +83,6 @@ int		word_count(char *input);
 char	*first_word(char *input);
 char	*rem_words(char *input);
 char	*find_cmd(char *input);
-char	*cmd_unquote(char *input);
 
 //* Struct
 char	*cmd_copy(char *input);
@@ -130,7 +126,7 @@ int		p_contains_invalid_redirs(char *str);
 int		p_check_end(char *line);
 int		p_check_pipe(char *line);
 int		p_check_redir(char *line);
-char	*cmd_unquote(char *input);
+char	*line_unquote(char *input);
 
 //* Signals
 void	handle_signals(int signum);

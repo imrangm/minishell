@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/14 18:01:05 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 06:39:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	master_execute(char *line, t_data *data)
 	int		pid;
 
 	in_minishell_var(0);
-	// line = cmd_unquote(line);
 	// arg = expand_envs(ft_split(line, ' '), data->envp);
 	arg = ft_split(line, ' ');
 	if (is_parent_function(arg[0]))

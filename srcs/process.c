@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 19:49:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 05:31:11 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,13 @@ void	assign_outfile(char *file, t_redirs *rd, char t)
 	{
 		if (rd->append)
 			empty_file(rd->append);
-		else
-			rd->append = file;
+		rd->append = file;
 	}
 	if (t == 'o')
 	{
 		if (rd->outfile)
 			empty_file(rd->outfile);
-		else
-			rd->outfile = file;
+		rd->outfile = file;
 	}
 	rd->lastout = t;
 }
