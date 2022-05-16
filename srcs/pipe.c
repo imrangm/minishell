@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 20:08:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/16 07:26:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	pipes(char *line, t_pipe **p)
 	cmd = ft_split(line, '|');
 	while (cmd[i])
 	{
-		cmd[i] = set_cmd(cmd[i], cmd[i]);
+		cmd[i] = find_cmd(cmd[i]);
 		i++;
 	}
 	create_pipes(n, cmd, p);
