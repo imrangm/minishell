@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/16 06:42:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/17 09:29:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_fork
 	int		nchild;
 	char	**arg;
 	int		**pipes;
-	char	**envp;
 }	t_fork;
 
 typedef struct s_pipe
@@ -58,17 +57,18 @@ typedef struct s_pipe
 # define SQUOTE 39
 
 //* I/O redirection
-void	file_parent(int *pid, t_data *data);
+void	file_parent(int fdi, int fdo, int *pid, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
 void	reset_rd(t_redirs *rd);
 void	empty_file(char *file);
-char	*set_cmd(char *s1, char *s2);
+void	close_fds(int fdi, int fdo);
+void	process(char *line, t_redirs *rd);
+void	split_rd(char *line, t_data *data);
+void	split_pipe(char *line, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
 char	*cmd_path(char*cmd, t_data *data);
-int		count_pipes(char *line);
-void	pipes(char *line, t_pipe **p);
 void	master_execute(char *line, t_data *data);
 char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
@@ -78,19 +78,8 @@ char	*redir_cpy(char *input);
 char	*rm_redir(char *input);
 int		count_redir(char *input);
 int		char_is_separator(char c, char *charset);
-int		check_space(char *str);
-int		word_count(char *input);
-char	*first_word(char *input);
-char	*rem_words(char *input);
-char	*find_cmd(char *input);
 
-//* Struct
-char	*cmd_copy(char *input);
-void	process(char *line, t_redirs *rd);
-void	split_rd(char *line, t_data *data);
-void	split_pipe(char *line, t_data *data);
-
-//* Pipe
+//* Piping
 void	here_pipe(t_pipe *p);
 void	first_child(int nchild, char **arg, int **pipes, t_pipe **p);
 void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p);
@@ -99,6 +88,8 @@ void	parent(int nchild, int **pipes, int *pids);
 void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p);
 int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
+int		count_pipes(char *line);
+void	pipes(char *line, t_pipe **p);
 
 //* Error and free
 void	err_print(int error, t_data *data);
@@ -127,6 +118,13 @@ int		p_check_end(char *line);
 int		p_check_pipe(char *line);
 int		p_check_redir(char *line);
 char	*line_unquote(char *input);
+char	*cmd_copy(char *input);
+int		check_space(char *str);
+int		word_count(char *input);
+char	*first_word(char *input);
+char	*rem_words(char *input);
+char	*find_cmd(char *input);
+char	*set_cmd(char *s1, char *s2);
 
 //* Signals
 void	handle_signals(int signum);

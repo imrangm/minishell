@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 07:26:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/17 08:04:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	parent(int nchild, int **pipes, int *pids)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
+		if (access("tmp", F_OK))
+			unlink("tmp");
 		if (code != 0)
 			err_free_parent(pipes, pids);
 	}
-	if (access("tmp", F_OK) == 0)
-		unlink("tmp");
 	in_minishell_var(1);
 }
 

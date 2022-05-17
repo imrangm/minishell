@@ -6,27 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 08:05:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/17 08:01:32 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	word_count(char *input)
-{
-	int	i;
-	int	c;
-
-	i = 0;
-	c = 0;
-	while (input[i])
-	{
-		if (input[i] == ' ' && input[i + 1] != ' ')
-			c++;
-		i++;
-	}
-	return (c);
-}
 
 char	*first_word(char *input)
 {

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 18:08:11 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/17 08:03:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,16 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 		unlink("tmp");
 	}
 	else
-	{
-		if (access("tmp", F_OK))
-			unlink("tmp");
 		dup2(fdi, STDIN_FILENO);
-		close(fdi);
-	}
 	dup2(fdo, STDOUT_FILENO);
-	close(fdo);
 	if (exec_cmd_child(arg, data) == -1)
+	{
+		close_fds(fdi, fdo);
 		err_print(127, data);
+	}
 }
 
-void	file_parent(int *pid, t_data *data)
+void	file_parent(int fdi, int fdo, int *pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -50,8 +47,11 @@ void	file_parent(int *pid, t_data *data)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
+		if (access("tmp", F_OK))
+			unlink("tmp");
 		if (code != 0)
 		{
+			close_fds(fdi, fdo);
 			data->last_exit_status = code;
 			exit(code);
 		}
@@ -78,7 +78,8 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 	else
 	{
 		ft_free_arg(arg);
-		file_parent(pid, data);
+		file_parent(fdi, fdo, pid, data);
+		close_fds(fdi, fdo);
 	}
 }
 

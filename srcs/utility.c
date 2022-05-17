@@ -6,11 +6,35 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 06:39:09 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/17 08:01:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	close_fds(int fdi, int fdo)
+{
+	if (fdi != 0)
+		close(fdi);
+	if (fdo != 1)
+		close(fdo);
+}
+
+int	word_count(char *input)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (input[i])
+	{
+		if (input[i] == ' ' && input[i + 1] != ' ')
+			c++;
+		i++;
+	}
+	return (c);
+}
 
 static int	ft_isspace(char c)
 {
