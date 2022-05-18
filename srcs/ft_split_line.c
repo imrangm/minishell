@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 06:50:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:16:31 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,6 @@ int	count_pipes(char *line)
 		i++;
 	}
 	return (p);
-}
-
-char	*redir_cpy(char *input)
-{
-	int		i;
-	char	*copy;
-
-	i = 0;
-	while (input[i] != '\0')
-	{
-		if (input[i] == '<' || input[i] == '>')
-			break ;
-		i++;
-	}
-	copy = ft_substr(input, i, ft_strlen(input));
-	return (copy);
 }
 
 char	*cmd_copy(char *input)
@@ -103,4 +87,5 @@ void	split_pipe(char *line, t_data *data)
 		i++;
 	}
 	pipes(line, p);
+	ft_free_arg(cmd);
 }

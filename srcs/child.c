@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/15 20:08:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 14:13:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	close(pipes[i][1]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 	{
-		ft_free(pipes);
+		ft_free_int(pipes);
 		ft_free_arg(arg);
 		err_print(127, p[0]->data);
 	}
@@ -62,7 +62,7 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 	close(pipes[*i][1]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 	{
-		ft_free(pipes);
+		ft_free_int(pipes);
 		ft_free_arg(arg);
 		err_print(127, p[0]->data);
 	}
@@ -88,7 +88,7 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	close(pipes[i - 1][0]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 	{
-		ft_free(pipes);
+		ft_free_int(pipes);
 		ft_free_arg(arg);
 		err_print(127, p[0]->data);
 	}

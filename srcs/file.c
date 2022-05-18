@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/17 08:03:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 22:22:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	if (exec_cmd_child(arg, data) == -1)
 	{
 		close_fds(fdi, fdo);
+		ft_free_arg(arg);
 		err_print(127, data);
 	}
 }
@@ -52,8 +53,8 @@ void	file_parent(int fdi, int fdo, int *pid, t_data *data)
 		if (code != 0)
 		{
 			close_fds(fdi, fdo);
+			ft_free(pid);
 			data->last_exit_status = code;
-			exit(code);
 		}
 	}
 }
@@ -74,9 +75,13 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 	if (pid[0] == -1)
 		exit (1);
 	if (pid[0] == 0)
+	{
+		ft_free(cmd);
 		file_child(fdi, fdo, arg, rd, data);
+	}
 	else
 	{
+		ft_free(cmd);
 		ft_free_arg(arg);
 		file_parent(fdi, fdo, pid, data);
 		close_fds(fdi, fdo);

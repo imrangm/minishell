@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:34:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 19:57:48 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/18 22:08:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,13 @@ int	p_check_pipe(char *line)
 	{
 		if ((ft_strncmp(check[i], "|", 1)) == 0
 			&& (ft_strncmp(check[i + 1], "|", 1) == 0))
+		{
+			ft_free_arg(check);
 			return (error("minishell: syntax error\n"));
+		}
 		i++;
 	}
+	ft_free_arg(check);
 	return (0);
 }
 
@@ -74,10 +78,17 @@ int	p_check_redir(char *line)
 		out[i + 1] = ft_strtrim(out[i + 1], " ");
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
 			&& check_space(out[i + 1]))
+		{
+			ft_free_arg(out);
 			return (error("minishell: syntax error\n"));
+		}
 		if (count_redir(out[i]) > 2)
+		{
+			ft_free_arg(out);
 			return (error("minishell: syntax error\n"));
+		}
 		i++;
 	}
+	ft_free_arg(out);
 	return (0);
 }

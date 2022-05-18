@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/17 08:04:09 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:56:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,40 +42,58 @@ void	parent(int nchild, int **pipes, int *pids)
 		if (code != 0)
 			err_free_parent(pipes, pids);
 	}
+	no_err_free_parent(pipes, pids);
 	in_minishell_var(1);
 }
 
 /*
-** Create the pipes and populate arg variable with program names;
-** Passing them onto create_process function
+** Create the pipes to communicate between child processes
 */
-void	create_pipes(int nchild, char **cmd, t_pipe **p)
+static void	create_pipes(int nchild, char ***arg, t_pipe **p)
 {
 	int		i;
 	int		**pipes;
-	char	***arg;
 
 	i = 0;
-	arg = malloc (sizeof (char **) * nchild);
-	while (i < nchild)
-	{
-		arg[i] = ft_split(cmd[i], ' ');
-		i++;
-	}
-	i = 0;
 	pipes = malloc(sizeof(int *) * (nchild));
+	if (!pipes)
+		perror("Malloc failed");
 	while (i < nchild)
 	{
-		pipes[i++] = malloc(sizeof(int) * 2);
+		pipes[i] = malloc(sizeof(int) * 2);
+		if (!pipes[i])
+			perror("Malloc failed");
+		i++;
 	}
 	i = 0;
 	while (i < nchild - 1)
 	{
 		if (pipe(pipes[i]) == -1)
-			err_free_pipex(pipes, arg);
+			err_free_process(pipes, arg);
 		i++;
 	}
 	create_process(nchild, arg, pipes, p);
+}
+
+/*
+** Populate arg variable with program names
+*/
+static void	create_arg(int nchild, char **cmd, t_pipe **p)
+{
+	int		i;
+	char	***arg;
+
+	i = 0;
+	arg = malloc (sizeof(char **) * nchild);
+	if (!arg)
+		perror("Malloc failed");
+	while (i < nchild)
+	{
+		arg[i] = ft_split(cmd[i], ' ');
+		i++;
+	}
+	ft_free_arg(cmd);
+	create_pipes(nchild, arg, p);
 }
 
 /*
@@ -96,6 +114,5 @@ void	pipes(char *line, t_pipe **p)
 		cmd[i] = find_cmd(cmd[i]);
 		i++;
 	}
-	create_pipes(n, cmd, p);
-	ft_free_arg(cmd);
+	create_arg(n, cmd, p);
 }

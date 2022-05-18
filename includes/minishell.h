@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/17 09:29:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 19:55:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 
 # include "../includes/all_includes.h"
 # include "../libs/libft/libft.h"
-# include <stdio.h>
-# include <string.h>
-# include <unistd.h>
-# include <termios.h>
-# include <fcntl.h>
 
 typedef struct s_data
 {
@@ -74,8 +69,6 @@ char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
 char	**ft_split_path(char *s, char c);
 char	**ft_split_rd(char *str);
-char	*redir_cpy(char *input);
-char	*rm_redir(char *input);
 int		count_redir(char *input);
 int		char_is_separator(char c, char *charset);
 
@@ -94,8 +87,10 @@ void	pipes(char *line, t_pipe **p);
 //* Error and free
 void	err_print(int error, t_data *data);
 void	err_free_parent(int **pipes, int *pids);
-void	err_free_pipex(int **pipes, char ***args);
-void	ft_free(int **arr);
+void	no_err_free_parent(int **pipes, int *pids);
+void	err_free_process(int **pipes, char ***args);
+void	ft_free(void *ptr);
+void	ft_free_int(int **arr);
 void	ft_free_arg(char **arr);
 void	ft_free_args(char ***arr);
 char	**chars_split(char *str, char *charset);

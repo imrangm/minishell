@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/17 07:18:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 09:48:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 
 	i = 0;
 	pids = malloc (sizeof(int) * nchild);
+	if (!pids)
+		perror("Malloc failed");
 	while (i < nchild)
 	{
 		pids[i] = fork();

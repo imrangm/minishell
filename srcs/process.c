@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 05:31:11 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 22:08:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	process(char *line, t_redirs *rd)
 			assign_outfile(file, rd, 'o');
 		i++;
 	}
+	ft_free_arg(out);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_env_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 15:09:27 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/12 15:35:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/18 20:22:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	p_env_error(char *str)
 	str_split = ft_split(str, ' ');
 	if (ft_strncmp(str_split[0], "export", ft_strlen(str_split[0])))
 	{
-		free(str_split);
+		ft_free_arg(str_split);
 		return (0);
 	}
 	while (str_split[i])
@@ -53,6 +53,6 @@ int	p_env_error(char *str)
 			return (1);
 		i++;
 	}
-	free(str_split);
+	ft_free_arg(str_split);
 	return (0);
 }
