@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 14:12:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 15:37:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ int		in_minishell_var(int is_true);
 //* Builtins
 int		b_env(char **envp, int export_mode);
 int		b_pwd(void);
+void	b_export(char **args, t_data *data);
+void	b_unset(char **args, t_data *data);
 int		b_cd(char *new_path);
+void	b_exit(char **args, t_data *data);
 int		b_echo(char **args, t_data *data);
 
 //* Environment Variables
@@ -150,6 +153,7 @@ int			is_pipe_mode(char *str);
 int			is_redir_mode(char *str);
 void		ft_free(void *ptr);
 char		**ft_split_pp(char const *s, char c);
+int			cmp_cmd(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);
 
 #endif

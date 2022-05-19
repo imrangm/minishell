@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 05:25:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:10:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,21 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, &handle_signals);
 		line = readline("$> ");
 		if (!line)
+		{
+			ft_free_arg(data.envp);
 			break ;
+		}
 		if (line[0])
 		{
 			add_history(line);
-			// line = ft_strtrim(line, "\n ");
 			if (preliminary_check(line, &data))
 			{
-				if (ft_strchr(line, '|'))
-					split_pipe(line, &data);
-				else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
-					split_rd(line, &data);
-				else
-					master_execute(line, &data);
+				// if (ft_strchr(line, '|'))
+				// 	split_pipe(line, &data);
+				// else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
+				// 	split_rd(line, &data);
+				// else
+				master_execute(line, &data);
 			}
 		}
 		else

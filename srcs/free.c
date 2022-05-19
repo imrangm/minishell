@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 06:05:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:52:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_free_arg(char **arr)
 		arr[i] = NULL;
 		i++;
 	}
-	free (arr);
+	free(arr);
 	arr = NULL;
 }
 

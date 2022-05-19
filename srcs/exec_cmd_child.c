@@ -22,9 +22,10 @@ int	exec_cmd_child(char **args, t_data *data)
 	else if (!ft_strncmp(args[0], "pwd", ft_strlen(args[0])))
 	{
 		b_pwd();
+		ft_free_arg(args);
 		kill(getpid(), 9);
 	}
-	else if (!ft_strncmp(args[0], "env", ft_strlen(args[0])))
+	else if (!ft_strncmp(args[0], "env", 3))
 	{
 		b_env(data->envp, 0);
 		kill(getpid(), 9);

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/12 15:41:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 15:57:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	char	*var_name_and_equal;
 	char	*full_env_entry;
 
-	printf("Debug: var_name = %s\n", var_name);
 	if (!value)
 		return (ft_strdup(var_name));
 	equal = (char *) malloc(sizeof(char) * 2);
@@ -106,7 +105,8 @@ char	**clone_env(char **envp, int extra_slot)
 		i++;
 	}
 	envp_copy[i] = 0;
-	envp_copy[++i] = 0;
+	if (extra_slot)
+		envp_copy[++i] = 0;
 	return (envp_copy);
 }
 

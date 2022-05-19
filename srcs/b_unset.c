@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_env.c                                            :+:      :+:    :+:   */
+/*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 19:19:34 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 15:59:35 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/19 15:34:30 by nmadi             #+#    #+#             */
+/*   Updated: 2022/05/19 15:42:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	b_env(char **envp, int export_mode)
+void	b_unset(char **args, t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (envp[i])
+	i = 1;
+	if (!ft_strlen(args[1]))
 	{
-		if (!ft_strchr(envp[i], '=') && export_mode)
-			printf("declare -x %s\n", envp[i]);
-		else if (ft_strchr(envp[i], '=') && export_mode)
-		{
-			printf("declare -x %s=", get_export_value_side(envp[i], 1));
-			printf("\"%s\"\n", get_export_value_side(envp[i], 0));
-		}0
-		else if (ft_strchr(envp[i], '=') && !export_mode)
-			printf("%s\n", envp[i]);
+		ft_putstr_fd("Error: invalid number of arguments\n", 2);
+		data->last_exit_status = 1;
+		ft_free_arg(args);
+		return ;
+	}
+	while (args[i])
+	{
+		unset_env(args[i], data->envp);
 		i++;
 	}
-	return (0);
 }

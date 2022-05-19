@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/12 15:48:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 15:43:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	is_parent_function(char *str)
 {
-	if (!ft_strncmp(str, "export", ft_strlen(str)))
+	if (!cmp_cmd(str, "export"))
 		return (1);
-	else if (!ft_strncmp(str, "unset", ft_strlen(str)))
+	else if (!cmp_cmd(str, "unset"))
 		return (1);
-	else if (!ft_strncmp(str, "exit", ft_strlen(str)))
+	else if (!cmp_cmd(str, "exit"))
 		return (1);
-	else if (!ft_strncmp(str, "cd", ft_strlen(str)))
+	else if (!cmp_cmd(str, "cd"))
 		return (1);
 	return (0);
 }
@@ -30,61 +30,19 @@ char	**exec_cmd_parent(char **args, t_data *data)
 	int	i;
 
 	i = 1;
-	if (!ft_strncmp(args[0], "export", ft_strlen(args[0])))
+	if (!cmp_cmd(args[0], "export"))
 	{
-		if (!args[1])
-		{
-			b_env(data->envp, 1);
-			ft_free_arg(args);
-			return (data->envp);
-		}
-		while (args[i])
-		{
-			if (strchr(args[i], '='))
-				data->envp = add_env(get_export_value_side(args[i], 1)
-							, get_export_value_side(args[i], 0), data->envp); //? export
-			else
-				data->envp = add_env(args[i], NULL, data->envp);
-			i++;
-		}
-		ft_free_arg(args);
+		b_export(args, data);
 		return (data->envp);
 	}
-	else if (!ft_strncmp(args[0], "unset", ft_strlen(args[0])))
+	else if (!cmp_cmd(args[0], "unset"))
 	{
-		if (!ft_strlen(args[1]))
-		{
-			ft_putstr_fd("Error: invalid number of arguments\n", 2);
-			data->last_exit_status = 1;
-			return (data->envp);
-		}
-		while (args[i])
-		{
-			unset_env(args[i], data->envp);
-			i++;
-		}
-		ft_free_arg(args);
+		b_unset(args, data);
 		return (data->envp);
 	}
-	else if (!ft_strncmp(args[0], "exit", ft_strlen(args[0])))
-	{
-		if (args[1] && are_digits(args[1]) && !args[2])
-			data->last_exit_status = (unsigned char) m_atoi(args[1]);
-		else if (args[1] && ft_strlen(args[1]) && !are_digits(args[1]))
-		{
-			ft_putstr_fd("Error: numeric argument required\n", 2);
-			data->last_exit_status = 255;
-		}
-		else if (args[0] && args[1] && args[2])
-		{
-			ft_putstr_fd("Error: too many arguments\n", 2);
-			data->last_exit_status = 1;
-		}
-		else
-			data->last_exit_status = 0;
-		exit(data->last_exit_status);
-	}
-	else if (!ft_strncmp(args[0], "cd", ft_strlen(args[0])))
+	else if (!cmp_cmd(args[0], "exit"))
+		b_exit(args, data);
+	else if (!cmp_cmd(args[0], "cd"))
 	{
 		if (!args[1])
 		{

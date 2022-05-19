@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   master_execute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/16 06:39:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:43:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,26 @@ void	master_execute(char *line, t_data *data)
 	int		pid;
 
 	in_minishell_var(0);
-	// arg = expand_envs(ft_split(line, ' '), data->envp);
 	arg = ft_split(line, ' ');
 	if (is_parent_function(arg[0]))
 	{
 		data->envp = exec_cmd_parent(arg, data);
-		return ;
-	}
-	// if (!ft_strncmp(arg[0], "./minishell", arg[0]) && )
-	// 	modify_env("SHLVL", )
-	pid = fork();
-	if (pid == -1)
-		exit (1);
-	if (pid == 0)
-	{
-		if (exec_cmd_child(arg, data) == -1)
-			err_print(127, data);
+		ft_free_arg(arg);
 	}
 	else
 	{
-		ft_free_arg(arg);
-		monitor(pid, data);
+		pid = fork();
+		if (pid == -1)
+			exit (1);
+		if (pid == 0)
+		{
+			if (exec_cmd_child(arg, data) == -1)
+				err_print(127, data);
+		}
+		else
+		{
+			ft_free_arg(arg);
+			monitor(pid, data);
+		}
 	}
 }

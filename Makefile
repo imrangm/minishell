@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/19 14:12:08 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/19 15:36:59 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,10 @@ SRCS=		main.c \
 			is_redir_mode.c \
 			ft_split_pp.c \
 			is_pipe_mode.c \
+			b_export.c \
+			b_unset.c \
+			b_exit.c \
+			cmp_cmd.c \
 			# utils_shlvl.c \
 
 CC =		gcc
@@ -64,7 +68,7 @@ CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # For Linux
 # LDFLAGS =	-lreadline
-# CFLAGS =	-Wall -Wextra -Werror
+# CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 

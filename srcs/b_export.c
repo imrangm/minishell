@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_env.c                                            :+:      :+:    :+:   */
+/*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/30 19:19:34 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 15:59:35 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
+/*   Updated: 2022/05/19 15:42:49 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	b_env(char **envp, int export_mode)
+void	b_export(char **args, t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (envp[i])
+	i = 1;
+	if (!args[1])
 	{
-		if (!ft_strchr(envp[i], '=') && export_mode)
-			printf("declare -x %s\n", envp[i]);
-		else if (ft_strchr(envp[i], '=') && export_mode)
-		{
-			printf("declare -x %s=", get_export_value_side(envp[i], 1));
-			printf("\"%s\"\n", get_export_value_side(envp[i], 0));
-		}0
-		else if (ft_strchr(envp[i], '=') && !export_mode)
-			printf("%s\n", envp[i]);
+		b_env(data->envp, 1);
+		return ;
+	}
+	while (args[i])
+	{
+		if (strchr(args[i], '='))
+			data->envp = add_env(get_export_value_side(args[i], 1), get_export_value_side(args[i], 0), data->envp); //? export
+		else
+			data->envp = add_env(args[i], NULL, data->envp);
 		i++;
 	}
-	return (0);
 }
