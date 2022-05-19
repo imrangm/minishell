@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 15:43:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 18:54:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	master_execute(char *line, t_data *data)
 	{
 		pid = fork();
 		if (pid == -1)
-			exit (1);
+		{
+			data->last_exit_status = 1;
+			exit(data->last_exit_status);
+		}
 		if (pid == 0)
 		{
 			if (exec_cmd_child(arg, data) == -1)
