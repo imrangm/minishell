@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 19:56:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:13:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	pipes(char *line, t_pipe **p)
 	in_minishell_var(0);
 	n = count_pipes(line) + 1;
 	i = 0;
-	cmd = ft_split(line, '|');
+	cmd = ft_split_pp(line, '|');
 	while (cmd[i])
 	{
 		cmd[i] = find_cmd(cmd[i]);

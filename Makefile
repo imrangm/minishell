@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/16 16:59:55 by imustafa         ###   ########.fr        #
+#    Updated: 2022/05/19 14:12:08 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,17 +46,21 @@ SRCS=		main.c \
 			are_digits.c \
 			expand_envs.c \
 			p_env_error.c \
+			set_quote_mode.c \
+			is_redir_mode.c \
+			ft_split_pp.c \
+			is_pipe_mode.c \
 			# utils_shlvl.c \
 
 CC =		gcc
 
 # For home
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
-CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
+# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
+# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
 
 # For 42
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # For Linux
 # LDFLAGS =	-lreadline

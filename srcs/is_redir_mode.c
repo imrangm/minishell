@@ -5,28 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/18 12:53:22 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/18 12:58:03 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/19 14:07:36 by nmadi             #+#    #+#             */
+/*   Updated: 2022/05/19 14:07:45 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//! Be sure to change the includes
-#include <stdio.h>
-
-static int	set_quote_mode(char c, int *quote) //! Must be appended to our header
-{
-	if ((c == '\'' || c == '\"') && !(*quote))
-	{
-		(*quote) = c;
-		return (1);
-	}
-	else if (c == (char) *quote && *quote)
-	{
-		(*quote) = 0;
-		return (1);
-	}
-	return (0);
-}
+#include "../includes/minishell.h"
 
 int	is_redir_mode(char *str)
 {

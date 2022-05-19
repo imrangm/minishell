@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_pp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/29 16:42:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 14:14:18 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/19 14:11:44 by nmadi             #+#    #+#             */
+/*   Updated: 2022/05/19 14:11:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
 static int	separator(char c, char charset)
 {
@@ -76,10 +76,12 @@ static void	write_split(char **split, const char *str, char charset)
 	}
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_pp(char const *s, char c)
 {
 	char	**res;
 	int		words;
+	char	**trim;
+	int		i;
 
 	words = count_words(s, c);
 	res = (char **) malloc (sizeof(char *) * (words + 1));
@@ -87,5 +89,17 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	res[words] = 0;
 	write_split(res, s, c);
-	return (res);
+	trim = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!trim)
+		return (NULL);
+	trim[words] = 0;
+	i = 0;
+	while (res[i])
+	{
+		trim[i] = ft_strtrim(res[i], " ");
+		ft_free(res[i]);
+		i++;
+	}
+	ft_free(res);
+	return (trim);
 }

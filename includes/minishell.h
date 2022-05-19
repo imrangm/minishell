@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 05:29:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 14:12:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,11 @@ char		**expand_envs(char **str, char **envp);
 long long	m_atoi(const char *str);
 int			are_digits(char *str);
 char		*get_export_value_side(char *str, int lhs);
+int			set_quote_mode(char c, int *quote);
+int			is_pipe_mode(char *str);
+int			is_redir_mode(char *str);
+void		ft_free(void *ptr);
+char		**ft_split_pp(char const *s, char c);
 // void		set_shlvl(int *shlvl, int value, char **envp);
 
 #endif
