@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/18 19:55:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 05:29:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_pipe
 //* I/O redirection
 void	file_parent(int fdi, int fdo, int *pid, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
-void	reset_rd(t_redirs *rd);
+void	init_rd(t_redirs *rd);
 void	empty_file(char *file);
 void	close_fds(int fdi, int fdo);
 void	process(char *line, t_redirs *rd);
@@ -102,6 +102,7 @@ int		exec_cmd_child(char **args, t_data *data);
 char	**exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char *str);
 int		p_env_error(char *str);
+void	free_struct(t_redirs *rd);
 
 //* Parsing
 int		preliminary_check(char *str, t_data *data);

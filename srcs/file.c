@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 22:22:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 05:33:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 	else
 		dup2(fdi, STDIN_FILENO);
 	dup2(fdo, STDOUT_FILENO);
+	free_struct(rd);
 	if (exec_cmd_child(arg, data) == -1)
 	{
 		close_fds(fdi, fdo);
@@ -86,6 +87,7 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 		file_parent(fdi, fdo, pid, data);
 		close_fds(fdi, fdo);
 	}
+	free_struct(rd);
 }
 
 char	*read_line(char *lim)
@@ -141,5 +143,4 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 		file_process(fdi, fdo, line, rd, data);
 	else
 		perror("File error");
-	reset_rd(rd);
 }

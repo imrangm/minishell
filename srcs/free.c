@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 19:58:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 06:05:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ void	ft_free_args(char ***arr)
 	}
 	free (arr);
 	arr = NULL;
+}
+
+void	free_struct(t_redirs *rd)
+{
+	ft_free(rd->infile);
+	ft_free(rd->outfile);
+	ft_free(rd->heredoc);
+	ft_free(rd->append);
+	ft_free(rd);
 }

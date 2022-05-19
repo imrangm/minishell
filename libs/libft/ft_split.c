@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:42:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 20:21:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 06:01:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,26 @@ char	**ft_split(char const *s, char c)
 {
 	char	**res;
 	int		words;
+	char	**trim;
+	int		i;
 
-	if (!s)
-		return (NULL);
 	words = count_words(s, c);
 	res = (char **) malloc (sizeof(char *) * (words + 1));
 	if (res == NULL)
 		return (NULL);
 	res[words] = 0;
 	write_split(res, s, c);
-	return (res);
+	trim = (char **)malloc(sizeof(char *) * (words + 1));
+	if (!trim)
+		return (NULL);
+	trim[words] = 0;
+	i = 0;
+	while (res[i])
+	{
+		trim[i] = ft_strtrim(res[i], " ");
+		ft_free(res[i]);
+		i++;
+	}
+	ft_free(res);
+	return (trim);
 }

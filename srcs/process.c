@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 22:08:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 05:56:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	reset_rd(t_redirs *rd)
+void	init_rd(t_redirs *rd)
 {
 	rd->infile = NULL;
 	rd->outfile = NULL;
@@ -67,19 +67,22 @@ void	process(char *line, t_redirs *rd)
 	int		i;
 
 	i = 0;
-	reset_rd(rd);
+	init_rd(rd);
 	out = ft_split_rd(line);
 	while (out[i + 1] != NULL)
 	{
-		file = first_word(out[i + 1]);
-		if (ft_strncmp(out[i], "<<", 2) == 0)
-			assign_infile(file, rd, 'h');
-		else if (ft_strncmp(out[i], "<", 1) == 0)
-			assign_infile(file, rd, 'i');
-		else if (ft_strncmp(out[i], ">>", 2) == 0)
-			assign_outfile(file, rd, 'a');
-		else if (ft_strncmp(out[i], ">", 1) == 0)
-			assign_outfile(file, rd, 'o');
+		if (out[i + 1][0] != '<' && out[i + 1][0] != '>')
+		{		
+			file = first_word(out[i + 1]);
+			if (ft_strncmp(out[i], "<<", 2) == 0)
+				assign_infile(file, rd, 'h');
+			else if (ft_strncmp(out[i], "<", 1) == 0)
+				assign_infile(file, rd, 'i');
+			else if (ft_strncmp(out[i], ">>", 2) == 0)
+				assign_outfile(file, rd, 'a');
+			else if (ft_strncmp(out[i], ">", 1) == 0)
+				assign_outfile(file, rd, 'o');
+		}
 		i++;
 	}
 	ft_free_arg(out);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:34:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 22:08:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/18 22:47:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	p_check_redir(char *line)
 	out = ft_split_rd(line);
 	while (out[i + 1])
 	{
-		out[i + 1] = ft_strtrim(out[i + 1], " ");
+		// out[i + 1] = ft_strtrim(out[i + 1], " ");
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
 			&& check_space(out[i + 1]))
 		{
