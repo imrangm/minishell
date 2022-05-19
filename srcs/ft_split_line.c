@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 05:20:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:59:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	split_pipe(char *line, t_data *data)
 	i = 0;
 	c = count_pipes(line) + 1;
 	p = malloc(sizeof(t_pipe *) * c);
-	cmd = ft_split(line, '|');
+	cmd = ft_split_pp(line, '|');
 	while (cmd[i])
 	{
 		p[i] = malloc(sizeof(t_pipe));
@@ -86,6 +86,6 @@ void	split_pipe(char *line, t_data *data)
 		p[i]->data = data;
 		i++;
 	}
-	pipes(line, p);
+	pipes(c, p);
 	ft_free_arg(cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 14:13:00 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 15:58:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	parent(int nchild, int **pipes, int *pids)
 		if (code != 0)
 			err_free_parent(pipes, pids);
 	}
-	no_err_free_parent(pipes, pids);
 	in_minishell_var(1);
 }
 
@@ -78,41 +77,20 @@ static void	create_pipes(int nchild, char ***arg, t_pipe **p)
 /*
 ** Populate arg variable with program names
 */
-static void	create_arg(int nchild, char **cmd, t_pipe **p)
+void	pipes(int nchild, t_pipe **p)
 {
 	int		i;
 	char	***arg;
 
+	in_minishell_var(0);
 	i = 0;
 	arg = malloc (sizeof(char **) * nchild);
 	if (!arg)
 		perror("Malloc failed");
 	while (i < nchild)
 	{
-		arg[i] = ft_split(cmd[i], ' ');
+		arg[i] = ft_split(p[i]->fcmd, ' ');
 		i++;
 	}
-	ft_free_arg(cmd);
 	create_pipes(nchild, arg, p);
-}
-
-/*
-** Split the line into different commands
-*/
-void	pipes(char *line, t_pipe **p)
-{
-	int		n;
-	int		i;
-	char	**cmd;
-
-	in_minishell_var(0);
-	n = count_pipes(line) + 1;
-	i = 0;
-	cmd = ft_split_pp(line, '|');
-	while (cmd[i])
-	{
-		cmd[i] = find_cmd(cmd[i]);
-		i++;
-	}
-	create_arg(n, cmd, p);
 }

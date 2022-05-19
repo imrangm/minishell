@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 15:37:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/19 16:09:06 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p);
 int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
 int		count_pipes(char *line);
-void	pipes(char *line, t_pipe **p);
+void	pipes(int nchild, t_pipe **p);
 
 //* Error and free
 void	err_print(int error, t_data *data);

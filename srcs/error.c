@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 19:55:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:58:11 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ void	err_print(int error, t_data *data)
 	data->last_exit_status = error;
 }
 
-void	no_err_free_parent(int **pipes, int *pids)
-{
-	ft_free_int(pipes);
-	ft_free(pids);
-	perror("Error");
-}
-
 void	err_free_parent(int **pipes, int *pids)
 {
 	ft_free_int(pipes);
 	ft_free(pids);
+	perror("Error");
 }
 
 void	err_free_process(int **pipes, char ***args)
