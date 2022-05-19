@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 09:48:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/19 15:42:45 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 	while (i < nchild)
 	{
 		pids[i] = fork();
-		if (pids[i] == -1)
-			err_print(4, p[0]->data);
+		// if (pids[i] == -1)
+		// 	err_print(4, p[0]->data);
 		if (pids[i] == 0)
 		{
 			if (i == 0)
@@ -114,6 +114,6 @@ void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 		}
 		i++;
 	}
-	ft_free_args(arg);
+	// ft_free_args(arg);
 	parent(nchild, pipes, pids);
 }
