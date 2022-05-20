@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 16:09:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 13:22:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
 int		exec_cmd_child(char **args, t_data *data);
 char	**exec_cmd_parent(char **args, t_data *data);
-int		is_parent_function(char *str);
+int		is_parent_function(char **args);
 int		p_env_error(char *str);
 void	free_struct(t_redirs *rd);
 
@@ -128,10 +128,10 @@ int		in_minishell_var(int is_true);
 
 //* Builtins
 int		b_env(char **envp, int export_mode);
-int		b_pwd(void);
+int		b_pwd(t_data *data);
 void	b_export(char **args, t_data *data);
 void	b_unset(char **args, t_data *data);
-int		b_cd(char *new_path);
+int		b_cd(char **args, t_data *data);
 void	b_exit(char **args, t_data *data);
 int		b_echo(char **args, t_data *data);
 

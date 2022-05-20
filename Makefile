@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/19 15:36:59 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/20 12:48:33 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,12 +59,12 @@ SRCS=		main.c \
 CC =		gcc
 
 # For home
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/ -g3
+CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/ -g3
 
 # For 42
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # For Linux
 # LDFLAGS =	-lreadline

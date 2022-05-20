@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 18:54:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 13:03:17 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,15 @@ char	*get_export_value_side(char *str, int lhs)
 */
 void	master_execute(char *line, t_data *data)
 {
-	char	**arg;
+	char	**args;
 	int		pid;
 
 	in_minishell_var(0);
-	arg = ft_split(line, ' ');
-	if (is_parent_function(arg[0]))
+	args = ft_split(line, ' ');
+	if (is_parent_function(args))
 	{
-		data->envp = exec_cmd_parent(arg, data);
-		ft_free_arg(arg);
+		data->envp = exec_cmd_parent(args, data); //! Implement wait() or waitpid()
+		ft_free_arg(args);
 	}
 	else
 	{
@@ -81,16 +81,19 @@ void	master_execute(char *line, t_data *data)
 		if (pid == -1)
 		{
 			data->last_exit_status = 1;
-			exit(data->last_exit_status);
+			exit(data->last_exit_status); //! Discuss this
 		}
 		if (pid == 0)
 		{
-			if (exec_cmd_child(arg, data) == -1)
-				err_print(127, data);
+			if (exec_cmd_child(args, data) == -1)
+			{
+				ft_putstr_fd("Error: Command not found\n", 2);
+				data->last_exit_status = 127;
+			}
 		}
 		else
 		{
-			ft_free_arg(arg);
+			ft_free_arg(args);
 			monitor(pid, data);
 		}
 	}

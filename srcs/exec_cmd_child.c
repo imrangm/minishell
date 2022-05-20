@@ -14,25 +14,22 @@
 
 int	exec_cmd_child(char **args, t_data *data)
 {
-	if (!ft_strncmp(args[0], "echo", ft_strlen(args[0])))
-	{
+	if (!cmp_cmd(args[0], "echo"))
 		b_echo(args, data);
-		kill(getpid(), 9);
-	}
-	else if (!ft_strncmp(args[0], "pwd", ft_strlen(args[0])))
-	{
-		b_pwd();
-		ft_free_arg(args);
-		kill(getpid(), 9);
-	}
-	else if (!ft_strncmp(args[0], "env", 3))
-	{
+	else if (!cmp_cmd(args[0], "pwd"))
+		b_pwd(data);
+	else if (!cmp_cmd(args[0], "env"))
 		b_env(data->envp, 0);
-		kill(getpid(), 9);
-	}
+	else if (!cmp_cmd(args[0], "export"))
+		b_env(data->envp, 1);
 	else if (execve(cmd_path(args[0], data), args, data->envp) == -1)
+	{
+		ft_free_arg(args);
+		ft_free_arg(data->envp);
 		return (-1);
-	//! Add an if-statement here that checks if the first command
-	//! is the minishell exec so that I increment SHLVL then pass the envp to the execve
+	}
+	ft_free_arg(args);
+	ft_free_arg(data->envp);
+	kill(getpid(), 9);
 	return (0);
 }
