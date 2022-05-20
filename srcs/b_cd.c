@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 13:50:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 22:24:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,63 +47,79 @@ static int	invalid_args_count(char **args, t_data *data)
 	return (0);
 }
 
-static char	*smart_join_paths(char *new_path, char *pwd)
+static int	root_relative_chdir(char *new_path, t_data *data)
 {
-	if (pwd[0] == '/' && !pwd[2])
-		return (ft_strjoin(pwd, new_path));
-	else
-		return (join_paths(pwd, new_path));
-}
+	char	*cwd;
+	char	*pwd;
 
-static int	root_or_dot_chdir(char *new_path, t_data *data)
-{
-	if (new_path[0] == '/' || new_path[0] == '.')
+	cwd = NULL;
+	pwd = getcwd(cwd, sizeof(cwd));
+	if (new_path[0] == '/' && pwd[0] == '/')
 	{
 		if (chdir(new_path) == -1)
 		{
 			ft_putstr_fd("Error: No such file or directory\n", 2);
 			data->last_exit_status = 1;
+			free(new_path);
+			free(pwd);
+			free(cwd);
 			return (1);
 		}
 	}
-	data->last_exit_status = 0;
+	else
+		data->last_exit_status = 0;
+	free(new_path);
+	free(pwd);
+	free(cwd);
 	return (0);
 }
 
-static int	relative_chdir(char *new_path, t_data *data)
+static int	relative_chdir(char *new_path, char *pwd, t_data *data)
 {
-	char	*cwd;
-	char	*pwd;
 	char	*full_path;
 
-	cwd = NULL;
-	pwd = getcwd(cwd, sizeof(cwd));
-	full_path = smart_join_paths(new_path, pwd);
-	if (!full_path || !pwd)
-		return (1);
+	full_path = join_paths(new_path, pwd);
 	if (chdir(full_path) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
 		data->last_exit_status = 1;
 		free(full_path);
-		free(pwd);
-		free(cwd);
 		return (1);
 	}
 	free(full_path);
-	free(pwd);
-	free(cwd);
-	data->last_exit_status = 0;
+	return (0);
+}
+
+int	full_chdir(char *new_path, t_data *data)
+{
+	if (chdir(new_path) == -1)
+	{
+		ft_putstr_fd("Error: No such file or directory\n", 2);
+		data->last_exit_status = 1;
+		return (1);
+	}
 	return (0);
 }
 
 int	b_cd(char **args, t_data *data)
 {
+	char	*cwd;
+	char	*pwd;
+	int		rv;
+
+	cwd = NULL;
+	rv = 0;
 	if (invalid_args_count(args, data))
 		return (1);
-	else if (root_or_dot_chdir(args[1], data))
-		return (1);
-	else if (relative_chdir(args[1], data))
-		return (1);
-	return (0);
+	pwd = getcwd(cwd, sizeof(cwd));
+	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
+		rv = root_relative_chdir(args[1], data);
+	else if (args[1][0] == '/')
+		rv = full_chdir(args[1], data);
+	else
+		rv = relative_chdir(pwd, args[1], data);
+	data->last_exit_status = 0;
+	free(pwd);
+	free(cwd);
+	return (rv);
 }

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 13:55:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 19:55:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int			is_pipe_mode(char *str);
 int			is_redir_mode(char *str);
 void		ft_free(void *ptr);
 char		**ft_split_pp(char const *s, char c);
-int			cmp_cmd(char *cmd, char *builtin);
+int			cmp_str(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);
 
 #endif

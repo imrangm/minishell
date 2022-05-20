@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 15:57:11 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 19:56:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	unset_env(char *var_name, char **envp)
 		return ;
 	while (envp[i])
 	{
-		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
+		if (!cmp_str(envp[i], var_name))
 		{
 			free(envp[i]);
 			envp[i] = NULL;

@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmp_cmd.c                                          :+:      :+:    :+:   */
+/*   cmp_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:23:41 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 16:27:25 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/20 19:55:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	cmp_cmd(char *cmd, char *builtin)
+int	cmp_str(char *s1, char *s2)
 {
 	int	i;
 
 	i = 0;
-	while (cmd[i] && builtin[i])
+	while (s1[i] && s2[i])
 	{
-		if (cmd[i] != builtin[i])
+		if (s1[i] != s2[i])
 			return (1);
 		i++;
 	}
-	if (cmd[i] || builtin[i])
+	if (s1[i] || s2[i])
 		return (1);
 	return (0);
 }

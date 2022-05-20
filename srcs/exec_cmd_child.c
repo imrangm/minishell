@@ -14,13 +14,13 @@
 
 int	exec_cmd_child(char **args, t_data *data)
 {
-	if (!cmp_cmd(args[0], "echo"))
+	if (!cmp_str(args[0], "echo"))
 		b_echo(args, data);
-	else if (!cmp_cmd(args[0], "pwd"))
+	else if (!cmp_str(args[0], "pwd"))
 		b_pwd(data);
-	else if (!cmp_cmd(args[0], "env"))
+	else if (!cmp_str(args[0], "env"))
 		b_env(data->envp, 0);
-	else if (!cmp_cmd(args[0], "export"))
+	else if (!cmp_str(args[0], "export"))
 		b_env(data->envp, 1);
 	else if (execve(cmd_path(args[0], data), args, data->envp) == -1)
 	{
