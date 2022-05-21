@@ -14,7 +14,7 @@
 
 int	exec_cmd_child(char **args, t_data *data)
 {
-	int	cmd_path;
+	char	*cmd_path;
 
 	cmd_path = NULL;
 	if (!cmp_str(args[0], "echo"))
@@ -34,10 +34,12 @@ int	exec_cmd_child(char **args, t_data *data)
 			{
 				ft_free_arg(args);
 				ft_free_arg(data->envp);
+				free(cmd_path);
 				return (-1);
 			}
 		}
 	}
+	free(cmd_path);
 	ft_free_arg(args);
 	ft_free_arg(data->envp);
 	kill(getpid(), 9);
