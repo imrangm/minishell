@@ -14,6 +14,9 @@
 
 int	exec_cmd_child(char **args, t_data *data)
 {
+	int	cmd_path;
+
+	cmd_path = NULL;
 	if (!cmp_str(args[0], "echo"))
 		b_echo(args, data);
 	else if (!cmp_str(args[0], "pwd"))
@@ -22,11 +25,18 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 0);
 	else if (!cmp_str(args[0], "export"))
 		b_env(data->envp, 1);
-	else if (execve(cmd_path(args, data), args, data->envp) == -1)
+	else
 	{
-		ft_free_arg(args);
-		ft_free_arg(data->envp);
-		return (-1);
+		cmd_path = get_cmd_path(args, data); //! Work on this segment
+		if (cmd_path)
+		{
+			if (execve(cmd_path, args, data->envp) == -1)
+			{
+				ft_free_arg(args);
+				ft_free_arg(data->envp);
+				return (-1);
+			}
+		}
 	}
 	ft_free_arg(args);
 	ft_free_arg(data->envp);
