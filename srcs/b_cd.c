@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 22:24:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/21 18:51:37 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ int	b_cd(char **args, t_data *data)
 	cwd = NULL;
 	rv = 0;
 	if (invalid_args_count(args, data))
+	{
+		ft_free_arg(args);
 		return (1);
+	}
 	pwd = getcwd(cwd, sizeof(cwd));
 	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
 		rv = root_relative_chdir(args[1], data);

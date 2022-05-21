@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/20 20:31:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/21 18:27:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	master_execute(char *line, t_data *data)
 		if (pid == -1)
 		{
 			data->last_exit_status = 1;
+			ft_free_arg(args);
+			ft_free_arg(data->envp);
 			exit(data->last_exit_status); //! Discuss this
 		}
 		if (pid == 0)

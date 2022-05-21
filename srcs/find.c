@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/13 06:11:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/21 18:47:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_path(t_data *data)
 	i = 0;
 	j = 0;
 	find = "PATH=";
-	while (data->envp[i] != NULL)
+	while (data->envp[i])
 	{
 		j = 0;
 		while (data->envp[i][j] == find[j])
@@ -82,6 +82,7 @@ char	*find_exec(char *prg, char	**paths)
 			ft_free_arg(paths);
 			return (find);
 		}
+		free(find);
 		i++;
 	}
 	ft_free_arg(paths);
@@ -91,21 +92,24 @@ char	*find_exec(char *prg, char	**paths)
 /*
 ** culmination of previous functions to return command path
 */
-char	*cmd_path(char*cmd, t_data *data)
+char	*cmd_path(char **args, t_data *data)
 {
-	char	*path;
+	char	*path_env_val;
 	char	**paths;
 	char	*output;
 
-	if (ft_strchr(cmd, '/'))
-		return (cmd);
-	path = get_path(data);
-	paths = split_path(path);
-	output = find_exec(cmd, paths);
+	if (ft_strchr(args[0], '/'))
+		return (args[0]);
+	path_env_val = get_path(data);
+	if (!path_env_val)
+		return (NULL);
+	paths = split_path(path_env_val);
+	output = find_exec(args[0], paths);
 	if (!output)
 	{
 		perror("command not found");
 		data->last_exit_status = 127;
+		ft_free_arg(args);
 		exit(127);
 	}
 	return (output);

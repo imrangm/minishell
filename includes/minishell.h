@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 19:55:35 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/21 18:37:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	split_pipe(char *line, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
-char	*cmd_path(char*cmd, t_data *data);
+char	*cmd_path(char **args, t_data *data);
 void	master_execute(char *line, t_data *data);
 char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
