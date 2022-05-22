@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:54:07 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 12:00:25 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	monitor(int pid, t_data *data)
+static void	monitor_process(int pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -21,7 +21,7 @@ void	monitor(int pid, t_data *data)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
-		if (code != 0)
+		if (code)
 		{
 			data->last_exit_status = code;
 			strerror(code);
@@ -55,40 +55,45 @@ char	*get_export_value_side(char *str, int lhs)
 	return (NULL);
 }
 
-void	master_execute(char *line, t_data *data)
+static void create_child_process(char **args, t_data *data)
 {
-	char	**args;
-	int		pid;
-
-	in_minishell_var(0);
-	args = ft_split(line, ' ');
-	if (is_parent_function(args))
+	int	pid;
+	pid = fork();
+	if (pid == -1)
 	{
-		data->envp = exec_cmd_parent(args, data); //! Implement wait() or waitpid()
+		data->last_exit_status = 1;
 		ft_free_arg(args);
+		ft_putstr_fd("Error: Could not create child process\n", 2);
+		// ft_free_arg(data->envp);
+		// exit(data->last_exit_status);
+		return ;
+	}
+	if (pid == 0)
+	{
+		if (exec_cmd_child(args, data) == -1)
+		{
+			ft_putstr_fd("Error: Command not found\n", 2);
+			data->last_exit_status = 127;
+		}
 	}
 	else
 	{
-		pid = fork();
-		if (pid == -1)
-		{
-			data->last_exit_status = 1;
-			ft_free_arg(args);
-			ft_free_arg(data->envp);
-			exit(data->last_exit_status); //! Discuss this
-		}
-		if (pid == 0)
-		{
-			if (exec_cmd_child(args, data) == -1)
-			{
-				ft_putstr_fd("Error: Command not found\n", 2);
-				data->last_exit_status = 127;
-			}
-		}
-		else
-		{
-			ft_free_arg(args);
-			monitor(pid, data);
-		}
+		ft_free_arg(args);
+		monitor_process(pid, data);
 	}
+}
+
+void	master_execute(char *line, t_data *data)
+{
+	char	**args;
+
+	in_minishell_var(0);
+	args = ft_split(line, ' '); //TODO Create a better ft_split()
+	if (is_parent_function(args))
+	{
+		data->envp = exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
+		ft_free_arg(args);
+	}
+	else
+		create_child_process(args, data);
 }
