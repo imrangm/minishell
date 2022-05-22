@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 00:15:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:33:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	exec_cmd_child(char **args, t_data *data)
 				return (-1);
 			}
 		}
+		free(cmd_path);
 	}
-	free(cmd_path);
 	ft_free_arg(args);
 	ft_free_arg(data->envp);
 	kill(getpid(), 9);
