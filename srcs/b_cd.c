@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 00:20:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 15:45:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int	relative_chdir(char *new_path, char *pwd, t_data *data)
 	return (0);
 }
 
-int	full_chdir(char *new_path, t_data *data)
+static int	full_chdir(char *new_path, t_data *data)
 {
 	if (chdir(new_path) == -1)
 	{

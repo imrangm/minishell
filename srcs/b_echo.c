@@ -6,18 +6,18 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 19:57:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 15:46:29 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_putchar(int c)
+static void	ft_putchar(int c)
 {
 	write (1, &c, 1);
 }
 
-void	print_with_stripped_quotes(char *str, int space, int nl)
+static void	print_with_stripped_quotes(char *str, int space, int nl)
 {
 	int	i;
 	int	d;
@@ -40,7 +40,7 @@ void	print_with_stripped_quotes(char *str, int space, int nl)
 		ft_putchar(32);
 }
 
-int	is_n_flag(char *str)
+static int	is_n_flag(char *str)
 {
 	int	i;
 

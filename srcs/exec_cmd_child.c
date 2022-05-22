@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 11:33:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 15:43:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 1);
 	else
 	{
-		cmd_path = get_cmd_path(args, data); //! Work on this segment
+		cmd_path = get_cmd_path(args, data);
 		if (cmd_path)
 		{
 			if (execve(cmd_path, args, data->envp) == -1)

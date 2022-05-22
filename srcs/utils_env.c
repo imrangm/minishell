@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/21 18:52:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 15:43:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	count_up_to_equal(char *str)
+static int	count_up_to_equal(char *str)
 {
 	int	i;
 
@@ -24,9 +24,6 @@ int	count_up_to_equal(char *str)
 	return (i);
 }
 
-/*
-* Proprietary get_env()
-*/
 char	*get_env_value(char *str, char **envp)
 {
 	int		i;
@@ -43,9 +40,6 @@ char	*get_env_value(char *str, char **envp)
 	return (NULL);
 }
 
-/*
-* Returns 1 if env exists; otherwise returns 0.
-*/
 int	env_exists(char *var_name, char **envp)
 {
 	int		i;
