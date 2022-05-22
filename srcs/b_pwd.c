@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:25:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/20 13:23:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 15:34:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@ int	b_pwd(t_data *data)
 
 	cwd = NULL;
 	pwd = getcwd(cwd, sizeof(cwd));
+	printf("pwd = %p\ncwd = %p\n", &pwd, &cwd);
+	data->last_exit_status = 0;
 	if (!pwd)
 	{
-		data->last_exit_status = 1;
-		return (1);
+		pwd = get_env_value("PWD", data->envp);
+		if (!pwd)
+			pwd = get_env_value("OLDPWD", data->envp);
+		printf("%s\n", pwd);
+		free(pwd);
+		return (0);
 	}
 	printf("%s\n", pwd);
-	if (pwd) //! Double-check if necessary
-		free(pwd);
-	if (cwd) //! Double-check if necessary
-		free(cwd);
+	free(pwd);
+	free(cwd);
 	return (0);
 }
