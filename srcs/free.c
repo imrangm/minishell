@@ -6,15 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 14:52:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:53:45 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** freeing memory allocated through malloc
-*/
 void	ft_free(void *ptr)
 {
 	free(ptr);

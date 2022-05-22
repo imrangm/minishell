@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 15:42:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:53:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,6 @@ int	redir_out(t_pipe **p, int i)
 		return (0);
 }
 
-/*
-** Create the processes to run the number of programs passed by user
-*/
 void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p)
 {
 	int	*pids;

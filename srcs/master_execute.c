@@ -6,15 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/21 18:27:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:54:07 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** Main or parent process to monitor child process
-*/
 void	monitor(int pid, t_data *data)
 {
 	int	wstatus;
@@ -58,11 +55,6 @@ char	*get_export_value_side(char *str, int lhs)
 	return (NULL);
 }
 
-/*
-** creating new process and using it to execute a shell command;
-** execve uses cmd_path in find.c to check if the command exists
-** and return its path
-*/
 void	master_execute(char *line, t_data *data)
 {
 	char	**args;

@@ -6,15 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/04/25 20:57:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:53:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** Handles SIGINT signals by redisplaying the prompt.
-*/
 void	handle_signals(int signum)
 {
 	(void) signum;
@@ -25,10 +22,6 @@ void	handle_signals(int signum)
 		rl_redisplay();
 }
 
-/*
-** The static int is treated as a global variable.
-** To retrieve its value, one must pass -1.
-*/
 int	in_minishell_var(int is_true)
 {
 	static int in_minishell;

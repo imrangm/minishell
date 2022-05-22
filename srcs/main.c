@@ -6,16 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/20 21:00:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:54:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-/*
-** Using readline library to create shell command-line
-** and executing the commands through user input
-*/
 
 int	main(int argc, char **argv, char **envp)
 {

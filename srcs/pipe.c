@@ -3,20 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 15:58:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/22 11:54:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** Main or parent process used to ensure all child
-** processes have run successfully or otherwise
-** throw an error and exit program
-*/
 void	parent(int nchild, int **pipes, int *pids)
 {
 	int	i;
@@ -45,9 +40,6 @@ void	parent(int nchild, int **pipes, int *pids)
 	in_minishell_var(1);
 }
 
-/*
-** Create the pipes to communicate between child processes
-*/
 static void	create_pipes(int nchild, char ***arg, t_pipe **p)
 {
 	int		i;
@@ -74,9 +66,6 @@ static void	create_pipes(int nchild, char ***arg, t_pipe **p)
 	create_process(nchild, arg, pipes, p);
 }
 
-/*
-** Populate arg variable with program names
-*/
 void	pipes(int nchild, t_pipe **p)
 {
 	int		i;

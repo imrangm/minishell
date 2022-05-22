@@ -6,15 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:39:05 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/22 11:53:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
-** Splits the PATH variable by delimiter and returns paths
-*/
 char	**split_path(char *path)
 {
 	int		i;
@@ -34,10 +31,6 @@ char	**split_path(char *path)
 	return (paths);
 }
 
-/*
-** checks if the command exists by going through different paths
-** specified in the environment
-*/
 char	*find_exec(char *cmd, char **paths)
 {
 	int		i;
@@ -79,9 +72,6 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 	return (cmd);
 }
 
-/*
-** culmination of previous functions to return command path
-*/
 char	*get_cmd_path(char **args, t_data *data)
 {
 	char	*path_env_val;
@@ -94,6 +84,8 @@ char	*get_cmd_path(char **args, t_data *data)
 	if (!path_env_val)
 		return (NULL);
 	paths = split_path(path_env_val);
+	if (!paths)
+		return (NULL);
 	cmd = find_exec(args[0], paths);
 	return (validate_cmd(cmd, args, data));
 }
