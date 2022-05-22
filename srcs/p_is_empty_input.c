@@ -12,16 +12,18 @@
 
 #include "../includes/minishell.h"
 
-/*
-* Checks if the user has input a word at the start
-* regardless whether or not it's an existing command.
-*/
+static int	is_space(char c)
+{
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\f' || c == '\r' || c == '\n');
+}
+
 int	p_is_empty_input(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] == 32 || str[i] == '\t')
+	while (is_space(str[i]))
 		i++;
 	if (!str[i])
 		return (1);
