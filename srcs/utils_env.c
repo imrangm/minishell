@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 15:43:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:27:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	env_exists(char *var_name, char **envp)
 	int		i;
 
 	i = 0;
+	if (envp == NULL)
+		return (0);
 	while (envp[i])
 	{
 		if (ft_strchr(envp[i], '='))
@@ -86,15 +88,13 @@ char	**clone_env(char **envp, int extra_slot)
 	char	**envp_copy;
 
 	i = 0;
-	if (!envp[0])
-		return (NULL);
-	while (envp[i])
+	while (envp && envp[i])
 		i++;
 	envp_copy = (char **) malloc(sizeof(char *) * (i + 1 + extra_slot));
 	if (!envp_copy)
 		return (NULL);
 	i = 0;
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		envp_copy[i] = ft_strdup(envp[i]);
 		i++;
@@ -142,14 +142,24 @@ void	modify_env(char *var_name, char *value, char **envp)
 	}
 }
 
-void	unset_env(char *var_name, char **envp)
+int	count_env(char **envp)
 {
 	int	i;
 
 	i = 0;
-	if (!env_exists(var_name, envp))
-		return ;
+	if (!envp)
+		return (0);
 	while (envp[i])
+		i++;
+	return (i);
+}
+
+void	free_block(char *var_name, char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp && envp[i])
 	{
 		if (!cmp_str(envp[i], var_name))
 		{
@@ -159,16 +169,37 @@ void	unset_env(char *var_name, char **envp)
 		}
 		i++;
 	}
-	while (envp[i + 1])
+}
+
+void	unset_env(char *var_name, char **envp)
+{
+	int	i;
+	int	env_count;
+
+	i = 0;
+	env_count = count_env(envp);
+	if (!env_exists(var_name, envp))
+		return ;
+	if (env_count == 1)
 	{
-		free(envp[i]);
+		ft_free(envp[0]);
+		return ;
+	}
+	free_block(var_name, envp);
+	while (envp && i + 1 < env_count)
+	{
+		ft_free(envp[i]);
 		envp[i] = NULL;
+		// envp[i] = ft_strdup(envp[i + 1]);
 		envp[i] = (char *) malloc(sizeof(char) * (ft_strlen(envp[i + 1]) + 1));
 		ft_strlcpy(envp[i], envp[i + 1], ft_strlen(envp[i + 1]) + 1);
 		i++;
 	}
-	envp[i] = 0;
-	envp[++i] = 0;
+	if (envp)
+	{
+		envp[i] = 0;
+		envp[++i] = 0;
+	}
 }
 
 char	**add_env(char *var_name, char *value, char **envp)
@@ -179,12 +210,12 @@ char	**add_env(char *var_name, char *value, char **envp)
 	if (env_exists(var_name, envp))
 	{
 		modify_env(var_name, value, envp);
-		free(var_name);
-		free(value);
+		ft_free(var_name);
+		ft_free(value);
 		return (envp);
 	}
 	appended_env = append_env(var_name, value, envp);
-	free(var_name);
-	free(value);
+	ft_free(var_name);
+	ft_free(value);
 	return (appended_env);
 }

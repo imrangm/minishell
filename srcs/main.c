@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:54:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/25 16:06:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	data.envp = clone_env(envp, 0);
+	data.envp = init_envp(envp);
 	in_minishell_var(1);
 	while (isatty(STDIN_FILENO))
 	{
