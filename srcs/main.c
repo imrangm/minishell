@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/25 16:06:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 17:15:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	main(int argc, char **argv, char **envp)
 		else
 			data.last_exit_status = 0;
 		in_minishell_var(1);
-		free(line);
+		ft_free(line);
 	}
 }

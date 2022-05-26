@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/25 16:27:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 17:38:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	equal[0] = '=';
 	equal[1] = '\0';
 	var_name_and_equal = ft_strjoin(var_name, equal);
-	free(equal);
+	ft_free(equal);
 	full_env_entry = ft_strjoin(var_name_and_equal, value);
-	free(var_name_and_equal);
+	ft_free(var_name_and_equal);
 	return (full_env_entry);
 }
 
@@ -127,11 +127,13 @@ void	modify_env(char *var_name, char *value, char **envp)
 	int	i;
 
 	i = 0;
+	if (!envp)
+		return ;
 	while (envp[i])
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
-			free(envp[i]);
+			ft_free(envp[i]);
 			if (!value)
 				envp[i] = ft_strdup(var_name);
 			else
@@ -163,7 +165,7 @@ void	free_block(char *var_name, char **envp)
 	{
 		if (!cmp_str(envp[i], var_name))
 		{
-			free(envp[i]);
+			ft_free(envp[i]);
 			envp[i] = NULL;
 			break ;
 		}
@@ -189,10 +191,7 @@ void	unset_env(char *var_name, char **envp)
 	while (envp && i + 1 < env_count)
 	{
 		ft_free(envp[i]);
-		envp[i] = NULL;
-		// envp[i] = ft_strdup(envp[i + 1]);
-		envp[i] = (char *) malloc(sizeof(char) * (ft_strlen(envp[i + 1]) + 1));
-		ft_strlcpy(envp[i], envp[i + 1], ft_strlen(envp[i + 1]) + 1);
+		envp[i] = ft_strdup(envp[i + 1]);
 		i++;
 	}
 	if (envp)

@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/05/25 16:06:22 by nmadi            ###   ########.fr        #
+#    Updated: 2022/05/26 17:06:42 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ CC =		gcc
 
 # For 42
 LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # For Linux
 # LDFLAGS =	-lreadline
