@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 17:39:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:00:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void	ft_free(void *ptr)
 	}
 }
 
-void	ft_free_int(int **arr)
+//? changed
+void	ft_free_int(int **arr, int nchild)
 {
 	int	i;
 
 	i = 0;
-	while (arr[i])
+	while (i < nchild)
 	{
 		free(arr[i]);
 		arr[i] = NULL;
@@ -51,33 +52,16 @@ void	ft_free_arg(char **arr)
 	ft_free(arr);
 }
 
-void	ft_free_args(char ***arr)
+void	ft_free_args(char ***arr, int nchild)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
-	while (arr[i])
+	while (i < nchild)
 	{
-		while (arr[i][j])
-		{
-			free(arr[i][j]);
-			arr[i][j] = NULL;
-			j++;
-		}
-		arr[i] = NULL;
+		ft_free_arg(arr[i]);
 		i++;
 	}
 	free (arr);
 	arr = NULL;
-}
-
-void	free_struct(t_redirs *rd)
-{
-	ft_free(rd->infile);
-	ft_free(rd->outfile);
-	ft_free(rd->heredoc);
-	ft_free(rd->append);
-	ft_free(rd);
 }

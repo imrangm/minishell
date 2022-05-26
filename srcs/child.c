@@ -6,20 +6,21 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:53:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:07:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
+//? changed
+void	first_child(char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
 
 	i = 0;
 	j = 0;
-	while (j < nchild - 1)
+	while (j < p[0]->nchild - 1)
 	{
 		close(pipes[j][0]);
 		if (i != j)
@@ -31,19 +32,18 @@ void	first_child(int nchild, char **arg, int **pipes, t_pipe **p)
 		dup2(pipes[i][1], STDOUT_FILENO);
 	close(pipes[i][1]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
-	{
-		ft_free_int(pipes);
-		ft_free_arg(arg);
 		err_print(127, p[0]->data);
-	}
 }
 
-void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
+//? changed
+void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
 {
 	int	j;
+	int	n;
 
 	j = 0;
-	while (j < nchild - 1)
+	n = p[0]->nchild;
+	while (j < n - 1)
 	{
 		if (*i - 1 != j)
 			close(pipes[j][0]);
@@ -58,21 +58,18 @@ void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p)
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
-	{
-		ft_free_int(pipes);
-		ft_free_arg(arg);
 		err_print(127, p[0]->data);
-	}
 }
 
-void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
+//? changed
+void	last_child(char **arg, int **pipes, t_pipe **p)
 {
 	int	i;
 	int	j;
 
-	i = nchild - 1;
+	i = p[0]->nchild - 1;
 	j = 0;
-	while (j < nchild - 1)
+	while (j < p[0]->nchild - 1)
 	{
 		if (i - 1 != j)
 			close(pipes[j][0]);
@@ -84,9 +81,5 @@ void	last_child(int nchild, char **arg, int **pipes, t_pipe **p)
 	redir_out(p, i);
 	close(pipes[i - 1][0]);
 	if (exec_cmd_child(arg, p[0]->data) == -1)
-	{
-		ft_free_int(pipes);
-		ft_free_arg(arg);
 		err_print(127, p[0]->data);
-	}
 }

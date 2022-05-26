@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 05:33:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:03:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
+//? changed
+void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 {
 	int			f;
 
@@ -29,18 +30,17 @@ void	file_child(int fdi, int fdo, char **arg, t_redirs *rd, t_data *data)
 		unlink("tmp");
 	}
 	else
-		dup2(fdi, STDIN_FILENO);
-	dup2(fdo, STDOUT_FILENO);
-	free_struct(rd);
+		dup2(fd[0], STDIN_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
 	if (exec_cmd_child(arg, data) == -1)
 	{
-		close_fds(fdi, fdo);
-		ft_free_arg(arg);
+		rd_free(fd, arg, rd);
 		err_print(127, data);
 	}
 }
 
-void	file_parent(int fdi, int fdo, int *pid, t_data *data)
+//? changed
+void	file_parent(int *pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -52,23 +52,21 @@ void	file_parent(int fdi, int fdo, int *pid, t_data *data)
 		if (access("tmp", F_OK))
 			unlink("tmp");
 		if (code != 0)
-		{
-			close_fds(fdi, fdo);
-			ft_free(pid);
 			data->last_exit_status = code;
-		}
 	}
 }
 
-void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
+//? changed
+void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 {
 	int		pid[2];
 	char	**arg;
 
 	arg = ft_split(cmd, ' ');
+	ft_free(cmd);
 	if (!ft_strncmp(arg[0], "env", ft_strlen(arg[0])))
 	{
-		b_env(data->envp, 0); //? env
+		b_env(data->envp, 0);
 		ft_free_arg(arg);
 		return ;
 	}
@@ -77,17 +75,13 @@ void	file_process(int fdi, int fdo, char *cmd, t_redirs *rd, t_data *data)
 		exit (1);
 	if (pid[0] == 0)
 	{
-		ft_free(cmd);
-		file_child(fdi, fdo, arg, rd, data);
+		file_child(fd, arg, rd, data);
 	}
 	else
 	{
-		ft_free(cmd);
-		ft_free_arg(arg);
-		file_parent(fdi, fdo, pid, data);
-		close_fds(fdi, fdo);
+		file_parent(pid, data);
+		rd_free(fd, arg, rd);
 	}
-	free_struct(rd);
 }
 
 char	*read_line(char *lim)
@@ -118,29 +112,30 @@ char	*read_line(char *lim)
 	return (final);
 }
 
+//? changed
 void	create_file(char *line, t_redirs *rd, t_data *data)
 {
-	int		fdi;
-	int		fdo;
+	int		*fd;
 	char	*text;
 
-	fdi = 0;
-	fdo = 1;
+	fd = (int *) malloc (sizeof(int) * 2);
+	fd[0] = 0;
+	fd[1] = 1;
 	if (rd->heredoc && rd->lastin == 'h')
 	{
-		fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fd[0] = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
 		text = read_line(rd->heredoc);
-		write(fdi, text, strlen(text));
-		close(fdi);
+		write(fd[0], text, strlen(text));
+		close(fd[0]);
 	}
 	if (rd->infile && rd->lastin == 'i')
-		fdi = open(rd->infile, O_RDONLY | O_CLOEXEC);
+		fd[0] = open(rd->infile, O_RDONLY | O_CLOEXEC);
 	if (rd->outfile && rd->lastout == 'o')
-		fdo = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
+		fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
 	if (rd->append && rd->lastout == 'a')
-		fdo = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
-	if (fdi != -1 && fdo != -1)
-		file_process(fdi, fdo, line, rd, data);
-	else
+		fd[1] = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
+	if (fd[0] == -1 || fd[1] == -1)
 		perror("File error");
+	else
+		file_process(fd, line, rd, data);
 }

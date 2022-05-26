@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/17 08:01:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:10:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	close_fds(int fdi, int fdo)
+//? changed
+void	close_fds(int *fd)
 {
-	if (fdi != 0)
-		close(fdi);
-	if (fdo != 1)
-		close(fdo);
+	if (fd[0] != 0)
+		close(fd[0]);
+	if (fd[1] != 1)
+		close(fd[1]);
 }
 
 int	word_count(char *input)
@@ -63,31 +64,31 @@ int	check_space(char *str)
 	return (0);
 }
 
-char	*line_unquote(char *input)
+//? changed
+char	*ft_strjoin_and_free(char *s1, char const *s2)
 {
-	int		i;
-	int		j;
-	int		size;
-	char	*copy;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	i = 0;
-	j = 0;
-	size = 0;
-	while (input[i++])
+	if (!s1)
 	{
-		if (input[i] == '\'' || input[i] == '\"')
-			i++;
-		size++;
+		s1 = malloc(sizeof(char));
+		*s1 = '\0';
 	}
-	copy = (char *) malloc(sizeof(char) * (size + 1));
-	if (!copy)
+	str = (char *) malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (str == NULL)
 		return (NULL);
 	i = 0;
-	while (input[i++])
+	while (s1 && s1[i] != '\0')
 	{
-		if (input[i] != '\'' || input[i] != '\"')
-			copy[j++] = input[i++];
+		str[i] = s1[i];
+		i++;
 	}
-	copy[j] = '\0';
-	return (copy);
+	j = 0;
+	while (s2[j] != '\0')
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	ft_free(s1);
+	return (str);
 }

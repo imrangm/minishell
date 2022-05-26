@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:06:27 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:53:41 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:02:56 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 	return (cmd);
 }
 
+//! Change this to accept only one string containing the cmd
 char	*get_cmd_path(char **args, t_data *data)
 {
 	char	*path_env_val;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nm dimaniudint.42abudhabi.ae>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 05:56:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/26 27:54:14 by nm di            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,46 @@ void	empty_file(char *file)
 	close(fd);
 }
 
+//? changed
 void	assign_infile(char *file, t_redirs *rd, char t)
 {
 	if (t == 'h')
 	{
 		if (rd->heredoc)
+		{
 			read_line(rd->heredoc);
+			ft_free(rd->heredoc);
+		}
 		rd->heredoc = file;
 	}
 	if (t == 'i')
+	{
+		if (rd->infile)
+			ft_free(rd->infile);
 		rd->infile = file;
+	}
 	rd->lastin = t;
 }
 
+//? changed
 void	assign_outfile(char *file, t_redirs *rd, char t)
 {
 	if (t == 'a')
 	{
 		if (rd->append)
+		{
 			empty_file(rd->append);
+			ft_free(rd->append);
+		}
 		rd->append = file;
 	}
 	if (t == 'o')
 	{
 		if (rd->outfile)
+		{
 			empty_file(rd->outfile);
+			ft_free(rd->outfile);
+		}
 		rd->outfile = file;
 	}
 	rd->lastout = t;
@@ -72,7 +87,7 @@ void	process(char *line, t_redirs *rd)
 	while (out[i + 1] != NULL)
 	{
 		if (out[i + 1][0] != '<' && out[i + 1][0] != '>')
-		{		
+		{
 			file = first_word(out[i + 1]);
 			if (ft_strncmp(out[i], "<<", 2) == 0)
 				assign_infile(file, rd, 'h');

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/18 22:08:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/05/26 18:10:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char	*set_cmd(char *s1, char *s2)
 	return (cmd);
 }
 
+//? changed
 char	*find_cmd(char *input)
 {
 	int		i;
@@ -73,7 +74,8 @@ char	*find_cmd(char *input)
 		if (word_count(out[i]) > 0)
 		{
 			args = set_arg(i, out[i]);
-			cmd = ft_strjoin(cmd, args);
+			cmd = ft_strjoin_and_free(cmd, args);
+			ft_free(args);
 		}
 		i++;
 	}

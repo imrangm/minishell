@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/22 11:53:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:02:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,14 @@ void	split_rd(char *line, t_data *data)
 	char		*cmd;
 
 	rd = malloc(sizeof(t_redirs));
+	if (!rd)
+		return ;
 	cmd = find_cmd(line);
 	process(line, rd);
 	create_file(cmd, rd, data);
 }
 
+//? changed
 void	split_pipe(char *line, t_data *data)
 {
 	char	**cmd;
@@ -74,15 +77,20 @@ void	split_pipe(char *line, t_data *data)
 	i = 0;
 	c = count_pipes(line) + 1;
 	p = malloc(sizeof(t_pipe *) * c);
+	if (!p)
+		return ;
 	cmd = ft_split_pp(line, '|');
 	while (cmd[i])
 	{
 		p[i] = malloc(sizeof(t_pipe));
+		if (!p[i])
+			return ;
 		process(cmd[i], &p[i]->rd);
 		p[i]->fcmd = find_cmd(cmd[i]);
-		p[i]->data = data;
 		i++;
 	}
-	pipes(c, p);
+	p[0]->data = data;
+	p[0]->nchild = c;
+	pipes(p);
 	ft_free_arg(cmd);
 }

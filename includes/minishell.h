@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/26 17:21:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:11:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,11 @@ typedef struct s_redirs
 	char	lastout;
 }	t_redirs;
 
-typedef struct s_fork
-{
-	int		nchild;
-	char	**arg;
-	int		**pipes;
-}	t_fork;
-
 typedef struct s_pipe
 {
 	char		*fcmd;
+	int			nchild;
 	t_redirs	rd;
-	t_fork		fr;
 	t_data		*data;
 }	t_pipe;
 
@@ -52,11 +45,11 @@ typedef struct s_pipe
 # define SQUOTE 39
 
 //* I/O redirection
-void	file_parent(int fdi, int fdo, int *pid, t_data *data);
+void	file_parent(int *pid, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
 void	init_rd(t_redirs *rd);
 void	empty_file(char *file);
-void	close_fds(int fdi, int fdo);
+void	close_fds(int *fd);
 void	process(char *line, t_redirs *rd);
 void	split_rd(char *line, t_data *data);
 void	split_pipe(char *line, t_data *data);
@@ -74,25 +67,26 @@ int		char_is_separator(char c, char *charset);
 
 //* Piping
 void	here_pipe(t_pipe *p);
-void	first_child(int nchild, char **arg, int **pipes, t_pipe **p);
-void	mid_child(int *i, int nchild, char **arg, int **pipes, t_pipe **p);
-void	last_child(int nchild, char **arg, int **pipes, t_pipe **p);
-void	parent(int nchild, int **pipes, int *pids);
-void	create_process(int nchild, char ***arg, int **pipes, t_pipe **p);
+void	first_child(char **arg, int **pipes, t_pipe **p);
+void	mid_child(int *i, char **arg, int **pipes, t_pipe **p);
+void	last_child(char **arg, int **pipes, t_pipe **p);
+void	parent(char ***arg, int **pipes, int *pids, t_pipe **p);
+void	create_process(char ***arg, int **pipes, t_pipe **p);
 int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
 int		count_pipes(char *line);
-void	pipes(int nchild, t_pipe **p);
+void	pipes(t_pipe **p);
 
 //* Error and free
 void	err_print(int error, t_data *data);
-void	err_free_parent(int **pipes, int *pids);
+void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
-void	err_free_process(int **pipes, char ***args);
+void	err_kill_process(t_pipe **p);
+void	err_free_process(int **pipes, char ***args, int nchild);
 void	ft_free(void *ptr);
-void	ft_free_int(int **arr);
+void	ft_free_int(int **arr, int nchild);
 void	ft_free_arg(char **arr);
-void	ft_free_args(char ***arr);
+void	ft_free_args(char ***arr, int nchild);
 char	**chars_split(char *str, char *charset);
 void	here_ops(char *line);
 void	append(char *line);
@@ -158,5 +152,12 @@ void		ft_free(void *ptr);
 char		**ft_split_pp(char const *s, char c);
 int			cmp_str(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);
+
+
+void	free_struct_rd(t_redirs *rd);
+void	free_struct_ps(t_pipe **p, int nchild);
+void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p);
+void	rd_free(int *fd, char **arg, t_redirs *rd);
+char	*ft_strjoin_and_free(char *s1, char const *s2);
 
 #endif
