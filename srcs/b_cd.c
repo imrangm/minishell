@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 15:45:48 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:47:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	invalid_args_count(char **args, t_data *data)
 	return (0);
 }
 
-static int	root_relative_chdir(char *new_path, t_data *data)
+static int	root_relative_chdir(char *new_path)
 {
 	char	*cwd;
 	char	*pwd;
@@ -57,19 +57,16 @@ static int	root_relative_chdir(char *new_path, t_data *data)
 	if (chdir(new_path) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
-		data->last_exit_status = 1;
 		free(pwd);
 		free(cwd);
 		return (1);
 	}
-	else
-		data->last_exit_status = 0;
 	free(pwd);
 	free(cwd);
 	return (0);
 }
 
-static int	relative_chdir(char *new_path, char *pwd, t_data *data)
+static int	relative_chdir(char *new_path, char *pwd)
 {
 	char	*full_path;
 
@@ -77,7 +74,6 @@ static int	relative_chdir(char *new_path, char *pwd, t_data *data)
 	if (chdir(full_path) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
-		data->last_exit_status = 1;
 		free(full_path);
 		return (1);
 	}
@@ -85,12 +81,11 @@ static int	relative_chdir(char *new_path, char *pwd, t_data *data)
 	return (0);
 }
 
-static int	full_chdir(char *new_path, t_data *data)
+static int	full_chdir(char *new_path)
 {
 	if (chdir(new_path) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
-		data->last_exit_status = 1;
 		return (1);
 	}
 	return (0);
@@ -111,12 +106,12 @@ int	b_cd(char **args, t_data *data)
 	}
 	pwd = getcwd(cwd, sizeof(cwd));
 	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
-		rv = root_relative_chdir(args[1], data);
+		rv = root_relative_chdir(args[1]);
 	else if (args[1][0] == '/')
-		rv = full_chdir(args[1], data);
+		rv = full_chdir(args[1]);
 	else
-		rv = relative_chdir(pwd, args[1], data);
-	data->last_exit_status = 0;
+		rv = relative_chdir(pwd, args[1]);
+	data->last_exit_status = rv;
 	free(pwd);
 	free(cwd);
 	return (rv);
