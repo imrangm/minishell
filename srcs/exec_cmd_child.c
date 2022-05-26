@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 15:43:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/26 18:28:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	exec_cmd_child(char **args, t_data *data)
 	char	*cmd_path;
 
 	cmd_path = NULL;
+	if (!cmp_str(args[0], "export") && args[1])
+	{
+		ft_free_arg(args);
+		ft_free_arg(data->envp);
+		kill(getpid(), 9);
+	}
 	if (!cmp_str(args[0], "echo"))
 		b_echo(args, data);
 	else if (!cmp_str(args[0], "pwd"))
