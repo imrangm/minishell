@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 11:53:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:35:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_signals(int signum)
 
 int	in_minishell_var(int is_true)
 {
-	static int in_minishell;
+	static int	in_minishell;
 
 	if (is_true != -1)
 		in_minishell = is_true;

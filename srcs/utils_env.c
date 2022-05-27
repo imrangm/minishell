@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/26 17:38:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:30:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ char	*get_env_value(char *str, char **envp)
 	{
 		if (!ft_strchr(envp[i], '='))
 			return (ft_strdup(" "));
-		if (!ft_strncmp(str, envp[i], count_up_to_equal(str)) && envp[i][ft_strlen(str)] == '=')
-			return(ft_substr(ft_strchr(envp[i], '='), 1, ft_strlen(ft_strchr(envp[i], '='))));
+		if (!ft_strncmp(str, envp[i], count_up_to_equal(str))
+			&& envp[i][ft_strlen(str)] == '=')
+			return (ft_substr(ft_strchr(envp[i], '='),
+					1, ft_strlen(ft_strchr(envp[i], '='))));
 		i++;
 	}
 	return (NULL);
@@ -53,10 +55,10 @@ int	env_exists(char *var_name, char **envp)
 		{
 			if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name))
 				&& envp[i][ft_strlen(var_name)] == '=')
-				return(1);
+				return (1);
 		}
 		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name)))
-			return(1);
+			return (1);
 		i++;
 	}
 	return (0);

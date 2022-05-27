@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:46:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:29:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ char	*get_export_value_side(char *str, int lhs)
 		i++;
 	}
 	if (rhs_start_index)
-		return (ft_substr(str, rhs_start_index + 1, ft_strlen(str) - rhs_start_index));
+		return (ft_substr(str, rhs_start_index + 1,
+				ft_strlen(str) - rhs_start_index));
 	//TODO ft_strlen(str[i])
 	return (NULL);
 }
 
-static void create_child_process(char **args, t_data *data)
+static void	create_child_process(char **args, t_data *data)
 {
 	int	pid;
+
 	pid = fork();
 	if (pid == -1)
 	{

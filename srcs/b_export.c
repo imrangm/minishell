@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/26 17:33:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:41:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	b_export(char **args, t_data *data)
 	while (args[i])
 	{
 		if (strchr(args[i], '='))
-			data->envp = add_env(get_export_value_side(args[i], 1), get_export_value_side(args[i], 0), data->envp); //? export
+			data->envp = add_env(get_export_value_side(args[i], 1),
+					get_export_value_side(args[i], 0), data->envp);
 		else
 			data->envp = add_env(args[i], NULL, data->envp);
 		i++;

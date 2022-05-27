@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:55:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/11 22:26:55 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:34:09 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_isspace(char c)
 		return (0);
 }
 
-long long m_atoi(const char *str)
+long long	m_atoi(const char *str)
 {
 	int			i;
 	int			sign;
