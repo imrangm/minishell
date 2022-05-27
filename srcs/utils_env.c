@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/27 14:30:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:04:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	free_block(char *var_name, char **envp)
 	}
 }
 
-void	unset_env(char *var_name, char **envp)
+void	delete_env(char *var_name, char **envp)
 {
 	int	i;
 	int	env_count;
@@ -187,6 +187,7 @@ void	unset_env(char *var_name, char **envp)
 	if (env_count == 1)
 	{
 		ft_free(envp[0]);
+		envp[0] = NULL;
 		return ;
 	}
 	free_block(var_name, envp);
@@ -210,7 +211,8 @@ char	**add_env(char *var_name, char *value, char **envp)
 	appended_env = NULL;
 	if (env_exists(var_name, envp))
 	{
-		modify_env(var_name, value, envp);
+		if (value)
+			modify_env(var_name, value, envp);
 		ft_free(var_name);
 		ft_free(value);
 		return (envp);

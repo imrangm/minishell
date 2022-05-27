@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:34:30 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/27 14:36:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 20:05:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	b_unset(char **args, t_data *data)
 	i = 1;
 	while (args[i])
 	{
-		unset_env(args[i], data->envp);
+		delete_env(args[i], data->envp);
 		i++;
 	}
 }
