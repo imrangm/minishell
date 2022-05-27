@@ -6,13 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 17:54:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//? changed
 static void	create_pipes(char ***arg, t_pipe **p)
 {
 	int		i;
@@ -39,7 +38,6 @@ static void	create_pipes(char ***arg, t_pipe **p)
 	create_process(arg, pipes, p);
 }
 
-//? changed
 void	pipes(t_pipe **p)
 {
 	int		i;

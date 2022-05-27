@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:10:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*set_cmd(char *s1, char *s2)
 	return (cmd);
 }
 
-//? changed
 char	*find_cmd(char *input)
 {
 	int		i;

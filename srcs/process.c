@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nm dimaniudint.42abudhabi.ae>              +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 27:54:14 by nm di            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:09:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	empty_file(char *file)
 	close(fd);
 }
 
-//? changed
 void	assign_infile(char *file, t_redirs *rd, char t)
 {
 	if (t == 'h')
@@ -51,7 +50,6 @@ void	assign_infile(char *file, t_redirs *rd, char t)
 	rd->lastin = t;
 }
 
-//? changed
 void	assign_outfile(char *file, t_redirs *rd, char t)
 {
 	if (t == 'a')

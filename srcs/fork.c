@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:08:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:44 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	here_pipe(t_pipe *p)
 	close(fdi);
 }
 
-//? changed
 int	redir_in(t_pipe **p, int i)
 {
 	int	fd;
@@ -62,7 +61,6 @@ int	redir_in(t_pipe **p, int i)
 		return (0);
 }
 
-//? changed
 int	redir_out(t_pipe **p, int i)
 {
 	int	fd;
@@ -89,7 +87,6 @@ int	redir_out(t_pipe **p, int i)
 		return (0);
 }
 
-//? changed
 void	parent(char ***arg, int **pipes, int *pids, t_pipe **p)
 {
 	int	i;
@@ -119,7 +116,6 @@ void	parent(char ***arg, int **pipes, int *pids, t_pipe **p)
 	in_minishell_var(1);
 }
 
-//? changed
 void	create_process(char ***arg, int **pipes, t_pipe **p)
 {
 	int	*pids;

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:00:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ft_free(void *ptr)
 	}
 }
 
-//? changed
 void	ft_free_int(int **arr, int nchild)
 {
 	int	i;

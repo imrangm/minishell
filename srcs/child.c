@@ -6,13 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:26:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//? changed
 void	first_child(char **arg, int **pipes, t_pipe **p)
 {
 	int			i;
@@ -35,7 +34,6 @@ void	first_child(char **arg, int **pipes, t_pipe **p)
 		err_print(127, p[0]->data);
 }
 
-//? changed
 void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
 {
 	int	j;
@@ -61,7 +59,6 @@ void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
 		err_print(127, p[0]->data);
 }
 
-//? changed
 void	last_child(char **arg, int **pipes, t_pipe **p)
 {
 	int	i;

@@ -6,13 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:10:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:09:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//? changed
 void	close_fds(int *fd)
 {
 	if (fd[0] != 0)
@@ -64,7 +63,6 @@ int	check_space(char *str)
 	return (0);
 }
 
-//? changed
 char	*ft_strjoin_and_free(char *s1, char const *s2)
 {
 	size_t	i;

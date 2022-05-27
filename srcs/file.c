@@ -6,13 +6,12 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/26 18:03:51 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/27 14:08:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//? changed
 void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 {
 	int			f;
@@ -39,7 +38,6 @@ void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 	}
 }
 
-//? changed
 void	file_parent(int *pid, t_data *data)
 {
 	int	wstatus;
@@ -56,7 +54,6 @@ void	file_parent(int *pid, t_data *data)
 	}
 }
 
-//? changed
 void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 {
 	int		pid[2];
@@ -112,7 +109,6 @@ char	*read_line(char *lim)
 	return (final);
 }
 
-//? changed
 void	create_file(char *line, t_redirs *rd, t_data *data)
 {
 	int		*fd;
