@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/27 20:05:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/28 12:24:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_data
 {
 	int		last_exit_status;
 	int		shlvl;
+	char	*pwd;
+	char	*old_pwd;
 	char	**envp;
 }	t_data;
 

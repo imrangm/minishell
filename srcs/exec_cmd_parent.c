@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/26 18:46:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/28 12:29:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ char	**exec_cmd_parent(char **args, t_data *data)
 	else if (!cmp_str(args[0], "exit"))
 		b_exit(args, data);
 	else if (!cmp_str(args[0], "cd"))
+	{
 		b_cd(args, data);
+		data->envp = add_env("PWD", data->pwd, data->envp);
+		data->envp = add_env("OLDPWD", data->old_pwd, data->envp);
+	}
 	return (data->envp);
 }
