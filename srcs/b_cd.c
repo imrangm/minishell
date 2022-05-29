@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 13:11:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/30 00:00:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,13 @@ int	b_cd(char **args, t_data *data)
 
 	cwd = NULL;
 	rv = 0;
-	printf("1\n");
 	if (invalid_args_count(args, data))
 	{
-		printf("2\n");
 		ft_free_arg(args);
 		return (1);
 	}
 	pwd = getcwd(cwd, sizeof(cwd));
-	if (!pwd) // This is when you are in a deleted dir. Consider adding another arg to loop it and turn it into a whileeee
+	if (!pwd)
 		return (handle_del_dir(data));
 	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
 		rv = root_relative_chdir(args[1]);
@@ -73,10 +71,8 @@ int	b_cd(char **args, t_data *data)
 		rv = full_chdir(args[1]);
 	else
 		rv = relative_chdir(pwd, args[1]);
-	printf("4\n");
 	data->last_exit_status = rv;
 	update_env(pwd, rv, data);
-	printf("5\n");
 	free(pwd);
 	free(cwd);
 	return (rv);

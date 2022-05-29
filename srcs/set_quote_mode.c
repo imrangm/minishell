@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:06:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 14:06:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/30 00:32:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	set_quote_mode(char c, int *quote) //! Must be appended to our header
+int	set_quote_mode(char c, int *quote)
 {
 	if ((c == '\'' || c == '\"') && !(*quote))
 	{
