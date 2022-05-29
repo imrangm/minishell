@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 12:57:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/29 16:09:32 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ char	**init_envp(char **envp)
 	cloned_envp = clone_env(envp, 0);
 	if (!cloned_envp[0])
 	{
-		cloned_envp = add_env("_", "/usr/bin/env", cloned_envp);
+		cloned_envp = add_env("SHLVL", "1", cloned_envp);
 		if (!env_exists("_", cloned_envp))
-			cloned_envp = add_env("SHLVL", "1", cloned_envp);
+			cloned_envp = add_env("_", "/usr/bin/env", cloned_envp);
 	}
 	else
 	{

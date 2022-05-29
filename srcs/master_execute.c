@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 19:55:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/29 16:52:45 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ char	*get_export_value_side(char *str, int lhs)
 	rhs_start_index = 0;
 	while (str[i])
 	{
-		if (str[i] == '=' && lhs)
+		if ((str[i] == '=' || str[i] == '+') && lhs)
 			return (ft_substr(str, 0, i));
 		else if (str[i] == '=' && !lhs)
 		{
+			// printf("right handside = %s\n", ft_substr(str, i + 1, ft_strlen(str + i) - i));
+			// return (ft_substr(str, i + 1, ft_strlen(str) - ft_strlen(str + i)));
 			rhs_start_index = i; //TODO delete
 			break ;
 		}
@@ -53,7 +55,6 @@ char	*get_export_value_side(char *str, int lhs)
 	if (rhs_start_index)
 		return (ft_substr(str, rhs_start_index + 1,
 				ft_strlen(str) - rhs_start_index));
-	//TODO ft_strlen(str[i])
 	return (NULL);
 }
 
