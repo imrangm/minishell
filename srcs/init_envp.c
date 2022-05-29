@@ -6,11 +6,27 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/28 14:12:56 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/29 12:57:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static	char	**set_shlvl(char **cloned_envp)
+{
+	int		shlvl;
+	char	*shlvl_rhs;
+
+	shlvl = 0;
+	shlvl_rhs = NULL;
+	if (env_exists("SHLVL", cloned_envp))
+	{
+		shlvl_rhs = get_env_value("SHLVL", cloned_envp);
+		shlvl = ft_atoi(shlvl_rhs) + 1;
+		cloned_envp = add_env("SHLVL", ft_itoa(shlvl), cloned_envp);
+	}
+	return (cloned_envp);
+}
 
 char	**init_envp(char **envp)
 {
@@ -23,15 +39,15 @@ char	**init_envp(char **envp)
 	if (!cloned_envp[0])
 	{
 		cloned_envp = add_env("_", "/usr/bin/env", cloned_envp);
-		cloned_envp = add_env("SHLVL", "1", cloned_envp);
+		if (!env_exists("_", cloned_envp))
+			cloned_envp = add_env("SHLVL", "1", cloned_envp);
 	}
 	else
 	{
 		cloned_envp = add_env("_",
-			ft_strjoin(getcwd(cwd, sizeof(cwd)), "minishell"), cloned_envp);
+				ft_strjoin(getcwd(cwd, sizeof(cwd)), "minishell"), cloned_envp);
+		cloned_envp = set_shlvl(cloned_envp);
 	}
-	if (!env_exists("SHLVL", cloned_envp))
-		cloned_envp = add_env("SHLVL", ft_itoa(ft_atoi(get_export_value_side("SHLVL", 1))), cloned_envp);
 	cloned_envp = add_env("PWD",
 			getcwd(cwd, sizeof(cwd)), cloned_envp);
 	return (cloned_envp);
