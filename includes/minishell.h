@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/28 12:24:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/30 01:03:06 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,7 @@ int		invalid_args_count(char **args, t_data *data);
 int		root_relative_chdir(char *new_path);
 int		relative_chdir(char *new_path, char *pwd);
 int		full_chdir(char *new_path);
+
+char	**smart_split(char *str);
 
 #endif
