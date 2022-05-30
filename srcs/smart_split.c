@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/30 01:19:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/05/30 15:16:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,28 @@ static int	is_space(char c)
 		|| c == '\f' || c == '\r' || c == '\n');
 }
 
-static int	set_i(int *i, int *element_count, char c, int *quote)
-{
-	if (!is_space(c))
-	{
-		(*element_count)++;
-		if (set_quote_mode(c, quote))
-			(*i) += 2;
-		else
-			(*i)++;
-	}
-	return (*i);
-}
-
 static int	get_element_count(char *str)
 {
-	int		element_count;
-	int		quote;
 	int		i;
+	int		quote;
+	int		element_count;
 
-	element_count = 0;
+	i = 0;
 	quote = 0;
-	i = set_i(&i, &element_count, str[0], &quote);
+	element_count = 0;
 	while (str[i])
 	{
-		if (set_quote_mode(str[i], &quote))
-			i++;
-		if (str[i] && is_space(str[i]) && !quote)
+		if (!quote && (str[i] == SQUOTE || str[i] == DQUOTE))
+			quote = str[i];
+		else if (quote && str[i] == quote)
 		{
-			if (str[i + 1] && !is_space(str[i + 1]) && str[i + 1] != quote)
-				element_count++;
+			while (str[i] && !is_space(str[i]))
+			{
+
+			}
 		}
+		else if (!quote && is_space(str[i]))
+			element_count++;
 		i++;
 	}
 	return (element_count);
