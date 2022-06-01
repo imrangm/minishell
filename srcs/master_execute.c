@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/30 01:10:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:17:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ void	master_execute(char *line, t_data *data)
 	char	**args;
 
 	in_minishell_var(0);
-	smart_split(line);
-	args = ft_split(line, ' '); //TODO Create a better ft_split()
+	args = ft_split(line, ' ');
 	if (is_parent_function(args))
 	{
 		data->envp = exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()

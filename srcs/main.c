@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/28 12:27:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:17:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	minishell(t_data *data)
 		{
 			add_history(line);
 			if (preliminary_check(line, data))
-				execute_line(line, data);
+				smart_split(line);
+				// execute_line(line, data);
 		}
 		else
 			data->last_exit_status = 0;
