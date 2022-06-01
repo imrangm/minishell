@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 19:49:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 23:13:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	is_quote(char c)
+int	is_quote(char c)
 {
 	return (c == DQUOTE || c == SQUOTE);
 }

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 16:30:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 23:13:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	modify_env(char *var_name, char *value, char **envp);
 char	**append_env(char *var_name, char *value, char **envp);
 char	**clone_env(char **envp, int extra_slot);
 char	*get_export_value_side(char *str, int lhs);
-char	**expand_envs(char **str, char **envp);
+char	*expand_envs(char *str, char **envp);
 char	**init_envp(char **envp);
 
 //* Misc (Organize)
@@ -170,5 +170,5 @@ int		relative_chdir(char *new_path, char *pwd);
 int		full_chdir(char *new_path);
 
 char	**smart_split(char *str);
-
+int		is_quote(char c);
 #endif
