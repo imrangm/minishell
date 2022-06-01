@@ -1,25 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_is_empty_input.c                                 :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/24 00:52:04 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 16:30:10 by nmadi            ###   ########.fr       */
+/*   Created: 2022/06/01 16:30:19 by nmadi             #+#    #+#             */
+/*   Updated: 2022/06/01 16:30:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-int	p_is_empty_input(char *str)
+int	is_space(char c)
 {
-	int	i;
-
-	i = 0;
-	while (is_space(str[i]))
-		i++;
-	if (!str[i])
-		return (1);
-	return (0);
+	return (c == ' ' || c == '\t' || c == '\v'
+		|| c == '\f' || c == '\r' || c == '\n');
 }

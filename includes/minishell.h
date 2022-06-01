@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/30 01:03:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:30:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ char	*first_word(char *input);
 char	*rem_words(char *input);
 char	*find_cmd(char *input);
 char	*set_cmd(char *s1, char *s2);
+int		is_space(char c);
 
 //* Signals
 void	handle_signals(int signum);
