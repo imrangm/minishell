@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 16:36:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 19:49:29 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,61 @@ static int	get_element_count(char *str)
 	return (element_count);
 }
 
+void	get_elements(char *str, char **elements)
+{
+	int	i;
+	int	j;
+	int	q;
+	int	start;
+	int	end;
+
+	i = 0;
+	j = 0;
+	q = 0;
+	start = 0;
+	end = 0;
+	while (str[i])
+	{
+		if (str[i] == q)
+		{
+			q = 0;
+			if (str[i + 1] && !is_quote(str[i + 1]))
+			{
+				end = i + 1;
+				elements[j] = ft_substr(str, start, end - start);
+				j++;
+			}
+		}
+		else if (is_quote(str[i]) && !q)
+		{
+			q = str[i];
+			start = i;
+		}
+		// else if (!is_space(str[i]) && !is_quote(str[i]) && !q)
+		// {
+		// 	start = i;
+		// 	if (q)
+		// 		while (str[i] && str[i] != q)
+		// 			i++;
+		// 	end = i;
+		// 	j++;
+		// }
+		i++;
+	}
+}
+
 char	**smart_split(char *str)
 {
-	int	element_count;
+	int		element_count;
+	char	**elements;
 
 	element_count = get_element_count(str);
-	printf("%d\n", element_count);
+	elements = malloc(sizeof(char *) * (element_count + 1));
+	elements[element_count] = 0;
+	printf("%d\n\n", element_count);
+	get_elements(str, elements);
+	for (int i = 0; i < element_count; i++)
+		printf("%s\n", elements[i]);
+
 	return (NULL);
 }
