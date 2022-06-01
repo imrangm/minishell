@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:32:42 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 14:08:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:31:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@ static int	print_forbidden_char_error(char c, int mode)
 	return (1);
 }
 
-/*
-* Detects illegal characters and prints to stderr.
-*/
 int	p_contains_illegal_special_chars(char *str)
 {
 	int	i;
