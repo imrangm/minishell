@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 16:30:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/01 16:36:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@ static int	is_quote(char c)
 {
 	return (c == DQUOTE || c == SQUOTE);
 }
-
-// static int	last_element_check(char *str, int i)
-// {
-// 	while (str[i])
-// 	{
-// 		if (!is_space(str[i]))
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// static int	consecutive_quote_check(char c, char d)
-// {
-// 	return ((c == SQUOTE && d == SQUOTE) || (c == DQUOTE && d == DQUOTE));
-// }
 
 static int	get_element_count(char *str)
 {
@@ -51,7 +35,13 @@ static int	get_element_count(char *str)
 		else if (str[i] == quote)
 			quote = 0;
 		else if (!quote && is_space(str[i]) && str[i + 1] && !is_space(str[i + 1]))
-			element_count++;
+		{
+			if (!str[i + 2])
+				element_count++;
+			else if (!(str[i + 1] == SQUOTE && str[i + 2] == SQUOTE)
+				&& !(str[i + 1] == DQUOTE && str[i + 2] == DQUOTE))
+				element_count++;
+		}
 		i++;
 	}
 	return (element_count);
