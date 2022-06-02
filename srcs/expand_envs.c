@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:21:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 23:23:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/02 15:53:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	do_expand(char *str, int quote)
 {
+	(void) quote;
 	return (str[1] == '(' || str[1] == ')' || str[1] == '`'
 		|| ft_isalnum(str[1]));
 }
@@ -38,6 +39,7 @@ char	*expand_envs(char *str, char **envp)
 	q = 0;
 	start = 0;
 	end = 0;
+	(void) envp;
 	expanded_str = NULL;
 	while (str[i])
 	{

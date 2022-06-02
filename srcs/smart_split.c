@@ -6,16 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/01 23:13:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/02 20:07:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	is_quote(char c)
-{
-	return (c == DQUOTE || c == SQUOTE);
-}
 
 static int	get_element_count(char *str)
 {
@@ -47,45 +42,87 @@ static int	get_element_count(char *str)
 	return (element_count);
 }
 
-void	get_elements(char *str, char **elements)
+int	is_space_out_quotes(char c, int *quote)
+{
+	if (is_space(c) && !(*quote))
+		return (1);
+	return (0);
+}
+
+int	get_next_word_len(char *str)
+{
+	int	i;
+	int	len;
+	int	quote;
+
+	i = 0;
+	len = 0;
+	quote = 0;
+	while (str[i] && is_space(str[i]))
+		i++;
+	while (str[i] && !is_space_out_quotes(str[i], &quote))
+	{
+		set_quote_mode(str[i], &quote);
+		len++;
+		i++;
+	}
+	printf("word in gnw_len = %s\n", str);
+	printf("%d\n", len);
+	return (len);
+}
+
+char	*ss_substr(char *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*a;
+
+	if (!s)
+		return (NULL);
+	if (ft_strlen(s) < start)
+	{
+		a = malloc(sizeof(char) * 1);
+		if (a == NULL)
+			return (NULL);
+		a[0] = '\0';
+		return (a);
+	}
+	a = (char *) malloc ((len + 1) * sizeof(char));
+	if (a == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len && s[start] != '\0')
+		a[i++] = s[start++];
+	a[i] = '\0';
+	free(s);
+	s = NULL;
+	return (a);
+}
+
+int	skip_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_space(str[i]))
+		i++;
+	return (i);
+}
+
+void	get_elements(char *str, char **elements, int element_count)
 {
 	int	i;
 	int	j;
-	int	q;
-	int	start;
-	int	end;
+	int	element_size;
 
 	i = 0;
 	j = 0;
-	q = 0;
-	start = 0;
-	end = 0;
-	while (str[i])
+	element_size = 0;
+	while (i < element_count)
 	{
-		if (str[i] == q)
-		{
-			q = 0;
-			if (str[i + 1] && !is_quote(str[i + 1]))
-			{
-				end = i + 1;
-				elements[j] = ft_substr(str, start, end - start);
-				j++;
-			}
-		}
-		else if (is_quote(str[i]) && !q)
-		{
-			q = str[i];
-			start = i;
-		}
-		// else if (!is_space(str[i]) && !is_quote(str[i]) && !q)
-		// {
-		// 	start = i;
-		// 	if (q)
-		// 		while (str[i] && str[i] != q)
-		// 			i++;
-		// 	end = i;
-		// 	j++;
-		// }
+		element_size = get_next_word_len(str);
+		j = skip_spaces(str);
+		elements[i] = ft_substr(str, j, element_size + 1);
+		str = ss_substr(str, element_size + 1, (ft_strlen(str) - element_size) + 1);
 		i++;
 	}
 }
@@ -98,8 +135,8 @@ char	**smart_split(char *str)
 	element_count = get_element_count(str);
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
-	printf("%d\n\n", element_count);
-	get_elements(str, elements);
+	printf("EC = %d\n-----\n", element_count);
+	get_elements(str, elements, element_count);
 	for (int i = 0; i < element_count; i++)
 		printf("%s\n", elements[i]);
 
