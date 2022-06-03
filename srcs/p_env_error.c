@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 15:09:27 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 17:01:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 00:34:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	p_env_error(char *str)
 			|| !ft_strncmp(str_split[i], "+=", ft_strlen(str_split[i]))
 			|| ft_isdigit(str_split[i][0])
 			|| str_split[i][0] == '=' || str_split[i][0] == '+'
-			|| str_split[i][ft_strlen(str_split[i]) - 1] == '='
 			|| str_split[i][ft_strlen(str_split[i]) - 1] == '+')
 		{
 			ft_putstr_fd("Error: Invalid export syntax.\n", 2);
