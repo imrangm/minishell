@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/02 20:07:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/03 18:20:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,11 @@ char	**smart_split(char *str)
 	elements[element_count] = 0;
 	printf("EC = %d\n-----\n", element_count);
 	get_elements(str, elements, element_count);
-	for (int i = 0; i < element_count; i++)
-		printf("%s\n", elements[i]);
+
+	printf("\n\n---[Elements]---\n\n");
+	for (int i = 0; i < element_count; i++) //! Remember to remove.
+		printf("Element %i = %s\n", i, elements[i]);
+	printf("\n\n---[Elements]---\n\n");
 
 	return (NULL);
 }

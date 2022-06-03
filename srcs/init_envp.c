@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 16:09:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/03 18:14:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ char	**init_envp(char **envp)
 	}
 	else
 	{
+		getcwd(cwd, sizeof(cwd));
 		cloned_envp = add_env("_",
-				ft_strjoin(getcwd(cwd, sizeof(cwd)), "minishell"), cloned_envp);
+				ft_strjoin(cwd, "minishell"), cloned_envp); //! Yields _=./minishell instead of the full path to minishell.
 		cloned_envp = set_shlvl(cloned_envp);
 	}
 	cloned_envp = add_env("PWD",
