@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/03 18:20:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 00:24:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,17 +112,20 @@ void	get_elements(char *str, char **elements, int element_count)
 {
 	int	i;
 	int	j;
+	int	s;
 	int	element_size;
 
 	i = 0;
 	j = 0;
+	s = 0;
 	element_size = 0;
 	while (i < element_count)
 	{
 		element_size = get_next_word_len(str);
 		j = skip_spaces(str);
 		elements[i] = ft_substr(str, j, element_size + 1);
-		str = ss_substr(str, element_size + 1, (ft_strlen(str) - element_size) + 1);
+		s = skip_spaces(str) + element_size + 1;
+		str = ss_substr(str, s, (ft_strlen(str) - element_size) + 1);
 		i++;
 	}
 }

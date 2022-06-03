@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:07:36 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/19 14:07:45 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 00:14:07 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_redir_mode(char *str)
 	{
 		if (set_quote_mode(str[i], &quote))
 			i++;
-		if ((str[i] == '>' || str[i] == '<') && !quote)
+		if (str[i] && (str[i] == '>' || str[i] == '<') && !quote)
 			return (1);
 		i++;
 	}

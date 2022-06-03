@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/03 18:26:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 00:14:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	execute_line(char *line, t_data *data)
 {
-	if (ft_strchr(line, '|'))
+	if (is_pipe_mode(line))
 		split_pipe(line, data);
-	else if (ft_strchr(line, '<') || ft_strchr(line, '>'))
+	else if (is_redir_mode(line))
 		split_rd(line, data);
 	else
 		master_execute(line, data);
@@ -41,8 +41,8 @@ void	minishell(t_data *data)
 		{
 			add_history(line);
 			if (preliminary_check(line, data))
-				execute_line(line, data);
-				// smart_split(line);
+				smart_split(line);
+				// execute_line(line, data);
 		}
 		else
 			data->last_exit_status = 0;
