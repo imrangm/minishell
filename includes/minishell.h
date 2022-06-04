@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/02 19:27:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 21:34:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void	free_struct(t_redirs *rd);
 
 //* Parsing
 int		preliminary_check(char *str, t_data *data);
-int		p_contains_unclosed_quotes(char *str);
+int		p_quotes(char *str);
+int		p_chars(char *str);
 int		p_is_empty_input(char *str);
-int		p_contains_illegal_special_chars(char *str);
 int		p_contains_invalid_redirs(char *str);
 int		p_check_end(char *line);
 int		p_check_pipe(char *line);

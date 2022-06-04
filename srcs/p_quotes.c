@@ -1,55 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_contains_unclosed_quotes.c                       :+:      :+:    :+:   */
+/*   p_quotes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 00:48:29 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/27 14:32:14 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 21:31:28 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	p_extension(char *str, int *i, int *qf, int quote_type)
-{
-	(*qf) = 1;
-	(*i)++;
-	while (str[(*i)])
-	{
-		if (str[(*i)] == quote_type && str[(*i) - 1] != '\\' && (*i) != 0)
-		{
-			(*qf) = 0;
-			break ;
-		}
-		(*i)++;
-	}
-}
-
-int	p_contains_unclosed_quotes(char *str)
+int	p_quotes(char *str)
 {
 	int	i;
-	int	sqf;
-	int	dqf;
+	int	q;
 
 	i = 0;
-	sqf = 0;
-	dqf = 0;
+	q = 0;
 	while (str[i])
 	{
-		if (str[i] == DQUOTE)
-			p_extension(str, &i, &dqf, DQUOTE);
-		if (str[i] && str[i] == SQUOTE)
-			p_extension(str, &i, &sqf, SQUOTE);
-		else
-			break ;
+		if (is_quote(str[i]) && !q)
+			q = str[i];
+		else if (q && str[i] == q)
+			q = 0;
 		i++;
 	}
-	if (dqf || sqf)
-	{
-		ft_putstr_fd("Error: Unclosed quote detected.\n", 2);
-		return (1);
-	}
-	return (0);
+	if (!q)
+		return (0);
+	ft_putstr_fd("Error: Unclosed quote detected.\n", 2);
+	return (1);
 }

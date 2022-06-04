@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 16:55:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/04 21:34:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ int	preliminary_check(char *str, t_data *data)
 		data->last_exit_status = 0;
 		return (0);
 	}
-	if (p_contains_unclosed_quotes(str)
-		|| p_contains_illegal_special_chars(str)
+	if (p_quotes(str) || p_chars(str)
 		|| p_contains_invalid_redirs(str)
 		|| p_check_end(str)
 		|| p_check_pipe(str)
