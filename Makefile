@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/05 19:31:49 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/05 19:35:35 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ SRCS=		main.c \
 			fork.c \
 			child.c \
 			find.c \
-			free.c \
 			file.c \
 			error.c \
 			check.c \
@@ -30,14 +29,21 @@ SRCS=		main.c \
 			ft_split_path.c \
 			ft_split_line.c \
 			ft_split_rd.c \
+			ft_split_pp.c \
+			exec_cmd_child.c \
+			exec_cmd_parent.c \
+			expand_envs.c \
+			set_quote_mode.c \
+			cmp_str.c \
+			init_envp.c \
+			free_struct.c \
+			smart_split.c \
 			p_valid.c \
 			p_quotes.c \
 			p_chars.c \
 			p_export.c \
 			p_redirs.c \
 			p_mode.c \
-			exec_cmd_child.c \
-			exec_cmd_parent.c \
 			b_env.c \
 			b_pwd.c \
 			b_echo.c \
@@ -46,14 +52,8 @@ SRCS=		main.c \
 			b_unset.c \
 			b_exit.c \
 			utils_env.c \
-			expand_envs.c \
-			set_quote_mode.c \
-			ft_split_pp.c \
-			cmp_str.c \
-			init_envp.c \
-			free_struct.c \
 			utils_cd.c \
-			smart_split.c \
+			utils_free.c \
 
 CC =		gcc
 
