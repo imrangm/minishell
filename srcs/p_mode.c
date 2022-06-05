@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_redir_mode.c                                    :+:      :+:    :+:   */
+/*   p_mode_n.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/19 14:07:36 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 19:21:37 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/19 14:07:08 by nmadi             #+#    #+#             */
+/*   Updated: 2022/06/05 19:26:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	is_redir_mode(char *str)
+int	p_mode(char *str, char mode)
 {
 	int	i;
 	int	q;
@@ -25,7 +25,9 @@ int	is_redir_mode(char *str)
 			q = str[i];
 		else if (q && str[i] == q)
 			q = 0;
-		else if ((str[i] == '>' || str[i] == '<') && !q)
+		else if (mode == 'p' && str[i] == '|' && !q)
+			return (1);
+		else if (mode == 'r' && (str[i] == '>' || str[i] == '<') && !q)
 			return (1);
 		i++;
 	}

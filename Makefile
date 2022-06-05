@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/05 19:17:39 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/05 19:31:49 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS=		main.c \
 			p_quotes.c \
 			p_chars.c \
 			p_export.c \
-			p_contains_invalid_redirs.c \
+			p_redirs.c \
+			p_mode.c \
 			exec_cmd_child.c \
 			exec_cmd_parent.c \
 			b_env.c \
@@ -47,9 +48,7 @@ SRCS=		main.c \
 			utils_env.c \
 			expand_envs.c \
 			set_quote_mode.c \
-			is_redir_mode.c \
 			ft_split_pp.c \
-			is_pipe_mode.c \
 			cmp_str.c \
 			init_envp.c \
 			free_struct.c \

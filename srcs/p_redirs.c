@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_contains_invalid_redirs.c                        :+:      :+:    :+:   */
+/*   p_redirs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/04 22:09:25 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:29:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	handle_double(char *str, int i)
 	return (0);
 }
 
-int	p_contains_invalid_redirs(char *str)
+int	p_redirs(char *str)
 {
 	int	i;
 	int	j;

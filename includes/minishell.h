@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 19:18:37 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:29:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,10 @@ void	free_struct(t_redirs *rd);
 
 //* Parsing
 int		p_valid(char *str, t_data *data);
+int		p_mode(char *str, char mode);
 int		p_quotes(char *str);
 int		p_chars(char *str);
-int		p_contains_invalid_redirs(char *str);
+int		p_redirs(char *str);
 int		p_check_end(char *line);
 int		p_check_pipe(char *line);
 int		p_check_redir(char *line);
@@ -144,8 +145,6 @@ char	**init_envp(char **envp);
 
 //* Misc (Organize)
 int		set_quote_mode(char c, int *quote);
-int		is_pipe_mode(char *str);
-int		is_redir_mode(char *str);
 char	**ft_split_pp(char const *s, char c);
 int		cmp_str(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);

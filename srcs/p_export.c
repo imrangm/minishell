@@ -47,7 +47,7 @@ int	p_export(char *str)
 
 	i = 1;
 	str_split = ft_split(str, ' ');
-	if (!export_mode(str_split) && !is_pipe_mode(str))
+	if (!export_mode(str_split) && !p_mode(str, 'p'))
 		return (0);
 	while (str_split[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/05 18:57:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:28:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	execute_line(char *line, t_data *data)
 {
-	if (is_pipe_mode(line))
+	if (p_mode(line, 'p'))
 		split_pipe(line, data);
-	else if (is_redir_mode(line))
+	else if (p_mode(line, 'r'))
 		split_rd(line, data);
 	else
 		master_execute(line, data);
