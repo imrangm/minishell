@@ -3,46 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 17:55:37 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/11 09:48:20 by imustafa         ###   ########.fr       */
+/*   Created: 2021/10/02 01:33:41 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/05 20:58:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_isspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\f' || c == '\r' || c == '\n')
-		return (1);
-	else
-		return (0);
-}
-
 int	ft_atoi(const char *str)
 {
-	int					i;
-	unsigned long long	result;
-	long long int		neg;
+	int		i;
+	size_t	num;
+	int		sign;
 
 	i = 0;
-	neg = 1;
-	result = 0;
-	while (ft_isspace(str[i]))
+	num = 0;
+	sign = 1;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 14))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			neg = -1;
+			sign *= -1;
 		i++;
 	}
-	while (ft_isdigit(str[i]))
-		result = result * 10 + (str[i++] - '0');
-	if (result > 9223372036854775807 && neg == -1)
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + (str[i] - '0');
+		i++;
+	}
+	if (sign == -1 && num >= 9223372036854775807)
 		return (0);
-	if (result > 9223372036854775807 && neg == 1)
+	else if (sign == 1 && num >= 9223372036854775807)
 		return (-1);
-	return (result * neg);
+	return (num * sign);
 }

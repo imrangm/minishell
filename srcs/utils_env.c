@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/29 13:20:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:57:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	equal[0] = '=';
 	equal[1] = '\0';
 	var_name_and_equal = ft_strjoin(var_name, equal);
-	ft_free(equal);
+	safe_free(equal);
 	full_env_entry = ft_strjoin(var_name_and_equal, value);
-	ft_free(var_name_and_equal);
+	safe_free(var_name_and_equal);
 	return (full_env_entry);
 }
 
@@ -118,7 +118,7 @@ char	**append_env(char *var_name, char *value, char **envp)
 		new_envp[i] = join_env_var_and_value(var_name, value);
 	else
 		new_envp[i] = ft_strdup(var_name);
-	ft_free_arg(envp);
+	free_2d(envp);
 	return (new_envp);
 }
 
@@ -133,7 +133,7 @@ void	modify_env(char *var_name, char *value, char **envp)
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
-			ft_free(envp[i]);
+			safe_free(envp[i]);
 			if (!value)
 				envp[i] = ft_strdup(var_name);
 			else
@@ -165,7 +165,7 @@ void	free_block(char *var_name, char **envp)
 	{
 		if (!cmp_str(envp[i], var_name))
 		{
-			ft_free(envp[i]);
+			safe_free(envp[i]);
 			envp[i] = NULL;
 			break ;
 		}
@@ -184,14 +184,14 @@ void	delete_env(char *var_name, char **envp)
 		return ;
 	if (env_count == 1)
 	{
-		ft_free(envp[0]);
+		safe_free(envp[0]);
 		envp[0] = NULL;
 		return ;
 	}
 	free_block(var_name, envp);
 	while (envp && i + 1 < env_count)
 	{
-		ft_free(envp[i]);
+		safe_free(envp[i]);
 		envp[i] = ft_strdup(envp[i + 1]);
 		i++;
 	}
@@ -211,12 +211,12 @@ char	**add_env(char *var_name, char *value, char **envp)
 	{
 		if (value)
 			modify_env(var_name, value, envp);
-		ft_free(var_name);
-		ft_free(value);
+		safe_free(var_name);
+		safe_free(value);
 		return (envp);
 	}
 	appended_env = append_env(var_name, value, envp);
-	ft_free(var_name);
-	ft_free(value);
+	safe_free(var_name);
+	safe_free(value);
 	return (appended_env);
 }

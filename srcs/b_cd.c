@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/30 00:00:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:55:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static void	update_env(char *old_pwd, int rv, t_data *data)
 		return ;
 	cwd = NULL;
 	pwd = getcwd(cwd, sizeof(cwd));
-	ft_free(data->pwd);
-	ft_free(data->old_pwd);
+	safe_free(data->pwd);
+	safe_free(data->old_pwd);
 	data->pwd = ft_strdup(pwd);
 	data->old_pwd = ft_strdup(old_pwd);
-	ft_free(cwd);
-	ft_free(pwd);
+	safe_free(cwd);
+	safe_free(pwd);
 }
 
 static int	handle_del_dir(t_data *data)
@@ -40,8 +40,8 @@ static int	handle_del_dir(t_data *data)
 	{
 		pwd = ft_strdup(data->pwd);
 		old_pwd = ft_strdup(data->old_pwd);
-		free(data->pwd);
-		free(data->old_pwd);
+		safe_free(data->pwd);
+		safe_free(data->old_pwd);
 		data->pwd = ft_strdup(old_pwd);
 		data->old_pwd = ft_strdup(pwd);
 		return (99);
@@ -59,7 +59,7 @@ int	b_cd(char **args, t_data *data)
 	rv = 0;
 	if (invalid_args_count(args, data))
 	{
-		ft_free_arg(args);
+		free_2d(args);
 		return (1);
 	}
 	pwd = getcwd(cwd, sizeof(cwd));
@@ -73,7 +73,7 @@ int	b_cd(char **args, t_data *data)
 		rv = relative_chdir(pwd, args[1]);
 	data->last_exit_status = rv;
 	update_env(pwd, rv, data);
-	free(pwd);
-	free(cwd);
+	safe_free(pwd);
+	safe_free(cwd);
 	return (rv);
 }

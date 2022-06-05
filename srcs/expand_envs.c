@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:21:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/02 15:53:41 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:21:32 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_quote(char *str, int i, int *q)
 {
 	if (str[i] == (*q))
 		(*q) = 0;
-	else if (!(*q) && is_quote(str[i]))
+	else if (!(*q) && ft_isquote(str[i]))
 		(*q) = str[i];
 }
 

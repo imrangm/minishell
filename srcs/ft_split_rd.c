@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_rd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/19 06:00:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/05 18:57:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ char	**ft_split_rd(char *str)
 	while (res[i])
 	{
 		trim[i] = ft_strtrim(res[i], " ");
-		ft_free(res[i]);
+		safe_free(res[i]);
 		i++;
 	}
-	ft_free(res);
+	safe_free(res);
 	return (trim);
 }

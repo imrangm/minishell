@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 06:18:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:31:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:57:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ char	*find_cmd(char *input)
 		{
 			args = set_arg(i, out[i]);
 			cmd = ft_strjoin_and_free(cmd, args);
-			ft_free(args);
+			safe_free(args);
 		}
 		i++;
 	}
-	ft_free_arg(out);
+	free_2d(out);
 	return (cmd);
 }

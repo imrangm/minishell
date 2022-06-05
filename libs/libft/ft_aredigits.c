@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_quote.c                                         :+:      :+:    :+:   */
+/*   ft_aredigits.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/02 19:27:10 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/02 19:27:20 by nmadi            ###   ########.fr       */
+/*   Created: 2022/05/11 22:28:56 by nmadi             #+#    #+#             */
+/*   Updated: 2022/06/05 19:20:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int	is_quote(char c)
+int	ft_aredigits(char *str)
 {
-	return (c == DQUOTE || c == SQUOTE);
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

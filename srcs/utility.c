@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:09:11 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:22:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ int	word_count(char *input)
 		i++;
 	}
 	return (c);
-}
-
-static int	ft_isspace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\v'
-		|| c == '\f' || c == '\r' || c == '\n')
-		return (1);
-	else
-		return (0);
 }
 
 int	check_space(char *str)
@@ -87,6 +78,6 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	while (s2[j] != '\0')
 		str[i++] = s2[j++];
 	str[i] = '\0';
-	ft_free(s1);
+	safe_free(s1);
 	return (str);
 }

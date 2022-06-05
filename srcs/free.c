@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:08:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:58:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free(void *ptr)
+void	safe_free(void *ptr)
 {
 	if (!ptr)
 	{
@@ -21,7 +21,7 @@ void	ft_free(void *ptr)
 	}
 }
 
-void	ft_free_int(int **arr, int nchild)
+void	free_2d_int(int **arr, int nchild)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	ft_free_int(int **arr, int nchild)
 	arr = NULL;
 }
 
-void	ft_free_arg(char **arr)
+void	free_2d(char **arr)
 {
 	int	i;
 
@@ -45,20 +45,20 @@ void	ft_free_arg(char **arr)
 		return ;
 	while (arr[i])
 	{
-		ft_free(arr[i]);
+		safe_free(arr[i]);
 		i++;
 	}
-	ft_free(arr);
+	safe_free(arr);
 }
 
-void	ft_free_args(char ***arr, int nchild)
+void	free_3d(char ***arr, int nchild)
 {
 	int	i;
 
 	i = 0;
 	while (i < nchild)
 	{
-		ft_free_arg(arr[i]);
+		free_2d(arr[i]);
 		i++;
 	}
 	free (arr);

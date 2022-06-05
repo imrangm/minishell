@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/04 20:40:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:56:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	char	**arg;
 
 	arg = ft_split(cmd, ' ');
-	ft_free(cmd);
+	safe_free(cmd);
 	// if (!ft_strncmp(arg[0], "env", ft_strlen(arg[0])))
 	// {
 	// 	b_env(data->envp, 0);
-	// 	ft_free_arg(arg);
+	// 	free_2d(arg);
 	// 	return ;
 	// }
 	pid[0] = fork();

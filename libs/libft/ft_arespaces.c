@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_arespaces.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 15:26:38 by nmadi             #+#    #+#             */
-/*   Updated: 2021/10/15 15:32:43 by nmadi            ###   ########.fr       */
+/*   Created: 2022/04/24 00:52:04 by nmadi             #+#    #+#             */
+/*   Updated: 2022/06/05 19:21:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+int	ft_arespaces(char *str)
 {
-	while (*lst)
-	{
-		del((*lst)->content);
-		free(*(lst));
-		(*lst) = (*lst)->next;
-	}
+	int	i;
+
+	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
 }

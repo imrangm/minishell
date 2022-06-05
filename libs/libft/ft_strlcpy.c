@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 12:10:14 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/03 18:31:15 by imustafa         ###   ########.fr       */
+/*   Created: 2021/10/01 22:14:57 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/05 20:52:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		dst[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
+	if (dstsize)
+		dst[i] = '\0';
 	return (ft_strlen(src));
 }

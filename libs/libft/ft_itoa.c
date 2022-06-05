@@ -3,65 +3,124 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 13:50:14 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/07 15:08:59 by imustafa         ###   ########.fr       */
+/*   Created: 2021/10/09 01:11:00 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/09 14:56:32 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_numlen(int n)
+static	int	ft_digitcounter(int n)
 {
-	int	i;
+	int		dc;
 
-	i = 0;
-	if (n == 0)
-		i = 1;
-	while (n != 0)
+	dc = 1;
+	if (n < 0)
+		n *= -1;
+	while (n > 9)
 	{
-		n = n / 10;
-		i++;
+		n /= 10;
+		dc++;
 	}
-	return (i);
+	return (dc);
 }
 
-static int	ft_sign(int n)
+static	int	ft_power(int n, int p)
 {
+	int		num;
+
+	num = n;
+	while (p > 1)
+	{
+		num *= n;
+		p--;
+	}
+	return (num);
+}
+
+static	char	*ft_minchecker(char *strnum, int n)
+{
+	if (n < -2147483647)
+	{
+		strnum[0] = '-';
+		strnum[1] = '2';
+		strnum[2] = '1';
+		strnum[3] = '4';
+		strnum[4] = '7';
+		strnum[5] = '4';
+		strnum[6] = '8';
+		strnum[7] = '3';
+		strnum[8] = '6';
+		strnum[9] = '4';
+		strnum[10] = '8';
+		strnum[11] = '\0';
+		return (strnum);
+	}
+	else if (n > 0 && n < 10)
+	{
+		strnum[0] = n + '0';
+		strnum[1] = '\0';
+		return (strnum);
+	}
+	return (0);
+}
+
+static	char	*ft_strnum(char *strnum, int t, int i, int n)
+{
+	if (n < -2147483647)
+		return (ft_minchecker(strnum, n));
+	if (n == 0)
+	{
+		strnum[i] = '0';
+		strnum[i + 1] = '\0';
+		return (strnum);
+	}
 	if (n < 0)
 	{
-		n = n * (-1);
-		return (1);
+		strnum[i] = '-';
+		i++;
+		n *= -1;
 	}
-	else
-		return (0);
+	if (n > 0 && n < 10)
+		return (ft_minchecker(strnum, n));
+	while (t != 1 / 10)
+	{
+		strnum[i] = (n / t) + '0';
+		n %= t;
+		t /= 10;
+		i++;
+	}
+	strnum[i] = '\0';
+	return (strnum);
 }
 
 char	*ft_itoa(int n)
 {
-	int		i;
-	int		j;
-	int		sign;
-	char	*a;
+	char	*strnum;
+	int		i[3];
 
-	i = ft_numlen(n);
-	j = i;
-	sign = ft_sign(n);
-	if (sign)
-		n = n * -1;
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	a = (char *) malloc ((i + sign + 1) * sizeof(char));
-	if (a == NULL)
-		return (NULL);
-	while (i-- > 0)
+	i[0] = 0;
+	i[1] = ft_digitcounter(n);
+	i[2] = ft_power(10, i[1] - 1);
+	if (n < 0)
+		i[1] += 1;
+	strnum = (char *) malloc(i[1] + 1 * sizeof(char));
+	if (!strnum)
+		return (0);
+	if (n < 0)
 	{
-		a[i + sign] = (n % 10) + '0';
-		n = n / 10;
+		n *= -1;
+		if (n > 0 && n < 10)
+		{
+			strnum[0] = '-';
+			strnum[1] = n + '0';
+			strnum[2] = '\0';
+			return (strnum);
+		}
+		else
+			n *= -1;
 	}
-	if (sign)
-		a[0] = '-';
-	a[j + sign] = '\0';
-	return (a);
+	return (ft_strnum(strnum, i[2], i[0], n));
 }

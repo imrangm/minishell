@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:09:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:57:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	assign_infile(char *file, t_redirs *rd, char t)
 		if (rd->heredoc)
 		{
 			read_line(rd->heredoc);
-			ft_free(rd->heredoc);
+			safe_free(rd->heredoc);
 		}
 		rd->heredoc = file;
 	}
 	if (t == 'i')
 	{
 		if (rd->infile)
-			ft_free(rd->infile);
+			safe_free(rd->infile);
 		rd->infile = file;
 	}
 	rd->lastin = t;
@@ -57,7 +57,7 @@ void	assign_outfile(char *file, t_redirs *rd, char t)
 		if (rd->append)
 		{
 			empty_file(rd->append);
-			ft_free(rd->append);
+			safe_free(rd->append);
 		}
 		rd->append = file;
 	}
@@ -66,7 +66,7 @@ void	assign_outfile(char *file, t_redirs *rd, char t)
 		if (rd->outfile)
 		{
 			empty_file(rd->outfile);
-			ft_free(rd->outfile);
+			safe_free(rd->outfile);
 		}
 		rd->outfile = file;
 	}
@@ -98,5 +98,5 @@ void	process(char *line, t_redirs *rd)
 		}
 		i++;
 	}
-	ft_free_arg(out);
+	free_2d(out);
 }

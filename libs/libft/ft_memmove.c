@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 11:22:40 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/03 11:58:24 by imustafa         ###   ########.fr       */
+/*   Created: 2021/10/03 03:57:37 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/04 01:39:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
+	char	*source;
+	char	*destination;
 	size_t	i;
-	char	*a;
-	char	*b;
 
-	i = 0;
-	a = (char *) dst;
-	b = (char *) src;
-	if (a == b || len == 0)
+	source = (char *) src;
+	destination = (char *) dst;
+	i = __UINT64_MAX__;
+	if (!source && !destination)
+		return (NULL);
+	else if (source == destination)
 		return (dst);
-	if (a > b)
+	else if (source < destination)
 	{
-		while (len-- > 0)
-			a[len] = b[len];
+		while (--len != __UINT64_MAX__)
+			destination[len] = source[len];
+		return (dst);
 	}
-	else
+	else if (source > destination)
 	{
-		while (i < len)
-		{
-			a[i] = b[i];
-			i++;
-		}
+		while (++i < len)
+			destination[i] = source[i];
+		return (dst);
 	}
 	return (dst);
 }

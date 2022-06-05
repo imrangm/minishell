@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:08:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:51:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ void	split_pipe(char *line, t_data *data)
 	p[0]->data = data;
 	p[0]->nchild = c;
 	pipes(p);
-	ft_free_arg(cmd);
+	free_2d(cmd);
 }

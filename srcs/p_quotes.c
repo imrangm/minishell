@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 00:48:29 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/04 21:31:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:21:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	p_quotes(char *str)
 	q = 0;
 	while (str[i])
 	{
-		if (is_quote(str[i]) && !q)
+		if (ft_isquote(str[i]) && !q)
 			q = str[i];
 		else if (q && str[i] == q)
 			q = 0;

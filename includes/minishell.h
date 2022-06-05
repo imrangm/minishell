@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/04 21:34:14 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:18:37 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
 void	err_kill_process(t_pipe **p);
 void	err_free_process(int **pipes, char ***args, int nchild);
-void	ft_free(void *ptr);
-void	ft_free_int(int **arr, int nchild);
-void	ft_free_arg(char **arr);
-void	ft_free_args(char ***arr, int nchild);
+void	safe_free(void *ptr);
+void	free_2d_int(int **arr, int nchild);
+void	free_2d(char **arr);
+void	free_3d(char ***arr, int nchild);
 char	**chars_split(char *str, char *charset);
 void	here_ops(char *line);
 void	append(char *line);
@@ -97,14 +97,13 @@ char	*expand_env(char *str);
 int		exec_cmd_child(char **args, t_data *data);
 char	**exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char **args);
-int		p_env_error(char *str);
+int		p_export(char *str);
 void	free_struct(t_redirs *rd);
 
 //* Parsing
-int		preliminary_check(char *str, t_data *data);
+int		p_valid(char *str, t_data *data);
 int		p_quotes(char *str);
 int		p_chars(char *str);
-int		p_is_empty_input(char *str);
 int		p_contains_invalid_redirs(char *str);
 int		p_check_end(char *line);
 int		p_check_pipe(char *line);
@@ -117,7 +116,6 @@ char	*first_word(char *input);
 char	*rem_words(char *input);
 char	*find_cmd(char *input);
 char	*set_cmd(char *s1, char *s2);
-int		is_space(char c);
 
 //* Signals
 void	handle_signals(int signum);
@@ -145,13 +143,9 @@ char	*expand_envs(char *str, char **envp);
 char	**init_envp(char **envp);
 
 //* Misc (Organize)
-long long int	m_atoi(const char *str);
-int				are_digits(char *str);
-char	*get_export_value_side(char *str, int lhs);
 int		set_quote_mode(char c, int *quote);
 int		is_pipe_mode(char *str);
 int		is_redir_mode(char *str);
-void	ft_free(void *ptr);
 char	**ft_split_pp(char const *s, char c);
 int		cmp_str(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);
@@ -170,5 +164,4 @@ int		relative_chdir(char *new_path, char *pwd);
 int		full_chdir(char *new_path);
 
 char	**smart_split(char *str);
-int		is_quote(char c);
 #endif

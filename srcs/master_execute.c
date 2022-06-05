@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/03 18:47:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:51:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ char	*get_export_value_side(char *str, int lhs)
 			return (ft_substr(str, 0, i));
 		else if (str[i] == '=' && !lhs)
 		{
-			// printf("right handside = %s\n", ft_substr(str, i + 1, ft_strlen(str + i) - i));
-			// return (ft_substr(str, i + 1, ft_strlen(str) - ft_strlen(str + i)));
 			rhs_start_index = i; //TODO delete
 			break ;
 		}
@@ -66,7 +64,7 @@ static void	create_child_process(char **args, t_data *data)
 	if (pid == -1)
 	{
 		data->last_exit_status = 140;
-		ft_free_arg(args);
+		free_2d(args);
 		ft_putstr_fd("Error: Could not create child process\n", 2);
 		return ;
 	}
@@ -82,7 +80,7 @@ static void	create_child_process(char **args, t_data *data)
 	}
 	else
 	{
-		ft_free_arg(args);
+		free_2d(args);
 		monitor_process(pid, data);
 	}
 }
@@ -96,7 +94,7 @@ void	master_execute(char *line, t_data *data)
 	if (is_parent_function(args))
 	{
 		data->envp = exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
-		ft_free_arg(args);
+		free_2d(args);
 	}
 	else
 		create_child_process(args, data);

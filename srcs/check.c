@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:34:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:36:37 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:50:45 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	p_check_pipe(char *line)
 		if ((ft_strncmp(check[i], "|", 1)) == 0
 			&& (ft_strncmp(check[i + 1], "|", 1) == 0))
 		{
-			ft_free_arg(check);
+			free_2d(check);
 			return (error("minishell: syntax error\n"));
 		}
 		i++;
 	}
-	ft_free_arg(check);
+	free_2d(check);
 	return (0);
 }
 
@@ -78,16 +78,16 @@ int	p_check_redir(char *line)
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
 			&& check_space(out[i + 1]))
 		{
-			ft_free_arg(out);
+			free_2d(out);
 			return (error("minishell: syntax error\n"));
 		}
 		if (count_redir(out[i]) > 2)
 		{
-			ft_free_arg(out);
+			free_2d(out);
 			return (error("minishell: syntax error\n"));
 		}
 		i++;
 	}
-	ft_free_arg(out);
+	free_2d(out);
 	return (0);
 }

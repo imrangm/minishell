@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 16:04:11 by imustafa          #+#    #+#             */
-/*   Updated: 2021/10/03 16:35:28 by imustafa         ###   ########.fr       */
+/*   Created: 2021/10/03 02:25:23 by nmadi             #+#    #+#             */
+/*   Updated: 2021/10/08 21:25:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,17 @@
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
-	unsigned char	*a;
-	unsigned char	*b;
-	int				count;
+	unsigned char	*s1u;
+	unsigned char	*s2u;
 
+	s1u = (unsigned char *) s1;
+	s2u = (unsigned char *) s2;
 	i = 0;
-	count = 0;
-	a = (unsigned char *) s1;
-	b = (unsigned char *) s2;
-	if (n == 0 || (a == 0 && b == 0))
-		return (0);
-	while (i < n && (a[i] != '\0' || b[i] != '\0'))
+	while (i < n && (s1u[i] != '\0' || s2u[i] != '\0'))
 	{
-		if (a[i] != b[i])
-		{
-			count += a[i] - b[i];
-			break ;
-		}
+		if (s1u[i] != s2u[i])
+			return (s1u[i] - s2u[i]);
 		i++;
 	}
-	return (count);
+	return (0);
 }

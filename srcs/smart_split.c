@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/04 00:35:18 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 19:22:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@ static int	get_element_count(char *str)
 	i = 0;
 	quote = 0;
 	element_count = 0;
-	if (!is_space(str[0]))
+	if (!ft_isspace(str[0]))
 		element_count++;
 	while (str[i])
 	{
-		if (is_quote(str[i]) && !quote)
+		if (ft_isquote(str[i]) && !quote)
 			quote = str[i];
 		else if (str[i] == quote)
 			quote = 0;
-		else if (!quote && is_space(str[i]) && str[i + 1] && !is_space(str[i + 1]))
+		else if (!quote && ft_isspace(str[i]) && str[i + 1]
+				&& !ft_isspace(str[i + 1]))
 		{
 			if (!str[i + 2])
 				element_count++;
@@ -44,7 +45,7 @@ static int	get_element_count(char *str)
 
 int	is_space_out_quotes(char c, int *quote)
 {
-	if (is_space(c) && !(*quote))
+	if (ft_isspace(c) && !(*quote))
 		return (1);
 	return (0);
 }
@@ -58,7 +59,7 @@ int	get_next_word_len(char *str)
 	i = 0;
 	len = 0;
 	quote = 0;
-	while (str[i] && is_space(str[i]))
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	while (str[i] && !is_space_out_quotes(str[i], &quote))
 	{
@@ -103,7 +104,7 @@ int	skip_spaces(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && is_space(str[i]))
+	while (str[i] && ft_isspace(str[i]))
 		i++;
 	return (i);
 }

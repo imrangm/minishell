@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/04 21:33:51 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/05 19:17:39 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,41 +25,36 @@ SRCS=		main.c \
 			file.c \
 			error.c \
 			check.c \
+			handle_signals.c \
 			ft_split_chars.c \
 			ft_split_path.c \
 			ft_split_line.c \
 			ft_split_rd.c \
-			handle_signals.c \
-			preliminary_check.c \
+			p_valid.c \
 			p_quotes.c \
 			p_chars.c \
-			p_is_empty_input.c \
+			p_export.c \
 			p_contains_invalid_redirs.c \
+			exec_cmd_child.c \
+			exec_cmd_parent.c \
 			b_env.c \
 			b_pwd.c \
 			b_echo.c \
 			b_cd.c \
-			exec_cmd_child.c \
-			exec_cmd_parent.c \
+			b_export.c \
+			b_unset.c \
+			b_exit.c \
 			utils_env.c \
-			m_atoi.c \
-			are_digits.c \
 			expand_envs.c \
-			p_env_error.c \
 			set_quote_mode.c \
 			is_redir_mode.c \
 			ft_split_pp.c \
 			is_pipe_mode.c \
-			b_export.c \
-			b_unset.c \
-			b_exit.c \
 			cmp_str.c \
 			init_envp.c \
 			free_struct.c \
 			utils_cd.c \
 			smart_split.c \
-			is_space.c \
-			is_quote.c \
 
 CC =		gcc
 

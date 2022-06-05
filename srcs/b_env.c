@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:19:34 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/21 18:08:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/05 18:55:56 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	b_env(char **envp, int export_mode)
 		{
 			side = get_export_value_side(envp[i], 1);
 			printf("declare -x %s=", side);
-			free(side);
+			safe_free(side);
 			side = get_export_value_side(envp[i], 0);
 			printf("\"%s\"\n", side);
-			free(side);
+			safe_free(side);
 		}
 		else if (ft_strchr(envp[i], '=') && !export_mode)
 			printf("%s\n", envp[i]);
