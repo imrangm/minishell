@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/06 19:41:27 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/06 23:20:51 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ SRCS=		main.c \
 			utility.c \
  			master_execute.c \
 			get_cmd_path.c \
-			file.c \
 			error.c \
 			check.c \
 			handle_signals.c \
@@ -26,7 +25,6 @@ SRCS=		main.c \
 			ft_split_line.c \
 			ft_split_rd.c \
 			ft_split_pp.c \
-			execute_cmd.c \
 			expand_envs.c \
 			set_quote_mode.c \
 			init_envp.c \
@@ -45,10 +43,12 @@ SRCS=		main.c \
 			b_export.c \
 			b_unset.c \
 			b_exit.c \
+			e_cmd.c \
 			e_process.c \
 			e_pipe.c \
 			e_fork.c \
 			e_child.c \
+			e_file.c \
 			utils_env.c \
 			utils_cd.c \
 			utils_free.c \
