@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/06 19:19:42 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/06 19:26:33 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,8 @@ SRCS=		main.c \
 			parse.c \
 			utility.c \
  			master_execute.c \
-			e_process.c \
-			e_pipe.c \
-			e_fork.c \
-			e_child.c \
-			find.c \
 			get_cmd_path.c \
+			file.c \
 			error.c \
 			check.c \
 			handle_signals.c \
@@ -34,7 +30,6 @@ SRCS=		main.c \
 			exec_cmd_parent.c \
 			expand_envs.c \
 			set_quote_mode.c \
-			cmp_str.c \
 			init_envp.c \
 			free_struct.c \
 			smart_split.c \
@@ -51,6 +46,10 @@ SRCS=		main.c \
 			b_export.c \
 			b_unset.c \
 			b_exit.c \
+			e_process.c \
+			e_pipe.c \
+			e_fork.c \
+			e_child.c \
 			utils_env.c \
 			utils_cd.c \
 			utils_free.c \
@@ -58,12 +57,12 @@ SRCS=		main.c \
 CC =		gcc
 
 # For home
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
 # For 42
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # For Linux
 # LDFLAGS =	-lreadline

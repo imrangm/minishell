@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 19:34:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:24:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	exec_cmd_child(char **args, t_data *data)
 	char	*cmd_path;
 
 	cmd_path = NULL;
-	if (!cmp_str(args[0], "export") && args[1])
+	if (!ft_strcmp(args[0], "export") && args[1])
 		free_and_kill(args, data->envp);
-	else if (!cmp_str(args[0], "echo"))
+	else if (!ft_strcmp(args[0], "echo"))
 		b_echo(args, data);
-	else if (!cmp_str(args[0], "pwd"))
+	else if (!ft_strcmp(args[0], "pwd"))
 		b_pwd(data);
-	else if (!cmp_str(args[0], "env"))
+	else if (!ft_strcmp(args[0], "env"))
 		b_env(data->envp, 0);
-	else if (!cmp_str(args[0], "export"))
+	else if (!ft_strcmp(args[0], "export"))
 		b_env(data->envp, 1);
 	else
 	{

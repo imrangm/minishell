@@ -32,7 +32,7 @@ int	contains_invalid_signs_or_patterns(char *str)
 
 int	export_mode(char **str_split)
 {
-	if (cmp_str(str_split[0], "export"))
+	if (ft_strcmp(str_split[0], "export"))
 	{
 		free_2d(str_split);
 		return (0);

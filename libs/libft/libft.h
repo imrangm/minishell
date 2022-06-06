@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 21:00:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 19:21:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:23:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int			ft_arespaces(char *str);
 int			ft_isspace(char c);
 int			ft_isquote(char c);
 long long	ft_matoi(char *str);
+int			ft_strcmp(char *s1, char *s2);
 
 #endif

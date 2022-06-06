@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 19:29:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:24:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ char	**init_envp(char **envp);
 //* Misc (Organize)
 int		set_quote_mode(char c, int *quote);
 char	**ft_split_pp(char const *s, char c);
-int		cmp_str(char *cmd, char *builtin);
 // void		set_shlvl(int *shlvl, int value, char **envp);
 
 void	free_struct_rd(t_redirs *rd);

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 18:57:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:25:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	free_block(char *var_name, char **envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (!cmp_str(envp[i], var_name))
+		if (!ft_strcmp(envp[i], var_name))
 		{
 			safe_free(envp[i]);
 			envp[i] = NULL;

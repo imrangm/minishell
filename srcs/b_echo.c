@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/05/22 15:46:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:24:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	is_n_flag(char *str)
 	int	i;
 
 	i = 1;
-	if (!cmp_str(str, "-n"))
+	if (!ft_strcmp(str, "-n"))
 		return (1);
 	if (str[0] == '-')
 	{
@@ -71,9 +71,9 @@ int	b_echo(char **args, t_data *data)
 		i++;
 	while (args[i])
 	{
-		if (args[i + 1] && !cmp_str(args[i], "$?"))
+		if (args[i + 1] && !ft_strcmp(args[i], "$?"))
 			printf("%d ", data->last_exit_status);
-		else if (!args[i + 1] && !cmp_str(args[i], "$?"))
+		else if (!args[i + 1] && !ft_strcmp(args[i], "$?"))
 			printf("%d\n", data->last_exit_status);
 		else if (!args[i + 1] && !normal_mode)
 			print_with_stripped_quotes(args[i], 0, 0);
