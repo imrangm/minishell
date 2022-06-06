@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/06 19:26:33 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/06 19:41:27 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ SRCS=		main.c \
 			ft_split_line.c \
 			ft_split_rd.c \
 			ft_split_pp.c \
-			exec_cmd_child.c \
-			exec_cmd_parent.c \
+			execute_cmd.c \
 			expand_envs.c \
 			set_quote_mode.c \
 			init_envp.c \

@@ -1,16 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd_child.c                                   :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/06 19:24:52 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:47:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	is_parent_function(char **args)
+{
+	if (!ft_strcmp(args[0], "export") && args[1])
+		return (1);
+	else if (!ft_strcmp(args[0], "unset"))
+		return (1);
+	else if (!ft_strcmp(args[0], "exit"))
+		return (1);
+	else if (!ft_strcmp(args[0], "cd"))
+		return (1);
+	return (0);
+}
+
+void	exec_cmd_parent(char **args, t_data *data)
+{
+	if (!ft_strcmp(args[0], "export"))
+		b_export(args, data);
+	else if (!ft_strcmp(args[0], "unset"))
+		b_unset(args, data);
+	else if (!ft_strcmp(args[0], "exit"))
+		b_exit(args, data);
+	else if (!ft_strcmp(args[0], "cd"))
+		b_cd(args, data);
+}
 
 static int	execute_other_cmd(char **args, t_data *data, char *cmd_path)
 {
@@ -29,7 +54,7 @@ static int	execute_other_cmd(char **args, t_data *data, char *cmd_path)
 	return (0);
 }
 
-void	free_and_kill(char **args, char **envp)
+static void	free_and_kill(char **args, char **envp)
 {
 	free_2d(args);
 	free_2d(envp);
