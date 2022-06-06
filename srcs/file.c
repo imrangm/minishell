@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/05 18:56:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:20:17 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 {
-	int			f;
+	int	f;
 
+	f = 0;
 	if (rd->heredoc && rd->lastin == 'h')
 	{
 		f = open("tmp", O_RDONLY, 0);

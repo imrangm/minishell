@@ -6,22 +6,22 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/05 19:35:35 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/06 19:19:42 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
-			process.c \
 			parse.c \
 			utility.c \
  			master_execute.c \
-			pipe.c \
-			fork.c \
-			child.c \
+			e_process.c \
+			e_pipe.c \
+			e_fork.c \
+			e_child.c \
 			find.c \
-			file.c \
+			get_cmd_path.c \
 			error.c \
 			check.c \
 			handle_signals.c \
