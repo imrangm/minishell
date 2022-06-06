@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/05 18:55:51 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:27:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	update_env(char *old_pwd, int rv, t_data *data)
 	safe_free(data->old_pwd);
 	data->pwd = ft_strdup(pwd);
 	data->old_pwd = ft_strdup(old_pwd);
+	data->envp = add_env("PWD", data->pwd, data->envp);
+	data->envp = add_env("OLDPWD", data->old_pwd, data->envp);
 	safe_free(cwd);
 	safe_free(pwd);
 }

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/05 18:51:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:29:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,7 @@ static void	create_child_process(char **args, t_data *data)
 		}
 	}
 	else
-	{
-		free_2d(args);
 		monitor_process(pid, data);
-	}
 }
 
 void	master_execute(char *line, t_data *data)
@@ -92,10 +89,8 @@ void	master_execute(char *line, t_data *data)
 	in_minishell_var(0);
 	args = ft_split(line, ' ');
 	if (is_parent_function(args))
-	{
-		data->envp = exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
-		free_2d(args);
-	}
+		exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
 	else
 		create_child_process(args, data);
+	free_2d(args);
 }

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 14:43:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/06 19:25:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:30:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_parent_function(char **args)
 	return (0);
 }
 
-char	**exec_cmd_parent(char **args, t_data *data)
+void	exec_cmd_parent(char **args, t_data *data)
 {
 	if (!ft_strcmp(args[0], "export"))
 		b_export(args, data);
@@ -34,10 +34,6 @@ char	**exec_cmd_parent(char **args, t_data *data)
 	else if (!ft_strcmp(args[0], "exit"))
 		b_exit(args, data);
 	else if (!ft_strcmp(args[0], "cd"))
-	{
 		b_cd(args, data);
-		data->envp = add_env("PWD", data->pwd, data->envp);
-		data->envp = add_env("OLDPWD", data->old_pwd, data->envp);
-	}
 	return (data->envp);
 }

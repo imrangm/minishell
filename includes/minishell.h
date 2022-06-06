@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/06 19:24:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/06 19:30:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	append(char *line);
 char	**ft_split_path(char *s, char c);
 char	*expand_env(char *str);
 int		exec_cmd_child(char **args, t_data *data);
-char	**exec_cmd_parent(char **args, t_data *data);
+void	exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char **args);
 int		p_export(char *str);
 void	free_struct(t_redirs *rd);
