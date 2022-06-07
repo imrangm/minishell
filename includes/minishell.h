@@ -6,15 +6,22 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/06 19:30:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/07 15:46:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../includes/all_includes.h"
 # include "../libs/libft/libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <signal.h>
 
 typedef struct s_data
 {

@@ -6,62 +6,62 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/06 23:20:51 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/07 16:07:39 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
-			parse.c \
-			utility.c \
- 			master_execute.c \
-			get_cmd_path.c \
-			error.c \
-			check.c \
-			handle_signals.c \
-			ft_split_chars.c \
-			ft_split_path.c \
-			ft_split_line.c \
-			ft_split_rd.c \
-			ft_split_pp.c \
-			expand_envs.c \
-			set_quote_mode.c \
-			init_envp.c \
-			free_struct.c \
-			smart_split.c \
-			p_valid.c \
-			p_quotes.c \
-			p_chars.c \
-			p_export.c \
-			p_redirs.c \
-			p_mode.c \
-			b_env.c \
-			b_pwd.c \
-			b_echo.c \
-			b_cd.c \
-			b_export.c \
-			b_unset.c \
-			b_exit.c \
-			e_cmd.c \
-			e_process.c \
-			e_pipe.c \
-			e_fork.c \
-			e_child.c \
-			e_file.c \
-			utils_env.c \
-			utils_cd.c \
-			utils_free.c \
+			_misc/parse.c \
+ 			_misc/master_execute.c \
+			_misc/get_cmd_path.c \
+			_misc/error.c \
+			_misc/check.c \
+			_misc/handle_signals.c \
+			_misc/ft_split_chars.c \
+			_misc/ft_split_path.c \
+			_misc/ft_split_line.c \
+			_misc/ft_split_rd.c \
+			_misc/ft_split_pp.c \
+			_misc/expand_envs.c \
+			_misc/set_quote_mode.c \
+			_misc/init_envp.c \
+			_misc/free_struct.c \
+			_misc/smart_split.c \
+			parsing/checks/p_valid.c \
+			parsing/checks/p_quotes.c \
+			parsing/checks/p_chars.c \
+			parsing/checks/p_export.c \
+			parsing/checks/p_redirs.c \
+			parsing/checks/p_mode.c \
+			builtins/b_env.c \
+			builtins/b_pwd.c \
+			builtins/b_echo.c \
+			builtins/b_cd.c \
+			builtins/b_export.c \
+			builtins/b_unset.c \
+			builtins/b_exit.c \
+			execution/e_cmd.c \
+			execution/e_process.c \
+			execution/e_pipe.c \
+			execution/e_fork.c \
+			execution/e_child.c \
+			execution/e_file.c \
+			utils/utility.c \
+			utils/u_env.c \
+			utils/u_cd.c \
+			utils/u_free.c \
 
 CC =		gcc
 
 # For home
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
 # For 42
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # For Linux
 # LDFLAGS =	-lreadline
@@ -96,5 +96,11 @@ fclean: clean
 	@echo "\033[0;32mCleaned libft archive file.\033[0m"
 
 re: fclean all
+
+valgrind: $(NAME)
+	@echo "\033[0;32mRunning in Valgrind.\033[0m"
+	@valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
+
+mega: all clean
 
 .PHONY: all clean fclean re
