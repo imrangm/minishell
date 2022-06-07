@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:46:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/07 16:20:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/readline/include/readline/readline.h"
+# include "../libs/readline/include/readline/history.h"
 # include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <string.h>
 
 typedef struct s_data
 {

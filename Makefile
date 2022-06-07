@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/07 16:07:39 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/07 16:31:59 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,17 +55,8 @@ SRCS=		main.c \
 
 CC =		gcc
 
-# For home
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
-
-# For 42
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
-
-# For Linux
-# LDFLAGS =	-lreadline
-# CFLAGS =	-Wall -Wextra -Werror
+LDFLAGS =	-lreadline -L ./libs/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 LIBFT_A =	./libs/libft/libft.a
 
@@ -76,15 +67,22 @@ SRCS_DIR =	./srcs
 OBJS =		$(addprefix $(SRCS_DIR)/, $(SRCS:c=o))
 
 $(NAME): $(OBJS)
+	mkdir ./objs
+	mv ./srcs/_misc/*.o objs/
+	mv ./srcs/builtins/*.o objs/
+	mv ./srcs/execution/*.o objs/
+	mv ./srcs/utils/*.o objs/
+	mv ./srcs/parsing/checks/*.o objs/
+	mv ./srcs/main.o objs/
 	$(MAKE) -C ./libs/libft/
 	@echo "\033[0;32mCompiled libft.\033[0m"
-	$(CC) $(OBJS) $(LIBFT_A) $(LDFLAGS) -o $(NAME)
+	$(CC) ./objs/*.o $(LIBFT_A) $(LDFLAGS) -o $(NAME)
 	@echo "\033[0;32mCompiled minishell.\033[0m"
 
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf ./objs/
 	@echo "\033[0;32mCleaned minishell object files.\033[0m"
 	$(MAKE) clean -C ./libs/libft/
 	@echo "\033[0;32mCleaned libft object files.\033[0m"
