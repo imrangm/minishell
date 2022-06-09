@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:51:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 15:55:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 18:20:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	process(char *line, t_redirs *rd)
 
 	i = 0;
 	init_rd(rd);
-	out = ft_split_rd(line);
+	out = split_rd(line);
 	while (out[i + 1] != NULL)
 	{
 		if (out[i + 1][0] != '<' && out[i + 1][0] != '>')

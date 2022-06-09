@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 16:00:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 18:30:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,18 @@ int	count_pipes(char *line)
 {
 	int	i;
 	int	p;
+	int	q;
 
 	i = 0;
 	p = 0;
-	while (line[i] != '\0')
+	q = 0;
+	while (line[i])
 	{
-		if (line[i] == '|')
+		if (ft_isquote(line[i]) && !q)
+			q = line[i];
+		else if (line[i] == q)
+			q = 0;
+		else if (line[i] == '|')
 			p++;
 		i++;
 	}
@@ -53,7 +59,7 @@ char	*cmd_copy(char *input)
 	return (copy);
 }
 
-void	split_rd(char *line, t_data *data)
+void	execute_rd(char *line, t_data *data)
 {
 	t_redirs	*rd;
 	char		*cmd;
@@ -66,7 +72,7 @@ void	split_rd(char *line, t_data *data)
 	create_file(cmd, rd, data);
 }
 
-void	split_pipe(char *line, t_data *data)
+void	handle_pp(char *line, t_data *data)
 {
 	char	**cmd;
 	t_pipe	**p;
@@ -78,7 +84,7 @@ void	split_pipe(char *line, t_data *data)
 	p = malloc(sizeof(t_pipe *) * c);
 	if (!p)
 		return ;
-	cmd = ft_split_pp(line, '|');
+	cmd = split_pp(line, '|');
 	while (cmd[i])
 	{
 		p[i] = malloc(sizeof(t_pipe));

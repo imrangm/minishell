@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 16:34:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 16:00:11 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 18:58:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,19 @@ int	count_redir(char *input)
 	return (c);
 }
 
-int	p_check_end(char *line)
+int	pc_end(char *line) //? Imran
 {
 	int	len;
 
 	len = ft_strlen(line);
-	if (line[0] == '|' || line[len - 1] == '|'
-		|| line[len - 1] == '>' || line[len - 1] == '<')
-		return (error("minishell: syntax error\n"));
+	if (line[0] == '|' || line[len - 1] == '|') //! Ignore all types of ft_isspace() after it.
+		return (error("Error: Last character must not be a pipe symbol.\n"));
+	else if (line[len - 1] == '>' || line[len - 1] == '<') //! Ignore all types of ft_isspace() after it.
+		return (error("Error: Last character must not be a redirection symbol.\n"));
 	return (0);
 }
 
-int	p_check_pipe(char *line)
+int	pc_pipe(char *line)
 {
 	int		i;
 	char	**check;
@@ -66,13 +67,13 @@ int	p_check_pipe(char *line)
 	return (0);
 }
 
-int	p_check_redir(char *line)
+int	pc_redir(char *line)
 {
 	int		i;
 	char	**out;
 
 	i = 0;
-	out = ft_split_rd(line);
+	out = split_rd(line);
 	while (out[i + 1])
 	{
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 16:20:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 18:59:44 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,16 @@ void	init_rd(t_redirs *rd);
 void	empty_file(char *file);
 void	close_fds(int *fd);
 void	process(char *line, t_redirs *rd);
-void	split_rd(char *line, t_data *data);
-void	split_pipe(char *line, t_data *data);
+void	execute_rd(char *line, t_data *data);
+void	handle_pp(char *line, t_data *data);
 
 //* Execution
 char	*find_exec(char *prg, char	**paths);
 char	*get_cmd_path(char **args, t_data *data);
 void	master_execute(char *line, t_data *data);
-char	**ft_split_chars(char *str, char *charset);
 char	*read_line(char *lim);
 char	**ft_split_path(char *s, char c);
-char	**ft_split_rd(char *str);
+char	**split_rd(char *str);
 int		count_redir(char *input);
 int		char_is_separator(char c, char *charset);
 
@@ -105,18 +104,18 @@ char	*expand_env(char *str);
 int		exec_cmd_child(char **args, t_data *data);
 void	exec_cmd_parent(char **args, t_data *data);
 int		is_parent_function(char **args);
-int		p_export(char *str);
 void	free_struct(t_redirs *rd);
 
 //* Parsing
-int		p_valid(char *str, t_data *data);
-int		p_mode(char *str, char mode);
-int		p_quotes(char *str);
-int		p_chars(char *str);
-int		p_redirs(char *str);
-int		p_check_end(char *line);
-int		p_check_pipe(char *line);
-int		p_check_redir(char *line);
+int		pc_valid(char *str, t_data *data);
+int		pc_mode(char *str, char mode);
+int		pc_quotes(char *str);
+int		pc_chars(char *str);
+int		pc_redirs(char *str);
+int		pc_end(char *line);
+int		pc_pipe(char *line);
+int		pc_redir(char *line);
+int		pc_export(char *str);
 char	*line_unquote(char *input);
 char	*cmd_copy(char *input);
 int		check_space(char *str);
@@ -153,7 +152,7 @@ char	**init_envp(char **envp);
 
 //* Misc (Organize)
 int		set_quote_mode(char c, int *quote);
-char	**ft_split_pp(char const *s, char c);
+char	**split_pp(char const *s, char c);
 // void		set_shlvl(int *shlvl, int value, char **envp);
 
 void	free_struct_rd(t_redirs *rd);

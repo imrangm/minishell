@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/08 17:43:14 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 18:26:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	execute_line(char *line, t_data *data)
 {
-	if (p_mode(line, 'p'))
-		split_pipe(line, data);
-	else if (p_mode(line, 'r'))
-		split_rd(line, data);
+	if (pc_mode(line, 'p'))
+		handle_pp(line, data);
+	else if (pc_mode(line, 'r'))
+		execute_rd(line, data);
 	else
 		master_execute(line, data);
 }
@@ -40,7 +40,7 @@ void	minishell(t_data *data)
 		if (line[0])
 		{
 			add_history(line);
-			if (p_valid(line, data))
+			if (pc_valid(line, data))
 				execute_line(line, data);
 		}
 		in_minishell_var(1);
