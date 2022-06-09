@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:57:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 21:25:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	count_up_to_equal(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != '+' && str[i] != '=')
+	while (str && str[i] && str[i] != '+' && str[i] != '=')
 		i++;
 	return (i);
 }
@@ -45,9 +45,7 @@ int	env_exists(char *var_name, char **envp)
 	int		i;
 
 	i = 0;
-	if (envp == NULL)
-		return (0);
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		if (ft_strchr(envp[i], '='))
 		{
@@ -112,7 +110,7 @@ char	**append_env(char *var_name, char *value, char **envp)
 
 	i = 0;
 	new_envp = clone_env(envp, 1);
-	while (new_envp[i])
+	while (new_envp && new_envp[i])
 		i++;
 	if (value)
 		new_envp[i] = join_env_var_and_value(var_name, value);
@@ -127,9 +125,7 @@ void	modify_env(char *var_name, char *value, char **envp)
 	int	i;
 
 	i = 0;
-	if (!envp)
-		return ;
-	while (envp[i])
+	while (envp && envp[i])
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
 		{
@@ -166,7 +162,6 @@ void	free_block(char *var_name, char **envp)
 		if (!ft_strcmp(envp[i], var_name))
 		{
 			safe_free(envp[i]);
-			envp[i] = NULL;
 			break ;
 		}
 		i++;
@@ -185,7 +180,6 @@ void	delete_env(char *var_name, char **envp)
 	if (env_count == 1)
 	{
 		safe_free(envp[0]);
-		envp[0] = NULL;
 		return ;
 	}
 	free_block(var_name, envp);

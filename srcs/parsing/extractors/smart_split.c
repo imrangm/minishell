@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 18:32:56 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 21:27:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ static int	get_element_count(char *str)
 	return (element_count);
 }
 
-int	is_space_out_quotes(char c, int *quote)
+static int	is_space_out_quotes(char c, int *quote)
 {
 	if (ft_isspace(c) && !(*quote))
 		return (1);
 	return (0);
 }
 
-int	get_next_word_len(char *str)
+static int	get_next_word_len(char *str)
 {
 	int	i;
 	int	len;
@@ -72,7 +72,7 @@ int	get_next_word_len(char *str)
 	return (len);
 }
 
-char	*ss_substr(char *s, unsigned int start, size_t len)
+static char	*ss_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*a;
@@ -99,7 +99,7 @@ char	*ss_substr(char *s, unsigned int start, size_t len)
 	return (a);
 }
 
-int	skip_spaces(char *str)
+static int	skip_spaces(char *str)
 {
 	int	i;
 
@@ -109,7 +109,7 @@ int	skip_spaces(char *str)
 	return (i);
 }
 
-void	get_elements(char *str, char **elements, int element_count)
+static void	get_elements(char *str, char **elements, int element_count)
 {
 	int	i;
 	int	j;

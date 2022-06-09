@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 17:48:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/09 21:22:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_struct_rd(t_redirs *rd)
 	safe_free(rd);
 }
 
-void	free_struct_ps(t_pipe **p, int nchild)
+void	free_struct_pp(t_pipe **p, int nchild)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p)
 	free_3d(arg, p[0]->nchild);
 	free_2d_int(pipes, p[0]->nchild);
 	safe_free(pids);
-	free_struct_ps(p, p[0]->nchild);
+	free_struct_pp(p, p[0]->nchild);
 }
 
 void	rd_free(int *fd, char **arg, t_redirs *rd)
