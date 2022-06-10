@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/10 15:45:20 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/10 16:06:54 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,6 @@ NAME=		minishell
 
 SRCS=		main.c \
  			_misc/master_execute.c \
-			_misc/get_cmd_path.c \
-			_misc/handle_signals.c \
 			_misc/ft_split_path.c \
 			_misc/ft_split_line.c \
 			_misc/expand_envs.c \
@@ -46,12 +44,14 @@ SRCS=		main.c \
 			execution/e_fork.c \
 			execution/e_child.c \
 			execution/e_file.c \
+			execution/e_signal.c \
 			utils/utility.c \
 			utils/u_env.c \
 			utils/u_struct.c \
 			utils/u_cd.c \
 			utils/u_free.c \
 			utils/u_error.c \
+			utils/u_cmd.c \
 
 CC =		gcc
 

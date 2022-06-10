@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 16:00:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:10:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	monitor_process(int pid, t_data *data)
 		else
 			data->last_exit_status = 0;
 	}
-	in_minishell_var(0);
 }
 
 char	*get_export_value_side(char *str, int lhs)
@@ -86,7 +85,6 @@ void	master_execute(char *line, t_data *data)
 {
 	char	**args;
 
-	in_minishell_var(0);
 	args = ft_split(line, ' ');
 	if (is_parent_function(args))
 		exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()

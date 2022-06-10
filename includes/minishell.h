@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 15:25:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:10:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*get_cmd_path(char **args, t_data *data);
 void	master_execute(char *line, t_data *data);
 int		exec_cmd_child(char **args, t_data *data);
 void	exec_cmd_parent(char **args, t_data *data);
+void	handle_signals_main(int signum);
+void	handle_signals_else(int signum);
 
 //* Pipes
 void	pipes(t_pipe **p);
@@ -152,8 +154,6 @@ int		relative_chdir(char *new_path, char *pwd);
 int		invalid_args_count(char **args, t_data *data);
 
 //* Misc (Organize)
-void	handle_signals(int signum);
-int		in_minishell_var(int is_true);
 int		set_quote_mode(char c, int *quote);
 char	*line_unquote(char *input);
 char	*cmd_copy(char *input);

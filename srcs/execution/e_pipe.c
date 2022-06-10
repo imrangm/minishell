@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 15:55:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:10:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	pipes(t_pipe **p)
 	int		i;
 	char	***arg;
 
-	in_minishell_var(0);
 	i = 0;
 	arg = malloc (sizeof(char **) * p[0]->nchild);
 	if (!arg)

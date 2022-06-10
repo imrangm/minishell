@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 15:55:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:10:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	parent(char ***arg, int **pipes, int *pids, t_pipe **p)
 	if (access("tmp", F_OK))
 		unlink("tmp");
 	ps_free(arg, pipes, pids, p);
-	in_minishell_var(1);
 }
 
 void	create_process(char ***arg, int **pipes, t_pipe **p)
