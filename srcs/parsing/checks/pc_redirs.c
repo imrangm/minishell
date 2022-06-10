@@ -6,11 +6,17 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 18:25:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 15:24:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
+static int	error(char *msg)
+{
+	ft_putstr_fd(msg, 2);
+	return (1);
+}
 
 static int	handle_single(char *str, int i)
 {
@@ -59,5 +65,31 @@ int	pc_redirs(char *str)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	pc_redir(char *line)
+{
+	int		i;
+	char	**out;
+
+	i = 0;
+	out = split_rd(line);
+	while (out[i + 1])
+	{
+		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
+			&& check_space(out[i + 1]))
+		{
+			free_2d(out);
+			return (error("minishell: syntax error\n"));
+		}
+		if (ft_countoccurance(out[i], '>', '<', '\0', '\0') > 2)
+		{
+			free_2d(out);
+			return (error("minishell: syntax error\n"));
+		}
+		i++;
+	}
+	free_2d(out);
 	return (0);
 }

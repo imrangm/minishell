@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 21:34:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 15:25:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,6 @@ char	*cmd_copy(char *input);
 int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);
 char	**chars_split(char *str, char *charset);
-int		count_redir(char *input);
+int		word_count(char *input);
 
 #endif

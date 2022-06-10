@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/09 18:59:42 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/10 15:45:20 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ NAME=		minishell
 SRCS=		main.c \
  			_misc/master_execute.c \
 			_misc/get_cmd_path.c \
-			_misc/error.c \
-			_misc/check.c \
 			_misc/handle_signals.c \
 			_misc/ft_split_path.c \
 			_misc/ft_split_line.c \
@@ -29,6 +27,8 @@ SRCS=		main.c \
 			parsing/checks/pc_export.c \
 			parsing/checks/pc_redirs.c \
 			parsing/checks/pc_mode.c \
+			parsing/checks/pc_end.c \
+			parsing/checks/pc_pipe.c \
 			parsing/extractors/pe_rd.c \
 			parsing/extractors/split_rd.c \
 			parsing/extractors/split_pp.c \
@@ -51,22 +51,23 @@ SRCS=		main.c \
 			utils/u_struct.c \
 			utils/u_cd.c \
 			utils/u_free.c \
+			utils/u_error.c \
 
 CC =		gcc
 
-# To use the readline library in our project
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+# Homebrew Flags
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
-# For home
+# M1 Flags
 # LDFLAGS =	-lreadline -L ./libs/readline/lib/
 # CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
-# For 42
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+# 42 Flags
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
-# For Linux
+# Linux Flags
 # LDFLAGS =	-lreadline
 # CFLAGS =	-Wall -Wextra -Werror
 
