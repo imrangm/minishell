@@ -1,55 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_envp.c                                        :+:      :+:    :+:   */
+/*   pe_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:05:07 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 18:15:40 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static	char	**set_shlvl(char **cloned_envp)
+static void	set_shlvl(t_data *data)
 {
 	int		shlvl;
 	char	*shlvl_rhs;
 
 	shlvl = 0;
 	shlvl_rhs = NULL;
-	if (env_exists("SHLVL", cloned_envp))
+	if (env_exists("SHLVL", data))
 	{
-		shlvl_rhs = get_env_value("SHLVL", cloned_envp);
+		shlvl_rhs = get_env_value("SHLVL", data);
 		shlvl = ft_atoi(shlvl_rhs) + 1;
-		cloned_envp = add_env("SHLVL", ft_itoa(shlvl), cloned_envp);
+		modify_env("SHLVL", ft_itoa(shlvl), data);
 	}
-	return (cloned_envp);
 }
 
-char	**init_envp(char **envp)
+void	init_envp(char **envp, t_data *data)
 {
 	char	*cwd;
-	char	**cloned_envp;
 
 	cwd = NULL;
-	cloned_envp = NULL;
-	cloned_envp = clone_env(envp, 0);
-	if (!cloned_envp[0])
+	data->envp = clone_env(envp, 0);
+	if (!data->envp[0])
 	{
-		cloned_envp = add_env("SHLVL", "1", cloned_envp);
-		if (!env_exists("_", cloned_envp))
-			cloned_envp = add_env("_", "/usr/bin/env", cloned_envp);
+		modify_env("SHLVL", "1", data);
+		if (!env_exists("_", data))
+			modify_env("_", "/usr/bin/env", data);
 	}
 	else
 	{
 		getcwd(cwd, sizeof(cwd));
-		cloned_envp = add_env("_",
-				ft_strjoin(cwd, "minishell"), cloned_envp); //! Yields _=./minishell instead of the full path to minishell.
-		cloned_envp = set_shlvl(cloned_envp);
+		modify_env("_", ft_strjoin(cwd, "minishell"), data); //! Yields _=./minishell instead of the full path to minishell.
+		set_shlvl(data);
 	}
-	cloned_envp = add_env("PWD",
-			getcwd(cwd, sizeof(cwd)), cloned_envp);
-	return (cloned_envp);
+	modify_env("PWD", getcwd(cwd, sizeof(cwd)), data);
 }

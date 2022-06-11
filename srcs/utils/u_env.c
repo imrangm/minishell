@@ -6,44 +6,44 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 16:22:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 18:30:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_env_value(char *str, char **envp)
+char	*get_env_value(char *str, t_data *data)
 {
 	int		i;
 
 	i = 0;
-	while (envp[i])
+	while (data->envp[i])
 	{
-		if (!ft_strchr(envp[i], '='))
+		if (!ft_strchr(data->envp[i], '='))
 			return (ft_strdup(" "));
-		if (!ft_strncmp(str, envp[i], ft_counttochars(str, '+', '='))
-			&& envp[i][ft_strlen(str)] == '=')
-			return (ft_substr(ft_strchr(envp[i], '='),
-					1, ft_strlen(ft_strchr(envp[i], '='))));
+		if (!ft_strncmp(str, data->envp[i], ft_counttochars(str, '+', '='))
+			&& data->envp[i][ft_strlen(str)] == '=')
+			return (ft_substr(ft_strchr(data->envp[i], '='),
+					1, ft_strlen(ft_strchr(data->envp[i], '='))));
 		i++;
 	}
 	return (NULL);
 }
 
-int	env_exists(char *var_name, char **envp)
+int	env_exists(char *var_name, t_data *data)
 {
 	int		i;
 
 	i = 0;
-	while (envp && envp[i])
+	while (data->envp && data->envp[i])
 	{
-		if (ft_strchr(envp[i], '='))
+		if (ft_strchr(data->envp[i], '='))
 		{
-			if (!ft_strcmp(var_name, envp[i])
-				&& envp[i][ft_strlen(var_name)] == '=')
+			if (!ft_strncmp(var_name, data->envp[i], ft_counttochars(data->envp[i], '=', '\0'))
+				&& data->envp[i][ft_strlen(var_name)] == '=')
 				return (1);
 		}
-		if (!ft_strcmp(var_name, envp[i]))
+		if (!ft_strcmp(var_name, data->envp[i]))
 			return (1);
 		i++;
 	}
@@ -93,41 +93,51 @@ char	**clone_env(char **envp, int extra_slot)
 	return (envp_copy);
 }
 
-char	**append_env(char *var_name, char *value, char **envp)
+void	append_env(char *var_name, char *value, t_data *data)
 {
 	int		i;
 	char	**new_envp;
 
 	i = 0;
-	new_envp = clone_env(envp, 1);
+	new_envp = clone_env(data->envp, 1);
 	while (new_envp && new_envp[i])
 		i++;
 	if (value)
 		new_envp[i] = join_env_var_and_value(var_name, value);
 	else
 		new_envp[i] = ft_strdup(var_name);
-	free_2d(envp);
-	return (new_envp);
+	free_2d(data->envp);
+	data->envp = new_envp;
+	safe_free(var_name);
+	safe_free(value);
 }
 
-void	modify_env(char *var_name, char *value, char **envp)
+void	modify_env(char *var_name, char *value, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (envp && envp[i])
+	if (!env_exists(var_name, data))
 	{
-		if (!ft_strcmp(envp[i], var_name))
+		printf("Here\n");
+		append_env(var_name, value, data);
+		return ;
+	}
+	while (data->envp && data->envp[i])
+	{
+		if (!ft_strncmp(data->envp[i], var_name, ft_counttochars(data->envp[i], '=', '\0')))
 		{
-			safe_free(envp[i]);
-			if (!value)
-				envp[i] = ft_strdup(var_name);
-			else
-				envp[i] = join_env_var_and_value(var_name, value);
+			if (value)
+			{
+				safe_free(data->envp[i]);
+				data->envp[i] = join_env_var_and_value(var_name, value);
+			}
 			break ;
 		}
 		i++;
 	}
+	safe_free(var_name);
+	safe_free(value);
 }
 
 void	free_block(char *var_name, char **envp)
@@ -137,7 +147,7 @@ void	free_block(char *var_name, char **envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (!ft_strcmp(envp[i], var_name))
+		if (!ft_strncmp(envp[i], var_name, ft_counttochars(envp[i], '=', '\0')))
 		{
 			safe_free(envp[i]);
 			break ;
@@ -146,49 +156,30 @@ void	free_block(char *var_name, char **envp)
 	}
 }
 
-void	delete_env(char *var_name, char **envp)
+void	delete_env(char *var_name, t_data *data)
 {
 	int	i;
 	int	env_count;
 
 	i = 0;
-	env_count = ft_count2darr(envp);
-	if (!env_exists(var_name, envp))
+	env_count = ft_count2darr(data->envp);
+	if (!env_exists(var_name, data))
 		return ;
 	if (env_count == 1)
 	{
-		safe_free(envp[0]);
+		safe_free(data->envp[0]);
 		return ;
 	}
-	free_block(var_name, envp);
-	while (envp && i + 1 < env_count)
+	free_block(var_name, data->envp);
+	while (data->envp && i + 1 < env_count)
 	{
-		safe_free(envp[i]);
-		envp[i] = ft_strdup(envp[i + 1]);
+		safe_free(data->envp[i]);
+		data->envp[i] = ft_strdup(data->envp[i + 1]);
 		i++;
 	}
-	if (envp)
+	if (data->envp)
 	{
-		envp[i] = 0;
-		envp[++i] = 0;
+		data->envp[i] = 0;
+		data->envp[++i] = 0;
 	}
-}
-
-char	**add_env(char *var_name, char *value, char **envp)
-{
-	char	**appended_env;
-
-	appended_env = NULL;
-	if (env_exists(var_name, envp))
-	{
-		if (value)
-			modify_env(var_name, value, envp);
-		safe_free(var_name);
-		safe_free(value);
-		return (envp);
-	}
-	appended_env = append_env(var_name, value, envp);
-	safe_free(var_name);
-	safe_free(value);
-	return (appended_env);
 }

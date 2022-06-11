@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:32:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:54:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	data.envp = init_envp(envp);
+	init_envp(envp, &data);
 	data.pwd = NULL;
 	data.old_pwd = NULL;
 	minishell(&data);

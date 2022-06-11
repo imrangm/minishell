@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:52:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 18:15:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	update_env(char *old_pwd, int rv, t_data *data)
 	safe_free(data->old_pwd);
 	data->pwd = ft_strdup(pwd);
 	data->old_pwd = ft_strdup(old_pwd);
-	data->envp = add_env("PWD", data->pwd, data->envp);
-	data->envp = add_env("OLDPWD", data->old_pwd, data->envp);
+	modify_env("PWD", data->pwd, data);
+	modify_env("OLDPWD", data->old_pwd, data);
 	safe_free(cwd);
 	safe_free(pwd);
 }
@@ -38,7 +38,7 @@ static int	handle_del_dir(t_data *data)
 
 	pwd = NULL;
 	old_pwd = NULL;
-	if (chdir(get_env_value("OLDPWD", data->envp)) != -1)
+	if (chdir(get_env_value("OLDPWD", data)) != -1)
 	{
 		pwd = ft_strdup(data->pwd);
 		old_pwd = ft_strdup(data->old_pwd);

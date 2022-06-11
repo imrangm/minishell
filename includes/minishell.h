@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:12:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 18:15:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,15 +135,14 @@ void	b_export(char **args, t_data *data);
 int		b_env(char **envp, int export_mode);
 
 //* Environment Variables
-char	**init_envp(char **envp);
-char	*get_env_value(char *str, char **envp);
-int		env_exists(char *var_name, char **envp);
-void	delete_env(char *var_name, char **envp);
+void	init_envp(char **envp, t_data *data);
+char	*get_env_value(char *str, t_data *data);
+int		env_exists(char *var_name, t_data *data);
+void	delete_env(char *var_name, t_data *data);
 char	**clone_env(char **envp, int extra_slot);
 char	*get_export_value_side(char *str, int lhs);
-char	**add_env(char *var_name, char *value, char **envp);
-void	modify_env(char *var_name, char *value, char **envp);
-char	**append_env(char *var_name, char *value, char **envp);
+void	modify_env(char *var_name, char *value, t_data *data);
+void	append_env(char *var_name, char *value, t_data *data);
 
 //* cd utils
 int		full_chdir(char *new_path);

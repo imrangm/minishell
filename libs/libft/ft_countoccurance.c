@@ -6,11 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:21:40 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:31:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:59:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_countoccurance(char *str, char c1, char c2, char c3)
+int	ft_countoccurance(char *str, char c1, char c2)
 {
 	int	i;
 	int	c;

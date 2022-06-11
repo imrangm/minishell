@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:29:17 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:55:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	count_words(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_setquote(str[i]))
+		if (ft_setquote(str[i], &q))
 			i++;
 		if (str[i] && !q && char_is_separator(str[i + 1], "<>") == 1
 			&& char_is_separator(str[i], "<>") == 0)
