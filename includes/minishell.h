@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 16:10:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:15:09 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int		b_env(char **envp, int export_mode);
 
 //* Environment Variables
 char	**init_envp(char **envp);
-char	*expand_envs(char *str, char **envp);
 char	*get_env_value(char *str, char **envp);
 int		env_exists(char *var_name, char **envp);
 void	delete_env(char *var_name, char **envp);

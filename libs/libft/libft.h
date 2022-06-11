@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 21:00:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 15:22:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:18:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ int			ft_isquote(char c);
 long long	ft_matoi(char *str);
 int			ft_strcmp(char *s1, char *s2);
 int			ft_countoccurance(char *str, char c1, char c2, char c3, char c4);
+int			ft_counttochars(char *str, char c1, char c2);
+int			ft_count2darr(char **arr);
 
 #endif

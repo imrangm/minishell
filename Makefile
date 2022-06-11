@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/10 16:06:54 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/10 16:15:07 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRCS=		main.c \
  			_misc/master_execute.c \
 			_misc/ft_split_path.c \
 			_misc/ft_split_line.c \
-			_misc/expand_envs.c \
 			_misc/set_quote_mode.c \
 			_misc/init_envp.c \
 			parsing/checks/pc_valid.c \

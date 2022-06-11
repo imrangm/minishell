@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/05 19:01:08 by nmadi             #+#    #+#              #
-#    Updated: 2022/06/10 15:22:00 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/10 16:18:52 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,9 @@ SRCS = ft_atoi.c \
 		ft_aredigits.c \
 		ft_arespaces.c \
 		ft_strcmp.c \
-		ft_countoccurance.c
+		ft_countoccurance.c \
+		ft_counttochars.c \
+		ft_count2darr.c
 
 SRCS_BONUS = ft_lstadd_back.c \
 		ft_lstadd_front.c \

@@ -6,21 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 21:25:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/10 16:22:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	count_up_to_equal(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i] && str[i] != '+' && str[i] != '=')
-		i++;
-	return (i);
-}
 
 char	*get_env_value(char *str, char **envp)
 {
@@ -31,7 +21,7 @@ char	*get_env_value(char *str, char **envp)
 	{
 		if (!ft_strchr(envp[i], '='))
 			return (ft_strdup(" "));
-		if (!ft_strncmp(str, envp[i], count_up_to_equal(str))
+		if (!ft_strncmp(str, envp[i], ft_counttochars(str, '+', '='))
 			&& envp[i][ft_strlen(str)] == '=')
 			return (ft_substr(ft_strchr(envp[i], '='),
 					1, ft_strlen(ft_strchr(envp[i], '='))));
@@ -49,11 +39,11 @@ int	env_exists(char *var_name, char **envp)
 	{
 		if (ft_strchr(envp[i], '='))
 		{
-			if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name))
+			if (!ft_strcmp(var_name, envp[i])
 				&& envp[i][ft_strlen(var_name)] == '=')
 				return (1);
 		}
-		if (!ft_strncmp(var_name, envp[i], ft_strlen(var_name)))
+		if (!ft_strcmp(var_name, envp[i]))
 			return (1);
 		i++;
 	}
@@ -127,7 +117,7 @@ void	modify_env(char *var_name, char *value, char **envp)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (!ft_strncmp(envp[i], var_name, ft_strlen(var_name)))
+		if (!ft_strcmp(envp[i], var_name))
 		{
 			safe_free(envp[i]);
 			if (!value)
@@ -138,18 +128,6 @@ void	modify_env(char *var_name, char *value, char **envp)
 		}
 		i++;
 	}
-}
-
-int	count_env(char **envp)
-{
-	int	i;
-
-	i = 0;
-	if (!envp)
-		return (0);
-	while (envp[i])
-		i++;
-	return (i);
 }
 
 void	free_block(char *var_name, char **envp)
@@ -174,7 +152,7 @@ void	delete_env(char *var_name, char **envp)
 	int	env_count;
 
 	i = 0;
-	env_count = count_env(envp);
+	env_count = ft_count2darr(envp);
 	if (!env_exists(var_name, envp))
 		return ;
 	if (env_count == 1)
