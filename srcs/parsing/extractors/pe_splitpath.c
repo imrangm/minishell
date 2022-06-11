@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_path.c                                    :+:      :+:    :+:   */
+/*   pe_splitpath.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:42:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 16:00:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:26:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../includes/minishell.h"
 
 static int	separator(char c, char charset)
 {
@@ -76,7 +76,7 @@ static void	write_split(char **split, const char *str, char charset)
 	}
 }
 
-char	**ft_split_path(char *s, char c)
+char	**pe_split_path(char *s, char c)
 {
 	char	**res;
 	int		words;

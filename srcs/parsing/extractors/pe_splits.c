@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   smart_split.c                                      :+:      :+:    :+:   */
+/*   pe_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 21:27:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:31:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	get_next_word_len(char *str)
 		i++;
 	while (str[i] && !is_space_out_quotes(str[i], &quote))
 	{
-		set_quote_mode(str[i], &quote);
+		ft_setquote(str[i], &quote);
 		len++;
 		i++;
 	}
@@ -72,49 +72,13 @@ static int	get_next_word_len(char *str)
 	return (len);
 }
 
-static char	*ss_substr(char *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*a;
-
-	if (!s)
-		return (NULL);
-	if (ft_strlen(s) < start)
-	{
-		a = malloc(sizeof(char) * 1);
-		if (a == NULL)
-			return (NULL);
-		a[0] = '\0';
-		return (a);
-	}
-	a = (char *) malloc ((len + 1) * sizeof(char));
-	if (a == NULL)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start] != '\0')
-		a[i++] = s[start++];
-	a[i] = '\0';
-	free(s);
-	s = NULL;
-	return (a);
-}
-
-static int	skip_spaces(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && ft_isspace(str[i]))
-		i++;
-	return (i);
-}
-
 static void	get_elements(char *str, char **elements, int element_count)
 {
-	int	i;
-	int	j;
-	int	s;
-	int	element_size;
+	int		i;
+	int		j;
+	int		s;
+	char	*tmp;
+	int		element_size;
 
 	i = 0;
 	j = 0;
@@ -123,10 +87,13 @@ static void	get_elements(char *str, char **elements, int element_count)
 	while (i < element_count)
 	{
 		element_size = get_next_word_len(str);
-		j = skip_spaces(str);
+		j = ft_skipspaces(str);
 		elements[i] = ft_substr(str, j, element_size + 1);
-		s = skip_spaces(str) + element_size + 1;
-		str = ss_substr(str, s, (ft_strlen(str) - element_size) + 1);
+		s = ft_skipspaces(str) + element_size + 1;
+		tmp = ft_substr(str, s, (ft_strlen(str) - element_size) + 1);
+		free(str);
+		str = ft_strdup(tmp);
+		free(tmp);
 		i++;
 	}
 }
@@ -140,9 +107,9 @@ char	**smart_split(char *str)
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
 	get_elements(str, elements, element_count);
-	// printf("\n\n---[Elements %d]---\n\n", element_count);
-	// for (int i = 0; i < element_count; i++) //! Remember to remove.
-	// 	printf("Element %i = %s\n", i, elements[i]);
-	// printf("\n---[Elements]---\n\n");
+	printf("\n\n---[Elements %d]---\n\n", element_count);
+	for (int i = 0; i < element_count; i++) //! Remember to remove.
+		printf("Element %i = %s\n", i, elements[i]);
+	printf("\n---[Elements]---\n\n");
 	return (elements);
 }

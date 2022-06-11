@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   master_execute.c                                   :+:      :+:    :+:   */
+/*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/10 16:10:48 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:32:39 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_export_value_side(char *str, int lhs)
 			return (ft_substr(str, 0, i));
 		else if (str[i] == '=' && !lhs)
 		{
-			rhs_start_index = i; //TODO delete
+			rhs_start_index = i;
 			break ;
 		}
 		i++;

@@ -6,18 +6,13 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/10 16:15:07 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/11 17:27:16 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
- 			_misc/master_execute.c \
-			_misc/ft_split_path.c \
-			_misc/ft_split_line.c \
-			_misc/set_quote_mode.c \
-			_misc/init_envp.c \
 			parsing/checks/pc_valid.c \
 			parsing/checks/pc_quotes.c \
 			parsing/checks/pc_chars.c \
@@ -27,9 +22,11 @@ SRCS=		main.c \
 			parsing/checks/pc_end.c \
 			parsing/checks/pc_pipe.c \
 			parsing/extractors/pe_rd.c \
-			parsing/extractors/split_rd.c \
-			parsing/extractors/split_pp.c \
-			parsing/extractors/smart_split.c \
+			parsing/extractors/pe_env.c \
+			parsing/extractors/pe_splitrd.c \
+			parsing/extractors/pe_splitpp.c \
+			parsing/extractors/pe_splits.c \
+			parsing/extractors/pe_splitpath.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \
@@ -37,6 +34,7 @@ SRCS=		main.c \
 			builtins/b_export.c \
 			builtins/b_unset.c \
 			builtins/b_exit.c \
+			execution/e_exec.c \
 			execution/e_cmd.c \
 			execution/e_process.c \
 			execution/e_pipe.c \
@@ -44,6 +42,7 @@ SRCS=		main.c \
 			execution/e_child.c \
 			execution/e_file.c \
 			execution/e_signal.c \
+			execution/e_rd.c \
 			utils/utility.c \
 			utils/u_env.c \
 			utils/u_struct.c \
@@ -80,7 +79,6 @@ OBJS =		$(addprefix $(SRCS_DIR)/, $(SRCS:c=o))
 
 $(NAME): $(OBJS)
 	mkdir -p ./objs
-	mv ./srcs/_misc/*.o objs/
 	mv ./srcs/builtins/*.o objs/
 	mv ./srcs/execution/*.o objs/
 	mv ./srcs/utils/*.o objs/

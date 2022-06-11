@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 15:24:36 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:30:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	pc_redir(char *line)
 			free_2d(out);
 			return (error("minishell: syntax error\n"));
 		}
-		if (ft_countoccurance(out[i], '>', '<', '\0', '\0') > 2)
+		if (ft_countoccurance(out[i], '>', '<') > 2)
 		{
 			free_2d(out);
 			return (error("minishell: syntax error\n"));

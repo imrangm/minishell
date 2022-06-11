@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_quote_mode.c                                   :+:      :+:    :+:   */
+/*   ft_setquote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:06:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 16:00:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:14:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	set_quote_mode(char c, int *quote)
+int	ft_setquote(char c, int *quote)
 {
-	if ((c == '\'' || c == '\"') && !(*quote))
+	if (ft_isquote(c) && !(*quote))
 	{
 		(*quote) = c;
 		return (1);

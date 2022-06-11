@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:55:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/11 17:17:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_cmd_parent(char **args, t_data *data)
 		b_cd(args, data);
 }
 
-static int	execute_other_cmd(char **args, t_data *data, char *cmd_path)
+static int	exec_sys_cmd(char **args, t_data *data, char *cmd_path)
 {
 	cmd_path = get_cmd_path(args, data);
 	if (cmd_path)
@@ -78,7 +78,7 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 1);
 	else
 	{
-		if (execute_other_cmd(args, data, cmd_path))
+		if (exec_sys_cmd(args, data, cmd_path))
 			return (-1);
 	}
 	free_and_kill(args, data->envp);

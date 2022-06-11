@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_countoccurance.c                                :+:      :+:    :+:   */
+/*   ft_skipspaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 15:21:40 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:31:09 by nmadi            ###   ########.fr       */
+/*   Created: 2022/06/11 17:29:38 by nmadi             #+#    #+#             */
+/*   Updated: 2022/06/11 17:31:22 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_countoccurance(char *str, char c1, char c2, char c3)
+#include "libft.h"
+
+int	ft_skipspaces(char *str)
 {
 	int	i;
-	int	c;
 
 	i = 0;
-	c = 0;
-	while (str[i])
-	{
-		if (str[i] == c1 || str[i] == c2)
-			c++;
+	while (str[i] && ft_isspace(str[i]))
 		i++;
-	}
-	return (c);
+	return (i);
 }
