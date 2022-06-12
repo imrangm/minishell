@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_end.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:14:37 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 15:24:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/12 07:26:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ static int	error(char *msg)
 	return (1);
 }
 
-int	pc_end(char *line) //? Imran
+int	pc_end(char *line)
 {
 	int	len;
 
-	len = ft_strlen(line);
-	if (line[0] == '|' || line[len - 1] == '|') //! Ignore all types of ft_isspace() after it.
+	len = ft_strlen(line) - 1;
+	while (ft_isspace(line[len]))
+		len--;
+	if (line[0] == '|' || line[len] == '|')
 		return (error("Error: Last character must not be a pipe symbol.\n"));
-	else if (line[len - 1] == '>' || line[len - 1] == '<') //! Ignore all types of ft_isspace() after it.
+	else if (line[len] == '>' || line[len] == '<')
 		return (error("Error: Last character must not be a redirection symbol.\n"));
 	return (0);
 }
