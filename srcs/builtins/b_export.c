@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 18:15:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:32:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ int	is_in_plus_mode(char *str)
 void	b_export(char **args, t_data *data)
 {
 	int	i;
+	int	f;
 
 	i = 1;
+	f = 0;
 	if (!args[1])
 	{
 		b_env(data->envp, 1);
@@ -57,13 +59,14 @@ void	b_export(char **args, t_data *data)
 	}
 	while (args[i])
 	{
-		if (is_in_plus_mode(args[i]))
+		f = ft_strncmp(args[i], "_", ft_counttochars(args[i], '=', '\0'));
+		if (is_in_plus_mode(args[i]) && f)
 			join_env_values(get_export_value_side(args[i], 1),
 				get_export_value_side(args[i], 0), data);
-		else if (strchr(args[i], '='))
+		else if (strchr(args[i], '=') && f)
 			modify_env(get_export_value_side(args[i], 1),
 				get_export_value_side(args[i], 0), data);
-		else
+		else if (f)
 			modify_env(args[i], NULL, data);
 		i++;
 	}

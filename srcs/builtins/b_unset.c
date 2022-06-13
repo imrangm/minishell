@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:34:30 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:59:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:27:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	b_unset(char **args, t_data *data)
 	i = 1;
 	while (args[i])
 	{
-		delete_env(args[i], data);
+		if (ft_strncmp(args[i], "_", ft_counttochars(args[i], '=', '\0')))
+			delete_env(args[i], data);
 		i++;
 	}
 }
