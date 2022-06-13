@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 18:15:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 17:36:52 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_envp(char **envp, t_data *data)
 
 	cwd = NULL;
 	data->envp = clone_env(envp, 0);
+	delete_env("OLDPWD", data);
 	if (!data->envp[0])
 	{
 		modify_env("SHLVL", "1", data);
@@ -41,8 +42,7 @@ void	init_envp(char **envp, t_data *data)
 	}
 	else
 	{
-		getcwd(cwd, sizeof(cwd));
-		modify_env("_", ft_strjoin(cwd, "minishell"), data); //! Yields _=./minishell instead of the full path to minishell.
+		modify_env("_", ft_strjoin(getcwd(cwd, sizeof(cwd)), "/minishell"), data);
 		set_shlvl(data);
 	}
 	modify_env("PWD", getcwd(cwd, sizeof(cwd)), data);

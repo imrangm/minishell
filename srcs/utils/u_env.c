@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 18:30:05 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:12:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,11 @@ void	modify_env(char *var_name, char *value, t_data *data)
 	i = 0;
 	if (!env_exists(var_name, data))
 	{
-		printf("Here\n");
+		printf("Debug: Appending env variable.\n");
 		append_env(var_name, value, data);
 		return ;
 	}
+	printf("Debug: Modifying existing env variable.\n");
 	while (data->envp && data->envp[i])
 	{
 		if (!ft_strncmp(data->envp[i], var_name, ft_counttochars(data->envp[i], '=', '\0')))
@@ -158,28 +159,27 @@ void	free_block(char *var_name, char **envp)
 
 void	delete_env(char *var_name, t_data *data)
 {
-	int	i;
-	int	env_count;
+	int		i;
+	char	*tmp;
+	int		env_count;
+	char	**new_envp;
 
 	i = 0;
-	env_count = ft_count2darr(data->envp);
 	if (!env_exists(var_name, data))
 		return ;
-	if (env_count == 1)
-	{
-		safe_free(data->envp[0]);
+	env_count = ft_count2darr(data->envp);
+	new_envp = (char **) malloc(sizeof(char *) * env_count);
+	if (!new_envp)
 		return ;
-	}
-	free_block(var_name, data->envp);
-	while (data->envp && i + 1 < env_count)
+	new_envp[env_count] = 0;
+	while (data->envp && i < env_count)
 	{
-		safe_free(data->envp[i]);
-		data->envp[i] = ft_strdup(data->envp[i + 1]);
+		tmp = ft_substr(data->envp[i], 0, ft_counttochars(data->envp[i], '=', '\0'));
+		if (ft_strcmp(var_name, tmp))
+			new_envp[i] = ft_strdup(data->envp[i]);
+		safe_free(tmp);
 		i++;
 	}
-	if (data->envp)
-	{
-		data->envp[i] = 0;
-		data->envp[++i] = 0;
-	}
+	free_2d(data->envp);
+	data->envp = new_envp;
 }
