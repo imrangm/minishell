@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:32:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:44:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	master_execute(char *line, t_data *data)
 {
 	char	**args;
 
-	args = ft_split(line, ' ');
+	args = smart_split(line);
 	if (is_parent_function(args))
 		exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
 	else

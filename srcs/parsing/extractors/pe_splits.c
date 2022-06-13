@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:31:43 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 18:52:09 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	get_next_word_len(char *str)
 		len++;
 		i++;
 	}
-	printf("word in gnw_len = %s\n", str);
+	printf("word in gnw_len = |%s|\n", str);
 	printf("%d\n", len);
 	return (len);
 }
@@ -88,8 +88,8 @@ static void	get_elements(char *str, char **elements, int element_count)
 	{
 		element_size = get_next_word_len(str);
 		j = ft_skipspaces(str);
-		elements[i] = ft_substr(str, j, element_size + 1);
-		s = ft_skipspaces(str) + element_size + 1;
+		elements[i] = ft_substr(str, j, element_size - j);
+		s = j + element_size + 1;
 		tmp = ft_substr(str, s, (ft_strlen(str) - element_size) + 1);
 		free(str);
 		str = ft_strdup(tmp);
@@ -109,7 +109,7 @@ char	**smart_split(char *str)
 	get_elements(str, elements, element_count);
 	printf("\n\n---[Elements %d]---\n\n", element_count);
 	for (int i = 0; i < element_count; i++) //! Remember to remove.
-		printf("Element %i = %s\n", i, elements[i]);
+		printf("Element %i = |%s|\n", i, elements[i]);
 	printf("\n---[Elements]---\n\n");
 	return (elements);
 }
