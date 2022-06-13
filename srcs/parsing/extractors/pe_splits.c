@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/13 18:52:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 19:07:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static int	get_next_word_len(char *str)
 		len++;
 		i++;
 	}
-	printf("word in gnw_len = |%s|\n", str);
-	printf("%d\n", len);
+	// printf("word in gnw_len = |%s|\n", str);
+	// printf("%d\n", len);
 	return (len);
 }
 
@@ -107,9 +107,9 @@ char	**smart_split(char *str)
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
 	get_elements(str, elements, element_count);
-	printf("\n\n---[Elements %d]---\n\n", element_count);
-	for (int i = 0; i < element_count; i++) //! Remember to remove.
-		printf("Element %i = |%s|\n", i, elements[i]);
-	printf("\n---[Elements]---\n\n");
+	// printf("\n\n---[Elements %d]---\n\n", element_count);
+	// for (int i = 0; elements[i]; i++) //! Remember to remove.
+	// 	printf("Element %i = |%s|\n", i, elements[i]);
+	// printf("\n---[Elements]---\n\n");
 	return (elements);
 }

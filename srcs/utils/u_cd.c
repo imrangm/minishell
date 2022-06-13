@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:42:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:57:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 19:06:53 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ char	*join_paths(char *cwd, char *np)
 
 int	invalid_args_count(char **args, t_data *data)
 {
+	if (!args[1])
+	{
+		ft_putstr_fd("Error: cd requires more than 1 argument.\n", 2);
+		data->last_exit_status = 0;
+		return (1);
+
+	}
 	if (args[2])
 	{
 		ft_putstr_fd("Error: too many arguments.\n", 2);

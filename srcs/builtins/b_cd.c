@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 18:15:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/13 19:32:29 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ static void	update_env(char *old_pwd, int rv, t_data *data)
 	safe_free(pwd);
 }
 
+static void	update_env_access(t_data *data)
+{
+	ft_putstr_fd("Error: cannot access parent directories. Redirecting to root regardless of input.\n", 2);
+	chdir("/");
+	safe_free(data->old_pwd);
+	data->old_pwd = ft_strdup(data->pwd);
+	modify_env("OLDPWD", data->old_pwd, data);
+	safe_free(data->pwd);
+	data->pwd = ft_strdup("/");
+	modify_env("PWD", data->pwd, data);
+	data->last_exit_status = 0;
+}
+
 static int	handle_del_dir(t_data *data)
 {
 	char	*pwd;
@@ -38,7 +51,7 @@ static int	handle_del_dir(t_data *data)
 
 	pwd = NULL;
 	old_pwd = NULL;
-	if (chdir(get_env_value("OLDPWD", data)) != -1)
+	if (chdir(data->old_pwd) != -1)
 	{
 		pwd = ft_strdup(data->pwd);
 		old_pwd = ft_strdup(data->old_pwd);
@@ -46,9 +59,10 @@ static int	handle_del_dir(t_data *data)
 		safe_free(data->old_pwd);
 		data->pwd = ft_strdup(old_pwd);
 		data->old_pwd = ft_strdup(pwd);
-		return (99);
 	}
-	return (1);
+	else
+		update_env_access(data);
+	return (0);
 }
 
 int	b_cd(char **args, t_data *data)
