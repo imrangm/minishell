@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/13 18:44:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/14 20:48:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ static void	create_child_process(char **args, t_data *data)
 	}
 	if (pid == 0)
 	{
-		// signal(SIGQUIT, SIG_DFL);
-		// signal(SIGINT, SIG_DFL);
 		if (exec_cmd_child(args, data) == -1)
 		{
 			ft_putstr_fd("Error: Command not found\n", 2);

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:54:41 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/14 20:48:49 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute_line(char *line, t_data *data)
 {
-	signal(SIGINT, &handle_signals_else);
+	set_signalset(1); // I have to modify this by myself.
 	if (pc_mode(line, 'p'))
 		handle_pp(line, data);
 	else if (pc_mode(line, 'r'))
@@ -29,8 +29,7 @@ void	minishell(t_data *data)
 
 	while (isatty(STDIN_FILENO))
 	{
-		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &handle_signals_main);
+		set_signalset(0);
 		line = readline("$> ");
 		if (!line)
 		{
