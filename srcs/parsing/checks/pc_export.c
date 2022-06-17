@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:31:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/14 20:35:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/17 18:42:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	export_mode(char **str_split)
 static int	invalid_lhs(char *str)
 {
 	int	i;
-	int	f;
+	// int	f; //variable unused
 
 	i = 0;
-	f = 0;
+	// f = 0;
 	while (str[i] && str[i] != '=' && str[i] != '+')
 	{
 		if (!ft_isalnum(str[i]))

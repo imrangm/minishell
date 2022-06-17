@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/14 20:48:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/17 18:46:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ void	minishell(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	data;
+	t_data	*data;
 
 	(void) argc;
 	(void) argv;
-	init_envp(envp, &data);
-	data.pwd = NULL;
-	data.old_pwd = NULL;
-	minishell(&data);
+	data = malloc(sizeof(t_data));
+	init_envp(envp, data);
+	data->pwd = NULL;
+	data->old_pwd = NULL;
+	minishell(data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 18:58:51 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/17 18:43:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	pc_valid(char *line, t_data *data)
 		data->last_exit_status = 1;
 		return (0);
 	}
-	data->last_exit_status = 0;
+	// data->last_exit_status = 0;
 	return (1);
 }
