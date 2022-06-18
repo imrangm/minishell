@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/14 20:48:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/18 07:02:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	free_and_kill(char **args, char **envp)
 {
 	free_2d(args);
 	free_2d(envp);
-	kill(getpid(), 9);
+	exit(0);
 }
 
 int	exec_cmd_child(char **args, t_data *data)

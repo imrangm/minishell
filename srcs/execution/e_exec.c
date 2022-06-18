@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/17 18:51:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/18 07:04:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	monitor_process(int pid, t_data *data)
 			data->last_exit_status = code;
 			strerror(code);
 		}
-		else
-			data->last_exit_status = 0;
+		// else
+		// 	data->last_exit_status = 0;
 	}
 	// printf("code: %d\n", data->last_exit_status);
 }
