@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/18 07:04:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/18 11:21:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	monitor_process(int pid, t_data *data)
 			data->last_exit_status = code;
 			strerror(code);
 		}
-		// else
-		// 	data->last_exit_status = 0;
+		else
+			data->last_exit_status = 0;
 	}
 	// printf("code: %d\n", data->last_exit_status);
 }
@@ -78,8 +78,8 @@ static void	create_child_process(char **args, t_data *data)
 	}
 	else
 	{
-		if (!get_cmd_path(args, data))
-			data->last_exit_status = 127;
+		// if (!get_cmd_path(args, data))
+		// 	data->last_exit_status = 127;
 		monitor_process(pid, data);
 	}
 }
@@ -91,6 +91,7 @@ void	master_execute(char *line, t_data *data)
 	args = smart_split(line);
 	if (is_parent_function(args))
 		exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
+		// no child created so no need for waitpid()
 	else
 		create_child_process(args, data);
 	free_2d(args);

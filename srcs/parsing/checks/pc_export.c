@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:31:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/17 18:42:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:55:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	export_mode(char **str_split)
 	return (1);
 }
 
-static int	invalid_lhs(char *str)
+int	invalid_lhs(char *str)
 {
 	int	i;
 	// int	f; //variable unused
@@ -61,8 +61,8 @@ static int	invalid_lhs(char *str)
 static int	is_invalid_export_syntax(char **str, int i)
 {
 	return (equal_plus(str[i]) || !ft_strcmp(str[i], "=")
-			|| !ft_strcmp(str[i], "+=") || !ft_isalpha(str[i][0])
-			|| str[i][ft_strlen(str[i]) - 1] == '+' || invalid_lhs(str[i]));
+		|| !ft_strcmp(str[i], "+=")
+		|| str[i][ft_strlen(str[i]) - 1] == '+');
 }
 
 int	pc_export(char *str)
