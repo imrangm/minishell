@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_redirs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:30:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/18 11:31:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	handle_single(char *str, int i)
 		|| (str[i] == '<' && (str[i + 1] == '>' || str[i + 1] == '|'))
 		|| (str[i] == '|' && (str[i + 1] == '>' || str[i + 1] == '<')))
 	{
-		ft_putstr_fd("Error: Invalid redirection syntax.\n", 2);
+		ft_putstr_fd("Error: Invalid syntax.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -38,7 +38,7 @@ static int	handle_double(char *str, int i)
 			&& (str[i + 2] == '|' || str[i + 2] == '<'
 				|| str[i + 2] == '>')))
 	{
-		ft_putstr_fd("Error: Invalid redirection syntax.\n", 2);
+		ft_putstr_fd("Error: Invalid syntax.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -81,12 +81,12 @@ int	pc_redir(char *line)
 			&& check_space(out[i + 1]))
 		{
 			free_2d(out);
-			return (error("minishell: syntax error\n"));
+			return (error("Error: Invalid redirection syntax\n"));
 		}
 		if (ft_countoccurance(out[i], '>', '<') > 2)
 		{
 			free_2d(out);
-			return (error("minishell: syntax error\n"));
+			return (error("Error: Invalid redirection syntax\n"));
 		}
 		i++;
 	}

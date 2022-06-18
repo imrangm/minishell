@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:31:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/18 10:55:13 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/18 17:57:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	export_mode(char **str_split)
 	return (1);
 }
 
-int	invalid_lhs(char *str)
+static int	invalid_lhs(char *str)
 {
 	int	i;
 	// int	f; //variable unused
@@ -61,8 +61,8 @@ int	invalid_lhs(char *str)
 static int	is_invalid_export_syntax(char **str, int i)
 {
 	return (equal_plus(str[i]) || !ft_strcmp(str[i], "=")
-		|| !ft_strcmp(str[i], "+=")
-		|| str[i][ft_strlen(str[i]) - 1] == '+');
+		|| !ft_strcmp(str[i], "+=") || !ft_isalpha(str[i][0])
+		|| str[i][ft_strlen(str[i]) - 1] == '+' || invalid_lhs(str[i]));
 }
 
 int	pc_export(char *str)
@@ -72,7 +72,7 @@ int	pc_export(char *str)
 
 	i = 1;
 	str_split = ft_split(str, ' ');
-	if (!export_mode(str_split)) //  && !p_mode(str, 'p')
+	if (!export_mode(str_split) || ft_strchr(str, '|')) //  && !p_mode(str, 'p')
 		return (0);
 	while (str_split[i])
 	{
