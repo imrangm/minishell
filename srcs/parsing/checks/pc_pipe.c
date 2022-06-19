@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:18:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/10 15:24:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/19 07:47:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	pc_pipe(char *line)
 			&& (ft_strncmp(check[i + 1], "|", 1) == 0))
 		{
 			free_2d(check);
-			return (error("minishell: syntax error\n"));
+			return (error("Error: incorrect syntax for pipes\n"));
 		}
 		i++;
 	}

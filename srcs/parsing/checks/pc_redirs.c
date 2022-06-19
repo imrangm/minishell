@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/18 18:57:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/19 10:03:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ static int	handle_single(char *str, int i)
 {
 	if ((str[i] == '>' && (str[i + 1] == '<' || str[i + 1] == '|'))
 		|| (str[i] == '<' && (str[i + 1] == '>' || str[i + 1] == '|'))
-		|| (str[i] == '>' && (str[i + 1] == '>' || str[i + 1] == '|'))
-		|| (str[i] == '<' && (str[i + 1] == '<' || str[i + 1] == '|'))
 		|| (str[i] == '>' && (str[i + 1] == '<' || str[i + 1] == '|'))
-		|| (str[i] == '|' && (str[i + 1] == '>' || str[i + 1] == '<'))
 		|| (str[i] == '|' && str [i + 1] == '|'))
 	{
 		ft_putstr_fd("Error: Invalid syntax.\n", 2);
