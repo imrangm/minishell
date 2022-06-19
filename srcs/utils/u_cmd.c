@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:56:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/18 11:20:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		ft_putstr_fd("Error: command not found\n", 2);
 		data->last_exit_status = 127;
 		free_2d(args);
-		return (NULL);
+		exit (127);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
@@ -67,7 +67,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		data->last_exit_status = 126;
 		free_2d(args);
 		free(cmd);
-		return (NULL);
+		exit (126);
 	}
 	return (cmd);
 }

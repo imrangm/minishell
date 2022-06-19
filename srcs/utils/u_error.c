@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_error.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/13 19:35:05 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/18 07:02:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	err_kill_process(t_pipe **p)
 {
 	p[0]->data->last_exit_status = 1;
 	perror("Error");
-	kill(getpid(), 9); // ? Imran, change this please.
+	exit(1);
 }

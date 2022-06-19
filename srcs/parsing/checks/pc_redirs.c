@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_redirs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:30:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/19 10:03:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ static int	handle_single(char *str, int i)
 {
 	if ((str[i] == '>' && (str[i + 1] == '<' || str[i + 1] == '|'))
 		|| (str[i] == '<' && (str[i + 1] == '>' || str[i + 1] == '|'))
-		|| (str[i] == '|' && (str[i + 1] == '>' || str[i + 1] == '<')))
+		|| (str[i] == '>' && (str[i + 1] == '<' || str[i + 1] == '|'))
+		|| (str[i] == '|' && str [i + 1] == '|'))
 	{
-		ft_putstr_fd("Error: Invalid redirection syntax.\n", 2);
+		ft_putstr_fd("Error: Invalid syntax.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -38,7 +39,7 @@ static int	handle_double(char *str, int i)
 			&& (str[i + 2] == '|' || str[i + 2] == '<'
 				|| str[i + 2] == '>')))
 	{
-		ft_putstr_fd("Error: Invalid redirection syntax.\n", 2);
+		ft_putstr_fd("Error: Invalid syntax.\n", 2);
 		return (1);
 	}
 	return (0);
@@ -78,15 +79,15 @@ int	pc_redir(char *line)
 	while (out[i + 1])
 	{
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
-			&& check_space(out[i + 1]))
+			&& (check_space(out[i + 1]) || ft_strchr(out[i + 1], '|')))
 		{
 			free_2d(out);
-			return (error("minishell: syntax error\n"));
+			return (error("Error: Invalid redirection syntax\n"));
 		}
 		if (ft_countoccurance(out[i], '>', '<') > 2)
 		{
 			free_2d(out);
-			return (error("minishell: syntax error\n"));
+			return (error("Error: Invalid redirection syntax\n"));
 		}
 		i++;
 	}
