@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/18 11:21:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:53:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static void	monitor_process(int pid, t_data *data)
 		else
 			data->last_exit_status = 0;
 	}
-	// printf("code: %d\n", data->last_exit_status);
 }
 
 char	*get_export_value_side(char *str, int lhs)
@@ -90,8 +89,7 @@ void	master_execute(char *line, t_data *data)
 
 	args = smart_split(line);
 	if (is_parent_function(args))
-		exec_cmd_parent(args, data); //TODO Implement wait() or waitpid()
-		// no child created so no need for waitpid()
+		exec_cmd_parent(args, data);
 	else
 		create_child_process(args, data);
 	free_2d(args);

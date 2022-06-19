@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/17 18:46:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:54:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	execute_line(char *line, t_data *data)
 {
-	set_signalset(1); // I have to modify this by myself.
+	set_signalset(1);
 	if (pc_mode(line, 'p'))
 		handle_pp(line, data);
 	else if (pc_mode(line, 'r'))
