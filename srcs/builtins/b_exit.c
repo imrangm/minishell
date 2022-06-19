@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/18 18:05:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/06/19 07:45:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	ft_num_check(const char *str)
 {
 	int					i;
-	int					j;
 	unsigned long long	result;
 
 	i = 0;
@@ -24,8 +23,9 @@ static int	ft_num_check(const char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	j = 0;
-	while (ft_isdigit(str[i]) && j++ < 19)
+	if (ft_strlen(str) - i > 19)
+		return (1);
+	while (ft_isdigit(str[i]))
 		result = result * 10 + (str[i++] - '0');
 	if (result > 9223372036854775807)
 		return (1);
