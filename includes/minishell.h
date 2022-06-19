@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/14 20:42:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/19 17:12:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char	**smart_split(char *str);
 char	*set_cmd(char *s1, char *s2);
 char	**pe_split_path(char *s, char c);
 char	**split_pp(char const *s, char c);
+char	**strip_quotes(char **elements, int element_count);
 
 //* Builtins
 int		b_pwd(t_data *data);

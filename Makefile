@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/11 17:27:16 by nmadi            ###   ########.fr        #
+#    Updated: 2022/06/19 17:05:17 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS=		main.c \
 			parsing/extractors/pe_splitpp.c \
 			parsing/extractors/pe_splits.c \
 			parsing/extractors/pe_splitpath.c \
+			parsing/extractors/pe_quotes.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \
