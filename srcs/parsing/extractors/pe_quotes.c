@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/19 17:34:28 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/25 19:15:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	**strip_quotes(char **elements, int element_count)
 	i = 0;
 	j = 0;
 	q = 0;
-
 	stripped_elements = malloc(sizeof(char *) * element_count + 1);
 	stripped_elements[element_count] = 0;
 	while (i < element_count)

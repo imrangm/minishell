@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/19 17:56:03 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/06/26 13:38:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,24 @@ static int	get_element_count(char *str)
 		if (ft_isquote(str[i]) && !quote)
 			quote = str[i];
 		else if (str[i] == quote)
-		{
 			quote = 0;
-			if (!str[i + 1])
-			{
-				element_count++;
-				break ;
-			}
-		}
 		else if (!quote && ft_isspace(str[i]) && str[i + 1]
 				&& !ft_isspace(str[i + 1]))
 		{
-			if (!str[i + 2])
-			{
-				printf("%c – First here\n", str[i]);
-				element_count++;
-			}
-			else if (!(str[i + 1] == SQUOTE && str[i + 2] == SQUOTE)
-				&& !(str[i + 1] == DQUOTE && str[i + 2] == DQUOTE))
-			{
-				printf("%c – Second here\n", str[i]);
-				element_count++;
-			}
-			else
-				printf("%c", str[i]);
+			element_count++;
+			// if (!str[i + 2])
+			// {
+			// 	printf("%c - First here\n", str[i]);
+			// 	element_count++;
+			// }
+			// else if (!(str[i + 1] == SQUOTE && str[i + 2] == SQUOTE)
+			// 	&& !(str[i + 1] == DQUOTE && str[i + 2] == DQUOTE))
+			// {
+			// 	printf("%c - Second here\n", str[i]);
+			// 	element_count++;
+			// }
+			// else
+			// 	printf("%c", str[i]);
 		}
 		i++;
 	}
@@ -104,7 +98,8 @@ static void	get_elements(char *str, char **elements, int element_count)
 	{
 		element_size = get_next_word_len(str);
 		j = ft_skipspaces(str);
-		elements[i] = ft_substr(str, j, element_size - j);
+		// printf("j = %d | element size - j = %d\n", j, element_size - j);
+		elements[i] = ft_substr(str, j, element_size);
 		s = j + element_size + 1;
 		tmp = ft_substr(str, s, (ft_strlen(str) - element_size) + 1);
 		free(str);
@@ -123,7 +118,8 @@ char	**smart_split(char *str)
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
 	get_elements(str, elements, element_count);
-	// elements = strip_quotes(elements, element_count);
+	// Expand here
+	elements = strip_quotes(elements, element_count);
 	printf("\n\n---[Elements %d]---\n\n", element_count);
 	for (int i = 0; elements[i]; i++) //! Remember to remove.
 		printf("Element %i = |%s|\n", i, elements[i]);
