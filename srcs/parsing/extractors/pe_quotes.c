@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 14:31:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 15:28:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ static char	*copy_without_quotes(char *str, int	count)
 			q = str[i];
 		else if (str[i] == q)
 			q = 0;
-		else // && j < count
+		else
 		{
 			ql_str[j] = str[i];
-			// printf("%c", ql_str[j]);
 			j++;
 		}
 		i++;
@@ -67,20 +66,15 @@ static char	*copy_without_quotes(char *str, int	count)
 char	**strip_quotes(char **elements, int element_count)
 {
 	int		i;
-	int		j;
-	int		q;
 	char	**stripped_elements;
 
 	i = 0;
-	j = 0;
-	q = 0;
 	stripped_elements = malloc(sizeof(char *) * element_count + 1);
 	stripped_elements[element_count] = 0;
 	while (i < element_count)
 	{
 		stripped_elements[i] = copy_without_quotes(elements[i],
 			count_without_quotes(elements[i]));
-		// printf("|%s|\n", stripped_elements[i]);
 		i++;
 	}
 	free_2d(elements);
