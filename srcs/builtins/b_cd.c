@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/13 19:32:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 14:48:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,37 @@ static int	handle_del_dir(t_data *data)
 	return (0);
 }
 
+static int	redirect_to_home(t_data *data)
+{
+	char	*cwd;
+	char	*pwd;
+
+	cwd = NULL;
+	pwd = getcwd(cwd, sizeof(cwd));
+	if (chdir(get_env_value("HOME", data)) == -1)
+	{
+		ft_putstr_fd("Error: HOME not set\n", 2);
+		free(pwd);
+		free(cwd);
+		return (1);
+	}
+	free(pwd);
+	free(cwd);
+	return (0);
+}
+
+static int	handle_input_types(char **args, char *pwd, t_data *data)
+{
+	if (!args[1])
+		return (redirect_to_home(data));
+	else if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
+		return (root_relative_chdir(args[1]));
+	else if (args[1][0] == '/')
+		return (full_chdir(args[1]));
+	else
+		return (relative_chdir(pwd, args[1]));
+}
+
 int	b_cd(char **args, t_data *data)
 {
 	char	*cwd;
@@ -81,12 +112,7 @@ int	b_cd(char **args, t_data *data)
 	pwd = getcwd(cwd, sizeof(cwd));
 	if (!pwd)
 		return (handle_del_dir(data));
-	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
-		rv = root_relative_chdir(args[1]);
-	else if (args[1][0] == '/')
-		rv = full_chdir(args[1]);
-	else
-		rv = relative_chdir(pwd, args[1]);
+	rv = handle_input_types(args, pwd, data);
 	data->last_exit_status = rv;
 	update_env(pwd, rv, data);
 	safe_free(pwd);

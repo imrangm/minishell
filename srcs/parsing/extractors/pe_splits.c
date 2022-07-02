@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/26 13:38:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 14:32:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,9 @@ static int	get_element_count(char *str)
 			quote = 0;
 		else if (!quote && ft_isspace(str[i]) && str[i + 1]
 				&& !ft_isspace(str[i + 1]))
-		{
 			element_count++;
-			// if (!str[i + 2])
-			// {
-			// 	printf("%c - First here\n", str[i]);
-			// 	element_count++;
-			// }
-			// else if (!(str[i + 1] == SQUOTE && str[i + 2] == SQUOTE)
-			// 	&& !(str[i + 1] == DQUOTE && str[i + 2] == DQUOTE))
-			// {
-			// 	printf("%c - Second here\n", str[i]);
-			// 	element_count++;
-			// }
-			// else
-			// 	printf("%c", str[i]);
-		}
 		i++;
 	}
-	printf("\n");
 	return (element_count);
 }
 
@@ -77,8 +61,8 @@ static int	get_next_word_len(char *str)
 		len++;
 		i++;
 	}
-	printf("word in gnw_len = |%s|\n", str);
-	printf("%d\n", len);
+	// printf("word in gnw_len = |%s|\n", str);
+	// printf("%d\n", len);
 	return (len);
 }
 
@@ -120,9 +104,9 @@ char	**smart_split(char *str)
 	get_elements(str, elements, element_count);
 	// Expand here
 	elements = strip_quotes(elements, element_count);
-	printf("\n\n---[Elements %d]---\n\n", element_count);
-	for (int i = 0; elements[i]; i++) //! Remember to remove.
-		printf("Element %i = |%s|\n", i, elements[i]);
-	printf("\n---[Elements]---\n\n");
+	// printf("\n\n---[Elements %d]---\n\n", element_count);
+	// for (int i = 0; elements[i]; i++) //! Remember to remove.
+	// 	printf("Element %i = |%s|\n", i, elements[i]);
+	// printf("\n---[Elements]---\n\n");
 	return (elements);
 }

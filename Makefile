@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/06/19 17:05:17 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/02 14:33:57 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,7 @@ valgrind: $(NAME)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 
-mega: all clean
+run: re clean
+	@clear && ./minishell
 
 .PHONY: all clean fclean re
