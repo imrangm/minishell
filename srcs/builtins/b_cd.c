@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 14:48:35 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 15:38:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,22 @@ static int	redirect_to_home(t_data *data)
 {
 	char	*cwd;
 	char	*pwd;
+	char	*destination;
 
 	cwd = NULL;
 	pwd = getcwd(cwd, sizeof(cwd));
-	if (chdir(get_env_value("HOME", data)) == -1)
+	destination = get_env_value("HOME", data);
+	if (chdir(destination) == -1)
 	{
 		ft_putstr_fd("Error: HOME not set\n", 2);
-		free(pwd);
-		free(cwd);
+		safe_free(pwd);
+		safe_free(cwd);
+		safe_free(destination);
 		return (1);
 	}
-	free(pwd);
-	free(cwd);
+	safe_free(pwd);
+	safe_free(cwd);
+	safe_free(destination);
 	return (0);
 }
 
