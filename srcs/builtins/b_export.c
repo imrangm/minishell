@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/13 18:32:05 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 15:12:49 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	b_export(char **args, t_data *data)
 
 	i = 1;
 	f = 0;
+	if (pc_export(args))
+	{
+		data->last_exit_status = 1;
+		return ;
+	}
 	if (!args[1])
 	{
 		b_env(data->envp, 1);

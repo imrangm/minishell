@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/19 17:12:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/02 15:13:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		pc_pipe(char *line);
 int		pc_quotes(char *str);
 int		pc_redirs(char *str);
 int		pc_redir(char *line);
-int		pc_export(char *str);
+int		pc_export(char **args);
 int		pc_mode(char *str, char mode);
 int		pc_valid(char *str, t_data *data);
 
@@ -156,12 +156,9 @@ void	handle_signals_main(int signum);
 void	handle_signals_else(int signum);
 
 //* Misc (Organize)
-int		set_quote_mode(char c, int *quote);
-char	*line_unquote(char *input);
 char	*cmd_copy(char *input);
 int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);
-char	**chars_split(char *str, char *charset);
 int		word_count(char *input);
 
 #endif
