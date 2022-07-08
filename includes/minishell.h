@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:13:18 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/04 21:50:50 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ void	handle_signals_main(int signum);
 void	handle_signals_else(int signum);
 
 //* Misc (Organize)
+char	*expand_line(char *line, t_data *data);
 char	*cmd_copy(char *input);
 int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);

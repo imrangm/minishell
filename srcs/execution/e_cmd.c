@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/19 16:54:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 17:53:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ void	exec_cmd_parent(char **args, t_data *data)
 		b_cd(args, data);
 }
 
-static int	exec_sys_cmd(char **args, t_data *data, char *cmd_path)
+static int	exec_sys_cmd(char **args, t_data *data)
 {
+	char	*cmd_path;
+
 	cmd_path = get_cmd_path(args, data);
-	if (cmd_path)
+	if (cmd_path && cmd_path[0])
 	{
 		if (execve(cmd_path, args, data->envp) == -1)
 		{
@@ -63,9 +65,6 @@ static void	free_and_kill(char **args, char **envp)
 
 int	exec_cmd_child(char **args, t_data *data)
 {
-	char	*cmd_path;
-
-	cmd_path = NULL;
 	if (!ft_strcmp(args[0], "export") && args[1])
 		free_and_kill(args, data->envp);
 	else if (!ft_strcmp(args[0], "echo"))
@@ -78,7 +77,7 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 1);
 	else
 	{
-		if (exec_sys_cmd(args, data, cmd_path))
+		if (exec_sys_cmd(args, data))
 			return (-1);
 	}
 	free_and_kill(args, data->envp);

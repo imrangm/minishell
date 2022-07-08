@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/19 16:53:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 18:18:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,13 @@ void	master_execute(char *line, t_data *data)
 
 	args = smart_split(line);
 	if (is_parent_function(args))
+	{
 		exec_cmd_parent(args, data);
+		free_2d(args);
+	}
 	else
+	{
 		create_child_process(args, data);
-	free_2d(args);
+		free_2d(args);
+	}
 }

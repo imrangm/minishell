@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:28:48 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 18:07:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	count_without_quotes(char *str)
 	return (c);
 }
 
-static char	*copy_without_quotes(char *str, int	count)
+static char	*copy_without_quotes(char *str, int count)
 {
 	int		i;
 	int		j;
@@ -69,12 +69,13 @@ char	**strip_quotes(char **elements, int element_count)
 	char	**stripped_elements;
 
 	i = 0;
-	stripped_elements = malloc(sizeof(char *) * element_count + 1);
-	stripped_elements[element_count] = 0;
+	stripped_elements = (char **) ft_calloc(sizeof(char *), element_count + 1);
+	if (!stripped_elements)
+		return (NULL);
 	while (i < element_count)
 	{
 		stripped_elements[i] = copy_without_quotes(elements[i],
-			count_without_quotes(elements[i]));
+				count_without_quotes(elements[i]));
 		i++;
 	}
 	free_2d(elements);

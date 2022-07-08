@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:36:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 18:19:39 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	set_shlvl(t_data *data)
 {
 	int		shlvl;
 	char	*shlvl_rhs;
+	char	*shlvl_itoa;
 
 	shlvl = 0;
 	shlvl_rhs = NULL;
@@ -27,7 +28,9 @@ static void	set_shlvl(t_data *data)
 		else
 		{
 			shlvl = ft_atoi(shlvl_rhs) + 1;
-			modify_env("SHLVL", ft_itoa(shlvl), data);
+			shlvl_itoa = ft_itoa(shlvl);
+			modify_env("SHLVL", shlvl_itoa, data);
+			safe_free(shlvl_itoa);
 		}
 	}
 }

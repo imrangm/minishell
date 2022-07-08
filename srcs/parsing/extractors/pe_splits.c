@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 14:32:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 17:50:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_element_count(char *str)
 		else if (str[i] == quote)
 			quote = 0;
 		else if (!quote && ft_isspace(str[i]) && str[i + 1]
-				&& !ft_isspace(str[i + 1]))
+			&& !ft_isspace(str[i + 1]))
 			element_count++;
 		i++;
 	}
@@ -66,7 +66,7 @@ static int	get_next_word_len(char *str)
 	return (len);
 }
 
-static void	get_elements(char *str, char **elements, int element_count)
+static char	**get_elements(char *str, char **elements, int element_count)
 {
 	int		i;
 	int		j;
@@ -91,22 +91,24 @@ static void	get_elements(char *str, char **elements, int element_count)
 		free(tmp);
 		i++;
 	}
+	return (elements);
 }
 
 char	**smart_split(char *str)
 {
 	int		element_count;
 	char	**elements;
+	char	**stripped_elements;
 
 	element_count = get_element_count(str);
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
-	get_elements(str, elements, element_count);
+	elements = get_elements(str, elements, element_count);
 	// Expand here
-	elements = strip_quotes(elements, element_count);
+	stripped_elements = strip_quotes(elements, element_count);
 	// printf("\n\n---[Elements %d]---\n\n", element_count);
-	// for (int i = 0; elements[i]; i++) //! Remember to remove.
-	// 	printf("Element %i = |%s|\n", i, elements[i]);
+	// for (int i = 0; stripped_elements[i]; i++) //! Remember to remove.
+	// 	printf("Element %i = |%s|\n", i, stripped_elements[i]);
 	// printf("\n---[Elements]---\n\n");
-	return (elements);
+	return (stripped_elements);
 }

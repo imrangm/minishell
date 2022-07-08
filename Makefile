@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/07/02 14:33:57 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/08 13:41:21 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS=		main.c \
 			parsing/extractors/pe_splits.c \
 			parsing/extractors/pe_splitpath.c \
 			parsing/extractors/pe_quotes.c \
+			parsing/extractors/pe_expand.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \
@@ -55,8 +56,8 @@ SRCS=		main.c \
 CC =		gcc
 
 # Homebrew Flags
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
 # LDFLAGS =	-lreadline -L ./libs/readline/lib/
@@ -67,8 +68,8 @@ CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 # CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
-# LDFLAGS =	-lreadline
-# CFLAGS =	-Wall -Wextra -Werror
+LDFLAGS =	-lreadline
+CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 

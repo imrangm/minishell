@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:36:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 18:14:22 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,13 +166,14 @@ void	delete_env(char *var_name, t_data *data)
 	if (!env_exists(var_name, data))
 		return ;
 	env_count = ft_count2darr(data->envp);
-	new_envp = (char **) malloc(sizeof(char *) * env_count);
+	new_envp = (char **) ft_calloc(sizeof(char *), env_count + 1);
 	if (!new_envp)
 		return ;
 	new_envp[env_count] = 0;
 	while (data->envp && i < env_count)
 	{
-		tmp = ft_substr(data->envp[i], 0, ft_counttochars(data->envp[i], '=', '\0'));
+		tmp = ft_substr(data->envp[i], 0,
+				ft_counttochars(data->envp[i], '=', '\0') + 1);
 		if (ft_strcmp(var_name, tmp))
 			new_envp[i] = ft_strdup(data->envp[i]);
 		safe_free(tmp);

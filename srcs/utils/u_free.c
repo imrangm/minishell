@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/09 17:45:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/08 14:03:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_2d(char **arr)
 	int	i;
 
 	i = 0;
-	if (arr == NULL)
+	if (arr == NULL && !arr[0])
 		return ;
 	while (arr[i])
 	{
