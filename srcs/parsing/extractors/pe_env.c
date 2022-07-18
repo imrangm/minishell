@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 07:36:18 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 12:13:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	init_envp(char **envp, t_data *data)
 	char	*cwd;
 
 	cwd = NULL;
+
+	data->pwd = NULL;
+	data->old_pwd = NULL;
 	data->envp = clone_env(envp, 0);
 	delete_env("OLDPWD", data);
 	if (!data->envp[0])
@@ -55,7 +58,7 @@ void	init_envp(char **envp, t_data *data)
 	}
 	else
 	{
-		modify_env("OLDPWD", NULL, data);
+		append_env("OLDPWD", NULL, data);
 		set_shlvl(data);
 	}
 	modify_env("PWD", getcwd(cwd, sizeof(cwd)), data);

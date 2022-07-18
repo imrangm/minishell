@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 08:00:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 12:12:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	env_exists(char *var_name, t_data *data)
 				&& data->envp[i][ft_strlen(var_name)] == '=')
 				return (1);
 		}
-		if (!ft_strcmp(var_name, data->envp[i]))
+		else if (!ft_strcmp(var_name, data->envp[i]))
 			return (1);
 		i++;
 	}
@@ -75,14 +75,12 @@ char	**clone_env(char **envp, int extra_slot)
 	int		i;
 	char	**envp_copy;
 
-	i = 0;
-	while (envp && envp[i])
-		i++;
-	envp_copy = (char **) malloc(sizeof(char *) * (i + 1 + extra_slot));
+	i = ft_count2darr(envp);
+	envp_copy = (char **) ft_calloc(sizeof(char *), i + 1 + extra_slot);
 	if (!envp_copy)
 		return (NULL);
 	i = 0;
-	while (envp && envp[i])
+	while (envp[i])
 	{
 		envp_copy[i] = ft_strdup(envp[i]);
 		i++;
@@ -98,11 +96,11 @@ void	append_env(char *var_name, char *value, t_data *data)
 	int		i;
 	char	**new_envp;
 
-	i = 0;
+	i = ft_count2darr(data->envp);
 	new_envp = clone_env(data->envp, 1);
-	while (new_envp && new_envp[i])
-		i++;
-	if (value)
+	if (!new_envp)
+		return ;
+	if (value != NULL)
 		new_envp[i] = join_env_var_and_value(var_name, value);
 	else
 		new_envp[i] = ft_strdup(var_name);
@@ -158,17 +156,18 @@ void	free_block(char *var_name, char **envp)
 void	delete_env(char *var_name, t_data *data)
 {
 	int		i;
+	int		c;
 	char	*tmp;
 	char	**new_envp;
 
 	i = 0;
 	if (!env_exists(var_name, data))
 		return ;
-	new_envp = (char **) ft_calloc(sizeof(char *),
-			ft_count2darr(data->envp) + 1);
+	c = ft_count2darr(data->envp);
+	new_envp = (char **) ft_calloc(sizeof(char *), c + 1);
 	if (!new_envp)
 		return ;
-	while (data->envp[i])
+	while (i < c)
 	{
 		tmp = ft_substr(data->envp[i], 0,
 				ft_counttochars(data->envp[i], '=', '\0') + 1);
