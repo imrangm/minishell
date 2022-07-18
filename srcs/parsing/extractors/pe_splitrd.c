@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:55:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:55:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	new_word(char **split, char *str, int *pos, int *word)
 	j = 0;
 	while (char_is_separator(str[*pos + j], "<>") == 0)
 		j++;
-	split[*word] = (char *) malloc (sizeof(char) * (j + 1));
+	split[*word] = (char *) malloc(sizeof(char) * (j + 1));
 	write_word(split[*word], str + (*pos), 0);
 	*pos += j;
 	(*word)++;
@@ -124,9 +124,9 @@ char	**split_rd(char *str)
 	while (res[i])
 	{
 		trim[i] = ft_strtrim(res[i], " ");
-		safe_free(res[i]);
+		free(res[i]);
 		i++;
 	}
-	safe_free(res);
+	free(res);
 	return (trim);
 }

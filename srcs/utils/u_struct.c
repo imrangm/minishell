@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 21:22:55 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:54:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	free_struct_rd(t_redirs *rd)
 {
-	safe_free(rd->infile);
-	safe_free(rd->outfile);
-	safe_free(rd->heredoc);
-	safe_free(rd->append);
-	safe_free(rd);
+	free(rd->infile);
+	free(rd->outfile);
+	free(rd->heredoc);
+	free(rd->append);
+	free(rd);
 }
 
 void	free_struct_pp(t_pipe **p, int nchild)
@@ -28,12 +28,12 @@ void	free_struct_pp(t_pipe **p, int nchild)
 	i = 0;
 	while (i < nchild)
 	{
-		safe_free(p[i]->fcmd);
-		safe_free(p[i]->rd.infile);
-		safe_free(p[i]->rd.outfile);
-		safe_free(p[i]->rd.heredoc);
-		safe_free(p[i]->rd.append);
-		safe_free(p[i]);
+		free(p[i]->fcmd);
+		free(p[i]->rd.infile);
+		free(p[i]->rd.outfile);
+		free(p[i]->rd.heredoc);
+		free(p[i]->rd.append);
+		free(p[i]);
 		i++;
 	}
 	free(p);
@@ -44,14 +44,14 @@ void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p)
 {
 	free_3d(arg, p[0]->nchild);
 	free_2d_int(pipes, p[0]->nchild);
-	safe_free(pids);
+	free(pids);
 	free_struct_pp(p, p[0]->nchild);
 }
 
 void	rd_free(int *fd, char **arg, t_redirs *rd)
 {
 	close_fds(fd);
-	safe_free(fd);
+	free(fd);
 	free_2d(arg);
 	free_struct_rd(rd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_error.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/18 07:02:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/07/18 07:48:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	err_print(int error, t_data *data)
 void	err_free_parent(int **pipes, int *pids, int nchild)
 {
 	free_2d_int(pipes, nchild);
-	safe_free(pids);
+	free(pids);
 	perror("Error");
 }
 

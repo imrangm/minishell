@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/04 21:50:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:47:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
 void	err_kill_process(t_pipe **p);
 void	err_free_process(int **pipes, char ***args, int nchild);
-void	safe_free(void *ptr);
+void	safe_free(char *ptr);
 void	free_2d_int(int **arr, int nchild);
 void	free_2d(char **arr);
 void	free_3d(char ***arr, int nchild);
