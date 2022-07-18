@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/08 18:19:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:36:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	set_shlvl(t_data *data)
 
 	shlvl = 0;
 	shlvl_rhs = NULL;
+	shlvl_itoa = NULL;
 	if (env_exists("SHLVL", data))
 	{
 		shlvl_rhs = get_env_value("SHLVL", data);
@@ -30,9 +31,12 @@ static void	set_shlvl(t_data *data)
 			shlvl = ft_atoi(shlvl_rhs) + 1;
 			shlvl_itoa = ft_itoa(shlvl);
 			modify_env("SHLVL", shlvl_itoa, data);
-			safe_free(shlvl_itoa);
+			free(shlvl_itoa);
 		}
 	}
+	else
+		modify_env("SHLVL", "1", data);
+	free(shlvl_rhs);
 }
 
 void	init_envp(char **envp, t_data *data)

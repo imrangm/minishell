@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/08 17:50:58 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:33:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ static char	**get_elements(char *str, char **elements, int element_count)
 		free(tmp);
 		i++;
 	}
+	free(str);
 	return (elements);
 }
 

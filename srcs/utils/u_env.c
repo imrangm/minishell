@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/08 18:14:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/18 07:33:59 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	equal[0] = '=';
 	equal[1] = '\0';
 	var_name_and_equal = ft_strjoin(var_name, equal);
-	safe_free(equal);
+	free(equal);
 	full_env_entry = ft_strjoin(var_name_and_equal, value);
 	safe_free(var_name_and_equal);
 	return (full_env_entry);

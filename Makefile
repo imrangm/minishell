@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/07/08 13:41:21 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/18 07:29:11 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,23 +88,23 @@ $(NAME): $(OBJS)
 	mv ./srcs/parsing/extractors/*.o objs/
 	mv ./srcs/main.o objs/
 	$(MAKE) -C ./libs/libft/
-	@echo "\033[0;32mCompiled libft.\033[0m"
+# @echo "\033[0;32mCompiled libft.\033[0m"
 	$(CC) ./objs/*.o $(LIBFT_A) $(LDFLAGS) -o $(NAME)
-	@echo "\033[0;32mCompiled minishell.\033[0m"
+# @echo "\033[0;32mCompiled minishell.\033[0m"
 
 all: $(NAME)
 
 clean:
 	rm -rf ./objs/
-	@echo "\033[0;32mCleaned minishell object files.\033[0m"
+#	@echo "\033[0;32mCleaned minishell object files.\033[0m"
 	$(MAKE) clean -C ./libs/libft/
-	@echo "\033[0;32mCleaned libft object files.\033[0m"
+#	@echo "\033[0;32mCleaned libft object files.\033[0m"
 
 fclean: clean
 	rm -rf minishell
-	@echo "\033[0;32mCleaned executable.\033[0m"
+#	@echo "\033[0;32mCleaned executable.\033[0m"
 	$(MAKE) fclean -C ./libs/libft/
-	@echo "\033[0;32mCleaned libft archive file.\033[0m"
+#	@echo "\033[0;32mCleaned libft archive file.\033[0m"
 
 re: fclean all
 
