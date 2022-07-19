@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/07/18 11:38:49 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/19 11:34:25 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,13 +45,15 @@ SRCS=		main.c \
 			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
-			utils/utility.c \
 			utils/u_env.c \
+			utils/u_env_ii.c \
 			utils/u_struct.c \
 			utils/u_cd.c \
 			utils/u_free.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
+			utils/u_misc.c \
+			utils/u_misc_ii.c \
 
 CC =		gcc
 

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:32:42 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/09 18:25:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:27:29 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	pc_chars(char *str)
 		else if (q && str[i] == q)
 			q = 0;
 		else if (!q && (str[i] == '\\' || str[i] == ';' || str[i] == '&'
-				|| str[i] == '!' || str[i] == '`' || str[i] == '(' || str[i] == ')'
-				|| str[i] == '#' || str[i] == '*'))
+				|| str[i] == '!' || str[i] == '`' || str[i] == '('
+				|| str[i] == ')' || str[i] == '#' || str[i] == '*'))
 		{
 			ft_putstr_fd("Error: ", 2);
 			ft_putchar_fd(str[i], 2);

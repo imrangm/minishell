@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:12:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:30:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 		modify_env(lhs_arg, rhs_arg, data);
 }
 
-int	is_in_plus_mode(char *str)
+static int	is_in_plus_mode(char *str)
 {
 	int	i;
 
@@ -45,6 +45,21 @@ int	is_in_plus_mode(char *str)
 	return (0);
 }
 
+static int	check_args(char **args, t_data *data)
+{
+	if (pc_export(args))
+	{
+		data->last_exit_status = 1;
+		return (1);
+	}
+	if (!args[1])
+	{
+		b_env(data->envp, 1);
+		return (1);
+	}
+	return (0);
+}
+
 void	b_export(char **args, t_data *data)
 {
 	int	i;
@@ -52,16 +67,8 @@ void	b_export(char **args, t_data *data)
 
 	i = 1;
 	f = 0;
-	if (pc_export(args))
-	{
-		data->last_exit_status = 1;
+	if (check_args(args, data))
 		return ;
-	}
-	if (!args[1])
-	{
-		b_env(data->envp, 1);
-		return ;
-	}
 	while (args[i])
 	{
 		f = ft_strncmp(args[i], "_", ft_counttochars(args[i], '=', '\0'));

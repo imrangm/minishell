@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_end.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:14:37 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/12 07:26:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:27:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	pc_end(char *line)
 	if (line[0] == '|' || line[len] == '|')
 		return (error("Error: Last character must not be a pipe symbol.\n"));
 	else if (line[len] == '>' || line[len] == '<')
-		return (error("Error: Last character must not be a redirection symbol.\n"));
+		return (error(
+				"Error: Last character must not be a redirection symbol.\n"));
 	return (0);
 }

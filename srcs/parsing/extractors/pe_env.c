@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:09:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:26:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	init_envp(char **envp, t_data *data)
 	char	*cwd;
 
 	cwd = NULL;
-
 	data->pwd = NULL;
 	data->old_pwd = NULL;
 	data->envp = clone_env(envp, 0);

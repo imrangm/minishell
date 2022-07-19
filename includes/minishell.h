@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 07:47:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:34:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,11 +155,14 @@ void	set_signalset(int sigmode);
 void	handle_signals_main(int signum);
 void	handle_signals_else(int signum);
 
-//* Misc (Organize)
+//* Misc
 char	*expand_line(char *line, t_data *data);
 char	*cmd_copy(char *input);
 int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);
 int		word_count(char *input);
+int		char_is_separator(char c, char *charset);
+void	update_pwd_oldpwd(char *old_pwd, int rv, t_data *data);
+char	*join_env_var_and_value(char *var_name, char *value);
 
 #endif

@@ -6,34 +6,16 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:38:43 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:32:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	update_env(char *old_pwd, int rv, t_data *data)
-{
-	char	*cwd;
-	char	*pwd;
-
-	if (rv)
-		return ;
-	cwd = NULL;
-	pwd = getcwd(cwd, sizeof(cwd));
-	safe_free(data->pwd);
-	safe_free(data->old_pwd);
-	data->pwd = ft_strdup(pwd);
-	data->old_pwd = ft_strdup(old_pwd);
-	modify_env("PWD", data->pwd, data);
-	modify_env("OLDPWD", data->old_pwd, data);
-	safe_free(cwd);
-	safe_free(pwd);
-}
-
 static void	update_env_access(t_data *data)
 {
-	ft_putstr_fd("Error: cannot access parent directories. Redirecting to root regardless of input.\n", 2);
+	ft_putstr_fd("Error: cannot access parent directories. ", 2);
+	ft_putstr_fd("Redirecting to root regardless of input.\n", 1);
 	chdir("/");
 	safe_free(data->old_pwd);
 	data->old_pwd = ft_strdup(data->pwd);
@@ -118,7 +100,7 @@ int	b_cd(char **args, t_data *data)
 		return (handle_del_dir(data));
 	rv = handle_input_types(args, pwd, data);
 	data->last_exit_status = rv;
-	update_env(pwd, rv, data);
+	update_pwd_oldpwd(pwd, rv, data);
 	safe_free(pwd);
 	safe_free(cwd);
 	return (rv);

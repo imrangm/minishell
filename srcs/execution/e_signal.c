@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/14 20:41:53 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:30:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ void	handle_signals_else(int signum)
 	rl_replace_line("", 0);
 }
 
+//* Default Minishell loop signal set is 0.
 void	set_signalset(int sigmode)
 {
-	if (sigmode == 0) // Default Minishell loop signal set.
+	if (sigmode == 0)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, &handle_signals_main);

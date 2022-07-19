@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility.c                                          :+:      :+:    :+:   */
+/*   u_misc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/07 15:57:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:26:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,20 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	str[i] = '\0';
 	safe_free(s1);
 	return (str);
+}
+
+int	char_is_separator(char c, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i] != '\0')
+	{
+		if (c == charset[i])
+			return (1);
+		i++;
+	}
+	if (c == '\0')
+		return (1);
+	return (0);
 }
