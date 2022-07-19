@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 12:12:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/19 11:18:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	**clone_env(char **envp, int extra_slot)
 	char	**envp_copy;
 
 	i = ft_count2darr(envp);
-	envp_copy = (char **) ft_calloc(sizeof(char *), i + 1 + extra_slot);
+	envp_copy = (char **) malloc(sizeof(char *) * (i + 1 + extra_slot));
 	if (!envp_copy)
 		return (NULL);
 	i = 0;
@@ -86,7 +86,7 @@ char	**clone_env(char **envp, int extra_slot)
 		i++;
 	}
 	envp_copy[i] = 0;
-	if (extra_slot)
+	if (extra_slot == 1)
 		envp_copy[++i] = 0;
 	return (envp_copy);
 }
