@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:26:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:03:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,17 @@ static void	set_shlvl(t_data *data)
 	{
 		shlvl_rhs = get_env_value("SHLVL", data);
 		if (!ft_aredigits(shlvl_rhs))
-			modify_env("SHLVL", "1", data);
+			modify_env(ft_strdup("SHLVL"), "1", data);
 		else
 		{
 			shlvl = ft_atoi(shlvl_rhs) + 1;
 			shlvl_itoa = ft_itoa(shlvl);
-			modify_env("SHLVL", shlvl_itoa, data);
-			free(shlvl_itoa);
+			modify_env(ft_strdup("SHLVL"), shlvl_itoa, data);
 		}
 	}
 	else
-		modify_env("SHLVL", "1", data);
-	free(shlvl_rhs);
+		modify_env(ft_strdup("SHLVL"), "1", data);
+	safe_free(shlvl_rhs);
 }
 
 void	init_envp(char **envp, t_data *data)
@@ -50,15 +49,15 @@ void	init_envp(char **envp, t_data *data)
 	delete_env("OLDPWD", data);
 	if (!data->envp[0])
 	{
-		modify_env("OLDPWD", NULL, data);
-		modify_env("SHLVL", "1", data);
+		modify_env(ft_strdup("OLDPWD"), NULL, data);
+		modify_env(ft_strdup("SHLVL"), "1", data);
 		if (!env_exists("_", data))
 			modify_env("_", "/usr/bin/env", data);
 	}
 	else
 	{
-		append_env("OLDPWD", NULL, data);
+		append_env(ft_strdup("OLDPWD"), NULL, data);
 		set_shlvl(data);
 	}
-	modify_env("PWD", getcwd(cwd, sizeof(cwd)), data);
+	modify_env(ft_strdup("PWD"), getcwd(cwd, sizeof(cwd)), data);
 }

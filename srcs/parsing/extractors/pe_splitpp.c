@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:11:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 07:55:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 12:51:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**split_pp(char const *s, char c)
 	while (res[i])
 	{
 		trim[i] = ft_strtrim(res[i], " ");
-		free(res[i]);
+		safe_free(res[i]);
 		i++;
 	}
 	free(res);

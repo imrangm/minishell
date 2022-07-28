@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 12:27:54 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 12:49:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	modify_env(char *var_name, char *value, t_data *data)
 		{
 			if (value)
 			{
-				free(data->envp[i]);
+				safe_free(data->envp[i]);
 				data->envp[i] = join_env_var_and_value(var_name, value);
 			}
 			break ;
@@ -76,7 +76,7 @@ void	delete_env(char *var_name, t_data *data)
 				ft_counttochars(data->envp[i], '=', '\0') + 1);
 		if (ft_strcmp(var_name, tmp))
 			new_envp[i] = ft_strdup(data->envp[i]);
-		free(tmp);
+		safe_free(tmp);
 		i++;
 	}
 	new_envp[i] = 0;

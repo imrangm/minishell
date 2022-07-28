@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/18 11:20:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/07/28 12:49:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*find_exec(char *cmd, char **paths)
 			free_2d(paths);
 			return (full_path);
 		}
-		free(full_path);
+		safe_free(full_path);
 		i++;
 	}
 	free_2d(paths);
@@ -66,7 +66,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
 		free_2d(args);
-		free(cmd);
+		safe_free(cmd);
 		exit (126);
 	}
 	return (cmd);

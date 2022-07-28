@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:25:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 07:35:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 12:48:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	b_pwd(t_data *data)
 		if (!pwd)
 			pwd = get_env_value("OLDPWD", data);
 		printf("%s\n", pwd);
-		free(pwd);
+		safe_free(pwd);
 		return (0);
 	}
 	printf("%s\n", pwd);

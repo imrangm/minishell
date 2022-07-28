@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/18 07:33:00 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:16:41 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static char	**get_elements(char *str, char **elements, int element_count)
 		free(tmp);
 		i++;
 	}
-	free(str);
+	safe_free(str);
 	return (elements);
 }
 
@@ -104,7 +104,7 @@ char	**smart_split(char *str)
 	element_count = get_element_count(str);
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
-	elements = get_elements(str, elements, element_count);
+	elements = get_elements(ft_strdup(str), elements, element_count);
 	// Expand here
 	stripped_elements = strip_quotes(elements, element_count);
 	// printf("\n\n---[Elements %d]---\n\n", element_count);

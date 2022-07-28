@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:30:10 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 13:17:22 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 {
 	char	*joined;
+	char	*env_value;
 
 	joined = NULL;
 	if (env_exists(lhs_arg, data) && get_env_value(lhs_arg, data))
 	{
-		joined = ft_strjoin(get_env_value(lhs_arg, data), rhs_arg);
+		env_value = get_env_value(lhs_arg, data);
+		joined = ft_strjoin(env_value, rhs_arg);
+		safe_free(env_value);
 		modify_env(lhs_arg, joined, data);
 	}
 	else if (!get_env_value(lhs_arg, data))
@@ -62,8 +65,10 @@ static int	check_args(char **args, t_data *data)
 
 void	b_export(char **args, t_data *data)
 {
-	int	i;
-	int	f;
+	int		i;
+	int		f;
+	char	*left;
+	char	*right;
 
 	i = 1;
 	f = 0;
@@ -72,12 +77,12 @@ void	b_export(char **args, t_data *data)
 	while (args[i])
 	{
 		f = ft_strncmp(args[i], "_", ft_counttochars(args[i], '=', '\0'));
+		left = get_export_value_side(args[i], 1);
+		right = get_export_value_side(args[i], 0);
 		if (is_in_plus_mode(args[i]) && f)
-			join_env_values(get_export_value_side(args[i], 1),
-				get_export_value_side(args[i], 0), data);
+			join_env_values(left, right, data);
 		else if (strchr(args[i], '=') && f)
-			modify_env(get_export_value_side(args[i], 1),
-				get_export_value_side(args[i], 0), data);
+			modify_env(left, right, data);
 		else if (f)
 			modify_env(args[i], NULL, data);
 		i++;

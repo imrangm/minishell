@@ -6,15 +6,15 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/07/18 07:47:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 12:53:36 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	safe_free(char *ptr)
+void	safe_free(void *ptr)
 {
-	if (!ptr)
+	if (ptr)
 	{
 		free(ptr);
 		ptr = NULL;
@@ -28,10 +28,10 @@ void	free_2d_int(int **arr, int nchild)
 	i = 0;
 	while (i < nchild)
 	{
-		free(arr[i]);
+		safe_free(arr[i]);
 		i++;
 	}
-	free(arr);
+	safe_free(arr);
 }
 
 void	free_2d(char **arr)
@@ -43,10 +43,10 @@ void	free_2d(char **arr)
 		return ;
 	while (arr[i])
 	{
-		free(arr[i]);
+		safe_free(arr[i]);
 		i++;
 	}
-	free(arr);
+	safe_free(arr);
 }
 
 void	free_3d(char ***arr, int nchild)
@@ -59,5 +59,5 @@ void	free_3d(char ***arr, int nchild)
 		free_2d(arr[i]);
 		i++;
 	}
-	free(arr);
+	safe_free(arr);
 }
