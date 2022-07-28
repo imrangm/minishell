@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:23:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/28 12:27:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	modify_env(char *var_name, char *value, t_data *data)
 		{
 			if (value)
 			{
-				safe_free(data->envp[i]);
+				free(data->envp[i]);
 				data->envp[i] = join_env_var_and_value(var_name, value);
 			}
 			break ;
