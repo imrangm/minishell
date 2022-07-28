@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/07/19 11:34:25 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/28 12:30:25 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,12 @@ all: $(NAME)
 
 clean:
 	rm -rf ./objs/
+	rm -rf ./srcs/builtins/*.o
+	rm -rf ./srcs/execution/*.o
+	rm -rf ./srcs/utils/*.o
+	rm -rf ./srcs/parsing/checks/*.o
+	rm -rf ./srcs/parsing/extractors/*.o
+	rm -rf ./srcs/main.o
 #	@echo "\033[0;32mCleaned minishell object files.\033[0m"
 	$(MAKE) clean -C ./libs/libft/
 #	@echo "\033[0;32mCleaned libft object files.\033[0m"
