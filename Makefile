@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/07/28 12:30:25 by nmadi            ###   ########.fr        #
+#    Updated: 2022/07/29 08:44:06 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,37 +82,19 @@ SRCS_DIR =	./srcs
 OBJS =		$(addprefix $(SRCS_DIR)/, $(SRCS:c=o))
 
 $(NAME): $(OBJS)
-	mkdir -p ./objs
-	mv ./srcs/builtins/*.o objs/
-	mv ./srcs/execution/*.o objs/
-	mv ./srcs/utils/*.o objs/
-	mv ./srcs/parsing/checks/*.o objs/
-	mv ./srcs/parsing/extractors/*.o objs/
-	mv ./srcs/main.o objs/
 	$(MAKE) -C ./libs/libft/
-# @echo "\033[0;32mCompiled libft.\033[0m"
-	$(CC) ./objs/*.o $(LIBFT_A) $(LDFLAGS) -o $(NAME)
-# @echo "\033[0;32mCompiled minishell.\033[0m"
+	$(CC) $(OBJS) $(LIBFT_A) $(LDFLAGS) -o $(NAME)
+	@echo "\033[0;32mCompiled minishell.\033[0m"
 
 all: $(NAME)
 
 clean:
-	rm -rf ./objs/
-	rm -rf ./srcs/builtins/*.o
-	rm -rf ./srcs/execution/*.o
-	rm -rf ./srcs/utils/*.o
-	rm -rf ./srcs/parsing/checks/*.o
-	rm -rf ./srcs/parsing/extractors/*.o
-	rm -rf ./srcs/main.o
-#	@echo "\033[0;32mCleaned minishell object files.\033[0m"
+	rm -rf $(OBJS)
 	$(MAKE) clean -C ./libs/libft/
-#	@echo "\033[0;32mCleaned libft object files.\033[0m"
 
 fclean: clean
 	rm -rf minishell
-#	@echo "\033[0;32mCleaned executable.\033[0m"
 	$(MAKE) fclean -C ./libs/libft/
-#	@echo "\033[0;32mCleaned libft archive file.\033[0m"
 
 re: fclean all
 

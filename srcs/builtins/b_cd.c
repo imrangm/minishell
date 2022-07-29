@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:32:35 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/07/29 08:54:31 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	update_env_access(t_data *data)
 	ft_putstr_fd("Redirecting to root regardless of input.\n", 1);
 	chdir("/");
 	safe_free(data->old_pwd);
-	data->old_pwd = ft_strdup(data->pwd);
-	modify_env("OLDPWD", data->old_pwd, data);
+	if (data->pwd)
+		data->old_pwd = ft_strdup(data->pwd);
+	modify_env(ft_strdup("OLDPWD"), data->old_pwd, data);
 	safe_free(data->pwd);
 	data->pwd = ft_strdup("/");
-	modify_env("PWD", data->pwd, data);
+	modify_env(ft_strdup("PWD"), ft_strdup("/"), data);
 	data->last_exit_status = 0;
 }
 
@@ -33,7 +34,7 @@ static int	handle_del_dir(t_data *data)
 
 	pwd = NULL;
 	old_pwd = NULL;
-	if (chdir(data->old_pwd) != -1)
+	if (data->old_pwd != NULL && chdir(data->old_pwd) != -1)
 	{
 		pwd = ft_strdup(data->pwd);
 		old_pwd = ft_strdup(data->old_pwd);
