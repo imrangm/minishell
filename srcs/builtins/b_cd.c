@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:14:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:27:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 // 	ft_putstr_fd("Error: cannot access parent directories. ", 2);
 // 	ft_putstr_fd("Redirecting to root regardless of input.\n", 1);
 // 	chdir("/");
-// 	safe_free(data->old_pwd);
+// 	ft_free(data->old_pwd);
 // 	if (data->pwd)
 // 		data->old_pwd = ft_strdup(data->pwd);
 // 	modify_env(ft_strdup("OLDPWD"), data->old_pwd, data);
-// 	safe_free(data->pwd);
+// 	ft_free(data->pwd);
 // 	data->pwd = ft_strdup("/");
 // 	modify_env(ft_strdup("PWD"), ft_strdup("/"), data);
 // 	data->last_exit_status = 0;
@@ -38,8 +38,8 @@
 // 	{
 // 		pwd = ft_strdup(data->pwd);
 // 		old_pwd = ft_strdup(data->old_pwd);
-// 		safe_free(data->pwd);
-// 		safe_free(data->old_pwd);
+// 		ft_free(data->pwd);
+// 		ft_free(data->old_pwd);
 // 		data->pwd = ft_strdup(old_pwd);
 // 		data->old_pwd = ft_strdup(pwd);
 // 	}
@@ -79,11 +79,11 @@ int	b_cd(char **args, t_data *data)
 
 	//*-----
 	//! Three lines are for testing purposes
-	safe_free(pwd);
+	ft_free(pwd);
 	pwd = getcwd(NULL, 0);
 	printf("pwd now = %s\n", pwd);
 	//*-----
 
-	safe_free(pwd);
+	ft_free(pwd);
 	return (data->last_exit_status);
 }

@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_free.c                                           :+:      :+:    :+:   */
+/*   ft_free_2d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 11:23:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/07/28 12:53:36 by nmadi            ###   ########.fr       */
+/*   Created: 2022/08/16 18:24:37 by nmadi             #+#    #+#             */
+/*   Updated: 2022/08/16 18:39:16 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	safe_free(void *ptr)
-{
-	if (ptr)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
-
-void	free_2d_int(int **arr, int nchild)
-{
-	int	i;
-
-	i = 0;
-	while (i < nchild)
-	{
-		safe_free(arr[i]);
-		i++;
-	}
-	safe_free(arr);
-}
-
-void	free_2d(char **arr)
+void	ft_free_2d(char **arr)
 {
 	int	i;
 
@@ -43,21 +21,8 @@ void	free_2d(char **arr)
 		return ;
 	while (arr[i])
 	{
-		safe_free(arr[i]);
+		ft_free(arr[i]);
 		i++;
 	}
-	safe_free(arr);
-}
-
-void	free_3d(char ***arr, int nchild)
-{
-	int	i;
-
-	i = 0;
-	while (i < nchild)
-	{
-		free_2d(arr[i]);
-		i++;
-	}
-	safe_free(arr);
+	ft_free(arr);
 }

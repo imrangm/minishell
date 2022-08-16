@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:42:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:09:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:28:08 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	cd_relative(char *new_path, char *pwd)
 	if (chdir(full_path) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
-		safe_free(full_path);
+		ft_free(full_path);
 		return (1);
 	}
-	safe_free(full_path);
+	ft_free(full_path);
 	return (0);
 }
 
@@ -50,9 +50,9 @@ int	cd_home(t_data *data)
 	if (chdir(destination) == -1)
 	{
 		ft_putstr_fd("Error: No such file or directory\n", 2);
-		safe_free(destination);
+		ft_free(destination);
 		return (1);
 	}
-	safe_free(destination);
+	ft_free(destination);
 	return (0);
 }

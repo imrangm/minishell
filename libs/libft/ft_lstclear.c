@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:26:38 by nmadi             #+#    #+#             */
-/*   Updated: 2021/10/15 15:32:43 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:30:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 	while (*lst)
 	{
 		del((*lst)->content);
-		free(*(lst));
+		ft_free(*(lst));
 		(*lst) = (*lst)->next;
 	}
 }

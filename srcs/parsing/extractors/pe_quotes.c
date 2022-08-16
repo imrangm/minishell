@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/08 18:07:30 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:22:58 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ char	**strip_quotes(char **elements, int element_count)
 				count_without_quotes(elements[i]));
 		i++;
 	}
-	free_2d(elements);
+	ft_free_2d(elements);
 	return (stripped_elements);
 }

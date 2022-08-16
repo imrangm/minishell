@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/15 20:48:28 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/16 18:26:23 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ SRCS=		main.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
 			utils/u_cd.c \
-			utils/u_free.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_misc.c \

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 13:17:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:27:22 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 	{
 		env_value = get_env_value(lhs_arg, data);
 		joined = ft_strjoin(env_value, rhs_arg);
-		safe_free(env_value);
+		ft_free(env_value);
 		modify_env(lhs_arg, joined, data);
 	}
 	else if (!get_env_value(lhs_arg, data))

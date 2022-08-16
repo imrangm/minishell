@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_redirs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/19 10:03:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:23:03 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ int	pc_redir(char *line)
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
 			&& (check_space(out[i + 1]) || ft_strchr(out[i + 1], '|')))
 		{
-			free_2d(out);
+			ft_free_2d(out);
 			return (error("Error: Invalid redirection syntax\n"));
 		}
 		if (ft_countoccurance(out[i], '>', '<') > 2)
 		{
-			free_2d(out);
+			ft_free_2d(out);
 			return (error("Error: Invalid redirection syntax\n"));
 		}
 		i++;
 	}
-	free_2d(out);
+	ft_free_2d(out);
 	return (0);
 }

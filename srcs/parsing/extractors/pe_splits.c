@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 13:16:41 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:30:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ static char	**get_elements(char *str, char **elements, int element_count)
 		elements[i] = ft_substr(str, j, element_size);
 		s = j + element_size + 1;
 		tmp = ft_substr(str, s, (ft_strlen(str) - element_size) + 1);
-		free(str);
+		ft_free(str);
 		str = ft_strdup(tmp);
-		free(tmp);
+		ft_free(tmp);
 		i++;
 	}
-	safe_free(str);
+	ft_free(str);
 	return (elements);
 }
 

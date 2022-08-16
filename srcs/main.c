@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/15 20:46:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:23:30 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	minishell(t_data *data)
 		line = readline("$> ");
 		if (!line)
 		{
-			// free_2d(data->envp);
+			// ft_free_2d(data->envp);
 			break ;
 		}
 		if (line[0])

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 18:00:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/07/28 12:51:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:30:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ char	**split_rd(char *str)
 	while (res[i])
 	{
 		trim[i] = ft_strtrim(res[i], " ");
-		safe_free(res[i]);
+		ft_free(res[i]);
 		i++;
 	}
-	free(res);
+	ft_free(res);
 	return (trim);
 }

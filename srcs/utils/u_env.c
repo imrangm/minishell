@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 12:49:35 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:28:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ char	*join_env_var_and_value(char *var_name, char *value)
 	equal[0] = '=';
 	equal[1] = '\0';
 	var_name_and_equal = ft_strjoin(var_name, equal);
-	safe_free(equal);
+	ft_free(equal);
 	full_env_entry = ft_strjoin(var_name_and_equal, value);
-	safe_free(var_name_and_equal);
+	ft_free(var_name_and_equal);
 	return (full_env_entry);
 }
 
@@ -105,8 +105,8 @@ void	append_env(char *var_name, char *value, t_data *data)
 		new_envp[i] = join_env_var_and_value(var_name, value);
 	else
 		new_envp[i] = ft_strdup(var_name);
-	free_2d(data->envp);
+	ft_free_2d(data->envp);
 	data->envp = new_envp;
-	safe_free(var_name);
-	safe_free(value);
+	ft_free(var_name);
+	ft_free(value);
 }

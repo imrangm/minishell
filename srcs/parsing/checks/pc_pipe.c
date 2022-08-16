@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:18:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:26:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:23:06 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	pc_pipe(char *line)
 		if ((ft_strncmp(check[i], "|", 1)) == 0
 			&& (ft_strncmp(check[i + 1], "|", 1) == 0))
 		{
-			free_2d(check);
+			ft_free_2d(check);
 			return (error("Error: incorrect syntax for pipes\n"));
 		}
 		i++;
 	}
-	free_2d(check);
+	ft_free_2d(check);
 	return (0);
 }

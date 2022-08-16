@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 13:03:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:27:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	set_shlvl(t_data *data)
 	}
 	else
 		modify_env(ft_strdup("SHLVL"), "1", data);
-	safe_free(shlvl_rhs);
+	ft_free(shlvl_rhs);
 }
 
 void	init_envp(char **envp, t_data *data)

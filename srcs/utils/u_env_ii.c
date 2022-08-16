@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 12:49:31 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:28:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ void	modify_env(char *var_name, char *value, t_data *data)
 		{
 			if (value)
 			{
-				safe_free(data->envp[i]);
+				ft_free(data->envp[i]);
 				data->envp[i] = join_env_var_and_value(var_name, value);
 			}
 			break ;
 		}
 		i++;
 	}
-	safe_free(var_name);
-	safe_free(value);
+	ft_free(var_name);
+	ft_free(value);
 }
 
 void	free_block(char *var_name, char **envp)
@@ -49,7 +49,7 @@ void	free_block(char *var_name, char **envp)
 	{
 		if (!ft_strncmp(envp[i], var_name, ft_counttochars(envp[i], '=', '\0')))
 		{
-			safe_free(envp[i]);
+			ft_free(envp[i]);
 			break ;
 		}
 		i++;
@@ -76,10 +76,10 @@ void	delete_env(char *var_name, t_data *data)
 				ft_counttochars(data->envp[i], '=', '\0') + 1);
 		if (ft_strcmp(var_name, tmp))
 			new_envp[i] = ft_strdup(data->envp[i]);
-		safe_free(tmp);
+		ft_free(tmp);
 		i++;
 	}
 	new_envp[i] = 0;
-	free_2d(data->envp);
+	ft_free_2d(data->envp);
 	data->envp = new_envp;
 }
