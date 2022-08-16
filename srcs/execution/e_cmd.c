@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/08 17:53:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/15 17:47:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	is_parent_function(char **args)
 	return (0);
 }
 
-void	exec_cmd_parent(char **args, t_data *data)
+void	exec_cmd_parent(char *line, char **args, t_data *data)
 {
 	if (!ft_strcmp(args[0], "export"))
 		b_export(args, data);
 	else if (!ft_strcmp(args[0], "unset"))
 		b_unset(args, data);
 	else if (!ft_strcmp(args[0], "exit"))
-		b_exit(args, data);
+		b_exit(line, args, data);
 	else if (!ft_strcmp(args[0], "cd"))
 		b_cd(args, data);
 }

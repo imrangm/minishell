@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/28 12:52:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/15 17:47:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*find_exec(char *prg, char	**paths);
 char	*get_cmd_path(char **args, t_data *data);
 void	master_execute(char *line, t_data *data);
 int		exec_cmd_child(char **args, t_data *data);
-void	exec_cmd_parent(char **args, t_data *data);
+void	exec_cmd_parent(char *line, char **args, t_data *data);
 
 //* Pipes
 void	pipes(t_pipe **p);
@@ -127,7 +127,7 @@ char	**strip_quotes(char **elements, int element_count);
 //* Builtins
 int		b_pwd(t_data *data);
 int		b_cd(char **args, t_data *data);
-void	b_exit(char **args, t_data *data);
+void	b_exit(char *line, char **args, t_data *data);
 int		b_echo(char **args, t_data *data);
 void	b_unset(char **args, t_data *data);
 void	b_export(char **args, t_data *data);
