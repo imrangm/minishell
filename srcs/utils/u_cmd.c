@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:59:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	*get_cmd_path(char **args, t_data *data)
 	if (!path_env_val)
 		return (NULL);
 	paths = split_path(path_env_val);
+	ft_free(path_env_val);
 	if (!paths)
 		return (NULL);
 	cmd = find_exec(args[0], paths);

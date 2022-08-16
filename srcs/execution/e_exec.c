@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/16 18:51:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 19:00:26 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	monitor_process(int pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
+
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 	{
@@ -86,7 +87,7 @@ void	master_execute(char *line, t_data *data)
 {
 	char	**args;
 
-	args = ft_split(line, 32);
+	args = smart_split(line);
 	if (is_parent_function(args))
 	{
 		exec_cmd_parent(line, args, data);
