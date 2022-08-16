@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/15 17:47:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:05:32 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,10 @@ void	modify_env(char *var_name, char *value, t_data *data);
 void	append_env(char *var_name, char *value, t_data *data);
 
 //* cd utils
-int		full_chdir(char *new_path);
-char	*join_paths(char *cwd, char *np);
-int		root_relative_chdir(char *new_path);
-int		relative_chdir(char *new_path, char *pwd);
-int		invalid_args_count(char **args, t_data *data);
+int		cd_home(t_data *data);
+int		cd_full(char *new_path);
+int		cd_root(char *new_path);
+int		cd_relative(char *new_path, char *pwd);
 
 //* Signals
 void	set_signalset(int sigmode);

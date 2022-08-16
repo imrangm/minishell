@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 21:00:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/11 17:31:32 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 16:58:44 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int			ft_counttochars(char *str, char c1, char c2);
 int			ft_count2darr(char **arr);
 int			ft_setquote(char c, int *quote);
 int			ft_skipspaces(char *str);
+char		*ft_strsep(const char *s1, const char *s2, char sep);
 
 #endif

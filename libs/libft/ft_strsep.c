@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_misc_ii.c                                        :+:      :+:    :+:   */
+/*   ft_strsep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 16:39:49 by nmadi            ###   ########.fr       */
+/*   Created: 2022/08/16 16:54:53 by nmadi             #+#    #+#             */
+/*   Updated: 2022/08/16 17:00:35 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	update_pwd_oldpwd(char *old_pwd, int rv, t_data *data)
+char	*ft_strsep(const char *s1, const char *s2, char sep)
 {
-	char	*pwd;
+	char	*cs;
+	int		i;
+	int		j;
 
-	if (rv)
-		return ;
-	pwd = getcwd(NULL, 0);
-	safe_free(data->pwd);
-	safe_free(data->old_pwd);
-	data->pwd = ft_strdup(pwd);
-	data->old_pwd = ft_strdup(old_pwd);
-	modify_env(ft_strdup("PWD"), data->pwd, data);
-	modify_env(ft_strdup("OLDPWD"), data->old_pwd, data);
-	safe_free(pwd);
+	if (!s1 || !s2)
+		return (0);
+	cs = (char *) malloc(ft_strlen(s1) + ft_strlen (s2) + 2 * sizeof(char));
+	i = 0;
+	j = 0;
+	if (!cs)
+		return (0);
+	while (s1[i] != '\0')
+	{
+		cs[i] = s1[i];
+		i++;
+	}
+	cs[i] = sep;
+	i++;
+	while (s2[j] != '\0')
+		cs[i++] = s2[j++];
+	cs[i] = '\0';
+	return (cs);
 }
