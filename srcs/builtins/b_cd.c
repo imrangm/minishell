@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 17:06:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:17:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,6 @@
 // 	return (0);
 // }
 
-static int	handle_input_types(char **args, char *pwd, t_data *data)
-{
-	(void) data; //! Remove when working on cd_home
-	// if (!pwd) //! Handles if you are in a deleted working dir
-	// 	return (handle_del_dir(data));
-	// if (ft_count2darr(args) == 1) //! Handles cd to home
-	// 	return (cd_home(data));
-
-	if (args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
-		return (cd_root(args[1]));
-	else if (args[1][0] == '/')
-		return (cd_full(args[1]));
-	else
-		return (cd_relative(pwd, args[1]));
-}
-
 int	b_cd(char **args, t_data *data)
 {
 	char	*pwd;
@@ -75,8 +59,15 @@ int	b_cd(char **args, t_data *data)
 	}
 	pwd = getcwd(NULL, 0);
 	printf("pwd = %s\n", pwd);
-	data->last_exit_status = handle_input_types(args, pwd, data);
 
+	// if (!pwd) //! Handles if you are in a deleted working dir
+	// 	return (handle_del_dir(data));
+	// if (ft_count2darr(args) == 1) //! Handles cd to home
+	// 	return (cd_home(data));
+	if ((args[1][0] == '/' && pwd[0] == '/' && !pwd[1]) || args[1][0] == '/')
+		data->last_exit_status = cd_full(args[1]);
+	else
+		data->last_exit_status = cd_relative(pwd, args[1]);
 	// update_pwd_oldpwd(pwd, data->last_exit_status, data); //! Reimplement with env
 
 	//! Three lines are for testing purposes

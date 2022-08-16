@@ -6,21 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:42:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 17:05:29 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/16 18:09:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	cd_root(char *new_path)
-{
-	if (chdir(new_path) == -1)
-	{
-		ft_putstr_fd("Error: No such file or directory\n", 2);
-		return (1);
-	}
-	return (0);
-}
 
 int	cd_full(char *new_path)
 {
