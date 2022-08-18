@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:31:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/02 15:15:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 18:19:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static int	invalid_lhs(char *str)
 			return (1);
 		i++;
 	}
-	if (str[i] == '+' && str[i] != '=')
-		return (1);
 	return (0);
 }
 
