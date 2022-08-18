@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:23:27 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 18:04:28 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	b_exit(char *line, char **args, t_data *data)
 		data->last_exit_status = 0;
 	free(line);
 	ft_free_2d(args);
-	// ft_free_2d(data->envp); //! Uncomment when reintroducing env
+	ft_free_2d(data->envp);
 	exit(data->last_exit_status);
 }
