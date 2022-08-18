@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:59:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 18:01:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,20 @@ char	*find_exec(char *cmd, char **paths)
 
 char	*validate_cmd(char *cmd, char **args, t_data *data)
 {
-	if (access(cmd, F_OK) == -1)
+	if (!cmd || access(cmd, F_OK) == -1)
 	{
-		ft_putstr_fd("Error: command not found\n", 2);
+		ft_putstr_fd("Error: Command not found\n", 2);
 		data->last_exit_status = 127;
+		ft_free_2d(data->envp);
 		ft_free_2d(args);
+		ft_free(cmd);
 		exit (127);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
+		ft_free_2d(data->envp);
 		ft_free_2d(args);
 		ft_free(cmd);
 		exit (126);
