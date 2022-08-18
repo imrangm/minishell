@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:27:22 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 18:22:09 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 	char	*env_value;
 
 	joined = NULL;
-	if (env_exists(lhs_arg, data) && get_env_value(lhs_arg, data))
+	env_value = get_env_value(lhs_arg, data);
+	if (env_exists(lhs_arg, data) && env_value)
 	{
-		env_value = get_env_value(lhs_arg, data);
 		joined = ft_strjoin(env_value, rhs_arg);
 		ft_free(env_value);
+		ft_free(rhs_arg);
 		modify_env(lhs_arg, joined, data);
 	}
 	else if (!get_env_value(lhs_arg, data))
@@ -84,7 +85,7 @@ void	b_export(char **args, t_data *data)
 		else if (strchr(args[i], '=') && f)
 			modify_env(left, right, data);
 		else if (f)
-			modify_env(args[i], NULL, data);
+			modify_env(ft_strdup(args[i]), NULL, data);
 		i++;
 	}
 }
