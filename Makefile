@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/16 18:26:23 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/18 18:30:01 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,8 @@ NAME=		minishell
 
 SRCS=		main.c \
 			parsing/checks/pc_valid.c \
-			parsing/checks/pc_quotes.c \
-			parsing/checks/pc_chars.c \
 			parsing/checks/pc_export.c \
 			parsing/checks/pc_redirs.c \
-			parsing/checks/pc_mode.c \
-			parsing/checks/pc_end.c \
 			parsing/checks/pc_pipe.c \
 			parsing/extractors/pe_rd.c \
 			parsing/extractors/pe_env.c \

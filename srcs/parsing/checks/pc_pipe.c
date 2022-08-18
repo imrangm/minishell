@@ -6,17 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:18:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:23:06 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/18 18:28:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static int	error(char *msg)
-{
-	ft_putstr_fd(msg, 2);
-	return (1);
-}
 
 int	pc_pipe(char *line)
 {
@@ -31,7 +25,8 @@ int	pc_pipe(char *line)
 			&& (ft_strncmp(check[i + 1], "|", 1) == 0))
 		{
 			ft_free_2d(check);
-			return (error("Error: incorrect syntax for pipes\n"));
+			ft_putstr_fd("Error: Incorrect syntax for pipes\n", 2);
+			return (1);
 		}
 		i++;
 	}
