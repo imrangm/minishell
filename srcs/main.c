@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 11:24:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 16:08:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	execute_line(char *line, t_data *data)
 {
+	int	len;
+
 	set_signalset(1);
-	// if (pc_mode(line, 'p'))
-	// 	handle_pp(line, data);
-	// else if (pc_mode(line, 'r'))
-	// 	execute_rd(line, data);
-	// else
+	len = ft_strlen(line) - 1;
+	if (line[len] == '|')
+		line = ft_strjoin(line, line_update());
+	if (pc_mode(line, 'p'))
+		handle_pp(line, data);
+	else if (pc_mode(line, 'r'))
+		execute_rd(line, data);
+	else
 	master_execute(line, data);
 }
 

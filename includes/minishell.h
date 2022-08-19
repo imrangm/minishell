@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:25:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 16:05:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ char	*ft_strjoin_and_free(char *s1, char const *s2);
 int		word_count(char *input);
 int		char_is_separator(char c, char *charset);
 void	update_pwd_oldpwd(char *old_pwd, int rv, t_data *data);
+char	*line_update(void);
 char	*join_env_var_and_value(char *var_name, char *value);
 
 #endif

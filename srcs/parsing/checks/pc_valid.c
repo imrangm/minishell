@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/18 18:28:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 16:07:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	pc_end(char *line)
 	len = ft_strlen(line) - 1;
 	while (ft_isspace(line[len]))
 		len--;
-	if (line[0] == '|' || line[len] == '|')
+	if (line[0] == '|')
 	{
-		ft_putstr_fd("Error: Last character must not be a pipe symbol.\n", 2);
+		ft_putstr_fd("Error: First character must not be a pipe symbol.\n", 2);
 		return (1);
 	}
 	else if (line[len] == '>' || line[len] == '<')
