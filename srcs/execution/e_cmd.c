@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 11:20:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 11:22:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	free_and_kill(char **args, t_data *data)
 int	exec_cmd_child(char **args, t_data *data)
 {
 	if (!ft_strcmp(args[0], "export") && args[1])
-		free_and_kill(args, data->envp);
+		free_and_kill(args, data);
 	else if (!ft_strcmp(args[0], "echo"))
 		b_echo(args, data);
 	else if (!ft_strcmp(args[0], "pwd"))
