@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 16:08:05 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:29:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	execute_line(char *line, t_data *data)
 void	minishell(t_data *data)
 {
 	char	*line;
+	t_scan	*src;
+	t_token	**toks;
+	t_node	*node;
+	int		count;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -44,8 +48,20 @@ void	minishell(t_data *data)
 		if (line[0])
 		{
 			add_history(line);
-			if (pc_valid(line, data))
-				execute_line(line, data);
+			/* new parser */
+			src = scan_input(line);
+			test_scan(line);
+			toks = tokenize(src);
+			test_tokenize(src);
+			node = parse(toks);
+			count = visit(node, 0);
+			traverse(node, count, data);
+			free_chars(src->chars, src->len);
+			free_tokens(toks);
+			free_nodes(node);
+			/* old parser */
+			// if (pc_valid(line, data))
+			// 	execute_line(line, data);
 		}
 		free(line);
 	}

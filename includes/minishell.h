@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 16:05:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:26:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,113 @@ typedef struct s_pipe
 	t_data		*data;
 }	t_pipe;
 
-# define DQUOTE 34
-# define SQUOTE 39
+# define DQ 34
+# define SQ 39
+
+//scantype try putting into it
+//in an enum
+# define WORD 1
+# define PIPE 2
+# define REDIR 3
+# define SQUOTE 4
+# define DQUOTE 5
+
+// typedef enum e_tokentype
+// {
+// 	PIPELINE = '|',
+// 	GREAT = '>',
+// 	DGREAT = '>>',
+// 	LESS = '<',
+// 	DLESS = '<<',
+// 	FNAME,
+// 	COMMAND,
+// 	ARGS
+// }	e_tokentype;
+
+typedef enum e_nodetype
+{
+	pipeline = 1,
+	command,
+	arguments,
+	redirection,
+	filename
+}	t_nodetype;
+
+//can be included in node
+//for optimization
+// typedef union u_nodevalue
+// {
+// 	t_node	*pipe;
+// 	t_node	*cmd;
+// 	t_node	*redir;
+// 	t_node	*fname;
+// }	t_nodevalue;
+typedef struct s_type
+{
+	char	c;
+	int		t;
+}	t_type;
+
+//access the type table through save to save pos and len
+typedef struct s_scan
+{
+	t_type	**chars;
+	int		len;
+	int		pos;
+}	t_scan;
+
+typedef struct s_token
+{
+	int				type;
+	char			*value;
+	int				iter;
+	int				cur;
+	int				count;
+}	t_token;
+
+typedef struct s_node
+{
+	t_nodetype		type;
+	char			*id;
+	char			*value;
+	int				val;
+	struct s_node	*left_node;
+	struct s_node	*right_node;
+}	t_node;	
+
+//Scanner
+t_scan	*scan_input(char *input);
+
+//Tokenizer
+t_token	**tokenize(t_scan *src);
+int		count_tokens(t_scan *src);
+
+//AST
+t_node	*parse(t_token **toks);
+t_node	*parse_command(t_token **toks);
+t_node	*parse_pipeline(t_token **toks);
+t_node	*parse_arguments(t_token **toks);
+t_node	*parse_redirection(t_token **toks);
+t_node	*node(t_token **toks);
+t_node	*pair_node(t_node *left, t_node *right, char *id);
+t_node	*error_node(char *msg);
+int		visit(t_node *node, size_t spaces);
+void 	traverse(t_node *root, int count, t_data *data);
+
+//Utility
+t_node	*add_expansion(t_node *args);
+void	process_redirection(char *left, char *right);
+
+//Free Memory
+void	free_chars(t_type **table, int len);
+void	free_tokens(t_token **toks);
+void	free_node(t_node *node);
+void	free_nodes(t_node *root);
+
+//Test functions
+void	test_parse(t_token **toks);
+void	test_tokenize(t_scan *source);
+void	test_scan(char	*input);
 
 //* Redirection
 void	append(char *line);

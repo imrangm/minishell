@@ -3,16 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/18 18:30:01 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/19 18:29:51 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
+			parsing-new/AST.c \
+			parsing-new/process.c \
+			parsing-new/lexer.c \
+			parsing-new/parse.c \
+			parsing-new/scan.c \
+			parsing-new/utils.c \
+			parsing-new/free.c \
 			parsing/checks/pc_valid.c \
 			parsing/checks/pc_export.c \
 			parsing/checks/pc_redirs.c \
@@ -57,16 +64,16 @@ CC =		gcc
 # CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
-# LDFLAGS =	-lreadline -L ./libs/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
+LDFLAGS =	-lreadline -L ./libs/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 # 42 Flags
 # LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
 # CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
-LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror -g3
+# LDFLAGS =	-lreadline
+# CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 
