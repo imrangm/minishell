@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:57:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 11:19:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	exec_sys_cmd(char **args, t_data *data)
 	cmd_path = get_cmd_path(args, data);
 	if (cmd_path && cmd_path[0])
 	{
-		if (execve(cmd_path, args, data->envp) == -1)
+		if (execve(cmd_path, args, data->envp))
 		{
 			ft_free_2d(args);
 			ft_free_2d(data->envp);
