@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/20 16:23:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,27 +59,28 @@ void	free_block(char *var_name, char **envp)
 void	delete_env(char *var_name, t_data *data)
 {
 	int		i;
-	int		c;
-	char	*tmp;
-	char	**new_envp;
+	int		j;
+	char	*lhs;
+	char	**envp;
 
-	i = 0;
 	if (!env_exists(var_name, data))
-		return ;
-	c = ft_count2darr(data->envp);
-	new_envp = (char **) ft_calloc(sizeof(char *), c + 1);
-	if (!new_envp)
-		return ;
-	while (i < c)
 	{
-		tmp = ft_substr(data->envp[i], 0,
-				ft_counttochars(data->envp[i], '=', '\0') + 1);
-		if (ft_strcmp(var_name, tmp))
-			new_envp[i] = ft_strdup(data->envp[i]);
-		ft_free(tmp);
-		i++;
+		data->last_exit_status = 0;
+		return ;
 	}
-	new_envp[i] = 0;
+	i = 0;
+	j = 0;
+	envp = (char **) ft_calloc(sizeof(char *), ft_count2darr(data->envp));
+	while (data->envp[i++])
+	{
+		lhs = ft_substr(
+				data->envp[i], 0, ft_counttochars(data->envp[i], '=', '\0'));
+		if (ft_strcmp(lhs, var_name))
+			envp[j] = ft_strdup(data->envp[i]);
+		ft_free(lhs);
+		j++;
+	}
+	envp[--j] = '\0';
 	ft_free_2d(data->envp);
-	data->envp = new_envp;
+	data->envp = envp;
 }
