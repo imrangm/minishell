@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 16:05:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:51:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ void	append_env(char *var_name, char *value, t_data *data);
 //* cd utils
 int		cd_home(t_data *data);
 int		cd_full(char *new_path);
-int		cd_root(char *new_path);
 int		cd_relative(char *new_path, char *pwd);
 
 //* Signals
@@ -160,5 +159,6 @@ int		char_is_separator(char c, char *charset);
 void	update_pwd_oldpwd(char *old_pwd, int rv, t_data *data);
 char	*line_update(void);
 char	*join_env_var_and_value(char *var_name, char *value);
+void	free_data(t_data *data);
 
 #endif
