@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 12:10:59 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/20 16:49:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ static void	create_child_process(char **args, t_data *data)
 		free_data(data);
 	}
 	else
-	{
-		// if (!get_cmd_path(args, data))
-		// 	data->last_exit_status = 127;
 		monitor_process(pid, data);
-	}
 }
 
 void	master_execute(char *line, t_data *data)
