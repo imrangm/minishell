@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 11:22:11 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/20 12:11:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	exec_sys_cmd(char **args, t_data *data)
 		if (execve(cmd_path, args, data->envp))
 		{
 			ft_free_2d(args);
-			ft_free_2d(data->envp);
+			free_data(data);
 			ft_free(cmd_path);
 			return (1);
 		}
@@ -59,7 +59,7 @@ static int	exec_sys_cmd(char **args, t_data *data)
 static void	free_and_kill(char **args, t_data *data)
 {
 	ft_free_2d(args);
-	ft_free_2d(data->envp);
+	free_data(data);
 	exit(data->last_exit_status);
 }
 
@@ -78,7 +78,7 @@ int	exec_cmd_child(char **args, t_data *data)
 	else
 	{
 		if (exec_sys_cmd(args, data))
-			return (-1);
+			return (1);
 	}
 	free_and_kill(args, data);
 	return (0);
