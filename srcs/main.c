@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 16:08:05 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:26:37 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_line(char *line, t_data *data)
 	else if (pc_mode(line, 'r'))
 		execute_rd(line, data);
 	else
-	master_execute(line, data);
+		master_execute(line, data);
 }
 
 void	minishell(t_data *data)
@@ -38,7 +38,7 @@ void	minishell(t_data *data)
 		line = readline("$> ");
 		if (!line)
 		{
-			ft_free_2d(data->envp);
+			free_data(data);
 			break ;
 		}
 		if (line[0])
