@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 18:34:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:06:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,11 @@ t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
 	t_node	*right;
+	int		io;
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
+	io = 0;
 	while (has_more_tokens(toks) && look_ahead(toks).type != PIPE)
 	{
 		if (look_ahead(toks).type == WORD
@@ -157,12 +159,35 @@ t_node	*parse_command(t_token **toks)
 			//check if infile exists, create outfile
 			//run heredoc and throw syntax error
 			//afterwords if any
-			if (right->value)
+			if (right->right_node)
 			{
 				process_redirection(right->left_node->value,
-				right->value);
+				right->right_node->value);
+				printf("value: %s, %s", toks[toks[0]->iter]->value, right->left_node->value);
+				if ((ft_strncmp(right->left_node->value, ">>", 2) == 0
+					|| ft_strncmp(right->left_node->value, ">", 1) == 0)
+					&& (ft_strncmp(toks[toks[0]->iter]->value, "<<", 2) == 0
+					|| ft_strncmp(toks[toks[0]->iter]->value, "<", 1) == 0))
+				{
+					right->id = ft_strdup("IO");
+					right = parse_io(right, toks, "IO");
+					io = 1;
+				}
+				else if ((ft_strncmp(right->left_node->value, "<<", 2) == 0
+					|| ft_strncmp(right->left_node->value, "<", 1) == 0)
+					&& (ft_strncmp(toks[toks[0]->iter]->value, ">>", 2) == 0
+					|| ft_strncmp(toks[toks[0]->iter]->value, ">", 1)) == 0)
+				{
+					right->id = ft_strdup("IO");
+					right = parse_io(right, toks, "IO");
+					io = 1;
+				}
 			}
-			right = parse_redirection(toks);
+			if (!io)
+			{
+				printf("HERE3\n");
+				right = parse_redirection(toks);
+			}
 		}
 	}
 	if (!left->id)
@@ -231,6 +256,33 @@ t_node	*parse_redirection(t_token **toks)
 	right = node(toks);
 	right->id = ft_strdup("FILE");
 	return (pair_node(left, right, "REDIR"));
+}
+
+/*
+separate nodes to assign input file redirection and 
+output file redirection 
+*/
+t_node	*parse_io(t_node *redir, t_token **toks, char *id)
+{
+	t_node	*left;
+	t_node	*right;
+	t_node	*pair_left;
+	
+	left = malloc(sizeof(t_node));
+	right = malloc(sizeof(t_node));
+	left = node(toks);
+	left->id = ft_strdup("OP");
+	if (look_ahead(toks).type != WORD)
+	{
+		right = error_node(ft_strjoin("unexpected token near: ",
+			toks[toks[0]->iter]->value));
+		return (pair_node(left, right, "IO"));
+	}
+	next_token(toks);
+	right = node(toks);
+	right->id = ft_strdup("FILE");
+	pair_left = pair_node(left, right, id);
+	return (pair_node(pair_left, redir, "REDIR"));
 }
 
 void	test_parse(t_token **toks)

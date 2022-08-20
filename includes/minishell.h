@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 18:26:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 09:35:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ t_node	*parse_command(t_token **toks);
 t_node	*parse_pipeline(t_token **toks);
 t_node	*parse_arguments(t_token **toks);
 t_node	*parse_redirection(t_token **toks);
+t_node	*parse_io(t_node *node, t_token **toks, char *id);
 t_node	*node(t_token **toks);
 t_node	*pair_node(t_node *left, t_node *right, char *id);
 t_node	*error_node(char *msg);

@@ -6,38 +6,60 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 20:01:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:10:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_redirs	redir(char *op, char *fname)
+void	redir(t_redirs *rd, char *op, char *fname)
 {
-	t_redirs	rd;
-	
-	init_rd(&rd);
 	if (ft_strncmp(op, ">>", 2) == 0) //operator
 	{
-		rd.append = fname;
-		rd.lastout = 'a';
+		rd->append = fname;
+		rd->lastout = 'a';
 	}
 	else if (ft_strncmp(op, ">", 1) == 0) //operator
 	{
-		rd.outfile = fname;
-		rd.lastout = 'o';
+		rd->outfile = fname;
+		rd->lastout = 'o';
 	}
 	else if (ft_strncmp(op, "<<", 2) == 0) //operator
 	{
-		rd.infile = fname;
-		rd.lastin = 'i';
+		rd->heredoc = fname;
+		rd->lastin = 'h';
 	}
 	else if (ft_strncmp(op, "<", 1) == 0) //operator
 	{
-		rd.heredoc = fname;
-		rd.lastin = 'h';
+		rd->infile = fname;
+		rd->lastin = 'i';
 	}
-	return (rd);
+}
+
+t_redirs	get_redir(t_node *rd)
+{
+	char		*fname;
+	char		*op;
+	t_redirs	redirs;
+
+	init_rd(&redirs);
+	if (rd->left_node->type == 0)
+	{
+		op = ft_strdup(rd->left_node->value);
+		fname = ft_strdup(rd->right_node->value);
+		printf("op: %s, fname: %s\n", op, fname);
+		redir(&redirs, op, fname);
+	}
+	if (rd->left_node->type == 1)
+	{
+		op = ft_strdup(rd->left_node->left_node->value);
+		fname = ft_strdup(rd->left_node->right_node->value);
+		redir(&redirs, op, fname);
+		op = ft_strdup(rd->right_node->left_node->value);
+		fname = ft_strdup(rd->right_node->right_node->value);
+		redir(&redirs, op, fname);
+	}
+	return (redirs);
 }
 
 //can be used for next intermediate representation(IR)
@@ -46,21 +68,18 @@ t_redirs	redir(char *op, char *fname)
 // never returns - executes all commands
 void traverse(t_node *root, int count, t_data *data)
 {
-	// char		*ID;
 	t_node		*current;
 	t_pipe		**p;
 	char		*cmd;
-	char		*fname;
-	char		*op;
 	t_redirs	rd;
 	int			i;
 
 	current = root;
-	if (strcmp(current->id, "PIPELINE") == 0)
+	if (ft_strncmp(current->id, "P", 1) == 0)
 	{
 		i = 0;
 		p = malloc(sizeof(t_pipe *) * (count + 1));
-		while (strcmp(current->id, "PIPELINE") == 0)
+		while (ft_strncmp(current->id, "P", 1) == 0)
 		{
 			p[i] = malloc(sizeof(t_pipe));
 			if (current->left_node->type == 0)
@@ -72,10 +91,7 @@ void traverse(t_node *root, int count, t_data *data)
 			{
 				p[i]->fcmd = ft_strdup(current->left_node->left_node->value);
 				printf("p[%d] :%s\n", i, p[i]->fcmd);
-				op = ft_strdup(current->left_node->right_node->left_node->value);
-				fname = ft_strdup(current->left_node->right_node->right_node->value);
-				printf("op: %s, fname: %s\n", op, fname);
-				p[i]->rd = redir(op, fname);
+				p[i]->rd = get_redir(current->left_node->right_node);
 			}
 			current = current->right_node;
 			i++;
@@ -90,16 +106,14 @@ void traverse(t_node *root, int count, t_data *data)
 		{
 			p[i]->fcmd = ft_strdup(current->left_node->value);
 			printf("p[%d] :%s\n", i, p[i]->fcmd);
-			op = ft_strdup(current->right_node->left_node->value);
-			fname = ft_strdup(current->right_node->right_node->value);
-			p[i]->rd = redir(op, fname);
+			p[i]->rd = get_redir(current->right_node);
 		}
 		p[0]->nchild = count + 1;
 		printf("nchild: %d\n", p[0]->nchild);
 		p[0]->data = data;
 		pipes(p);
 	}
-	else if (strcmp(current->id, "COMMAND") == 0)
+	else if (ft_strncmp(current->id, "C", 1) == 0)
 	{
 		if (current->type == 0)
 		{
@@ -107,10 +121,8 @@ void traverse(t_node *root, int count, t_data *data)
 		}
 		else 
 		{
-			cmd = ft_strdup(current->left_node->value); //command
-			fname = ft_strdup(current->right_node->right_node->value); //fname
-			op = ft_strdup(current->right_node->left_node->value); //op
-			rd = redir(op, fname);
+			cmd = ft_strdup(current->left_node->value);
+			rd = get_redir(current->right_node);
 			create_file(cmd, &rd, data);
 		}
 	}
