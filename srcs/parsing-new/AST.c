@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 17:21:51 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:09:31 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,9 @@ t_node	*node(t_token **toks)
 t_node	*pair_node(t_node *left, t_node *right, char *id)
 {
 	t_node	*new;
-	int		len;
 
-	len = ft_strlen(id) + 1;
 	new = malloc(sizeof(t_node));
-	new->id = malloc(sizeof(char) * len);
-	new->id = id;
+	new->id = ft_strdup(id);
 	new->type = 1;
 	new->left_node = left;
 	new->right_node = right;
@@ -68,7 +65,7 @@ void	indent(size_t spaces)
 int	visit(t_node *node, size_t spaces)
 {
 	static int	i;
-	
+
 	indent(spaces);
 	if (!i || !spaces)
 		i = 0;
@@ -85,7 +82,7 @@ int	visit(t_node *node, size_t spaces)
 		printf("%s:\n", node->id);
 		visit(node->left_node, spaces + 3);
 		visit(node->right_node, spaces + 3);
-		if (strcmp(node->id, "PIPELINE") == 0)
+		if (ft_strncmp(node->id, "P", 1) == 0)
 			i++;
 	}
 	if (node->type == 2)

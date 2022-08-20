@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 09:35:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:41:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,14 @@ t_node	*node(t_token **toks);
 t_node	*pair_node(t_node *left, t_node *right, char *id);
 t_node	*error_node(char *msg);
 int		visit(t_node *node, size_t spaces);
-void 	traverse(t_node *root, int count, t_data *data);
+void	traverse(t_node *root, int count, t_data *data);
 
 //Utility
 t_node	*add_expansion(t_node *args);
 void	process_redirection(char *left, char *right);
+
+//Expansion
+void	expander(t_node	*raw, t_data *data);
 
 //Free Memory
 void	free_chars(t_type **table, int len);

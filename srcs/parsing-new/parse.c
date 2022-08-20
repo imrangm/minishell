@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 12:06:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:46:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,12 +112,13 @@ t_node	*parse_pipeline(t_token **toks)
 	if (look_ahead(toks).type != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-			toks[toks[0]->iter]->value));
+					toks[toks[0]->iter]->value));
 		return (right);
 	}
 	right = parse_command(toks);
 	return (pair_node(left, right, "PIPELINE"));
 }
+
 /*
 NOTE: left recursion is not supported by RDP
 command	: [word or redirection]...
@@ -149,7 +150,7 @@ t_node	*parse_command(t_token **toks)
 			if (left->value)
 			{
 				toks[toks[0]->iter]->value = ft_strjoin(left->value,
-				ft_strjoin(" ", toks[toks[0]->iter]->value));
+						ft_strjoin(" ", toks[toks[0]->iter]->value));
 			}
 			left = parse_arguments(toks);
 		}
@@ -163,7 +164,7 @@ t_node	*parse_command(t_token **toks)
 			{
 				process_redirection(right->left_node->value,
 				right->right_node->value);
-				printf("value: %s, %s", toks[toks[0]->iter]->value, right->left_node->value);
+				// printf("value: %s, %s\n", toks[toks[0]->iter]->value, right->left_node->value);
 				if ((ft_strncmp(right->left_node->value, ">>", 2) == 0
 					|| ft_strncmp(right->left_node->value, ">", 1) == 0)
 					&& (ft_strncmp(toks[toks[0]->iter]->value, "<<", 2) == 0
@@ -185,7 +186,6 @@ t_node	*parse_command(t_token **toks)
 			}
 			if (!io)
 			{
-				printf("HERE3\n");
 				right = parse_redirection(toks);
 			}
 		}

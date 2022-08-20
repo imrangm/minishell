@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 12:10:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:13:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,19 @@ void traverse(t_node *root, int count, t_data *data)
 		{
 			master_execute(current->value, data);
 		}
-		else 
+		else
 		{
-			cmd = ft_strdup(current->left_node->value);
-			rd = get_redir(current->right_node);
-			create_file(cmd, &rd, data);
+			if (ft_strncmp(current->left_node->id, "RAW", 3) == 0)
+			{
+				expander(current, data);
+				master_execute(current->left_node->value, data);
+			}
+			else
+			{	
+				cmd = ft_strdup(current->left_node->value);
+				rd = get_redir(current->right_node);
+				create_file(cmd, &rd, data);
+			}
 		}
 	}
 }

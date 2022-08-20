@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 10:44:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:10:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,24 @@ void	free_tokens(t_token **toks)
 void	free_node(t_node *node)
 {
 	// printf("freed id: %s, value: %s\n", node->id, node->value);
-	ft_free(node->id);
-	if (node->value)
+	printf("freed node: %s\n", node->id);
+	if (ft_strncmp(node->id, "START", 5) == 0
+		|| ft_strncmp(node->id, "END", 3) == 0)
+	{
+		ft_free(node->id);
+		ft_free(node);
+	}
+	else
+	{
 		ft_free(node->value);
-	ft_free(node);
+		ft_free(node->id);
+		ft_free(node);
+	}
 }
 
 void	free_nodes(t_node *root)
 {
+	printf("----------------------------\n");
 	if (root->type == 0)
 	{
 		free_node(root);
@@ -64,6 +74,9 @@ void	free_nodes(t_node *root)
 	{
 		free_nodes(root->left_node);
 		free_nodes(root->right_node);
+		printf("freed node: %s\n", root->id);
+		ft_free(root->id);
+		ft_free(root);
 	}
 	if (root->type == 2)
 	{
