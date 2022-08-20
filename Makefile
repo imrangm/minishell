@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/18 18:30:01 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/20 16:14:43 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,8 +53,8 @@ SRCS=		main.c \
 CC =		gcc
 
 # Homebrew Flags
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I /opt/homebrew/opt/readline/include/
+LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
 # LDFLAGS =	-lreadline -L ./libs/readline/lib/
@@ -65,8 +65,8 @@ CC =		gcc
 # CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
-LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror -g3
+# LDFLAGS =	-lreadline
+# CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 
@@ -95,7 +95,7 @@ re: fclean all
 
 valgrind: $(NAME) $(clear)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
-	@valgrind --leak-check=full --track-fds=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
+	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 
 run: re clean
 	@clear && ./minishell
