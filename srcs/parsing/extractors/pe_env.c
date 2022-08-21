@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 16:18:33 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 11:01:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_envp(char **envp, t_data *data)
 	data->pwd = NULL;
 	data->old_pwd = NULL;
 	data->envp = clone_env(envp, 0);
-	delete_env("OLDPWD", data);
+	// delete_env("OLDPWD", data); //! Causes leaks
 	set_shlvl(data);
 	modify_env(ft_strdup("OLDPWD"), NULL, data);
 	modify_env(ft_strdup("PWD"), getcwd(NULL, 0), data);
