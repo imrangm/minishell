@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 13:59:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 14:05:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ void	update_pwds(char *pwd, t_data *data)
 		if (!rhs)
 			modify_env(ft_strdup("OLDPWD"), ft_strdup(pwd), data);
 		else
-			modify_env(ft_strdup("OLDPWD"),
-				ft_strdup(get_env_value("PWD", data)), data);
-		ft_free(rhs);
+			modify_env(ft_strdup("OLDPWD"), rhs, data);
 	}
 	if (env_exists("PWD", data))
 		modify_env(ft_strdup("PWD"), getcwd(NULL, 0), data);
