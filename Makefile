@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/20 16:14:43 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/21 13:11:15 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,6 @@ SRCS=		main.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
-			utils/u_cd.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_misc.c \
@@ -93,7 +92,7 @@ fclean: clean
 
 re: fclean all
 
-valgrind: $(NAME) $(clear)
+valgrind: re $(clear)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 

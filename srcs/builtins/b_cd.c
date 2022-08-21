@@ -6,47 +6,60 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:27:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 13:11:07 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// static void	update_env_access(t_data *data)
-// {
-// 	ft_putstr_fd("Error: cannot access parent directories. ", 2);
-// 	ft_putstr_fd("Redirecting to root regardless of input.\n", 1);
-// 	chdir("/");
-// 	ft_free(data->old_pwd);
-// 	if (data->pwd)
-// 		data->old_pwd = ft_strdup(data->pwd);
-// 	modify_env(ft_strdup("OLDPWD"), data->old_pwd, data);
-// 	ft_free(data->pwd);
-// 	data->pwd = ft_strdup("/");
-// 	modify_env(ft_strdup("PWD"), ft_strdup("/"), data);
-// 	data->last_exit_status = 0;
-// }
+int	cd_absolute(char *new_path)
+{
+	if (chdir(new_path))
+	{
+		ft_putendl_fd("Error: No such file or directory", 2);
+		return (1);
+	}
+	return (0);
+}
 
-// static int	handle_del_dir(t_data *data)
-// {
-// 	char	*pwd;
-// 	char	*old_pwd;
+int	cd_relative(char *new_path, char *pwd)
+{
+	char	*full_path;
 
-// 	pwd = NULL;
-// 	old_pwd = NULL;
-// 	if (data->old_pwd != NULL && chdir(data->old_pwd) != -1)
-// 	{
-// 		pwd = ft_strdup(data->pwd);
-// 		old_pwd = ft_strdup(data->old_pwd);
-// 		ft_free(data->pwd);
-// 		ft_free(data->old_pwd);
-// 		data->pwd = ft_strdup(old_pwd);
-// 		data->old_pwd = ft_strdup(pwd);
-// 	}
-// 	else
-// 		update_env_access(data);
-// 	return (0);
-// }
+	full_path = ft_strsep(new_path, pwd, '/');
+	if (chdir(full_path))
+	{
+		ft_putendl_fd("Error: No such file or directory", 2);
+		ft_free(full_path);
+		return (1);
+	}
+	ft_free(full_path);
+	return (0);
+}
+
+int	cd_special(void)
+{
+	ft_putendl_fd("Error: getcwd() did not return a path", 2);
+	return (cd_absolute("/"));
+}
+
+void	update_pwds(char *pwd, t_data *data)
+{
+	if (env_exists("OLDPWD", data) && env_exists("PWD", data))
+		modify_env(ft_strdup("OLDPWD"), get_env_value("PWD", data), data);
+	else if (env_exists("OLDPWD", data) && !env_exists("PWD", data))
+		modify_env(ft_strdup("OLDPWD"), ft_strdup(""), data);
+	if (env_exists("PWD", data) && pwd)
+		modify_env(ft_strdup("PWD"), getcwd(NULL, 0), data);
+	else if (env_exists("PWD", data) && !pwd)
+		modify_env(ft_strdup("PWD"), ft_strdup("/"), data);
+	ft_free(data->pwd);
+	if (pwd)
+		data->pwd = ft_strdup(pwd);
+	else
+		data->pwd = ft_strdup("/");
+	ft_free(pwd);
+}
 
 int	b_cd(char **args, t_data *data)
 {
@@ -58,32 +71,14 @@ int	b_cd(char **args, t_data *data)
 		return (1);
 	}
 	pwd = getcwd(NULL, 0);
-	printf("pwd = %s\n", pwd);
-
-	// if (!pwd) //! Handles if you are in a deleted working dir
-	// 	return (handle_del_dir(data));
-	// else if (ft_count2darr(args) == 1)
-	// {
-	// 	;
-	// 	// return (cd_home(data)); //! Handles cd to home
-	// }
-	if ((args[1][0] == '/' && pwd[0] == '/' && !pwd[1]) || args[1][0] == '/')
-		data->last_exit_status = cd_full(args[1]);
+	if (!pwd)
+		data->last_exit_status = cd_special();
+	else if ((args[1][0] == '/' && pwd[0] == '/' && !pwd[1])
+		|| args[1][0] == '/')
+		data->last_exit_status = cd_absolute(args[1]);
 	else
 		data->last_exit_status = cd_relative(pwd, args[1]);
-
-	//*-----
-	//! Reimplement with env
-	// update_pwd_oldpwd(pwd, data->last_exit_status, data);
-	//*-----
-
-	//*-----
-	//! Three lines are for testing purposes
-	ft_free(pwd);
-	pwd = getcwd(NULL, 0);
-	printf("pwd now = %s\n", pwd);
-	//*-----
-
-	ft_free(pwd);
+	if (!data->last_exit_status)
+		update_pwds(pwd, data);
 	return (data->last_exit_status);
 }

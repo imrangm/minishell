@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 12:12:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 13:02:25 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,5 @@ void	rd_free(int *fd, char **arg, t_redirs *rd)
 void	free_data(t_data *data)
 {
 	ft_free(data->pwd);
-	ft_free(data->old_pwd);
 	ft_free_2d(data->envp);
 }

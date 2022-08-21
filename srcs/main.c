@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 16:26:37 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 13:11:15 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,3 +61,5 @@ int	main(int argc, char **argv, char **envp)
 	init_envp(envp, &data);
 	minishell(&data);
 }
+
+//! Problem with delete_env() – b_unset is based on it

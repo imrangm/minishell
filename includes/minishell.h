@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 12:51:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 13:02:14 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_data
 	int		last_exit_status;
 	int		shlvl;
 	char	*pwd;
-	char	*old_pwd;
 	char	**envp;
 }	t_data;
 
@@ -97,6 +96,7 @@ void	free_struct_rd(t_redirs *rd);
 void	free_struct_pp(t_pipe **p, int nchild);
 void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p);
 void	rd_free(int *fd, char **arg, t_redirs *rd);
+void	free_data(t_data *data);
 
 //* Parsing Checkers
 int		pc_end(char *line);
@@ -140,9 +140,9 @@ void	modify_env(char *var_name, char *value, t_data *data);
 void	append_env(char *var_name, char *value, t_data *data);
 
 //* cd utils
-int		cd_home(t_data *data);
-int		cd_full(char *new_path);
+int		cd_absolute(char *new_path);
 int		cd_relative(char *new_path, char *pwd);
+int		cd_special(void);
 
 //* Signals
 void	set_signalset(int sigmode);
@@ -156,9 +156,7 @@ int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);
 int		word_count(char *input);
 int		char_is_separator(char c, char *charset);
-void	update_pwd_oldpwd(char *old_pwd, int rv, t_data *data);
 char	*line_update(void);
 char	*join_env_var_and_value(char *var_name, char *value);
-void	free_data(t_data *data);
 
 #endif
