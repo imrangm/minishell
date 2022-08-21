@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 13:11:07 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 13:59:50 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,26 @@ int	cd_special(void)
 
 void	update_pwds(char *pwd, t_data *data)
 {
-	if (env_exists("OLDPWD", data) && env_exists("PWD", data))
-		modify_env(ft_strdup("OLDPWD"), get_env_value("PWD", data), data);
-	else if (env_exists("OLDPWD", data) && !env_exists("PWD", data))
-		modify_env(ft_strdup("OLDPWD"), ft_strdup(""), data);
-	if (env_exists("PWD", data) && pwd)
+	char	*rhs;
+
+	rhs = NULL;
+	if (data->last_exit_status)
+		return ;
+	if (env_exists("OLDPWD", data))
+	{
+		if (env_exists("PWD", data))
+			rhs = get_env_value("PWD", data);
+		if (!rhs)
+			modify_env(ft_strdup("OLDPWD"), ft_strdup(pwd), data);
+		else
+			modify_env(ft_strdup("OLDPWD"),
+				ft_strdup(get_env_value("PWD", data)), data);
+		ft_free(rhs);
+	}
+	if (env_exists("PWD", data))
 		modify_env(ft_strdup("PWD"), getcwd(NULL, 0), data);
-	else if (env_exists("PWD", data) && !pwd)
-		modify_env(ft_strdup("PWD"), ft_strdup("/"), data);
 	ft_free(data->pwd);
-	if (pwd)
-		data->pwd = ft_strdup(pwd);
-	else
-		data->pwd = ft_strdup("/");
+	data->pwd = getcwd(NULL, 0);
 	ft_free(pwd);
 }
 
@@ -78,7 +85,6 @@ int	b_cd(char **args, t_data *data)
 		data->last_exit_status = cd_absolute(args[1]);
 	else
 		data->last_exit_status = cd_relative(pwd, args[1]);
-	if (!data->last_exit_status)
-		update_pwds(pwd, data);
+	update_pwds(pwd, data);
 	return (data->last_exit_status);
 }
