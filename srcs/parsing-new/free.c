@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 18:10:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:37:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	free_node(t_node *node)
 
 void	free_nodes(t_node *root)
 {
-	printf("----------------------------\n");
 	if (root->type == 0)
 	{
 		free_node(root);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 17:35:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 12:18:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	minishell(t_data *data)
 			traverse(node, count, data);
 			free_chars(src->chars, src->len);
 			free_tokens(toks);
+				printf("----------------------------\n");
 			free_nodes(node);
 			/* old parser */
 			// if (pc_valid(line, data))

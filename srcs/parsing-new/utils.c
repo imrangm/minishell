@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 18:03:46 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:57:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ t_node	*add_expansion(t_node *args)
 	i = 1;
 	while (ft_isalnum(start->value[i++])
 		&& start->value[i]
-		&& start->value[i] != '\"');
+		&& start->value[i] != '\"'
+		&& !ft_isspace(start->value[i]));
 	// printf("i : %d\n", i);
 	end->val = start->val + i - 1;
 	end->id = ft_strdup("END");

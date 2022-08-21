@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 17:13:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 10:12:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 void	redir(t_redirs *rd, char *op, char *fname)
 {
-	if (ft_strncmp(op, ">>", 2) == 0) //operator
+	if (ft_strncmp(op, ">>", 2) == 0)
 	{
 		rd->append = fname;
 		rd->lastout = 'a';
 	}
-	else if (ft_strncmp(op, ">", 1) == 0) //operator
+	else if (ft_strncmp(op, ">", 1) == 0)
 	{
 		rd->outfile = fname;
 		rd->lastout = 'o';
 	}
-	else if (ft_strncmp(op, "<<", 2) == 0) //operator
+	else if (ft_strncmp(op, "<<", 2) == 0)
 	{
 		rd->heredoc = fname;
 		rd->lastin = 'h';
 	}
-	else if (ft_strncmp(op, "<", 1) == 0) //operator
+	else if (ft_strncmp(op, "<", 1) == 0)
 	{
 		rd->infile = fname;
 		rd->lastin = 'i';
@@ -119,7 +119,7 @@ void traverse(t_node *root, int count, t_data *data)
 		{
 			master_execute(current->value, data);
 		}
-		else
+		if (current->type == 1 && current->left_node->type == 0)
 		{
 			if (ft_strncmp(current->left_node->id, "RAW", 3) == 0)
 			{
@@ -127,11 +127,18 @@ void traverse(t_node *root, int count, t_data *data)
 				master_execute(current->left_node->value, data);
 			}
 			else
-			{	
+			{
 				cmd = ft_strdup(current->left_node->value);
 				rd = get_redir(current->right_node);
 				create_file(cmd, &rd, data);
 			}
+		}
+		if (current->type == 1 && current->left_node->type == 1)
+		{
+			expander(current->left_node, data);
+			cmd = ft_strdup(current->left_node->left_node->value);
+			rd = get_redir(current->right_node);
+			create_file(cmd, &rd, data);
 		}
 	}
 }

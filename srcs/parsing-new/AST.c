@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 18:09:31 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:22:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_node	*node(t_token **toks)
 
 	i = toks[0]->iter;
 	word = malloc(sizeof(t_node));
+	memset(word, 0, sizeof(t_node));
 	word->type = 0;
 	word->value = ft_strdup(toks[i]->value);
 	return (word);

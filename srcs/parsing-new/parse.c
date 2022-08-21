@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 15:46:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:34:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ is sufficient
 
 int	has_more_tokens(t_token **toks)
 {
-	return (toks[0]->iter + 1 < toks[0]->count);
+	return ((toks[0]->iter + 1) < toks[0]->count);
 }
 
 t_token	look_ahead(t_token **toks)
@@ -48,6 +48,11 @@ t_token	look_ahead(t_token **toks)
 	i = toks[0]->iter;
 	ret = *toks[i + 1];
 	return (ret);
+}
+
+t_token	*current_token(t_token **toks)
+{
+	return(toks[toks[0]->iter]);
 }
 
 void	next_token(t_token **toks)
@@ -69,7 +74,7 @@ on the grammer of shell or how the input needs to be processed
 */
 t_node	*parse(t_token **toks)
 {
-		return (parse_pipeline(toks));
+	return (parse_pipeline(toks));
 }
 
 /*
@@ -102,11 +107,11 @@ t_node	*parse_pipeline(t_token **toks)
 		if (look_ahead(toks).type != WORD)
 		{
 			right = error_node(ft_strjoin("unexpected token near: ",
-				toks[toks[0]->iter]->value));
+						toks[toks[0]->iter]->value));
 			return (right);
 		}
 		right = parse_pipeline(toks);
-		return(pair_node(left, right, "PIPELINE"));
+		return (pair_node(left, right, "PIPELINE"));
 	}
 	next_token(toks); // eat or consume pipe character
 	if (look_ahead(toks).type != WORD)
@@ -130,7 +135,6 @@ command : word
 command : [redirection*] arguments [redirection*] where redirection on either side
 are optional {FINAL}
 */
-
 t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
@@ -140,6 +144,12 @@ t_node	*parse_command(t_token **toks)
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	io = 0;
+	if (toks[0]->count == 1)
+	{
+		left = node(toks);
+		left->id = ft_strdup("COMMAND");
+		return (left);
+	}
 	while (has_more_tokens(toks) && look_ahead(toks).type != PIPE)
 	{
 		if (look_ahead(toks).type == WORD
@@ -174,10 +184,10 @@ t_node	*parse_command(t_token **toks)
 					right = parse_io(right, toks, "IO");
 					io = 1;
 				}
-				else if ((ft_strncmp(right->left_node->value, "<<", 2) == 0
+				if ((ft_strncmp(right->left_node->value, "<<", 2) == 0
 					|| ft_strncmp(right->left_node->value, "<", 1) == 0)
 					&& (ft_strncmp(toks[toks[0]->iter]->value, ">>", 2) == 0
-					|| ft_strncmp(toks[toks[0]->iter]->value, ">", 1)) == 0)
+					|| ft_strncmp(toks[toks[0]->iter]->value, ">", 1) == 0))
 				{
 					right->id = ft_strdup("IO");
 					right = parse_io(right, toks, "IO");
@@ -191,12 +201,19 @@ t_node	*parse_command(t_token **toks)
 		}
 	}
 	if (!left->id)
-		left = node(toks);
-	if (!right->id)
 	{
+		printf("X0\n");
+		left = node(toks);
 		left->id = ft_strdup("COMMAND");
 		return (left);
 	}
+	if (!right->id)
+	{
+		printf("X1\n");
+		left->id = ft_strdup("COMMAND");
+		return (left);
+	}
+	printf("X2\n");
 	return (pair_node(left, right, "COMMAND"));
 }
 
@@ -208,15 +225,16 @@ t_node	*parse_arguments(t_token **toks)
 	t_token	*temp;
 	int		expansion_mode;
 
+	printf("value: %s\n", toks[toks[0]->iter]->value);
 	args = node(toks);
 	expansion_mode = 0;
-	temp = toks[toks[0]->iter];
+	temp = current_token(toks);
 	if ((temp->type == WORD || temp->type == DQUOTE)
 		&& ft_strchr(temp->value, '$'))
 	{
 		expansion_mode = 1;
 	}
-	if (expansion_mode)
+	if (expansion_mode && !has_more_tokens(toks))
 	{
 		args->id = ft_strdup("RAW");
 		left = args;

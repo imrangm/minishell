@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 17:16:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/21 13:55:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	expander(t_node	*cmd, t_data *data)
 	size_t		i;
 	size_t		j;
 
-	param = get_env_value(cmd->right_node->right_node->value, data);
+	if (ft_strncmp(cmd->right_node->right_node->value, "?", 1) == 0)
+		param = ft_itoa(data->last_exit_status);
+	else
+		param = get_env_value(cmd->right_node->right_node->value, data);
 	start = cmd->right_node->left_node->left_node->val;
 	end = cmd->right_node->left_node->right_node->val;
 	len = ft_strlen(param) + ft_strlen(cmd->left_node->value) - (end - start);
