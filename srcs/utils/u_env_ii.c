@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 16:23:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 11:01:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,16 @@ void	delete_env(char *var_name, t_data *data)
 	i = 0;
 	j = 0;
 	envp = (char **) ft_calloc(sizeof(char *), ft_count2darr(data->envp));
-	while (data->envp[i++])
+	while (data->envp[i])
 	{
 		lhs = ft_substr(
 				data->envp[i], 0, ft_counttochars(data->envp[i], '=', '\0'));
 		if (ft_strcmp(lhs, var_name))
 			envp[j] = ft_strdup(data->envp[i]);
 		ft_free(lhs);
+		i++;
 		j++;
 	}
-	envp[--j] = '\0';
 	ft_free_2d(data->envp);
 	data->envp = envp;
 }
