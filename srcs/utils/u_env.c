@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:26 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 16:57:19 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_env_value(char *str, t_data *data)
 
 int	env_exists(char *var_name, t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (data->envp && data->envp[i])
