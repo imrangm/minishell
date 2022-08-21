@@ -6,17 +6,28 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/20 16:49:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 16:33:04 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	g_child_pid;
+
+static void	signal_handler_iii(int signum)
+{
+	(void) signum;
+	printf("Quit\n");
+	kill(g_child_pid, SIGQUIT);
+}
 
 static void	monitor_process(int pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
 
+	g_child_pid = pid;
+	signal(SIGQUIT, &signal_handler_iii);
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 	{

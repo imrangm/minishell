@@ -6,13 +6,13 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/07/19 11:30:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/21 16:32:40 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	handle_signals_main(int signum)
+void	signal_handler(int signum)
 {
 	(void) signum;
 	printf("\n");
@@ -21,7 +21,7 @@ void	handle_signals_main(int signum)
 	rl_redisplay();
 }
 
-void	handle_signals_else(int signum)
+void	signal_handler_ii(int signum)
 {
 	(void) signum;
 	printf("\n");
@@ -35,11 +35,11 @@ void	set_signalset(int sigmode)
 	if (sigmode == 0)
 	{
 		signal(SIGQUIT, SIG_IGN);
-		signal(SIGINT, &handle_signals_main);
+		signal(SIGINT, &signal_handler);
 	}
 	else if (sigmode == 1)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, &handle_signals_else);
+		signal(SIGINT, &signal_handler_ii);
 	}
 }
