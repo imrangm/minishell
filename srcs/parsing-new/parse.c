@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/22 08:42:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/22 19:41:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_node	*parse_pipeline(t_token **toks)
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
+	printf("X\n");
 	left = parse_command(toks);
 	if (!has_more_tokens(toks) || look_ahead(toks).type != PIPE)
 		return (left);
@@ -139,12 +140,16 @@ t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
 	t_node	*right;
+	t_token	*temp;
+	int		expansion_mode;
 	int		io;
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	io = 0;
-	if (toks[0]->count == 1)
+	expansion_mode = 0;
+	if (toks[0]->count == 1
+		&& (toks[0]->type != PIPE || toks[0]->type != REDIR))
 	{
 		left = node(toks);
 		left->id = ft_strdup("COMMAND");
@@ -161,6 +166,14 @@ t_node	*parse_command(t_token **toks)
 			{
 				toks[toks[0]->iter]->value = ft_strjoin(left->value,
 						ft_strjoin(" ", toks[toks[0]->iter]->value));
+			}
+			temp = current_token(toks);
+			printf("value: %s\n", temp->value);
+			if ((temp->type == WORD || temp->type == DQUOTE)
+				&& ft_strchr(temp->value, '$'))
+			{
+				expansion_mode = 1;
+				printf("expansions: %d\n", expansion_mode);
 			}
 			left = parse_arguments(toks);
 		}
@@ -205,13 +218,33 @@ t_node	*parse_command(t_token **toks)
 		printf("X0\n");
 		left = node(toks);
 		left->id = ft_strdup("COMMAND");
+		ft_free(right);
 		return (left);
+	}
+	if (!right->id && expansion_mode)
+	{
+		printf("X1\n");
+		left->id = ft_strdup("RAW");
+		right = add_expansions(left);
+		return (pair_node(left, right, "COMMAND"));
 	}
 	if (!right->id)
 	{
 		printf("X1\n");
 		left->id = ft_strdup("COMMAND");
+		ft_free(right);
 		return (left);
+	}
+	if (expansion_mode)
+	{
+		printf("HEREX\n");
+		left->type = 1;
+		left->left_node = malloc(sizeof(t_node));
+		left->left_node->value = ft_strdup(left->value);
+		left->left_node->id = ft_strdup("RAW");
+		left->left_node->type = 0;
+		ft_free(left->value);
+		left->right_node = add_expansions(left->left_node);
 	}
 	printf("X2\n");
 	return (pair_node(left, right, "COMMAND"));
@@ -220,28 +253,28 @@ t_node	*parse_command(t_token **toks)
 t_node	*parse_arguments(t_token **toks)
 {
 	t_node	*args;
-	t_node	*left;
-	t_node	*right;
-	t_token	*temp;
-	int		expansion_mode;
+	// t_node	*left;
+	// t_node	*right;
+	// t_token	*temp;
+	// int		expansion_mode;
 
 	args = node(toks);
-	expansion_mode = 0;
-	temp = current_token(toks);
-	printf("value: %s\n", temp->value);
-	if ((temp->type == WORD || temp->type == DQUOTE)
-		&& ft_strchr(temp->value, '$'))
-	{
-		expansion_mode++;
-		printf("expansions: %d\n", expansion_mode);
-	}
-	if (expansion_mode && !has_more_tokens(toks))
-	{
-		args->id = ft_strdup("RAW");
-		left = args;
-		right = add_expansions(args);
-		return (pair_node(left, right, "ARGS"));
-	}
+	// expansion_mode = 0;
+	// temp = current_token(toks);
+	// printf("value: %s\n", temp->value);
+	// if ((temp->type == WORD || temp->type == DQUOTE)
+	// 	&& ft_strchr(temp->value, '$'))
+	// {
+	// 	expansion_mode++;
+	// 	printf("expansions: %d\n", expansion_mode);
+	// }
+	// if (expansion_mode && !has_more_tokens(toks))
+	// {
+	// 	args->id = ft_strdup("RAW");
+	// 	left = args;
+	// 	right = add_expansions(args);
+	// 	return (pair_node(left, right, "ARGS"));
+	// }
 	args->id = ft_strdup("ARGS");
 	return (args);
 }
