@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 16:41:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/22 07:29:31 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ int		visit(t_node *node, size_t spaces);
 void	traverse(t_node *root, int count, t_data *data);
 
 //Utility
-t_node	*add_expansion(t_node *args);
+t_node	*add_expansions(t_node *args);
+t_node	*attach_expansion(t_node *args, char *param, int expansions);
 void	process_redirection(char *left, char *right);
 
 //Expansion

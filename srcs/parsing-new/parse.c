@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/21 13:34:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/22 08:42:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,25 +225,34 @@ t_node	*parse_arguments(t_token **toks)
 	t_token	*temp;
 	int		expansion_mode;
 
-	printf("value: %s\n", toks[toks[0]->iter]->value);
 	args = node(toks);
 	expansion_mode = 0;
 	temp = current_token(toks);
+	printf("value: %s\n", temp->value);
 	if ((temp->type == WORD || temp->type == DQUOTE)
 		&& ft_strchr(temp->value, '$'))
 	{
-		expansion_mode = 1;
+		expansion_mode++;
+		printf("expansions: %d\n", expansion_mode);
 	}
 	if (expansion_mode && !has_more_tokens(toks))
 	{
 		args->id = ft_strdup("RAW");
 		left = args;
-		right = add_expansion(args);
+		right = add_expansions(args);
 		return (pair_node(left, right, "ARGS"));
 	}
 	args->id = ft_strdup("ARGS");
 	return (args);
 }
+
+//add more expansion nodes at the end of param
+//depending on how many word expansion are
+//passed
+// t_node	*parse_expansion(t_token **toks)
+// {
+	
+// }
 
 /*
 redirection : redirectionop filename ;

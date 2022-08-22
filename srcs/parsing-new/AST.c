@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/21 13:22:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/22 05:34:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,13 @@ int	visit(t_node *node, size_t spaces)
 	}
 	if (node->type == 1)
 	{
-		printf("%s:\n", node->id);
+		if (ft_strncmp(node->id, "PARAM", 5) == 0)
+			printf("%s: %s\n", node->id, node->value);
+		else
+			printf("%s:\n", node->id);
 		visit(node->left_node, spaces + 3);
 		visit(node->right_node, spaces + 3);
-		if (ft_strncmp(node->id, "P", 1) == 0)
+		if (ft_strncmp(node->id, "PIPE", 4) == 0)
 			i++;
 	}
 	if (node->type == 2)
