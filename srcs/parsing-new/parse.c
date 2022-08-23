@@ -6,35 +6,18 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 07:42:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 10:35:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-create constructs to combine parts of tokens 
-together to process them later
-
-parser also would check for syntax and throw
-error if there is a problem with it
-
-Once you go through a token you are supposed to 
-eat or consume it, in my case, i just move on to 
-the next token.
-
-I have to weigh benefits of linked list and implement 
-if needed. Currently, there is no backtracking and
-and no removal hence double pointer array 
-is sufficient
-*/
 
 int	has_more_tokens(t_token **toks)
 {
 	return ((toks[0]->iter + 1) < toks[0]->count);
 }
 
-t_token	look_ahead(t_token **toks)
+int	look_ahead(t_token **toks)
 {
 	t_token	ret;
 	int		i;
@@ -42,12 +25,12 @@ t_token	look_ahead(t_token **toks)
 	ret.value = 0;
 	ret.type = 0;
 	if (!has_more_tokens(toks))
-		return (ret);
+		return (ret.type);
 	if (!toks[0]->cur)
-		return (*toks[0]);
+		return (toks[0]->type);
 	i = toks[0]->iter;
 	ret = *toks[i + 1];
-	return (ret);
+	return (ret.type);
 }
 
 t_token	*current_token(t_token **toks)
@@ -68,28 +51,15 @@ void	next_token(t_token **toks)
 	}
 }
 
-/*
-This part will process tokens to make synctactical analysis based
-on the grammer of shell or how the input needs to be processed
-*/
 t_node	*parse(t_token **toks)
 {
+	if (look_ahead(toks) == PIPE)
+	{
+		return (error_node(ft_strjoin("unexpected token near: ",
+					toks[toks[0]->iter]->value)));
+	}
 	return (parse_pipeline(toks));
 }
-
-/*
-GRAMMAR
--------
-(BONUS)
-commandline : conditional
-conditional : conditional "&&" pipeline
-			| conditional "||" pipeline
------------
-commandline : pipeline ;
-pipeline	: command 
-			| pipeline "|" command -> command "|" command "|" command...;
-			(to avoid left recursion)
-*/
 
 t_node	*parse_pipeline(t_token **toks)
 {
@@ -99,12 +69,12 @@ t_node	*parse_pipeline(t_token **toks)
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	left = parse_command(toks);
-	if (!has_more_tokens(toks) || look_ahead(toks).type != PIPE)
+	if (!has_more_tokens(toks) || look_ahead(toks) != PIPE)
 		return (left);
-	if (look_ahead(toks).type == PIPE)
+	if (look_ahead(toks) == PIPE)
 	{
-		next_token(toks); // eat or consume pipe character
-		if (look_ahead(toks).type != WORD)
+		next_token(toks);
+		if (look_ahead(toks) != WORD)
 		{
 			right = error_node(ft_strjoin("unexpected token near: ",
 						toks[toks[0]->iter]->value));
@@ -113,8 +83,8 @@ t_node	*parse_pipeline(t_token **toks)
 		right = parse_pipeline(toks);
 		return (pair_node(left, right, "PIPELINE"));
 	}
-	next_token(toks); // eat or consume pipe character
-	if (look_ahead(toks).type != WORD)
+	next_token(toks);
+	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
 					toks[toks[0]->iter]->value));
@@ -124,17 +94,6 @@ t_node	*parse_pipeline(t_token **toks)
 	return (pair_node(left, right, "PIPELINE"));
 }
 
-/*
-NOTE: left recursion is not supported by RDP
-command	: [word or redirection]...
-command : word 
-		| redirection 
-		| command word -> word word word (use while loop instead of recursion)
-		| command redirection -> redirection* (use while loop instead of recursion)
-		;
-command : [redirection*] arguments [redirection*] where redirection on either side
-are optional {FINAL}
-*/
 t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
@@ -154,11 +113,11 @@ t_node	*parse_command(t_token **toks)
 		left->id = ft_strdup("COMMAND");
 		return (left);
 	}
-	while (has_more_tokens(toks) && look_ahead(toks).type != PIPE)
+	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
-		if (look_ahead(toks).type == WORD
-			|| look_ahead(toks).type == SQUOTE
-			|| look_ahead(toks).type == DQUOTE)
+		if (look_ahead(toks) == WORD
+			|| look_ahead(toks) == SQUOTE
+			|| look_ahead(toks) == DQUOTE)
 		{
 			next_token(toks);
 			if (left->value) //* may seg fault
@@ -176,12 +135,9 @@ t_node	*parse_command(t_token **toks)
 			}
 			left = parse_arguments(toks);
 		}
-		if (look_ahead(toks).type == REDIR)
+		if (look_ahead(toks) == REDIR)
 		{
 			next_token(toks);
-			//check if infile exists, create outfile
-			//run heredoc and throw syntax error
-			//afterwords if any
 			if (right->right_node)
 			{
 				process_redirection(right->left_node->value,
@@ -278,34 +234,16 @@ t_node	*parse_arguments(t_token **toks)
 	return (args);
 }
 
-//add more expansion nodes at the end of param
-//depending on how many word expansion are
-//passed
-// t_node	*parse_expansion(t_token **toks)
-// {
-	
-// }
-
-/*
-redirection : redirectionop filename ;
-redirection : ">" | ">>" | "<" | "<<"
-*/
-
 t_node	*parse_redirection(t_token **toks)
 {
 	t_node	*left;
 	t_node	*right;
-	// int		in;
-	// int		out;
 
-	//in redirs - <
-	//need to add checks when expected token
-	//is not found and throw an error
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	left = node(toks);
 	left->id = ft_strdup("OP");
-	if (look_ahead(toks).type != WORD)
+	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
 			toks[toks[0]->iter]->value));
@@ -317,10 +255,6 @@ t_node	*parse_redirection(t_token **toks)
 	return (pair_node(left, right, "REDIR"));
 }
 
-/*
-separate nodes to assign input file redirection and 
-output file redirection 
-*/
 t_node	*parse_io(t_node *redir, t_token **toks, char *id)
 {
 	t_node	*left;
@@ -331,7 +265,7 @@ t_node	*parse_io(t_node *redir, t_token **toks, char *id)
 	right = malloc(sizeof(t_node));
 	left = node(toks);
 	left->id = ft_strdup("OP");
-	if (look_ahead(toks).type != WORD)
+	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
 			toks[toks[0]->iter]->value));

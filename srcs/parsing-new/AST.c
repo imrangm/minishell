@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/22 05:34:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 09:04:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_node	*error_node(char *msg)
 	err = malloc(sizeof(t_node));
 	err->value = (msg);
 	err->type = 2;
-	err->id = "ERROR";
+	err->id = ft_strdup("ERROR");
 	return (err);
 }
 
