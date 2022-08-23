@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 09:07:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:22:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	free_tokens(t_token **toks)
 
 void	free_node(t_node *node)
 {
-	// printf("freed id: %s, value: %s\n", node->id, node->value);
 	printf("freed node: %s\n", node->id);
 	if (ft_strncmp(node->id, "START", 5) == 0
 		|| ft_strncmp(node->id, "END", 3) == 0)
@@ -71,9 +70,11 @@ void	free_nodes(t_node *root)
 	}
 	if (root->type == 1)
 	{
+		printf("freed node: %s\n", root->id);
 		free_nodes(root->left_node);
 		free_nodes(root->right_node);
-		printf("freed node: %s\n", root->id);
+		if (ft_strncmp(root->id, "PARAM", 5) == 0)
+			ft_free(root->value);
 		ft_free(root->id);
 		ft_free(root);
 	}

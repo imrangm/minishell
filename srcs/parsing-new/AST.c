@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 09:04:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:45:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*node(t_token **toks)
 
 	i = toks[0]->iter;
 	word = malloc(sizeof(t_node));
-	memset(word, 0, sizeof(t_node));
+	ft_memset(word, 0, sizeof(t_node));
 	word->type = 0;
 	word->value = ft_strdup(toks[i]->value);
 	return (word);
@@ -30,6 +30,7 @@ t_node	*pair_node(t_node *left, t_node *right, char *id)
 	t_node	*new;
 
 	new = malloc(sizeof(t_node));
+	ft_memset(new, 0, sizeof(t_node));
 	new->id = ft_strdup(id);
 	new->type = 1;
 	new->left_node = left;

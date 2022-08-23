@@ -6,16 +6,12 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/18 18:55:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 10:41:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-convert into individual characters into tokens(smallest unit 
-to be processed); this is also called lexical analysis
-*/
 void	init_token(t_token *tokens)
 {
 	tokens->type = 0;
@@ -23,11 +19,8 @@ void	init_token(t_token *tokens)
 	tokens->iter = 0;
 	tokens->cur = 0;
 	tokens->count = 0;
-	// tokens->next = NULL;
-	// tokens->prev = NULL;
 }
 
-//count individual strings to be separated into tokens
 int	count_tokens(t_scan *src)
 {
 	int		i;
@@ -51,8 +44,6 @@ int	count_tokens(t_scan *src)
 	return (count);
 }
 
-//it is to extract the string that needs to be stored 
-//in separate tokens; it will allocate memory for it too
 char	*extract_token(t_scan *src)
 {
 	char	buf[2];
@@ -73,11 +64,9 @@ char	*extract_token(t_scan *src)
 		pos++;
 	}
 	src->pos = pos;
-	// printf("pos: %d\n", pos);
 	return (tok);
 }
 
-//takes a string and converts it into a token
 t_token	*create_token(char *input, int type)
 {
 	t_token	*token;
@@ -90,9 +79,6 @@ t_token	*create_token(char *input, int type)
 	return (token);
 }
 
-//think of how to save position of the scanner
-//scan text; count individual strings and create a 
-//linked list of tokens for each
 t_token	**tokenize(t_scan *src)
 {
 	t_token	**tokens;

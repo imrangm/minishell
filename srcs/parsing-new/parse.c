@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 10:35:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 11:47:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	look_ahead(t_token **toks)
 	return (ret.type);
 }
 
-t_token	*current_token(t_token **toks)
+char	*current_token(t_token **toks)
 {
-	return(toks[toks[0]->iter]);
+	return(toks[toks[0]->iter]->value);
 }
 
 void	next_token(t_token **toks)
@@ -56,7 +56,7 @@ t_node	*parse(t_token **toks)
 	if (look_ahead(toks) == PIPE)
 	{
 		return (error_node(ft_strjoin("unexpected token near: ",
-					toks[toks[0]->iter]->value)));
+					current_token(toks))));
 	}
 	return (parse_pipeline(toks));
 }
@@ -77,7 +77,7 @@ t_node	*parse_pipeline(t_token **toks)
 		if (look_ahead(toks) != WORD)
 		{
 			right = error_node(ft_strjoin("unexpected token near: ",
-						toks[toks[0]->iter]->value));
+						current_token(toks)));
 			return (right);
 		}
 		right = parse_pipeline(toks);
@@ -87,7 +87,7 @@ t_node	*parse_pipeline(t_token **toks)
 	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-					toks[toks[0]->iter]->value));
+					current_token(toks)));
 		return (right);
 	}
 	right = parse_command(toks);
@@ -98,21 +98,16 @@ t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
 	t_node	*right;
-	t_token	*temp;
+	t_token	*token;
 	int		expansion_mode;
 	int		io;
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
+	ft_memset(left, 0, sizeof(t_node));
+	ft_memset(right, 0, sizeof(t_node));
 	io = 0;
 	expansion_mode = 0;
-	if (toks[0]->count == 1
-		&& (toks[0]->type != PIPE || toks[0]->type != REDIR))
-	{
-		left = node(toks);
-		left->id = ft_strdup("COMMAND");
-		return (left);
-	}
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
 		if (look_ahead(toks) == WORD
@@ -120,15 +115,15 @@ t_node	*parse_command(t_token **toks)
 			|| look_ahead(toks) == DQUOTE)
 		{
 			next_token(toks);
-			if (left->value) //* may seg fault
+			token = toks[toks[0]->iter];
+			if (left->value)
 			{
-				toks[toks[0]->iter]->value = ft_strjoin(left->value,
-						ft_strjoin(" ", toks[toks[0]->iter]->value));
+				token->value = ft_strjoin(left->value,
+						ft_strjoin(" ", token->value));
 			}
-			temp = current_token(toks);
-			printf("value: %s\n", temp->value);
-			if ((temp->type == WORD || temp->type == DQUOTE)
-				&& ft_strchr(temp->value, '$'))
+			printf("value: %s\n", token->value);
+			if ((token->type == WORD || token->type == DQUOTE)
+				&& ft_strchr(token->value, '$'))
 			{
 				expansion_mode = 1;
 				printf("expansions: %d\n", expansion_mode);
@@ -246,7 +241,7 @@ t_node	*parse_redirection(t_token **toks)
 	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-			toks[toks[0]->iter]->value));
+			current_token(toks)));
 		return (pair_node(left, right, "REDIR"));
 	}
 	next_token(toks);
@@ -268,7 +263,7 @@ t_node	*parse_io(t_node *redir, t_token **toks, char *id)
 	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-			toks[toks[0]->iter]->value));
+			current_token(toks)));
 		return (pair_node(left, right, "IO"));
 	}
 	next_token(toks);
