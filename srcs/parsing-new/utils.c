@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/22 08:34:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 07:42:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ t_node	*attach_expansion(t_node *args, char *value, int expansions)
 		params->value = ft_strdup(value);
 		params->id = ft_strdup("PARAMATER");
 	}
-	printf("X\n");
 	return (params);
 }
 int	count_expansions(char *line)

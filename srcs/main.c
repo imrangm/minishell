@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/21 12:18:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 07:41:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	minishell(t_data *data)
 			add_history(line);
 			/* new parser */
 			src = scan_input(line);
-			test_scan(line);
+			// test_scan(line);
 			toks = tokenize(src);
-			test_tokenize(src);
+			// test_tokenize(src);
 			node = parse(toks);
 			count = visit(node, 0);
 			traverse(node, count, data);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/22 19:41:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/23 07:42:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ t_node	*parse_pipeline(t_token **toks)
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
-	printf("X\n");
 	left = parse_command(toks);
 	if (!has_more_tokens(toks) || look_ahead(toks).type != PIPE)
 		return (left);
@@ -162,7 +161,7 @@ t_node	*parse_command(t_token **toks)
 			|| look_ahead(toks).type == DQUOTE)
 		{
 			next_token(toks);
-			if (left->value)
+			if (left->value) //* may seg fault
 			{
 				toks[toks[0]->iter]->value = ft_strjoin(left->value,
 						ft_strjoin(" ", toks[toks[0]->iter]->value));
