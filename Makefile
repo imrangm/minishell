@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/24 07:00:29 by imustafa         ###   ########.fr        #
+#    Updated: 2022/08/24 11:48:36 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME=		minishell
 
 SRCS=		main.c \
 			parsing-new/AST.c \
+			parsing-new/redir.c \
+			parsing-new/node.c \
 			parsing-new/process.c \
 			parsing-new/lexer.c \
 			parsing-new/parse.c \

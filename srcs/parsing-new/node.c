@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 08:06:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 08:19:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:44:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ t_node	*error_node(char *msg)
 	err->type = 2;
 	err->id = ft_strdup("ERROR");
 	return (err);
+}
+
+void	expansion_node(t_node **n)
+{
+	(*n)->type = 1;
+	(*n)->left_node = malloc(sizeof(t_node));
+	(*n)->left_node->value = ft_strdup((*n)->value);
+	ft_free((*n)->value);
+	(*n)->left_node->id = ft_strdup("RAW");
+	(*n)->left_node->type = 0;
+	(*n)->right_node = add_expansions((*n)->left_node);
 }
 
 int	visit(t_node *node, size_t run)

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/24 07:39:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:43:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_node	*parse_io(t_node *node, t_token **toks, char *id);
 t_node	*node(t_token **toks);
 t_node	*pair_node(t_node *left, t_node *right, char *id);
 t_node	*error_node(char *msg);
+void	expansion_node(t_node **n);
 int		visit(t_node *node, size_t run);
 
 //* Tree traversal

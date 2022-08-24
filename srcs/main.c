@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 07:41:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:11:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	execute_line(char *line, t_data *data)
 	else if (pc_mode(line, 'r'))
 		execute_rd(line, data);
 	else
-	master_execute(line, data);
+		master_execute(line, data);
 }
 
 void	minishell(t_data *data)
