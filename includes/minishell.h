@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/24 11:43:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 18:52:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,8 @@ typedef struct s_node
 	struct s_node	*right_node;
 }	t_node;	
 
-//* Scanner
-t_scan	*scan_input(char *input);
-
 //* Tokenizer
+t_scan	*scan_input(char *input);
 t_token	**tokenize(t_scan *src);
 int		count_tokens(t_scan *src);
 
@@ -107,11 +105,11 @@ int		look_ahead(t_token **toks);
 char	*current_token(t_token **toks);
 void	next_token(t_token **toks);
 t_node	*parse(t_token **toks);
-t_node	*parse_command(t_token **toks);
 t_node	*parse_pipeline(t_token **toks);
-t_node	*parse_arguments(t_token **toks);
+t_node	*parse_command(t_token **toks);
 t_node	*parse_redirection(t_token **toks);
 t_node	*parse_io(t_node *node, t_token **toks, char *id);
+void	process_redirection(char *left, char *right);
 
 //* AST
 t_node	*node(t_token **toks);
@@ -120,16 +118,15 @@ t_node	*error_node(char *msg);
 void	expansion_node(t_node **n);
 int		visit(t_node *node, size_t run);
 
-//* Tree traversal
-void	traverse(t_node *root, int count, t_data *data);
-
-//* Utility
-void	process_redirection(char *left, char *right);
-
 //* Expansion
-t_node	*add_expansions(t_node *args);
 t_node	*attach_expansion(t_node *args, char *param, int expansions);
+t_node	*add_expansions(t_node *args);
 void	expander(t_node	*raw, t_data *data);
+
+//* Process and Execute
+void	ast_traversal(t_node *root, int count, t_data *data);
+void	add_redir(t_redirs *rd, char *op, char *fname);
+t_redirs	get_redir(t_node *rd);
 
 //* Free Memory
 void	free_chars(t_type **table, int len);
@@ -142,6 +139,8 @@ void	print_ast(t_node *node, size_t spaces);
 void	test_parse(t_token **toks);
 void	test_tokenize(t_scan *source);
 void	test_scan(char	*input);
+
+//* Utility
 
 //* Redirection
 void	append(char *line);

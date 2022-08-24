@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 11:11:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:24:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	minishell(t_data *data)
 			// test_tokenize(src);
 			node = parse(toks);
 			count = visit(node, 0);
-			traverse(node, count, data);
+			AST_traversal(node, count, data);
 			free_chars(src->chars, src->len);
 			free_tokens(toks);
 				printf("----------------------------\n");

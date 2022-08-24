@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 11:45:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 18:51:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,54 @@ t_node	*parse_io(t_node *redir, t_token **toks, char *id)
 	right->id = ft_strdup("FILE");
 	pair_left = pair_node(left, right, id);
 	return (pair_node(pair_left, redir, "REDIR"));
+}
+
+void	add_redir(t_redirs *rd, char *op, char *fname)
+{
+	if (ft_strncmp(op, ">>", 2) == 0)
+	{
+		rd->append = fname;
+		rd->lastout = 'a';
+	}
+	else if (ft_strncmp(op, ">", 1) == 0)
+	{
+		rd->outfile = fname;
+		rd->lastout = 'o';
+	}
+	else if (ft_strncmp(op, "<<", 2) == 0)
+	{
+		rd->heredoc = fname;
+		rd->lastin = 'h';
+	}
+	else if (ft_strncmp(op, "<", 1) == 0)
+	{
+		rd->infile = fname;
+		rd->lastin = 'i';
+	}
+}
+
+t_redirs	get_redir(t_node *rd)
+{
+	char		*fname;
+	char		*op;
+	t_redirs	redirs;
+
+	init_rd(&redirs);
+	if (rd->left_node->type == 0)
+	{
+		op = ft_strdup(rd->left_node->value);
+		fname = ft_strdup(rd->right_node->value);
+		printf("op: %s, fname: %s\n", op, fname);
+		add_redir(&redirs, op, fname);
+	}
+	if (rd->left_node->type == 1)
+	{
+		op = ft_strdup(rd->left_node->left_node->value);
+		fname = ft_strdup(rd->left_node->right_node->value);
+		add_redir(&redirs, op, fname);
+		op = ft_strdup(rd->right_node->left_node->value);
+		fname = ft_strdup(rd->right_node->right_node->value);
+		add_redir(&redirs, op, fname);
+	}
+	return (redirs);
 }
