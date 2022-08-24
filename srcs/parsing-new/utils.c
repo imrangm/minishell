@@ -6,12 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 08:45:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 08:03:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 void	process_redirection(char *left, char *right)
 {

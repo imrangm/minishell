@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 08:34:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 08:16:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_node	*attach_expansion(t_node *args, char *value, int expansions)
 	char	*rem;
 	int		len;
 	int		i;
-	
+
 	params = malloc(sizeof(t_node));
 	if (expansions > 1)
 	{

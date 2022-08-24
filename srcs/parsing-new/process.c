@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/23 08:05:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 08:15:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ t_redirs	get_redir(t_node *rd)
 	return (redirs);
 }
 
-//can be used for next intermediate representation(IR)
-//and place all the necessary into structs for
-//further processing/execution
-// never returns - executes all commands
 void traverse(t_node *root, int count, t_data *data)
 {
 	t_node		*current;

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/23 11:09:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 07:39:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_node	*parse_io(t_node *node, t_token **toks, char *id);
 t_node	*node(t_token **toks);
 t_node	*pair_node(t_node *left, t_node *right, char *id);
 t_node	*error_node(char *msg);
-int		visit(t_node *node, size_t spaces);
+int		visit(t_node *node, size_t run);
 
 //* Tree traversal
 void	traverse(t_node *root, int count, t_data *data);
@@ -137,6 +137,7 @@ void	free_node(t_node *node);
 void	free_nodes(t_node *root);
 
 //* Parser Tests
+void	print_ast(t_node *node, size_t spaces);
 void	test_parse(t_token **toks);
 void	test_tokenize(t_scan *source);
 void	test_scan(char	*input);

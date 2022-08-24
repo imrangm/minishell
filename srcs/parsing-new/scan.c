@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/21 13:47:11 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/24 07:01:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ int	peek_type(char c)
 	return (0);
 }
 
-//returning type so that when quotes is discovered
-//then everything until next quote should be
-//a single string
 int	set_type(char c, t_type *chars)
 {
 	chars->c = c;
@@ -102,22 +99,4 @@ t_scan	*scan_input(char *input)
 		i++;
 	}
 	return (scan);
-}
-
-void	test_scan(char	*input)
-{
-	int		len;
-	t_scan	*scan;
-	int		i;
-	
-	len = ft_strlen(input);
-	printf("------------------------\n");
-	printf("%d Chars\n", len);
-	scan = scan_input(input);
-	i = 0;
-	while (i < len)
-	{
-		printf("%d- C: %c T: %d\n", i, scan->chars[i]->c, scan->chars[i]->t);
-		i++;
-	}
 }
