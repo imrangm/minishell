@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/07 15:52:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/25 07:30:05 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,16 @@ int	b_echo(char **args, t_data *data)
 
 	i = 1;
 	normal_mode = !is_n_flag(args[1]);
+	(void) data;
 	while (args[i] && is_n_flag(args[i]))
 		i++;
 	while (args[i])
 	{
-		if (args[i + 1] && !ft_strcmp(args[i], "$?"))
-			printf("%d ", data->last_exit_status);
-		else if (!args[i + 1] && !ft_strcmp(args[i], "$?"))
-			printf("%d\n", data->last_exit_status);
-		else if (!args[i + 1] && !normal_mode)
+		// if (args[i + 1] && !ft_strcmp(args[i], "$?"))
+		// 	printf("%d ", data->last_exit_status);
+		// else if (!args[i + 1] && !ft_strcmp(args[i], "$?"))
+		// 	printf("%d\n", data->last_exit_status);
+		if (!args[i + 1] && !normal_mode)
 			print_with_stripped_quotes(args[i], 0, 0);
 		else if (!args[i + 1] && normal_mode)
 			print_with_stripped_quotes(args[i], 0, 1);
