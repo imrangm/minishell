@@ -6,26 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/25 07:08:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:50:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	peek_type(char c)
-{
-	if (ft_isalnum(c) || c == '-')
-		return (WORD);
-	if (c == '|')
-		return (PIPE);
-	if (c == '>' || c == '<')
-		return (REDIR);
-	if (c == '\'')
-		return (SQUOTE);
-	if (c == '\"')
-		return (DQUOTE);
-	return (0);
-}
 
 int	set_type(char c, t_type *chars)
 {
@@ -62,25 +47,12 @@ void	init_chars(t_type **chars, int len)
 	}
 }
 
-t_scan	*scan_input(char *input)
+void	assign_type(char *input, t_scan *scan)
 {
-	int		i;
-	int		len;
-	t_scan	*scan;
-	int		type;
-	int		q;
+	int	i;
+	int	q;
+	int	type;
 
-	len = ft_strlen(input);
-	scan = malloc(sizeof (t_scan));
-	scan->chars = malloc(sizeof(t_type *) * len);
-	scan->len = len;
-	i = 0;
-	while (i < len)
-	{
-		scan->chars[i] = malloc(sizeof(t_type));
-		i++;
-	}
-	init_chars(scan->chars, len);
 	i = 0;
 	q = 0;
 	while (input[i])
@@ -100,5 +72,25 @@ t_scan	*scan_input(char *input)
 		}
 		i++;
 	}
+}
+
+t_scan	*scan_input(char *input)
+{
+	int		i;
+	int		len;
+	t_scan	*scan;
+
+	len = ft_strlen(input);
+	scan = malloc(sizeof (t_scan));
+	scan->chars = malloc(sizeof(t_type *) * len);
+	scan->len = len;
+	i = 0;
+	while (i < len)
+	{
+		scan->chars[i] = malloc(sizeof(t_type));
+		i++;
+	}
+	init_chars(scan->chars, len);
+	assign_type(input, scan);
 	return (scan);
 }
