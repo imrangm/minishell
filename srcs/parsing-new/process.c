@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 19:22:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/25 05:39:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	process_command(t_node *n, t_data *data)
 	}
 }
 
-void	ast_traversal(t_node *root, int count, t_data *data)
+void	execute(t_node *root, int count, t_data *data)
 {
 	t_node		*current;
 	t_pipe		**p;
