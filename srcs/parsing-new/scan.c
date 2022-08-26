@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 20:50:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:59:32 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@ int	set_type(char c, t_type *chars)
 	chars->c = c;
 	if (chars->t)
 		return (chars->t);
-	if (ft_isspace(c))
+	else if (ft_isspace(c))
 		chars->t = SPACES;
-	if (ft_isalnum(c) || c == '-'
+	else if (ft_isalnum(c) || c == '-'
 		|| c == '$' || c == '?')
 		chars->t = WORD;
-	if (c == '|')
+	else if (c == '|')
 		chars->t = PIPE;
-	if (c == '>' || c == '<')
+	else if (c == '>' || c == '<')
 		chars->t = REDIR;
-	if (c == '\'')
+	else if (c == '\'')
 		chars->t = SQUOTE;
-	if (c == '\"')
+	else if (c == '\"')
 		chars->t = DQUOTE;
-	//add else with unexpected token error
+	else
+		chars->t = UNKNWN;
 	return (chars->t);
 }
 

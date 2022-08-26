@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/26 19:09:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/26 20:58:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define DGREAT ">>"
 # define LESS "<"
 # define DLESS "<<"
+# define UNKNWN 9
 
 typedef struct s_data
 {
