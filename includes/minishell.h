@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/24 18:52:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/26 19:09:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <string.h>
 
+# define SPACES 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
@@ -119,12 +120,14 @@ void	expansion_node(t_node **n);
 int		visit(t_node *node, size_t run);
 
 //* Expansion
-t_node	*attach_expansion(t_node *args, char *param, int expansions);
+t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions);
 t_node	*add_expansions(t_node *args);
 void	expander(t_node	*raw, t_data *data);
+char	*update_cmd(int start, int end, char *cmd, char *param);
+void	finalize(t_node *cmd);
 
 //* Process and Execute
-void	ast_traversal(t_node *root, int count, t_data *data);
+void	execute(t_node *root, int count, t_data *data);
 void	add_redir(t_redirs *rd, char *op, char *fname);
 t_redirs	get_redir(t_node *rd);
 
