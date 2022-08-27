@@ -6,24 +6,25 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 08:06:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 07:35:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:39:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_node	*node(t_token **toks)
-{
-	t_node	*word;
-	int		i;
+// t_node	*node(t_token **toks)
+// {
+// 	t_node	*word;
+// 	int		i;
 
-	i = toks[0]->iter;
-	word = malloc(sizeof(t_node));
-	ft_memset(word, 0, sizeof(t_node));
-	word->type = 0;
-	word->value = ft_strdup(toks[i]->value);
-	return (word);
-}
+// 	i = toks[0]->iter;
+// 	word = malloc(sizeof(t_node));
+// 	ft_memset(word, 0, sizeof(t_node));
+// 	word->value = ft_strdup(toks[i]->value);
+// 	word->left_node = NULL;
+// 	word->right_node = NULL;
+// 	return (word);
+// }
 
 t_node	*pair_node(t_node *left, t_node *right, char *id)
 {
@@ -31,7 +32,7 @@ t_node	*pair_node(t_node *left, t_node *right, char *id)
 
 	new = malloc(sizeof(t_node));
 	ft_memset(new, 0, sizeof(t_node));
-	new->id = ft_strdup(id);
+	new->id = id;
 	new->type = 1;
 	new->left_node = left;
 	new->right_node = right;
@@ -46,7 +47,7 @@ t_node	*error_node(char *msg)
 	ft_memset(err, 0, sizeof(t_node));
 	err->value = (msg);
 	err->type = 2;
-	err->id = ft_strdup("ERROR");
+	err->id = "ERROR";
 	return (err);
 }
 
@@ -57,7 +58,7 @@ void	expansion_node(t_node **n)
 	ft_memset((*n)->left_node, 0, sizeof(t_node));
 	(*n)->left_node->value = ft_strdup((*n)->value);
 	ft_free((*n)->value);
-	(*n)->left_node->id = ft_strdup("RAW");
+	(*n)->left_node->id = "RAW";
 	(*n)->left_node->type = 0;
 	(*n)->right_node = add_expansions((*n)->left_node);
 }

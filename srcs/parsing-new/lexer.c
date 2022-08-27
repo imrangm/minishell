@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 07:00:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 02:10:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*extract_token(t_scan *src)
 	int		pos;
 	int		len;
 
-	tok = strdup("");
+	tok = ft_strdup("");
 	pos = src->pos;
 	len = src->len;
 	type = src->chars[pos]->t;
@@ -60,7 +60,7 @@ char	*extract_token(t_scan *src)
 	{
 		buf[0] = src->chars[pos]->c;
 		buf[1] = '\0';
-		tok = ft_strjoin(tok, buf);
+		tok = ft_strjoin_and_free(tok, buf);
 		pos++;
 	}
 	src->pos = pos;
@@ -72,10 +72,10 @@ t_token	*create_token(char *input, int type)
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
-	token->value = malloc(sizeof(char) * (ft_strlen(input) + 1));
 	init_token(token);
 	token->type = type;
-	token->value = input;
+	token->value = ft_strdup(input);
+	ft_free(input);
 	return (token);
 }
 
@@ -88,7 +88,7 @@ t_token	**tokenize(t_scan *src)
 	int		i;
 
 	count = count_tokens(src);
-	tokens = malloc(sizeof(t_token) * (count + 1));
+	tokens = malloc(sizeof(t_token) * count);
 	src->pos = 0;
 	i = 0;
 	while (i < count)
@@ -101,6 +101,5 @@ t_token	**tokenize(t_scan *src)
 		i++;
 	}
 	tokens[0]->count = count;
-	tokens[i] = NULL;
 	return (tokens);
 }

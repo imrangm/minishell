@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/26 20:58:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:03:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_node	*parse_pipeline(t_token **toks);
 t_node	*parse_command(t_token **toks);
 t_node	*parse_redirection(t_token **toks);
 t_node	*parse_io(t_node *node, t_token **toks, char *id);
-void	process_redirection(char *left, char *right);
+int		process_redirection(t_node **left, t_node **right);
 
 //* AST
 t_node	*node(t_token **toks);
@@ -137,6 +137,7 @@ void	free_chars(t_type **table, int len);
 void	free_tokens(t_token **toks);
 void	free_node(t_node *node);
 void	free_nodes(t_node *root);
+void	free_pair(t_node *left, t_node *right);
 
 //* Parser Tests
 void	print_ast(t_node *node, size_t spaces);
@@ -145,6 +146,7 @@ void	test_tokenize(t_scan *source);
 void	test_scan(char	*input);
 
 //* Utility
+int		check_io(char *prev, char *current);
 
 //* Redirection
 void	append(char *line);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 20:04:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 13:27:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,19 @@ t_node	*set_location(char *rem, char *args)
 	loc = malloc(sizeof(t_node));
 	start = malloc(sizeof(t_node));
 	end = malloc(sizeof(t_node));
+	ft_memset(loc, 0, sizeof(t_node));
+	ft_memset(start, 0, sizeof(t_node));
+	ft_memset(end, 0, sizeof(t_node));
 	loc->type = 1;
-	loc->id = ft_strdup("LOCATION");
+	loc->id = "LOCATION";
 	start->value = ft_strchr(rem, '$');
 	start->val = (int)(start->value - args);
-	start->id = ft_strdup("START");
+	start->id = "START";
 	i = 1;
 	while (ft_isalnum(start->value[i++]) && start->value[i]
 		&& start->value[i] != '\"' && !ft_isspace(start->value[i]));
 	end->val = start->val + i - 1;
-	end->id = ft_strdup("END");
+	end->id = "END";
 	loc->left_node = start;
 	loc->right_node = end;
 	return (loc);
@@ -61,8 +64,8 @@ t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions)
 	int		end;
 
 	params = malloc(sizeof(t_node));
-	params->id = ft_strdup("PARAMATER");
-	params->value = ft_strdup(value);
+	params->id = "PARAMATER";
+	params->value = value;
 	if (expansions > 1)
 	{
 		rem = ft_strnstr(rem, value, ft_strlen(rem));
