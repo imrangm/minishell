@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/25 05:39:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 17:15:32 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	process_pipe_left(t_node *n, t_pipe ***p, t_data *data, int *i)
 		expander(n->left_node, data);
 		(*p)[*i]->fcmd = ft_strdup(n->left_node->value);
 		(*p)[*i]->rd = get_redir(n->right_node);
-		printf("p[%d] :%s\n", *i, (*p)[*i]->fcmd);
 	}
 	if (n->type == 1
 		&& n->left_node->type == 0)
@@ -32,11 +31,10 @@ void	process_pipe_left(t_node *n, t_pipe ***p, t_data *data, int *i)
 		}
 		if (ft_strncmp(n->left_node->id, "ARGS", 3) == 0)
 		{
-			expander(n->left_node, data);
+			// expander(n->left_node, data);
 			(*p)[*i]->fcmd = ft_strdup(n->left_node->value);
 			(*p)[*i]->rd = get_redir(n->right_node);
 		}
-		printf("p[%d] :%s\n", *i, (*p)[*i]->fcmd);
 	}
 }
 
@@ -46,7 +44,6 @@ void	process_pipe_right(t_node *n, t_data *data, t_pipe ***p, int i)
 	{
 		expander(n->left_node, data);
 		(*p)[i]->fcmd = ft_strdup(n->left_node->left_node->value);
-		printf("p[%d] :%s\n", i, (*p)[i]->fcmd);
 		(*p)[i]->rd = get_redir(n->right_node);
 	}
 	if (n->type == 1 && n->left_node->type == 0)
@@ -62,7 +59,6 @@ void	process_pipe_right(t_node *n, t_data *data, t_pipe ***p, int i)
 			(*p)[i]->fcmd = ft_strdup(n->left_node->left_node->value);
 			(*p)[i]->rd = get_redir(n->right_node);
 		}
-		printf("p[%d] :%s\n", i, (*p)[i]->fcmd);
 	}
 }
 
@@ -74,10 +70,10 @@ void	process_pipe(t_node *n, t_pipe ***p, t_data *data)
 	while (ft_strncmp(n->id, "PIPE", 4) == 0)
 	{
 		(*p)[i] = malloc(sizeof(t_pipe));
+		init_rd(&(*p)[i]->rd);
 		if (n->left_node->type == 0)
 		{
 			(*p)[i]->fcmd = ft_strdup(n->left_node->value);
-			printf("p[%d] :%s\n", i, (*p)[i]->fcmd);
 		}
 		else
 			process_pipe_left(n->left_node, p, data, &i);
@@ -88,7 +84,7 @@ void	process_pipe(t_node *n, t_pipe ***p, t_data *data)
 	if (n->type == 0)
 	{
 		(*p)[i]->fcmd = ft_strdup(n->value);
-		printf("p[%d] :%s\n", i, (*p)[i]->fcmd);
+		init_rd(&(*p)[i]->rd);
 	}
 	else
 		process_pipe_right(n, data, p, i);

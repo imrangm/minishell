@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 14:11:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:05:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,24 +113,26 @@ void	add_redir(t_redirs *rd, char *op, char *fname)
 t_redirs	get_redir(t_node *rd)
 {
 	char		*fname;
+	char		*fname_in;
+	char		*fname_out;
 	char		*op;
 	t_redirs	redirs;
 
 	init_rd(&redirs);
 	if (rd->left_node->type == 0)
 	{
-		op = ft_strdup(rd->left_node->value);
-		fname = ft_strdup(rd->right_node->value);
+		op = rd->left_node->value;
+		fname = rd->right_node->value;
 		add_redir(&redirs, op, fname);
 	}
 	if (rd->left_node->type == 1)
 	{
-		op = ft_strdup(rd->left_node->left_node->value);
-		fname = ft_strdup(rd->left_node->right_node->value);
-		add_redir(&redirs, op, fname);
-		op = ft_strdup(rd->right_node->left_node->value);
-		fname = ft_strdup(rd->right_node->right_node->value);
-		add_redir(&redirs, op, fname);
+		op = rd->left_node->left_node->value;
+		fname_in = rd->left_node->right_node->value;
+		add_redir(&redirs, op, fname_in);
+		op = rd->right_node->left_node->value;
+		fname_out = rd->right_node->right_node->value;
+		add_redir(&redirs, op, fname_out);
 	}
 	return (redirs);
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 13:05:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 15:59:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	minishell(t_data *data)
 	t_scan	*src;
 	t_token	**toks;
 	t_node	*node;
-	// int		count;
+	int		count;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -55,8 +55,8 @@ void	minishell(t_data *data)
 			// test_tokenize(src);
 			node = parse(toks);
 			print_ast(node, 0);
-			// count = visit(node, 0);
-			// execute(node, count, data);
+			count = visit(node, 0);
+			execute(node, count, data);
 			free_chars(src->chars, src->len);
 			ft_free(src);
 			free_tokens(toks);

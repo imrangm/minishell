@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:36:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 20:10:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/27 17:04:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,11 @@ void	finalize(t_node *cmd)
 		param = current->right_node->value;
 		final = update_cmd(start, end, cmd->left_node->value, param);
 		ft_free(cmd->left_node->value);
-		cmd->left_node->value = ft_strdup(final);
-		ft_free(final);
+		cmd->left_node->value = final;
 		current = current->right_node;
 	}
-	cmd->left_node->value = ft_strdup(final);
-	cmd->left_node->id = ft_strdup("FINAL");
+	cmd->left_node->value = final;
+	cmd->left_node->id = "FINAL";
 }
 
 char	*get_param(char *value, t_data *data)
@@ -92,7 +91,8 @@ void	expander(t_node	*cmd, t_data *data)
 		param = get_param(current->right_node->value, data);
 		current->right_node->val = ft_strlen(param)
 			- ft_strlen(current->right_node->value);
-		current->right_node->value = ft_strdup(param);
+		ft_free(current->right_node->value);
+		current->right_node->value = param;
 		if (count >= 1)
 			current->right_node->val += current->val - 1;
 		current = current->right_node;

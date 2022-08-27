@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_struct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:31:15 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/27 18:10:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	free_struct_pp(t_pipe **p, int nchild)
 	while (i < nchild)
 	{
 		ft_free(p[i]->fcmd);
-		ft_free(p[i]->rd.infile);
-		ft_free(p[i]->rd.outfile);
-		ft_free(p[i]->rd.heredoc);
-		ft_free(p[i]->rd.append);
+		// ft_free(p[i]->rd.infile);
+		// ft_free(p[i]->rd.outfile);
+		// ft_free(p[i]->rd.heredoc);
+		// ft_free(p[i]->rd.append);
 		ft_free(p[i]);
 		i++;
 	}
