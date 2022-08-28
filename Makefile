@@ -3,16 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/21 13:11:15 by nmadi            ###   ########.fr        #
+#    Updated: 2022/08/28 12:02:09 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
+			parsing-new/AST.c \
+			parsing-new/redir.c \
+			parsing-new/node.c \
+			parsing-new/process.c \
+			parsing-new/lexer.c \
+			parsing-new/parse.c \
+			parsing-new/scan.c \
+			parsing-new/utils.c \
+			parsing-new/free.c \
+			parsing-new/test.c \
+			parsing-new/expansion.c \
+			parsing-new/expander.c \
 			parsing/checks/pc_valid.c \
 			parsing/checks/pc_export.c \
 			parsing/checks/pc_redirs.c \
@@ -47,21 +59,21 @@ SRCS=		main.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_misc.c \
-			utils/u_misc_ii.c \
+			utils/u_misc_ii.c
 
 CC =		gcc
 
-# Homebrew Flags
-LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
+# # Homebrew Flags
+# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
+# CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
 # LDFLAGS =	-lreadline -L ./libs/readline/lib/
 # CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 # 42 Flags
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
 # LDFLAGS =	-lreadline

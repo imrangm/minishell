@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_file.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/16 18:27:38 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/19 20:04:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	else
 	{
 		file_parent(pid, data);
-		rd_free(fd, arg, rd);
+		// rd_free(fd, arg, rd);
+		close_fds(fd);
+		ft_free(fd);
+		ft_free_2d(arg);
 	}
 }
 
