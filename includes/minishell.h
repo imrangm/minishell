@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/28 12:03:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/28 12:08:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/readline/include/readline/readline.h"
+# include "../libs/readline/include/readline/history.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
