@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 13:02:14 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/28 12:03:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define MINISHELL_H
 
 # include "../libs/libft/libft.h"
-# include "../libs/readline/include/readline/readline.h"
-# include "../libs/readline/include/readline/history.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -23,6 +21,19 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <string.h>
+
+# define SPACES 0
+# define WORD 1
+# define PIPE 2
+# define REDIR 3
+# define SQUOTE 4
+# define DQUOTE 5
+# define PIPELINE "|"
+# define GREAT ">"
+# define DGREAT ">>"
+# define LESS "<"
+# define DLESS "<<"
+# define UNKNWN 9
 
 typedef struct s_data
 {
@@ -50,8 +61,89 @@ typedef struct s_pipe
 	t_data		*data;
 }	t_pipe;
 
-# define DQUOTE 34
-# define SQUOTE 39
+typedef struct s_type
+{
+	char	c;
+	int		t;
+}	t_type;
+
+typedef struct s_scan
+{
+	t_type	**chars;
+	int		len;
+	int		pos;
+}	t_scan;
+
+typedef struct s_token
+{
+	int				type;
+	char			*value;
+	int				iter;
+	int				cur;
+	int				count;
+}	t_token;
+
+typedef struct s_node
+{
+	int				type;
+	char			*id;
+	char			*value;
+	int				val;
+	struct s_node	*left_node;
+	struct s_node	*right_node;
+}	t_node;	
+
+//* Tokenizer
+t_scan	*scan_input(char *input);
+t_token	**tokenize(t_scan *src);
+int		count_tokens(t_scan *src);
+
+//* Parsing
+int		has_more_tokens(t_token **toks);
+int		look_ahead(t_token **toks);
+char	*current_token(t_token **toks);
+void	next_token(t_token **toks);
+t_node	*parse(t_token **toks);
+t_node	*parse_pipeline(t_token **toks);
+t_node	*parse_command(t_token **toks);
+t_node	*parse_redirection(t_token **toks);
+t_node	*parse_io(t_node *node, t_token **toks, char *id);
+int		process_redirection(t_node **left, t_node **right);
+
+//* AST
+t_node	*node(t_token **toks);
+t_node	*pair_node(t_node *left, t_node *right, char *id);
+t_node	*error_node(char *msg);
+void	expansion_node(t_node **n);
+int		visit(t_node *node, size_t run);
+
+//* Expansion
+t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions);
+t_node	*add_expansions(t_node *args);
+void	expander(t_node	*raw, t_data *data);
+char	*update_cmd(int start, int end, char *cmd, char *param);
+void	finalize(t_node *cmd);
+
+//* Process and Execute
+void	execute(t_node *root, int count, t_data *data);
+void	add_redir(t_redirs *rd, char *op, char *fname);
+t_redirs	get_redir(t_node *rd);
+
+//* Free Memory
+void	free_chars(t_type **table, int len);
+void	free_tokens(t_token **toks);
+void	free_node(t_node *node);
+void	free_nodes(t_node *root);
+void	free_pair(t_node *left, t_node *right);
+
+//* Parser Tests
+void	print_ast(t_node *node, size_t spaces);
+void	test_parse(t_token **toks);
+void	test_tokenize(t_scan *source);
+void	test_scan(char	*input);
+
+//* Utility
+int		check_io(char *prev, char *current);
 
 //* Redirection
 void	append(char *line);
