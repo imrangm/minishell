@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/19 20:04:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:40:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 	if (exec_cmd_child(arg, data) == -1)
 	{
 		rd_free(fd, arg, rd);
+		free_nodes(data->root);
 		err_print(127, data);
 	}
 }
@@ -78,7 +79,7 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	else
 	{
 		file_parent(pid, data);
-		// rd_free(fd, arg, rd);
+		rd_free(fd, arg, rd);
 		close_fds(fd);
 		ft_free(fd);
 		ft_free_2d(arg);

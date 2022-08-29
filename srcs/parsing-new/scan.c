@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 20:59:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 05:59:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	set_type(char c, t_type *chars)
 	else if (ft_isspace(c))
 		chars->t = SPACES;
 	else if (ft_isalnum(c) || c == '-'
-		|| c == '$' || c == '?')
+		|| c == '$' || c == '?' || c == '=')
 		chars->t = WORD;
 	else if (c == '|')
 		chars->t = PIPE;

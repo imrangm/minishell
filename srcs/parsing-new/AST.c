@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 14:06:31 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:18:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ t_node	*parse_pipeline(t_token **toks)
 	t_node	*left;
 	t_node	*right;
 
+	if (look_ahead(toks) == PIPE)
+		return (error_node(ft_strjoin("unexpected token near: ",
+					current_token(toks))));
 	left = parse_command(toks);
 	if (!has_more_tokens(toks) || look_ahead(toks) != PIPE)
-	{
 		return (left);
-	}
 	if (look_ahead(toks) == PIPE)
 	{
 		next_token(toks);

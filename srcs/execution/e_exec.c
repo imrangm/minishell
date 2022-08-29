@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/21 16:35:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/29 06:37:45 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	create_child_process(char **args, t_data *data)
 			data->last_exit_status = 127;
 		}
 		free_data(data);
+		free_nodes(data->root);
 	}
 	else
 		monitor_process(pid, data);
@@ -95,6 +96,7 @@ void	master_execute(char *line, t_data *data)
 {
 	char	**args;
 
+	data->line = line;
 	args = smart_split(line);
 	if (is_parent_function(args))
 	{

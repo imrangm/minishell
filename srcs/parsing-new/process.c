@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 17:15:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:33:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	process_pipe_left(t_node *n, t_pipe ***p, t_data *data, int *i)
 		&& n->left_node->type == 1)
 	{
 		expander(n->left_node, data);
-		(*p)[*i]->fcmd = ft_strdup(n->left_node->value);
+		(*p)[*i]->fcmd = n->left_node->value;
 		(*p)[*i]->rd = get_redir(n->right_node);
 	}
 	if (n->type == 1
@@ -27,12 +27,12 @@ void	process_pipe_left(t_node *n, t_pipe ***p, t_data *data, int *i)
 		if (ft_strncmp(n->left_node->id, "RAW", 3) == 0)
 		{
 			expander(n, data);
-			(*p)[*i]->fcmd = ft_strdup(n->left_node->value);
+			(*p)[*i]->fcmd = n->left_node->value;
 		}
 		if (ft_strncmp(n->left_node->id, "ARGS", 3) == 0)
 		{
 			// expander(n->left_node, data);
-			(*p)[*i]->fcmd = ft_strdup(n->left_node->value);
+			(*p)[*i]->fcmd = n->left_node->value;
 			(*p)[*i]->rd = get_redir(n->right_node);
 		}
 	}
@@ -51,12 +51,11 @@ void	process_pipe_right(t_node *n, t_data *data, t_pipe ***p, int i)
 		if (ft_strncmp(n->left_node->id, "RAW", 3) == 0)
 		{
 			expander(n, data);
-			(*p)[i]->fcmd = ft_strdup(n->left_node->value);
+			(*p)[i]->fcmd = n->left_node->value;
 		}
 		if (ft_strncmp(n->left_node->id, "ARGS", 3) == 0)
 		{
-			expander(n->left_node, data);
-			(*p)[i]->fcmd = ft_strdup(n->left_node->left_node->value);
+			(*p)[i]->fcmd = n->left_node->left_node->value;
 			(*p)[i]->rd = get_redir(n->right_node);
 		}
 	}
@@ -73,7 +72,7 @@ void	process_pipe(t_node *n, t_pipe ***p, t_data *data)
 		init_rd(&(*p)[i]->rd);
 		if (n->left_node->type == 0)
 		{
-			(*p)[i]->fcmd = ft_strdup(n->left_node->value);
+			(*p)[i]->fcmd = n->left_node->value;
 		}
 		else
 			process_pipe_left(n->left_node, p, data, &i);
@@ -83,7 +82,7 @@ void	process_pipe(t_node *n, t_pipe ***p, t_data *data)
 	(*p)[i] = malloc(sizeof(t_pipe));
 	if (n->type == 0)
 	{
-		(*p)[i]->fcmd = ft_strdup(n->value);
+		(*p)[i]->fcmd = n->value;
 		init_rd(&(*p)[i]->rd);
 	}
 	else
@@ -104,7 +103,7 @@ void	process_command(t_node *n, t_data *data)
 		}
 		else
 		{
-			cmd = ft_strdup(n->left_node->value);
+			cmd = n->left_node->value;
 			rd = get_redir(n->right_node);
 			create_file(cmd, &rd, data);
 		}
@@ -112,18 +111,19 @@ void	process_command(t_node *n, t_data *data)
 	if (n->type == 1 && n->left_node->type == 1)
 	{
 		expander(n->left_node, data);
-		cmd = ft_strdup(n->left_node->left_node->value);
+		cmd = n->left_node->left_node->value;
 		rd = get_redir(n->right_node);
 		create_file(cmd, &rd, data);
 	}
 }
 
-void	execute(t_node *root, int count, t_data *data)
+void	process_tree(t_node *root, int count, t_data *data)
 {
 	t_node		*current;
 	t_pipe		**p;
 
 	current = root;
+	data->root = root;
 	if (ft_strncmp(current->id, "PIPE", 4) == 0)
 	{
 		p = malloc(sizeof(t_pipe *) * (count + 1));

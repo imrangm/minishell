@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/28 12:08:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:43:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,23 @@
 # define DLESS "<<"
 # define UNKNWN 9
 
+typedef struct s_node
+{
+	int				type;
+	char			*id;
+	char			*value;
+	int				val;
+	struct s_node	*left_node;
+	struct s_node	*right_node;
+}	t_node;	
+
 typedef struct s_data
 {
 	int		last_exit_status;
 	int		shlvl;
 	char	*pwd;
 	char	**envp;
+	t_node	*root;
 }	t_data;
 
 typedef struct s_redirs
@@ -85,16 +96,6 @@ typedef struct s_token
 	int				count;
 }	t_token;
 
-typedef struct s_node
-{
-	int				type;
-	char			*id;
-	char			*value;
-	int				val;
-	struct s_node	*left_node;
-	struct s_node	*right_node;
-}	t_node;	
-
 //* Tokenizer
 t_scan	*scan_input(char *input);
 t_token	**tokenize(t_scan *src);
@@ -105,7 +106,7 @@ int		has_more_tokens(t_token **toks);
 int		look_ahead(t_token **toks);
 char	*current_token(t_token **toks);
 void	next_token(t_token **toks);
-t_node	*parse(t_token **toks);
+void	parse(char	*line, t_data *data);
 t_node	*parse_pipeline(t_token **toks);
 t_node	*parse_command(t_token **toks);
 t_node	*parse_redirection(t_token **toks);
@@ -127,7 +128,7 @@ char	*update_cmd(int start, int end, char *cmd, char *param);
 void	finalize(t_node *cmd);
 
 //* Process and Execute
-void	execute(t_node *root, int count, t_data *data);
+void	process_tree(t_node *root, int count, t_data *data);
 void	add_redir(t_redirs *rd, char *op, char *fname);
 t_redirs	get_redir(t_node *rd);
 

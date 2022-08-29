@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/28 12:01:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:36:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 void	minishell(t_data *data)
 {
 	char	*line;
-	t_scan	*src;
-	t_token	**toks;
-	t_node	*node;
-	int		count;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -33,18 +29,7 @@ void	minishell(t_data *data)
 		{
 			add_history(line);
 			/* new parser */
-			src = scan_input(line);
-			// test_scan(line);
-			toks = tokenize(src);
-			// test_tokenize(src);
-			node = parse(toks);
-			print_ast(node, 0);
-			count = visit(node, 0);
-			execute(node, count, data);
-			free_chars(src->chars, src->len);
-			ft_free(src);
-			free_tokens(toks);
-			free_nodes(node);
+			parse(line, data);
 			// 	printf("----------------------------\n");
 			// free_node(node);
 			/* old parser */

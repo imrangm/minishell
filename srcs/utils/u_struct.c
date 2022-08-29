@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_struct.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/28 12:03:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:43:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	free_struct_rd(t_redirs *rd)
 {
-	ft_free(rd->infile);
-	ft_free(rd->outfile);
-	ft_free(rd->heredoc);
-	ft_free(rd->append);
+	// ft_free(rd->infile);
+	// ft_free(rd->outfile);
+	// ft_free(rd->heredoc);
+	// ft_free(rd->append);
 	ft_free(rd);
 }
 
@@ -28,7 +28,7 @@ void	free_struct_pp(t_pipe **p, int nchild)
 	i = 0;
 	while (i < nchild)
 	{
-		ft_free(p[i]->fcmd);
+		// ft_free(p[i]->fcmd);
 		// ft_free(p[i]->rd.infile);
 		// ft_free(p[i]->rd.outfile);
 		// ft_free(p[i]->rd.heredoc);
@@ -66,7 +66,7 @@ void	rd_free(int *fd, char **arg, t_redirs *rd)
 	close_fds(fd);
 	ft_free(fd);
 	ft_free_2d(arg);
-	free_struct_rd(rd);
+	// free_struct_rd(rd);
 }
 
 void	free_data(t_data *data)

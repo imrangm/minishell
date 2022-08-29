@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/28 11:59:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:37:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,23 @@ void	next_token(t_token **toks)
 	}
 }
 
-t_node	*parse(t_token **toks)
+void	parse(char	*line, t_data *data)
 {	
+	t_scan	*src;
+	t_token	**toks;
+	t_node	*node;
+	int		count;
+
 	set_signalset(1);
-	if (look_ahead(toks) == PIPE)
-	{
-		return (error_node(ft_strjoin("unexpected token near: ",
-					current_token(toks))));
-	}
-	return (parse_pipeline(toks));
+	src = scan_input(line);
+	toks = tokenize(src);
+	node = parse_pipeline(toks);
+	free_chars(src->chars, src->len);
+	ft_free(src);
+	free_tokens(toks);
+	data->root = node;
+	print_ast(node, 0);
+	count = visit(node, 0);
+	process_tree(node, count, data);
+	free_nodes(data->root);
 }

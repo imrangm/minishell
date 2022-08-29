@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/24 07:56:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:20:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,4 @@ void	print_ast(t_node *node, size_t spaces)
 	}
 	if (node->type == 2)
 		printf("%s: %s\n", node->id, node->value);
-}
-
-void	test_parse(t_token **toks)
-{
-	t_node	*ret;
-
-	ret = parse(toks);
-	printf("------------------------\n");
-	printf("AST\n");
-	visit(ret, 0);
 }
