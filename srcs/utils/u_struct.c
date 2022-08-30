@@ -6,20 +6,20 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/29 06:47:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:50:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_struct_rd(t_redirs *rd)
-{
+// void	free_struct_rd(t_redirs *rd)
+// {
 	// ft_free(rd->infile);
 	// ft_free(rd->outfile);
 	// ft_free(rd->heredoc);
 	// ft_free(rd->append);
-	ft_free(rd);
-}
+// 	ft_free(rd);
+// }
 
 void	free_struct_pp(t_pipe **p, int nchild)
 {

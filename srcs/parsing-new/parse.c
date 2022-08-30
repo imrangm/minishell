@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 06:37:13 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/30 03:16:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	next_token(t_token **toks)
 	}
 }
 
-void	parse(char	*line, t_data *data)
+void	parse(char *line, t_data *data)
 {	
 	t_scan	*src;
 	t_token	**toks;

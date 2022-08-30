@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 14:04:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/30 03:11:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/30 03:39:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_builtin(char **args)
 void	exec_builtin(char *line, char **args, t_data *data)
 
 {
-	if (!ft_strcmp(args[0], "export"))
+	if (!ft_strcmp(args[0], "export") && args[1])
 		b_export(args, data);
 	else if (!ft_strcmp(args[0], "unset"))
 		b_unset(args, data);
@@ -60,6 +60,23 @@ void	exec_cmd(char **args, t_data *data)
 	if (execve(cmd_path, args, data->envp) == -1)
 	{
 		ft_free_2d(args);
+		free_data(data);
+		free_nodes(data->root);
+		ft_free(cmd_path);
+		data->last_exit_status = 127;
+		ft_putstr_fd("Error: Unable to execute\n", 2);
+		exit (127);
+	}
+}
+
+void	exec_rd(int *fd, t_redirs *rd, char **arg, t_data *data)
+{
+	char	*cmd_path;
+
+	cmd_path = get_cmd_path(arg, data);
+	if (execve(cmd_path, arg, data->envp) == -1)
+	{
+		rd_free(fd, arg, rd);
 		free_data(data);
 		free_nodes(data->root);
 		ft_free(cmd_path);

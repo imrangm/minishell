@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 08:30:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/30 14:00:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,41 @@ void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
-	if (exec_cmd_child(arg, data))
+	exec_rd(fd, rd, arg, data);
+}
+
+void	file_builtin(int *fd, char *line, t_redirs *rd, t_data *data)
+{
+	int		f;
+	char	**arg;
+	int		saved_out;
+	int		saved_in;
+
+	arg = ft_split(line, ' ');
+	f = 0;
+	saved_out = dup(STDOUT_FILENO);
+	saved_in = dup(STDIN_FILENO);
+	if (rd->heredoc && rd->lastin == 'h')
 	{
-		rd_free(fd, arg, rd);
-		free_nodes(data->root);
-		err_print(127, data);
+		f = open("tmp", O_RDONLY, 0);
+		if (f == -1)
+		{
+			data->last_exit_status = 1;
+			exit(1);
+		}
+		dup2(f, STDIN_FILENO);
+		close(f);
+		unlink("tmp");
 	}
+	else
+		dup2(fd[0], STDIN_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
+	exec_builtin(line, arg, data);
+	dup2(saved_in, STDIN_FILENO);
+	close(saved_in);
+	dup2(saved_out, STDOUT_FILENO);
+	close(saved_out);
+	ft_free_2d(arg);
 }
 
 void	file_parent(int *pid, t_data *data)
@@ -62,9 +91,22 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	char	**arg;
 
 	arg = ft_split(cmd, ' ');
+	if (is_builtin(arg))
+	{
+		file_builtin(fd, cmd, rd, data);
+		rd_free(fd, arg, rd);
+		return ;
+	}
 	pid[0] = fork();
 	if (pid[0] == -1)
-		exit (1);
+	{
+		data->last_exit_status = 140;
+		ft_free_2d(arg);
+		free_data(data);
+		free_nodes(data->root);
+		ft_putstr_fd("Error: Could not create child process\n", 2);
+		return ;
+	}
 	if (pid[0] == 0)
 	{
 		file_child(fd, arg, rd, data);
@@ -120,11 +162,11 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 		close(fd[0]);
 	}
 	if (rd->infile && rd->lastin == 'i')
-		fd[0] = open(rd->infile, O_RDONLY | O_CLOEXEC);
+		fd[0] = open(rd->infile, O_RDONLY);
 	if (rd->outfile && rd->lastout == 'o')
-		fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
+		fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (rd->append && rd->lastout == 'a')
-		fd[1] = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
+		fd[1] = open(rd->append, O_CREAT | O_RDWR | O_APPEND, 0644);
 	if (fd[0] == -1 || fd[1] == -1)
 		perror("File error");
 	else
