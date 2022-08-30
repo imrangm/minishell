@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/29 06:43:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 06:47:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p)
 
 void	rd_free(int *fd, char **arg, t_redirs *rd)
 {
+	(void) rd;
 	close_fds(fd);
 	ft_free(fd);
 	ft_free_2d(arg);

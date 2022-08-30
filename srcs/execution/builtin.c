@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_cmd.c                                            :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/29 15:29:41 by imustafa         ###   ########.fr       */
+/*   Created: 2022/08/29 14:04:02 by imustafa          #+#    #+#             */
+/*   Updated: 2022/08/30 03:11:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_parent_function(char **args)
+int	is_builtin(char **args)
 {
-	if (!ft_strcmp(args[0], "export") && args[1])
+	if (!ft_strcmp(args[0], "export"))
 		return (1);
 	else if (!ft_strcmp(args[0], "unset"))
 		return (1);
@@ -22,10 +22,17 @@ int	is_parent_function(char **args)
 		return (1);
 	else if (!ft_strcmp(args[0], "cd"))
 		return (1);
+	else if (!ft_strcmp(args[0], "echo"))
+		return (1);
+	else if (!ft_strcmp(args[0], "pwd"))
+		return (1);
+	else if (!ft_strcmp(args[0], "env"))
+		return (1);
 	return (0);
 }
 
-void	exec_cmd_parent(char *line, char **args, t_data *data)
+void	exec_builtin(char *line, char **args, t_data *data)
+
 {
 	if (!ft_strcmp(args[0], "export"))
 		b_export(args, data);
@@ -35,39 +42,6 @@ void	exec_cmd_parent(char *line, char **args, t_data *data)
 		b_exit(line, args, data);
 	else if (!ft_strcmp(args[0], "cd"))
 		b_cd(args, data);
-}
-
-static int	exec_sys_cmd(char **args, t_data *data)
-{
-	char	*cmd_path;
-
-	cmd_path = get_cmd_path(args, data);
-	if (cmd_path && cmd_path[0])
-	{
-		if (execve(cmd_path, args, data->envp) == -1)
-		{
-			ft_free_2d(args);
-			free_data(data);
-			ft_free(cmd_path);
-			return (1);
-		}
-	}
-	ft_free(cmd_path);
-	return (0);
-}
-
-static void	free_and_kill(char **args, t_data *data)
-{
-	ft_free_2d(args);
-	free_data(data);
-	free_nodes(data->root);
-	exit(data->last_exit_status);
-}
-
-int	exec_cmd_child(char **args, t_data *data)
-{
-	if (!ft_strcmp(args[0], "export") && args[1])
-		free_and_kill(args, data);
 	else if (!ft_strcmp(args[0], "echo"))
 		b_echo(args, data);
 	else if (!ft_strcmp(args[0], "pwd"))
@@ -76,11 +50,21 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 0);
 	else if (!ft_strcmp(args[0], "export"))
 		b_env(data->envp, 1);
-	else
+}
+
+void	exec_cmd(char **args, t_data *data)
+{
+	char	*cmd_path;
+
+	cmd_path = get_cmd_path(args, data);
+	if (execve(cmd_path, args, data->envp) == -1)
 	{
-		if (exec_sys_cmd(args, data))
-			return (1);
+		ft_free_2d(args);
+		free_data(data);
+		free_nodes(data->root);
+		ft_free(cmd_path);
+		data->last_exit_status = 127;
+		ft_putstr_fd("Error: Unable to execute\n", 2);
+		exit (127);
 	}
-	free_and_kill(args, data);
-	return (0);
 }

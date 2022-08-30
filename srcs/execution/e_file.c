@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 06:40:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 08:30:32 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	file_child(int *fd, char **arg, t_redirs *rd, t_data *data)
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
-	if (exec_cmd_child(arg, data) == -1)
+	if (exec_cmd_child(arg, data))
 	{
 		rd_free(fd, arg, rd);
 		free_nodes(data->root);
@@ -62,13 +62,6 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	char	**arg;
 
 	arg = ft_split(cmd, ' ');
-	ft_free(cmd);
-	// if (!ft_strncmp(arg[0], "env", ft_strlen(arg[0])))
-	// {
-	// 	b_env(data->envp, 0);
-	// 	ft_free_2d(arg);
-	// 	return ;
-	// }
 	pid[0] = fork();
 	if (pid[0] == -1)
 		exit (1);
@@ -80,9 +73,6 @@ void	file_process(int *fd, char *cmd, t_redirs *rd, t_data *data)
 	{
 		file_parent(pid, data);
 		rd_free(fd, arg, rd);
-		close_fds(fd);
-		ft_free(fd);
-		ft_free_2d(arg);
 	}
 }
 

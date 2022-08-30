@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/28 12:02:09 by imustafa         ###   ########.fr        #
+#    Updated: 2022/08/29 15:39:12 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS=		main.c \
 			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
+			execution/builtin.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/29 06:43:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:35:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,9 @@ void	test_scan(char	*input);
 
 //* Utility
 int		check_io(char *prev, char *current);
+int		is_builtin(char **args);
+void	exec_builtin(char *line, char **args, t_data *data);
+void	exec_cmd(char **args, t_data *data);
 
 //* Redirection
 void	append(char *line);

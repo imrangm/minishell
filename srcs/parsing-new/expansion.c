@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 13:27:24 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/29 08:38:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ t_node	*set_location(char *rem, char *args)
 	start->id = "START";
 	i = 1;
 	while (ft_isalnum(start->value[i++]) && start->value[i]
-		&& start->value[i] != '\"' && !ft_isspace(start->value[i]));
+		&& start->value[i] != '\"' && start->value[i] != '\''
+		&& !ft_isspace(start->value[i]));
 	end->val = start->val + i - 1;
 	end->id = "END";
 	loc->left_node = start;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 12:11:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/30 03:09:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		ft_putstr_fd("Error: Command not found\n", 2);
 		data->last_exit_status = 127;
 		free_data(data);
+		free_nodes(data->root);
 		ft_free_2d(args);
 		ft_free(cmd);
 		exit (127);
@@ -68,6 +69,7 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
 		free_data(data);
+		free_nodes(data->root);
 		ft_free_2d(args);
 		ft_free(cmd);
 		exit (126);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 06:37:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/30 03:14:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,19 +75,13 @@ static void	create_child_process(char **args, t_data *data)
 	{
 		data->last_exit_status = 140;
 		ft_free_2d(args);
+		free_data(data);
+		free_nodes(data->root);
 		ft_putstr_fd("Error: Could not create child process\n", 2);
 		return ;
 	}
 	if (pid == 0)
-	{
-		if (exec_cmd_child(args, data))
-		{
-			ft_putstr_fd("Error: Command not found\n", 2);
-			data->last_exit_status = 127;
-		}
-		free_data(data);
-		free_nodes(data->root);
-	}
+		exec_cmd(args, data);
 	else
 		monitor_process(pid, data);
 }
@@ -96,11 +90,10 @@ void	master_execute(char *line, t_data *data)
 {
 	char	**args;
 
-	data->line = line;
 	args = smart_split(line);
-	if (is_parent_function(args))
+	if (is_builtin(args))
 	{
-		exec_cmd_parent(line, args, data);
+		exec_builtin(line, args, data);
 		ft_free_2d(args);
 	}
 	else
