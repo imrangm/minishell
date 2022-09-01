@@ -6,19 +6,22 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 16:06:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/01 07:28:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	first_child(char **arg, int **pipes, t_pipe **p)
+void	first_child(int *pids, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
+	char		**arg;
+	t_data		*data;
 
 	i = 0;
 	j = 0;
+	arg = ft_split(p[0]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
 		close(pipes[j][0]);
@@ -32,17 +35,30 @@ void	first_child(char **arg, int **pipes, t_pipe **p)
 	close(pipes[i][1]);
 	if (is_parent_function(arg))
 		exit (0);
-	if (exec_cmd_child(arg, p[0]->data) == -1)
+	if (is_builtin(arg))
+	{
+		exec_builtin(p[0]->fcmd, arg, p[0]->data);
+		data = p[0]->data;
+		ps_free(pipes, pids, p);
+		free_and_exit(arg, data);
+	}
+	else
+	{
+		exec_cmd_child(arg, p[0]->data);
 		err_print(127, p[0]->data);
+	}
 }
 
-void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
+void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 {
-	int	j;
-	int	n;
+	int		j;
+	int		n;
+	char	**arg;
+	t_data	*data;
 
 	j = 0;
 	n = p[0]->nchild;
+	arg = ft_split(p[*i]->fcmd, ' ');
 	while (j < n - 1)
 	{
 		if (*i - 1 != j)
@@ -58,18 +74,31 @@ void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
 	if (is_parent_function(arg))
+	{
+		ps_free(pipes, pids, p);
 		exit (0);
+	}
+	if (is_builtin(arg))
+	{
+		exec_builtin(p[*i]->fcmd, arg, p[0]->data);
+		data = p[0]->data;
+		ps_free(pipes, pids, p);
+		free_and_exit(arg, data);
+	}
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 		err_print(127, p[0]->data);
 }
 
-void	last_child(char **arg, int **pipes, t_pipe **p)
+void	last_child(int *pids, int **pipes, t_pipe **p)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	**arg;
+	t_data	*data;
 
 	i = p[0]->nchild - 1;
 	j = 0;
+	arg = ft_split(p[i]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
 		if (i - 1 != j)
@@ -82,7 +111,17 @@ void	last_child(char **arg, int **pipes, t_pipe **p)
 	redir_out(p, i);
 	close(pipes[i - 1][0]);
 	if (is_parent_function(arg))
+	{
+		ps_free(pipes, pids, p);
 		exit (0);
+	}
+	if (is_builtin(arg))
+	{
+		exec_builtin(p[i]->fcmd, arg, p[0]->data);
+		data = p[0]->data;
+		ps_free(pipes, pids, p);
+		free_and_exit(arg, data);
+	}
 	if (exec_cmd_child(arg, p[0]->data) == -1)
 		err_print(127, p[0]->data);
 }

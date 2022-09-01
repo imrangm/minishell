@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 15:55:06 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/01 06:59:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	redir_out(t_pipe **p, int i)
 		return (0);
 }
 
-void	parent(char ***arg, int **pipes, int *pids, t_pipe **p)
+void	parent(int *pids, int **pipes, t_pipe **p)
 {
 	int	i;
 	int	wstatus;
@@ -112,10 +112,10 @@ void	parent(char ***arg, int **pipes, int *pids, t_pipe **p)
 	}
 	if (access("tmp", F_OK))
 		unlink("tmp");
-	ps_free(arg, pipes, pids, p);
+	ps_free(pipes, pids, p);
 }
 
-void	create_process(char ***arg, int **pipes, t_pipe **p)
+void	create_process(int **pipes, t_pipe **p)
 {
 	int	*pids;
 	int	i;
@@ -132,13 +132,13 @@ void	create_process(char ***arg, int **pipes, t_pipe **p)
 		if (pids[i] == 0)
 		{
 			if (i == 0)
-				first_child(arg[i], pipes, p);
+				first_child(pids, pipes, p);
 			if (i < p[0]->nchild - 1)
-				mid_child(&i, arg[i], pipes, p);
+				mid_child(&i, pids, pipes, p);
 			if (i == p[0]->nchild - 1)
-				last_child(arg[i], pipes, p);
+				last_child(pids, pipes, p);
 		}
 		i++;
 	}
-	parent(arg, pipes, pids, p);
+	parent(pids, pipes, p);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_error.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/08/31 10:36:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	err_free_parent(int **pipes, int *pids, int nchild)
 	perror("Error");
 }
 
-void	err_free_process(int **pipes, char ***args, int nchild)
+void	err_free_process(int **pipes, int nchild)
 {
 	int	i;
 
@@ -44,13 +44,6 @@ void	err_free_process(int **pipes, char ***args, int nchild)
 		i++;
 	}
 	ft_free(pipes);
-	i = 0;
-	while (i < nchild)
-	{
-		ft_free_2d(args[i]);
-		i++;
-	}
-	ft_free(args);
 	perror("Error");
 }
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 14:04:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/30 03:39:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/31 02:31:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ int	is_builtin(char **args)
 	else if (!ft_strcmp(args[0], "env"))
 		return (1);
 	return (0);
+}
+
+void	free_and_exit(char **args, t_data *data)
+{
+	ft_free_2d(args);
+	free_data(data);
+	free_nodes(data->root);
+	exit(data->last_exit_status);
 }
 
 void	exec_builtin(char *line, char **args, t_data *data)
@@ -69,19 +77,3 @@ void	exec_cmd(char **args, t_data *data)
 	}
 }
 
-void	exec_rd(int *fd, t_redirs *rd, char **arg, t_data *data)
-{
-	char	*cmd_path;
-
-	cmd_path = get_cmd_path(arg, data);
-	if (execve(cmd_path, arg, data->envp) == -1)
-	{
-		rd_free(fd, arg, rd);
-		free_data(data);
-		free_nodes(data->root);
-		ft_free(cmd_path);
-		data->last_exit_status = 127;
-		ft_putstr_fd("Error: Unable to execute\n", 2);
-		exit (127);
-	}
-}

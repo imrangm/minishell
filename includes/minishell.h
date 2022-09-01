@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/30 03:26:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/01 06:56:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int		check_io(char *prev, char *current);
 int		is_builtin(char **args);
 void	exec_builtin(char *line, char **args, t_data *data);
 void	exec_cmd(char **args, t_data *data);
-void	exec_rd(int *fd, t_redirs *rd, char **args, t_data *data);
+void	free_and_exit(char **args, t_data *data);
 
 //* Redirection
 void	append(char *line);
@@ -179,21 +179,21 @@ int		count_pipes(char *line);
 int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
 void	handle_pp(char *line, t_data *data);
-void	last_child(char **arg, int **pipes, t_pipe **p);
-void	first_child(char **arg, int **pipes, t_pipe **p);
-void	create_process(char ***arg, int **pipes, t_pipe **p);
-void	mid_child(int *i, char **arg, int **pipes, t_pipe **p);
-void	parent(char ***arg, int **pipes, int *pids, t_pipe **p);
+void	first_child(int *pids, int **pipes, t_pipe **p);
+void	mid_child(int *i, int *pids, int **pipes, t_pipe **p);
+void	last_child(int *pids, int **pipes, t_pipe **p);
+void	create_process(int **pipes, t_pipe **p);
+void	parent(int *pids, int **pipes, t_pipe **p);
 
 //* Error and free
 void	err_print(int error, t_data *data);
 void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
 void	err_kill_process(t_pipe **p);
-void	err_free_process(int **pipes, char ***args, int nchild);
+void	err_free_process(int **pipes, int nchild);
 void	free_struct_rd(t_redirs *rd);
 void	free_struct_pp(t_pipe **p, int nchild);
-void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p);
+void	ps_free(int **pipes, int *pids, t_pipe **p);
 void	rd_free(int *fd, char **arg, t_redirs *rd);
 void	free_data(t_data *data);
 

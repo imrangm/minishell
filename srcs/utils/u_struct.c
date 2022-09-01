@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 17:59:12 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/30 12:50:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/08/31 10:54:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,10 @@ void	free_struct_pp(t_pipe **p, int nchild)
 	ft_free(p);
 }
 
-void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p)
+void	ps_free(int **pipes, int *pids, t_pipe **p)
 {
 	int	i;
 
-	i = 0;
-	while (i < p[0]->nchild)
-	{
-		ft_free_2d(arg[i]);
-		i++;
-	}
-	ft_free(arg);
 	i = 0;
 	while (i < p[0]->nchild)
 	{
@@ -64,7 +57,7 @@ void	ps_free(char ***arg, int **pipes, int *pids, t_pipe **p)
 void	rd_free(int *fd, char **arg, t_redirs *rd)
 {
 	(void) rd;
-	close_fds(fd);
+	// close_fds(fd);
 	ft_free(fd);
 	ft_free_2d(arg);
 	// free_struct_rd(rd);
