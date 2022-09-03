@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 11:17:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 13:02:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 		dup2(pipes[i][1], STDOUT_FILENO);
 	close(pipes[i][1]);
 	if (is_parent_function(arg))
+	{
+		ps_free(pipes, pids, p);
 		exit (0);
+	}
 	if (is_builtin(arg))
 	{
 		exec_builtin(p[0]->fcmd, arg, p[0]->data);
@@ -84,6 +87,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 		exec_builtin(p[*i]->fcmd, arg, p[0]->data);
 		data = p[0]->data;
 		ps_free(pipes, pids, p);
+		ft_free(data->line);
 		free_and_exit(arg, data);
 	}
 	if (exec_cmd_child(arg, p[0]->data) == -1)
@@ -121,6 +125,7 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 		exec_builtin(p[i]->fcmd, arg, p[0]->data);
 		data = p[0]->data;
 		ps_free(pipes, pids, p);
+		ft_free(data->line);
 		free_and_exit(arg, data);
 	}
 	if (exec_cmd_child(arg, p[0]->data) == -1)

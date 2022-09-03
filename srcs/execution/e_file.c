@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/02 11:39:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 14:13:14 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 
 	f = 0;
 	args = ft_split(line, ' ');
-	fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
 	if (rd->heredoc && rd->lastin == 'h')
 	{
 		f = open("tmp", O_RDONLY, 0);
@@ -35,10 +34,11 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
 	if (is_builtin(args))
 	{
 		exec_builtin(line, args, data);
+		close(fd[0]);
+		close(fd[1]);
 		ft_free(fd);
 		free_and_exit(args, data);
 	}
@@ -78,9 +78,7 @@ void	file_process(int *fd, char *line, t_redirs *rd, t_data *data)
 	}
 	else
 	{
-		// close(fd[1]);
 		file_parent(pid, data);
-		ft_free(fd);
 	}
 }
 
@@ -97,18 +95,18 @@ char	*read_line(char *lim)
 	{
 		read(0, buf, 1);
 		buf[1] = '\0';
-		line = ft_strjoin(line, buf);
+		line = ft_strjoin_and_free(line, buf);
 		if (ft_strchr(line, '\n'))
 		{
 			if (!ft_strncmp (line, lim, ft_strlen(lim)))
 				break ;
-			final = ft_strjoin(final, line);
+			final = ft_strjoin_and_free(final, line);
 			ft_free(line);
 			line = strdup("");
 			write(1, "> ", 2);
 		}
 	}
-	free(line);
+	ft_free(line);
 	return (final);
 }
 
@@ -129,8 +127,8 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 	}
 	if (rd->infile && rd->lastin == 'i')
 		fd[0] = open(rd->infile, O_RDONLY | O_CLOEXEC);
-	// if (rd->outfile && rd->lastout == 'o')
-	// 	fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
+	if (rd->outfile && rd->lastout == 'o')
+		fd[1] = open(rd->outfile, O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC, 0644);
 	if (rd->append && rd->lastout == 'a')
 		fd[1] = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
 	if (fd[0] == -1 || fd[1] == -1)
@@ -140,4 +138,9 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 	}
 	else
 		file_process(fd, line, rd, data);
+	if (fd[0] != 0)
+		close(fd[0]);
+	if (fd[1] != 1)
+		close(fd[1]);
+	ft_free(fd);
 }

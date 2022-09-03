@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 11:17:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 13:18:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	process_command(t_node *n, t_data *data)
 	char		*cmd;
 	t_redirs	rd;
 
+	init_rd(&rd);
 	if (n->type == 1 && n->left_node->type == 0)
 	{
 		if (ft_strncmp(n->left_node->id, "RAW", 3) == 0)
