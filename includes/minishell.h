@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/01 06:56:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 09:51:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_node
 typedef struct s_data
 {
 	int		last_exit_status;
+	int		error;
+	char	*line;
 	int		shlvl;
 	char	*pwd;
 	char	**envp;
@@ -118,7 +120,7 @@ t_node	*node(t_token **toks);
 t_node	*pair_node(t_node *left, t_node *right, char *id);
 t_node	*error_node(char *msg);
 void	expansion_node(t_node **n);
-int		visit(t_node *node, size_t run);
+int		check_error(t_node *node, t_data *data);
 
 //* Expansion
 t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions);
@@ -191,10 +193,9 @@ void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
 void	err_kill_process(t_pipe **p);
 void	err_free_process(int **pipes, int nchild);
-void	free_struct_rd(t_redirs *rd);
-void	free_struct_pp(t_pipe **p, int nchild);
+void	free_struct_pipe(t_pipe **p, int nchild);
 void	ps_free(int **pipes, int *pids, t_pipe **p);
-void	rd_free(int *fd, char **arg, t_redirs *rd);
+void	rd_free(int *fd, char **arg);
 void	free_data(t_data *data);
 
 //* Parsing Checkers
@@ -255,7 +256,7 @@ int		check_space(char *str);
 char	*ft_strjoin_and_free(char *s1, char const *s2);
 int		word_count(char *input);
 int		char_is_separator(char c, char *charset);
-char	*line_update(void);
+void	line_update(char **line);
 char	*join_env_var_and_value(char *var_name, char *value);
 
 #endif

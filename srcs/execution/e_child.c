@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/01 07:28:24 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 11:17:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 		exec_builtin(p[0]->fcmd, arg, p[0]->data);
 		data = p[0]->data;
 		ps_free(pipes, pids, p);
+		ft_free(data->line);
 		free_and_exit(arg, data);
 	}
 	else

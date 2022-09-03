@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/31 02:38:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/02 11:39:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 	}
 	if (exec_cmd_child(args, data) == -1)
 	{
-		rd_free(fd, args, rd);
+		rd_free(fd, args);
 		err_print(127, data);
 	}
 }
@@ -134,7 +134,10 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 	if (rd->append && rd->lastout == 'a')
 		fd[1] = open(rd->append, O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC, 0644);
 	if (fd[0] == -1 || fd[1] == -1)
+	{
 		perror("File error");
+		data->last_exit_status = 1;
+	}
 	else
 		file_process(fd, line, rd, data);
 }

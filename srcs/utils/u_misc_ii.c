@@ -3,40 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 13:01:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/03 12:54:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*line_update(void)
+void	line_update(char **line)
 {
 	char	buf[2];
-	char	*line;
-	char	*final;
+	char	*temp;
 
-	line = ft_strdup("");
-	final = line;
 	write(1, "> ", 2);
+	temp = strdup("");
 	while (1)
 	{
-		read(0, buf, 1);
+		read(STDIN_FILENO, buf, 1);
 		buf[1] = '\0';
-		line = ft_strjoin(line, buf);
-		if (ft_strchr(line, '\n'))
+		temp = ft_strjoin_and_free(temp, buf);
+		if (ft_strchr(temp, '\n'))
 		{
-			if (!ft_strchr(line, '|'))
+			*line = ft_strjoin_and_free(*line, temp);
+			if (!ft_strchr(temp, '|'))
+			{
+				ft_free(temp);
 				break ;
+			}
+			ft_free(temp);
+			temp = ft_strdup("");
 			write(1, "> ", 2);
-			final = ft_strjoin_and_free(final, ft_strtrim(line, "\n"));
-			free(line);
-			line = strdup("");
 		}
 	}
-	final = ft_strjoin_and_free(final, ft_strtrim(line, "\n"));
-	free(line);
-	return (final);
 }

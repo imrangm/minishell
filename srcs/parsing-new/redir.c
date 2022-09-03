@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/30 03:05:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:11:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	process_redirection(t_node **left, t_node **right)
 		read_line(rt);
 	if (ft_strncmp(lf, LESS, 1) == 0)
 	{
-		if (access(rt, F_OK))
+		if (access(rt, F_OK) == -1)
 		{
 			ft_free(*right);
 			*right = error_node(ft_strjoin_and_free(rt,

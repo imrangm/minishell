@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/03 06:55:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,6 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	size_t	j;
 	char	*str;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		*s1 = '\0';
-	}
 	str = (char *) malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
