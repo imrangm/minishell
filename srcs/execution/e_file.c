@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 14:13:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 14:25:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ char	*read_line(char *lim)
 	char	*line;
 	char	*final;
 
-	line = strdup("");
-	final = line;
+	line = ft_strdup("");
+	final = ft_strdup("");
 	write(1, "> ", 2);
 	while (1)
 	{
@@ -124,6 +124,7 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 		text = read_line(rd->heredoc);
 		write(fd[0], text, strlen(text));
 		close(fd[0]);
+		ft_free(text);
 	}
 	if (rd->infile && rd->lastin == 'i')
 		fd[0] = open(rd->infile, O_RDONLY | O_CLOEXEC);
