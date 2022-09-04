@@ -6,19 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 06:55:04 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 12:55:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	close_fds(int *fd)
-{
-	if (fd[0] != 0)
-		close(fd[0]);
-	if (fd[1] != 1)
-		close(fd[1]);
-}
 
 int	word_count(char *input)
 {

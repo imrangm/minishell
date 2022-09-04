@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/29 15:29:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:26:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	exec_cmd_parent(char *line, char **args, t_data *data)
 		b_cd(args, data);
 }
 
-static int	exec_sys_cmd(char **args, t_data *data)
+int	exec_sys_cmd(char **args, t_data *data)
 {
 	char	*cmd_path;
 
@@ -76,11 +76,8 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 0);
 	else if (!ft_strcmp(args[0], "export"))
 		b_env(data->envp, 1);
-	else
-	{
-		if (exec_sys_cmd(args, data))
-			return (1);
-	}
+	else if (exec_sys_cmd(args, data))
+		return (1);
 	free_and_kill(args, data);
 	return (0);
 }

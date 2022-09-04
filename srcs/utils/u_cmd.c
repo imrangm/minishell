@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/30 03:09:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:38:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		free_nodes(data->root);
 		ft_free_2d(args);
 		ft_free(cmd);
-		exit (127);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
@@ -72,7 +71,6 @@ char	*validate_cmd(char *cmd, char **args, t_data *data)
 		free_nodes(data->root);
 		ft_free_2d(args);
 		ft_free(cmd);
-		exit (126);
 	}
 	return (cmd);
 }

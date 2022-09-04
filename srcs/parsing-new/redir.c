@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/02 14:11:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/03 15:19:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,22 +91,22 @@ void	add_redir(t_redirs *rd, char *op, char *fname)
 	if (ft_strncmp(op, ">>", 2) == 0)
 	{
 		rd->append = fname;
-		rd->lastout = 'a';
+		rd->lastout = O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC;
 	}
 	else if (ft_strncmp(op, ">", 1) == 0)
 	{
 		rd->outfile = fname;
-		rd->lastout = 'o';
+		rd->lastout = O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC;
 	}
 	else if (ft_strncmp(op, "<<", 2) == 0)
 	{
 		rd->heredoc = fname;
-		rd->lastin = 'h';
+		rd->lastin = O_CREAT | O_RDWR | O_TRUNC;
 	}
 	else if (ft_strncmp(op, "<", 1) == 0)
 	{
 		rd->infile = fname;
-		rd->lastin = 'i';
+		rd->lastin = O_RDONLY | O_CLOEXEC;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/03 09:51:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 13:42:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_redirs
 	char	*heredoc;
 	char	*outfile;
 	char	*append;
-	char	lastin;
-	char	lastout;
+	int		lastin;
+	int		lastout;
 }	t_redirs;
 
 typedef struct s_pipe
@@ -151,12 +151,13 @@ void	test_scan(char	*input);
 int		check_io(char *prev, char *current);
 int		is_builtin(char **args);
 void	exec_builtin(char *line, char **args, t_data *data);
+int		exec_sys_cmd(char **args, t_data *data);
 void	exec_cmd(char **args, t_data *data);
+void	exec_file_cmd(int *fd, char **args, t_data *data);
 void	free_and_exit(char **args, t_data *data);
 
 //* Redirection
 void	append(char *line);
-void	close_fds(int *fd);
 void	here_ops(char *line);
 void	init_rd(t_redirs *rd);
 void	empty_file(char *file);
@@ -164,6 +165,9 @@ void	process(char *line, t_redirs *rd);
 void	file_parent(int *pid, t_data *data);
 void	execute_rd(char *line, t_data *data);
 void	create_file(char *line, t_redirs *rd, t_data *data);
+int		fd_in(t_redirs *rd);
+int		fd_out(t_redirs *rd);
+void	close_fds(int *fd);
 
 //* General Execution
 char	*read_line(char *lim);
