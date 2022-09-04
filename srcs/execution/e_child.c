@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 13:02:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:55:45 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 
 	i = 0;
 	j = 0;
+	data = p[0]->data;
 	arg = ft_split(p[0]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
@@ -36,12 +37,12 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 	if (is_parent_function(arg))
 	{
 		ps_free(pipes, pids, p);
-		exit (0);
+		ft_free(data->line);
+		free_and_exit(arg, data);
 	}
 	if (is_builtin(arg))
 	{
 		exec_builtin(p[0]->fcmd, arg, p[0]->data);
-		data = p[0]->data;
 		ps_free(pipes, pids, p);
 		ft_free(data->line);
 		free_and_exit(arg, data);
@@ -61,6 +62,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 	t_data	*data;
 
 	j = 0;
+	data = p[0]->data;
 	n = p[0]->nchild;
 	arg = ft_split(p[*i]->fcmd, ' ');
 	while (j < n - 1)
@@ -80,12 +82,12 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 	if (is_parent_function(arg))
 	{
 		ps_free(pipes, pids, p);
-		exit (0);
+		ft_free(data->line);
+		free_and_exit(arg, data);
 	}
 	if (is_builtin(arg))
 	{
 		exec_builtin(p[*i]->fcmd, arg, p[0]->data);
-		data = p[0]->data;
 		ps_free(pipes, pids, p);
 		ft_free(data->line);
 		free_and_exit(arg, data);
@@ -103,6 +105,7 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 
 	i = p[0]->nchild - 1;
 	j = 0;
+	data = p[0]->data;
 	arg = ft_split(p[i]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
@@ -118,12 +121,12 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 	if (is_parent_function(arg))
 	{
 		ps_free(pipes, pids, p);
-		exit (0);
+		ft_free(data->line);
+		free_and_exit(arg, data);
 	}
 	if (is_builtin(arg))
 	{
 		exec_builtin(p[i]->fcmd, arg, p[0]->data);
-		data = p[0]->data;
 		ps_free(pipes, pids, p);
 		ft_free(data->line);
 		free_and_exit(arg, data);

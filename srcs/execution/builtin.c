@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 14:04:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 13:42:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:38:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,8 @@ void	exec_cmd(char **args, t_data *data)
 	{
 		if (execve(cmd_path, args, data->envp) == -1)
 		{
-			ft_free_2d(args);
-			free_data(data);
-			free_nodes(data->root);
-			ft_free(cmd_path);
 			data->last_exit_status = 127;
 			ft_putstr_fd("Error: Unable to execute\n", 2);
-			exit (127);
 		}
 	}
-	ft_free(cmd_path);
-}
-
-void	exec_file_cmd(int *fd, char **args, t_data *data)
-{
-	char	*cmd_path;
-
-	cmd_path = get_cmd_path(args, data);
-	if (cmd_path && cmd_path[0])
-	{
-		if (execve(cmd_path, args, data->envp) == -1)
-		{
-			close_fds(fd);
-			ft_free_2d(args);
-			free_data(data);
-			ft_free(cmd_path);
-		}
-	}
-	close_fds(fd);
-	ft_free(cmd_path);
 }

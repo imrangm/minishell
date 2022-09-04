@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/04 13:42:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:25:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int		is_builtin(char **args);
 void	exec_builtin(char *line, char **args, t_data *data);
 int		exec_sys_cmd(char **args, t_data *data);
 void	exec_cmd(char **args, t_data *data);
-void	exec_file_cmd(int *fd, char **args, t_data *data);
+void	exec_file_cmd(char **args, t_data *data);
 void	free_and_exit(char **args, t_data *data);
 
 //* Redirection

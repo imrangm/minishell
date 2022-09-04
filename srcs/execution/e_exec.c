@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/30 03:14:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:45:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,14 @@ static void	create_child_process(char **args, t_data *data)
 	if (pid == -1)
 	{
 		data->last_exit_status = 140;
-		ft_free_2d(args);
-		free_data(data);
-		free_nodes(data->root);
 		ft_putstr_fd("Error: Could not create child process\n", 2);
 		return ;
 	}
 	if (pid == 0)
+	{
 		exec_cmd(args, data);
+		free_and_exit(args, data);
+	}
 	else
 		monitor_process(pid, data);
 }
@@ -92,13 +92,8 @@ void	master_execute(char *line, t_data *data)
 
 	args = smart_split(line);
 	if (is_builtin(args))
-	{
 		exec_builtin(line, args, data);
-		ft_free_2d(args);
-	}
 	else
-	{
 		create_child_process(args, data);
-		ft_free_2d(args);
-	}
+	ft_free_2d(args);
 }

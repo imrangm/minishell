@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 14:13:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/04 15:38:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	file_heredoc(t_redirs *rd, t_data *data)
+void	file_heredoc(char **args, t_data *data)
 {
 	int		f;
 
@@ -20,7 +20,7 @@ void	file_heredoc(t_redirs *rd, t_data *data)
 	if (f == -1)
 	{
 		data->last_exit_status = 1;
-		exit(1);
+		free_and_exit(args, data);
 	}
 	dup2(f, STDIN_FILENO);
 	close(f);
@@ -33,19 +33,16 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 
 	args = ft_split(line, ' ');
 	if (rd->heredoc)
-		file_heredoc(rd, data);
+		file_heredoc(args, data);
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	if (is_builtin(args))
-	{
 		exec_builtin(line, args, data);
-		close_fds(fd);
-		free_and_exit(args, data);
-	}
-	exec_file_cmd(fd, args, data);
+	else
+		exec_cmd(args, data);
 	close_fds(fd);
-	exit(data->last_exit_status);
+	free_and_exit(args, data);
 }
 
 void	file_parent(int *pid, t_data *data)
