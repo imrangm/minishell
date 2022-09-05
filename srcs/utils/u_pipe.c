@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 07:56:19 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 08:10:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 09:21:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	file_error(int **pipes, t_pipe **p)
+void	file_error(t_pipe **p)
 {
 	p[0]->data->last_exit_status = 1;
 	ft_putstr_fd("File error\n", 2);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 11:21:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 09:12:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,12 @@ void	minishell(t_data *data)
 		if (line[0])
 		{
 			add_history(line);
-			/* new parser */
+			/* end of line pipe */
 			if (line[ft_strlen(line) - 1] == '|')
 				line_update(&line);
 			data->line = line;
 			parse(line, data);
 			ft_free(line);
-			// 	printf("----------------------------\n");
-			// free_node(node);
-			/* old parser */
-			// if (pc_valid(line, data))
-			// 	execute_line(line, data);
 		}
 	}
 	ft_free(line);

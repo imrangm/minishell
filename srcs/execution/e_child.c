@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 08:16:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:36:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 	int			ret;
 
 	i = 0;
-	arg = ft_split(p[0]->fcmd, ' ');
+	arg = smart_split(p[0]->fcmd);
 	close_pipes_first(pipes, p, i);
 	ret = redir_in(p, i);
 	if (ret == -1)
 	{
-		file_error(pipes, p);
+		file_error(p);
 		close(pipes[i][1]);
 		exit_pipe(arg, pids, pipes, p);
 	}
 	ret = redir_out(p, i);
 	if (ret == -1)
 	{
-		file_error(pipes, p);
+		file_error(p);
 		close(pipes[i][1]);
 		exit_pipe(arg, pids, pipes, p);
 	}
@@ -72,7 +72,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 	char	**arg;
 	int		ret;
 
-	arg = ft_split(p[*i]->fcmd, ' ');
+	arg = smart_split(p[*i]->fcmd);
 	close_pipes_mid(pipes, p, *i);
 	ret = redir_in(p, (*i));
 	if (ret == -1)
@@ -102,12 +102,12 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 	int		ret;
 
 	i = p[0]->nchild - 1;
-	arg = ft_split(p[i]->fcmd, ' ');
+	arg = smart_split(p[i]->fcmd);
 	close_pipes_last(pipes, p, i);
 	ret = redir_in(p, i);
 	if (ret == -1)
 	{
-		file_error(pipes, p);
+		file_error(p);
 		close(pipes[i - 1][0]);
 		exit_pipe(arg, pids, pipes, p);
 	}
@@ -116,7 +116,7 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 	ret = redir_out(p, i);
 	if (ret == -1)
 	{
-		file_error(pipes, p);
+		file_error(p);
 		close(pipes[i - 1][0]);
 		exit_pipe(arg, pids, pipes, p);
 	}

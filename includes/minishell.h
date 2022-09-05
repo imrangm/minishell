@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 08:11:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:49:40 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int		exec_sys_cmd(char **args, t_data *data);
 void	exec_cmd(char **args, t_data *data);
 void	exec_file_cmd(char **args, t_data *data);
 void	free_and_exit(char **args, t_data *data);
+char	*check_quotes(char *value, int val);
 
 //* Redirection
 void	append(char *line);
@@ -191,7 +192,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p);
 void	last_child(int *pids, int **pipes, t_pipe **p);
 void	create_process(int **pipes, t_pipe **p);
 void	parent(int *pids, int **pipes, t_pipe **p);
-void	file_error(int **pipes, t_pipe **p);
+void	file_error(t_pipe **p);
 void	file_error_mid(int **pipes, t_pipe **p, int i);
 void	close_pipes_first(int **pipes, t_pipe **p, int i);
 void	close_pipes_mid(int **pipes, t_pipe **p, int i);

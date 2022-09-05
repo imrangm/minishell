@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 15:38:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:52:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 {
 	char	**args;
 
-	args = ft_split(line, ' ');
+	args = smart_split(line);
 	if (rd->heredoc)
 		file_heredoc(args, data);
 	else
