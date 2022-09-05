@@ -6,39 +6,18 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 05:45:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 06:17:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	count_pipes(char *line)
-{
-	int	i;
-	int	p;
-	int	q;
-
-	i = 0;
-	p = 0;
-	q = 0;
-	while (line[i])
-	{
-		if (ft_isquote(line[i]) && !q)
-			q = line[i];
-		else if (line[i] == q)
-			q = 0;
-		else if (line[i] == '|')
-			p++;
-		i++;
-	}
-	return (p);
-}
 
 static void	ps_free_main(t_pipe **p)
 {
 	free_data(p[0]->data);
 	free_nodes(p[0]->data->root);
 	p[0]->data->last_exit_status = 1;
+	free_struct_pipe(p, p[0]->nchild);
 }
 
 static void	ps_free_pipes(int **pipes, t_pipe **p)

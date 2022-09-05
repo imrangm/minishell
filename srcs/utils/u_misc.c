@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 12:55:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 06:11:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,26 @@ int	char_is_separator(char c, char *charset)
 	if (c == '\0')
 		return (1);
 	return (0);
+}
+
+int	count_pipes(char *line)
+{
+	int	i;
+	int	p;
+	int	q;
+
+	i = 0;
+	p = 0;
+	q = 0;
+	while (line[i])
+	{
+		if (ft_isquote(line[i]) && !q)
+			q = line[i];
+		else if (line[i] == q)
+			q = 0;
+		else if (line[i] == '|')
+			p++;
+		i++;
+	}
+	return (p);
 }

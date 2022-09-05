@@ -6,13 +6,12 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 13:18:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 06:32:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//left and right have same arg and code, can be reduced to 1 function
 void	process_pipe_left(t_node *n, t_pipe ***p, t_data *data, int *i)
 {
 	if (n->type == 1
@@ -55,7 +54,7 @@ void	process_pipe_right(t_node *n, t_data *data, t_pipe ***p, int i)
 		}
 		if (ft_strncmp(n->left_node->id, "ARGS", 3) == 0)
 		{
-			(*p)[i]->fcmd = n->left_node->left_node->value;
+			(*p)[i]->fcmd = n->left_node->value;
 			(*p)[i]->rd = get_redir(n->right_node);
 		}
 	}
