@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 03:19:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 08:16:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,27 @@ static void	exec_pipe(char **arg, int *pids, int **pipes, t_pipe **p)
 void	first_child(int *pids, int **pipes, t_pipe **p)
 {
 	int			i;
-	int			j;
 	char		**arg;
+	int			ret;
 
 	i = 0;
-	j = 0;
 	arg = ft_split(p[0]->fcmd, ' ');
-	while (j < p[0]->nchild - 1)
+	close_pipes_first(pipes, p, i);
+	ret = redir_in(p, i);
+	if (ret == -1)
 	{
-		close(pipes[j][0]);
-		if (i != j)
-			close(pipes[j][1]);
-		j++;
+		file_error(pipes, p);
+		close(pipes[i][1]);
+		exit_pipe(arg, pids, pipes, p);
 	}
-	redir_in(p, i);
-	if (!redir_out(p, i))
+	ret = redir_out(p, i);
+	if (ret == -1)
+	{
+		file_error(pipes, p);
+		close(pipes[i][1]);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	if (!ret)
 		dup2(pipes[i][1], STDOUT_FILENO);
 	close(pipes[i][1]);
 	exec_pipe(arg, pids, pipes, p);
@@ -63,24 +69,26 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 
 void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 {
-	int		j;
-	int		n;
 	char	**arg;
+	int		ret;
 
-	j = 0;
-	n = p[0]->nchild;
 	arg = ft_split(p[*i]->fcmd, ' ');
-	while (j < n - 1)
+	close_pipes_mid(pipes, p, *i);
+	ret = redir_in(p, (*i));
+	if (ret == -1)
 	{
-		if (*i - 1 != j)
-			close(pipes[j][0]);
-		if (*i != j)
-			close(pipes[j][1]);
-		j++;
+		file_error_mid(pipes, p, *i);
+		exit_pipe(arg, pids, pipes, p);
 	}
-	if (!redir_in(p, (*i)))
+	if (!ret)
 		dup2(pipes[(*i) - 1][0], STDIN_FILENO);
-	if (!redir_out(p, (*i)))
+	ret = redir_out(p, (*i));
+	if (ret == -1)
+	{
+		file_error_mid(pipes, p, *i);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	if (!ret)
 		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
@@ -90,22 +98,28 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 void	last_child(int *pids, int **pipes, t_pipe **p)
 {
 	int		i;
-	int		j;
 	char	**arg;
+	int		ret;
 
 	i = p[0]->nchild - 1;
-	j = 0;
 	arg = ft_split(p[i]->fcmd, ' ');
-	while (j < p[0]->nchild - 1)
+	close_pipes_last(pipes, p, i);
+	ret = redir_in(p, i);
+	if (ret == -1)
 	{
-		if (i - 1 != j)
-			close(pipes[j][0]);
-		close(pipes[j][1]);
-		j++;
+		file_error(pipes, p);
+		close(pipes[i - 1][0]);
+		exit_pipe(arg, pids, pipes, p);
 	}
-	if (!redir_in(p, i))
+	if (!ret)
 		dup2(pipes[i - 1][0], STDIN_FILENO);
-	redir_out(p, i);
+	ret = redir_out(p, i);
+	if (ret == -1)
+	{
+		file_error(pipes, p);
+		close(pipes[i - 1][0]);
+		exit_pipe(arg, pids, pipes, p);
+	}
 	close(pipes[i - 1][0]);
 	exec_pipe(arg, pids, pipes, p);
 }

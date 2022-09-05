@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 05:50:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 08:11:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	exec_cmd_parent(char *line, char **args, t_data *data);
 //* Pipes
 void	pipes(t_pipe **p);
 void	ps_free_all(int **pipes, t_pipe **p);
-void	here_pipe(t_pipe *p);
+int		here_pipe(t_pipe *p);
 int		count_pipes(char *line);
 int		redir_in(t_pipe **p, int i);
 int		redir_out(t_pipe **p, int i);
@@ -191,6 +191,11 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p);
 void	last_child(int *pids, int **pipes, t_pipe **p);
 void	create_process(int **pipes, t_pipe **p);
 void	parent(int *pids, int **pipes, t_pipe **p);
+void	file_error(int **pipes, t_pipe **p);
+void	file_error_mid(int **pipes, t_pipe **p, int i);
+void	close_pipes_first(int **pipes, t_pipe **p, int i);
+void	close_pipes_mid(int **pipes, t_pipe **p, int i);
+void	close_pipes_last(int **pipes, t_pipe **p, int i);
 
 //* Error and free
 void	err_print(int error, t_data *data);
