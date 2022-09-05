@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 13:38:06 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:58:14 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,16 @@ void	next_token(t_token **toks)
 	}
 }
 
-void	parse(char *line, t_data *data)
+void	parse(t_data *data)
 {	
 	t_scan	*src;
 	t_token	**toks;
 	t_node	*node;
 	int		count;
+	char	*line;
 
 	set_signalset(1);
+	line = data->line;
 	src = scan_input(line);
 	toks = tokenize(src);
 	if (!pc_valid(line, data))

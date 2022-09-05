@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 14:16:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:30:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	parse_command_right(t_node **n, t_token **toks)
 	if ((*n)->right_node)
 	{
 		pr = process_redirection(&(*n)->left_node,
-				&(*n)->right_node);
+				&(*n)->right_node, current_token(toks));
 		if (pr == -1)
 			return ;
 		if (check_io((*n)->left_node->value, current_token(toks)))

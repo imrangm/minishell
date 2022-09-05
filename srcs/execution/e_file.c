@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 12:52:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:35:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 		data->last_exit_status = 1;
 	}
 	else
+	{
 		file_process(fd, line, rd, data);
-	close_fds(fd);
+		close_fds(fd);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 12:49:40 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:57:31 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ int		has_more_tokens(t_token **toks);
 int		look_ahead(t_token **toks);
 char	*current_token(t_token **toks);
 void	next_token(t_token **toks);
-void	parse(char	*line, t_data *data);
+void	parse(t_data *data);
 t_node	*parse_pipeline(t_token **toks);
 t_node	*parse_command(t_token **toks);
 t_node	*parse_redirection(t_token **toks);
 t_node	*parse_io(t_node *node, t_token **toks, char *id);
-int		process_redirection(t_node **left, t_node **right);
+int	process_redirection(t_node **left, t_node **right, char *current);
 
 //* AST
 t_node	*node(t_token **toks);

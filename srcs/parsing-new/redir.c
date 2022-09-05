@@ -6,26 +6,28 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 14:09:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:27:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	process_redirection(t_node **left, t_node **right)
+int	process_redirection(t_node **left, t_node **right, char *current)
 {
 	char	*lf;
 	char	*rt;
+	char	*text;
 
 	lf = (*left)->value;
 	rt = (*right)->value;
-	if (ft_strncmp(lf, DGREAT, 2) == 0)
+	if (ft_strncmp(lf, GREAT, 1) == 0)
 		empty_file(rt);
-	else if (ft_strncmp(lf, GREAT, 1) == 0)
-		empty_file(rt);
-	if (ft_strncmp(lf, DLESS, 2) == 0)
-		read_line(rt);
-	else if (ft_strncmp(lf, LESS, 1) == 0)
+	else if (ft_strncmp(lf, DLESS, 2) == 0 && ft_strncmp(current, LESS, 1) == 0)
+	{
+		text = read_line(rt);
+		free(text);
+	}
+	else if (ft_strncmp(lf, LESS, 1) == 0 && ft_strncmp(lf, DLESS, 2))
 	{
 		if (access(rt, F_OK) == -1)
 		{
