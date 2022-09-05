@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pe_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:22:58 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 13:02:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	count_without_quotes(char *str)
 			c++;
 		i++;
 	}
-	// printf("Count without quotes = %d", c);
 	return (c);
 }
 

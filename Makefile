@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/05 08:19:42 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/05 13:19:06 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,11 +31,9 @@ SRCS=		main.c \
 			parsing/checks/pc_pipe.c \
 			parsing/extractors/pe_env.c \
 			parsing/extractors/pe_splitrd.c \
-			parsing/extractors/pe_splitpp.c \
 			parsing/extractors/pe_splits.c \
 			parsing/extractors/pe_splitpath.c \
 			parsing/extractors/pe_quotes.c \
-			parsing/extractors/pe_expand.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \

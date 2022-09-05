@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 07:00:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:38:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	parse(char *line, t_data *data)
 	set_signalset(1);
 	src = scan_input(line);
 	toks = tokenize(src);
+	if (!pc_valid(line, data))
+		return ;
 	node = parse_pipeline(toks);
 	free_chars(src->chars, src->len);
 	ft_free(src);
@@ -68,13 +70,10 @@ void	parse(char *line, t_data *data)
 	data->root = node;
 	print_ast(node, 0);
 	count = count_pipes(line);
-	// if (pc_valid(line, data))
-	// {
 	data->error = 0;
 	check_error(node, data);
 	if (!data->error)
 		process_tree(node, count, data);
-	// }
 	data->error = 0;
 	free_nodes(data->root);
 }

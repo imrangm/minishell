@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 13:03:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 13:49:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	fd_in(t_redirs *rd)
 		close(fd);
 		ft_free(text);
 	}
-	if (rd->infile)
+	else if (rd->infile)
 		fd = open(rd->infile, rd->lastin);
 	return (fd);
 }
@@ -38,7 +38,7 @@ int	fd_out(t_redirs *rd)
 	fd = STDOUT_FILENO;
 	if (rd->outfile)
 		fd = open(rd->outfile, rd->lastout, 0644);
-	if (rd->append)
+	else if (rd->append)
 		fd = open(rd->append, rd->lastout, 0644);
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/03 15:19:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:09:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	process_redirection(t_node **left, t_node **right)
 	rt = (*right)->value;
 	if (ft_strncmp(lf, DGREAT, 2) == 0)
 		empty_file(rt);
-	if (ft_strncmp(lf, GREAT, 1) == 0)
+	else if (ft_strncmp(lf, GREAT, 1) == 0)
 		empty_file(rt);
 	if (ft_strncmp(lf, DLESS, 2) == 0)
 		read_line(rt);
-	if (ft_strncmp(lf, LESS, 1) == 0)
+	else if (ft_strncmp(lf, LESS, 1) == 0)
 	{
 		if (access(rt, F_OK) == -1)
 		{
@@ -113,9 +113,9 @@ void	add_redir(t_redirs *rd, char *op, char *fname)
 t_redirs	get_redir(t_node *rd)
 {
 	char		*fname;
-	char		*fname_in;
-	char		*fname_out;
+	char		*fname_io;
 	char		*op;
+	char		*op_io;
 	t_redirs	redirs;
 
 	init_rd(&redirs);
@@ -128,11 +128,11 @@ t_redirs	get_redir(t_node *rd)
 	if (rd->left_node->type == 1)
 	{
 		op = rd->left_node->left_node->value;
-		fname_in = rd->left_node->right_node->value;
-		add_redir(&redirs, op, fname_in);
-		op = rd->right_node->left_node->value;
-		fname_out = rd->right_node->right_node->value;
-		add_redir(&redirs, op, fname_out);
+		fname = rd->left_node->right_node->value;
+		add_redir(&redirs, op, fname);
+		op_io = rd->right_node->left_node->value;
+		fname_io = rd->right_node->right_node->value;
+		add_redir(&redirs, op_io, fname_io);
 	}
 	return (redirs);
 }
