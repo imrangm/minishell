@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 11:21:13 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/31 10:36:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 03:56:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,23 @@ void	err_free_parent(int **pipes, int *pids, int nchild)
 	perror("Error");
 }
 
-void	err_free_process(int **pipes, int nchild)
+void	err_free_process(int **pipes, t_pipe **p)
 {
-	int	i;
+	int		i;
+	int		nchild;
+	t_data	*data;
 
 	i = 0;
+	nchild = p[0]->nchild;
+	data = p[0]->data;
 	while (i < nchild)
 	{
 		ft_free(pipes[i]);
 		i++;
 	}
 	ft_free(pipes);
+	free_data(data);
+	free_nodes(data->root);
 	perror("Error");
 }
 

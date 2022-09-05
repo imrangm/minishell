@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 03:22:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 05:50:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void	exec_cmd_parent(char *line, char **args, t_data *data);
 
 //* Pipes
 void	pipes(t_pipe **p);
+void	ps_free_all(int **pipes, t_pipe **p);
 void	here_pipe(t_pipe *p);
 int		count_pipes(char *line);
 int		redir_in(t_pipe **p, int i);
@@ -196,7 +197,7 @@ void	err_print(int error, t_data *data);
 void	err_free_parent(int **pipes, int *pids, int nchild);
 void	no_err_free_parent(int **pipes, int *pids);
 void	err_kill_process(t_pipe **p);
-void	err_free_process(int **pipes, int nchild);
+void	err_free_process(int **pipes, t_pipe **p);
 void	free_struct_pipe(t_pipe **p, int nchild);
 void	ps_free(int **pipes, int *pids, t_pipe **p);
 void	rd_free(int *fd, char **arg);
@@ -215,11 +216,7 @@ int		pc_valid(char *str, t_data *data);
 
 //* Parsing Extractors
 char	**split_rd(char *str);
-char	*find_cmd(char *input);
-char	*rem_words(char *input);
-char	*first_word(char *input);
 char	**smart_split(char *str);
-char	*set_cmd(char *s1, char *s2);
 char	**pe_split_path(char *s, char c);
 char	**split_pp(char const *s, char c);
 char	**strip_quotes(char **elements, int element_count);
