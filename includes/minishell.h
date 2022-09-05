@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/04 15:25:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 03:22:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int		is_parent_function(char **args);
 char	*find_exec(char *prg, char	**paths);
 char	*get_cmd_path(char **args, t_data *data);
 void	master_execute(char *line, t_data *data);
-int		exec_cmd_child(char **args, t_data *data);
+void	exec_cmd_child(char **args, t_data *data);
 void	exec_cmd_parent(char *line, char **args, t_data *data);
 
 //* Pipes

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/04 13:26:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 03:21:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,10 @@ int	exec_sys_cmd(char **args, t_data *data)
 	return (0);
 }
 
-static void	free_and_kill(char **args, t_data *data)
-{
-	ft_free_2d(args);
-	free_data(data);
-	free_nodes(data->root);
-	exit(data->last_exit_status);
-}
-
-int	exec_cmd_child(char **args, t_data *data)
+void	exec_cmd_child(char **args, t_data *data)
 {
 	if (!ft_strcmp(args[0], "export") && args[1])
-		free_and_kill(args, data);
+		free_and_exit(args, data);
 	else if (!ft_strcmp(args[0], "echo"))
 		b_echo(args, data);
 	else if (!ft_strcmp(args[0], "pwd"))
@@ -76,8 +68,6 @@ int	exec_cmd_child(char **args, t_data *data)
 		b_env(data->envp, 0);
 	else if (!ft_strcmp(args[0], "export"))
 		b_env(data->envp, 1);
-	else if (exec_sys_cmd(args, data))
-		return (1);
-	free_and_kill(args, data);
-	return (0);
+	else
+		exec_cmd(args, data);
 }

@@ -6,22 +6,46 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/04 15:55:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/05 03:19:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	exit_pipe(char **arg, int *pids, int **pipes, t_pipe **p)
+{
+	t_data		*data;
+
+	data = p[0]->data;
+	ps_free(pipes, pids, p);
+	ft_free(data->line);
+	free_and_exit(arg, data);
+}
+
+static void	exec_pipe(char **arg, int *pids, int **pipes, t_pipe **p)
+{
+	if (is_parent_function(arg))
+		exit_pipe(arg, pids, pipes, p);
+	if (is_builtin(arg))
+	{
+		exec_builtin(p[0]->fcmd, arg, p[0]->data);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	else
+	{
+		exec_cmd(arg, p[0]->data);
+		exit_pipe(arg, pids, pipes, p);
+	}
+}
 
 void	first_child(int *pids, int **pipes, t_pipe **p)
 {
 	int			i;
 	int			j;
 	char		**arg;
-	t_data		*data;
 
 	i = 0;
 	j = 0;
-	data = p[0]->data;
 	arg = ft_split(p[0]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
@@ -34,24 +58,7 @@ void	first_child(int *pids, int **pipes, t_pipe **p)
 	if (!redir_out(p, i))
 		dup2(pipes[i][1], STDOUT_FILENO);
 	close(pipes[i][1]);
-	if (is_parent_function(arg))
-	{
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	if (is_builtin(arg))
-	{
-		exec_builtin(p[0]->fcmd, arg, p[0]->data);
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	else
-	{
-		exec_cmd_child(arg, p[0]->data);
-		err_print(127, p[0]->data);
-	}
+	exec_pipe(arg, pids, pipes, p);
 }
 
 void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
@@ -59,10 +66,8 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 	int		j;
 	int		n;
 	char	**arg;
-	t_data	*data;
 
 	j = 0;
-	data = p[0]->data;
 	n = p[0]->nchild;
 	arg = ft_split(p[*i]->fcmd, ' ');
 	while (j < n - 1)
@@ -79,21 +84,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
 		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
-	if (is_parent_function(arg))
-	{
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	if (is_builtin(arg))
-	{
-		exec_builtin(p[*i]->fcmd, arg, p[0]->data);
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	if (exec_cmd_child(arg, p[0]->data) == -1)
-		err_print(127, p[0]->data);
+	exec_pipe(arg, pids, pipes, p);
 }
 
 void	last_child(int *pids, int **pipes, t_pipe **p)
@@ -101,11 +92,9 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 	int		i;
 	int		j;
 	char	**arg;
-	t_data	*data;
 
 	i = p[0]->nchild - 1;
 	j = 0;
-	data = p[0]->data;
 	arg = ft_split(p[i]->fcmd, ' ');
 	while (j < p[0]->nchild - 1)
 	{
@@ -118,19 +107,5 @@ void	last_child(int *pids, int **pipes, t_pipe **p)
 		dup2(pipes[i - 1][0], STDIN_FILENO);
 	redir_out(p, i);
 	close(pipes[i - 1][0]);
-	if (is_parent_function(arg))
-	{
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	if (is_builtin(arg))
-	{
-		exec_builtin(p[i]->fcmd, arg, p[0]->data);
-		ps_free(pipes, pids, p);
-		ft_free(data->line);
-		free_and_exit(arg, data);
-	}
-	if (exec_cmd_child(arg, p[0]->data) == -1)
-		err_print(127, p[0]->data);
+	exec_pipe(arg, pids, pipes, p);
 }
