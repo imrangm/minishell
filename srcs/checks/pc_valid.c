@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 17:15:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:17:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	pc_valid(char *line, t_data *data)
 	if (ft_arespaces(line))
 		return (0);
 	if (pc_quotes(line) || pc_chars(line) || pc_redirs(line)
-		|| pc_end(line) || pc_pipe(line) || pc_redir(line))
+		|| pc_end(line) || pc_pipe(line))
 	{
 		data->last_exit_status = 1;
 		return (0);

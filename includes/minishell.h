@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 16:40:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:26:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,6 @@ int			pc_mode(char *str, char mode);
 int			pc_valid(char *str, t_data *data);
 
 //* Parsing Extractors
-char		**split_rd(char *str);
 char		**smart_split(char *str);
 char		**pe_split_path(char *s, char c);
 char		**strip_quotes(char **elements, int element_count);

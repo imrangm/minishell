@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 17:22:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:25:40 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,5 @@ int	pc_redirs(char *str)
 		}
 		i++;
 	}
-	return (0);
-}
-
-int	pc_redir(char *line)
-{
-	int		i;
-	char	**out;
-
-	i = 0;
-	out = split_rd(line);
-	printf("X\n");
-	while (out[i + 1])
-	{
-		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))
-			&& check_space(out[i + 1])
-			&& ft_strchr(out[i + 1], '|'))
-		{
-			ft_free_2d(out);
-			return (error("Error: Invalid redirection syntax1\n"));
-		}
-		if (ft_countoccurance(out[i], '>', '<') > 2)
-		{
-			ft_free_2d(out);
-			return (error("Error: Invalid redirection syntax2\n"));
-		}
-		i++;
-	}
-	ft_free_2d(out);
 	return (0);
 }
