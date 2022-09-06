@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 16:07:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:15:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	pc_mode(char *str, char mode)
 {

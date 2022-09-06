@@ -3,19 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 15:57:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:12:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	end_pipe(char **line)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim((*line), " ");
+	if ((*line)[ft_strlen(tmp) - 1] == '|')
+		line_update(line);
+	ft_free(tmp);
+}
+
 void	minishell(t_data *data)
 {
 	char	*line;
-	char	*tmp;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -26,20 +35,18 @@ void	minishell(t_data *data)
 			free_data(data);
 			break ;
 		}
+		if (check_space(line))
+			continue ;
 		if (line[0])
 		{
+			end_pipe(&line);
 			add_history(line);
-			/* end of line pipe */
-			tmp = ft_strtrim(line, " ");
-			if (line[ft_strlen(tmp) - 1] == '|')
-				line_update(&line);
-			ft_free(tmp);
 			data->line = line;
-			parse(data);
-			ft_free(line);
+			if (pc_valid(line, data))
+				parse(line, data);
 		}
+		ft_free(line);
 	}
-	ft_free(line);
 }
 
 int	main(int argc, char **argv, char **envp)

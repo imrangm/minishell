@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splitrd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:15:59 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 13:18:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:34:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	count_words(char *str)
 {

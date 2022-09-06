@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 13:00:11 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:34:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	get_element_count(char *str)
 {

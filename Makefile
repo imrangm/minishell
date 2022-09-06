@@ -3,37 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/05 13:19:06 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/06 15:02:36 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
-			parsing-new/AST.c \
-			parsing-new/redir.c \
-			parsing-new/node.c \
-			parsing-new/process.c \
-			parsing-new/lexer.c \
-			parsing-new/parse.c \
-			parsing-new/scan.c \
-			parsing-new/utils.c \
-			parsing-new/free.c \
-			parsing-new/test.c \
-			parsing-new/expansion.c \
-			parsing-new/expander.c \
-			parsing/checks/pc_valid.c \
-			parsing/checks/pc_export.c \
-			parsing/checks/pc_redirs.c \
-			parsing/checks/pc_pipe.c \
-			parsing/extractors/pe_env.c \
-			parsing/extractors/pe_splitrd.c \
-			parsing/extractors/pe_splits.c \
-			parsing/extractors/pe_splitpath.c \
-			parsing/extractors/pe_quotes.c \
+			parsing/p_AST.c \
+			parsing/p_redir.c \
+			parsing/p_node.c \
+			parsing/p_process.c \
+			parsing/p_lexer.c \
+			parsing/p_parse.c \
+			parsing/p_scan.c \
+			parsing/p_utils.c \
+			parsing/p_free.c \
+			parsing/p_test.c \
+			parsing/p_expansion.c \
+			parsing/p_expander.c \
+			checks/pc_valid.c \
+			checks/pc_export.c \
+			checks/pc_redirs.c \
+			checks/pc_pipe.c \
+			extractors/pe_env.c \
+			extractors/pe_splitrd.c \
+			extractors/pe_splits.c \
+			extractors/pe_splitpath.c \
+			extractors/pe_quotes.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \
@@ -49,8 +49,8 @@ SRCS=		main.c \
 			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
-			execution/builtin.c \
-			execution/fds.c \
+			execution/e_builtin.c \
+			execution/e_fds.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \

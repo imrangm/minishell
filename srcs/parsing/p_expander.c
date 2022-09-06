@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   p_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:36:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 17:04:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 15:34:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ char	*get_param(char *value, t_data *data)
 	char	*param;
 
 	if (ft_strncmp(value, "?", 1) == 0)
+	{
 		param = ft_itoa(data->last_exit_status);
+		data->last_exit_status = 0;
+	}
 	else
 		param = get_env_value(value, data);
 	return (param);

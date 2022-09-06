@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 16:57:23 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/06 14:34:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	set_shlvl(t_data *data)
 {

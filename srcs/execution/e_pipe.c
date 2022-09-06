@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 06:17:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 13:57:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ps_free_all(int **pipes, t_pipe **p)
 	ps_free_pipes(pipes, p);
 }
 
-int	**create_pipes(t_pipe **p)
+static int	**create_pipes(t_pipe **p)
 {
 	int		**pipes;
 	int		i;

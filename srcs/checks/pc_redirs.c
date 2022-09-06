@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_redirs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 13:24:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:22:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	error(char *msg)
 {
@@ -76,6 +76,7 @@ int	pc_redir(char *line)
 
 	i = 0;
 	out = split_rd(line);
+	printf("X\n");
 	while (out[i + 1])
 	{
 		if ((ft_strchr(out[i], '<') || (ft_strchr(out[i], '>')))

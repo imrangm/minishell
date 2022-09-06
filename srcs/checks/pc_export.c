@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 18:31:43 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/18 18:19:21 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/06 14:33:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	equal_plus(char *str)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
+/*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 08:38:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:01:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_node	*set_location(char *rem, char *args)
 	return (loc);
 }
 
-t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions)
+t_node	*attach_exp(char *cmd, char *rem, char *value, int expansions)
 {
 	t_node	*params;
 	t_node	*loc;
@@ -77,7 +77,7 @@ t_node	*attach_expansion(char *cmd, char *rem, char *value, int expansions)
 		value = ft_substr(cmd, start + 1, end - start);
 		params->type = 1;
 		params->left_node = loc;
-		params->right_node = attach_expansion(cmd, rem, value, expansions - 1);
+		params->right_node = attach_exp(cmd, rem, value, expansions - 1);
 	}
 	if (expansions == 1)
 		params->type = 0;
@@ -96,7 +96,7 @@ t_node	*add_expansions(t_node *args)
 	start = loc->left_node->val;
 	end = loc->right_node->val;
 	value = ft_substr(args->value, start + 1, end - start);
-	param = attach_expansion(args->value, args->value, value,
+	param = attach_exp(args->value, args->value, value,
 			count_expansions(args->value));
 	param->value = value;
 	return (pair_node(loc, param, "EXPANSION"));

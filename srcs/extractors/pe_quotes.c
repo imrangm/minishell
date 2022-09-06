@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_quotes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 17:04:57 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 13:02:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 14:34:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	count_without_quotes(char *str)
 {
