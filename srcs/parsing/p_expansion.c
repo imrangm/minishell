@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 06:44:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 07:32:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ int	count_expansions(char *line)
 	return (e);
 }
 
+int	end_param(char *value)
+{
+	int	i;
+
+	i = 1;
+	while (value[i])
+	{
+		if (value[i] == '\"' || value[i] == '\''
+			|| ft_isspace(value[i]))
+			break ;
+		i++;
+	}
+	return (i);
+}
+
 t_node	*set_location(char *rem, char *args)
 {
 	t_node	*loc;
@@ -46,14 +61,7 @@ t_node	*set_location(char *rem, char *args)
 	start->value = ft_strchr(rem, '$');
 	start->val = (int)(start->value - args);
 	start->id = "START";
-	i = 1;
-	while (start->value[i])
-	{
-		if (start->value[i] == '\"' || start->value[i] == '\''
-			|| ft_isspace(start->value[i]))
-			break ;
-		i++;
-	}
+	i = end_param(start->value);
 	end->val = start->val + i - 1;
 	end->id = "END";
 	loc->left_node = start;

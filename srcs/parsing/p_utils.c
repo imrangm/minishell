@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 02:21:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 07:33:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	check_expansion(char *str)
 	int	i;
 
 	i = 1;
-	printf("str %s\n", str);
 	if (ft_isdigit(str[i]))
 		return (0);
 	while (str[i])

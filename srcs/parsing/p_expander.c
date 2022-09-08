@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:36:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 06:57:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 07:28:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,6 @@ char	*get_param(char *value, t_data *data)
 	}
 	else
 		param = get_env_value(value, data);
-	if (check_space(param))
-	{
-		param[0] = '\n';
-		param[1] = '\0';
-	}
 	return (param);
 }
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/08 07:03:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 07:26:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,12 @@ int	b_echo(char **args, t_data *data)
 
 	i = 1;
 	(void) data;
-	normal_mode = 1;
-	if (args[1])
-		normal_mode = !is_n_flag(args[1]);
-	else
+	if (!args[1])
 	{
-		write(1, "\n", 1);
+		ft_putchar('\n');
 		return (0);
 	}
+	normal_mode = !is_n_flag(args[1]);
 	while (args[i] && is_n_flag(args[i]))
 		i++;
 	while (args[i])
