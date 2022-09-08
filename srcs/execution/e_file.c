@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 14:35:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 10:26:49 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	file_parent(int *pid, t_data *data)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
-		if (access("tmp", F_OK))
+		if (!access("tmp", F_OK))
 			unlink("tmp");
 		if (code != 0)
 			data->last_exit_status = code;
