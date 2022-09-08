@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   p_lexer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 02:10:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 13:42:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_token(t_token *tokens)
 	tokens->iter = 0;
 	tokens->cur = 0;
 	tokens->count = 0;
+	tokens->quote = 0;
 }
 
 int	count_tokens(t_scan *src)
@@ -98,6 +99,10 @@ t_token	**tokenize(t_scan *src)
 		start = src->pos;
 		val = extract_token(src);
 		tokens[i] = create_token(val, src->chars[start]->t);
+		if (strchr(tokens[i]->value, '\''))
+			tokens[i]->quote = 1;
+		if (strchr(tokens[i]->value, '\"'))
+			tokens[i]->quote = 2;
 		i++;
 	}
 	tokens[0]->count = count;

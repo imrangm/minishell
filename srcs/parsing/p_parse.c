@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 02:33:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:02:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	parse(char *line, t_data *data)
 
 	set_signalset(1);
 	line = data->line;
+	test_scan(line);
 	src = scan_input(line);
+	test_tokenize(src);
 	toks = tokenize(src);
 	node = parse_pipeline(toks);
 	free_chars(src->chars, src->len);

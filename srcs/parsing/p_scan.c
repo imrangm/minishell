@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_scan.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/06 16:52:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:20:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,10 @@ int	set_type(char c, t_type *chars)
 		return (chars->t);
 	else if (ft_isspace(c))
 		chars->t = SPACES;
-	// else if (ft_isalnum(c) || c == '-'
-	// 	|| c == '$' || c == '?' || c == '='
-	// 	|| c == '/')
-	// 	chars->t = WORD;
 	else if (c == '|')
 		chars->t = PIPE;
 	else if (c == '>' || c == '<')
 		chars->t = REDIR;
-	else if (c == '\'')
-		chars->t = SQUOTE;
-	else if (c == '\"')
-		chars->t = DQUOTE;
 	else
 		chars->t = WORD;
 	return (chars->t);
@@ -53,24 +45,24 @@ void	assign_type(char *input, t_scan *scan)
 {
 	int	i;
 	int	q;
-	int	type;
+	// int	type;
 
 	i = 0;
 	q = 0;
 	while (input[i])
 	{
-		type = set_type(input[i], scan->chars[i]);
-		if (type == SQUOTE || type == DQUOTE)
+		set_type(input[i], scan->chars[i]);
+		if (input[i] == '\'' || input[i] == '\"')
 		{
 			if (!q)
-				q = type;
-			else if (q == type)
+				q = WORD;
+			else if (q == WORD)
 				q = 0;
 		}
 		if (q)
 		{
 			scan->chars[i]->t = q;
-			type = set_type(input[i], scan->chars[i]);
+			set_type(input[i], scan->chars[i]);
 		}
 		i++;
 	}

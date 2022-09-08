@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 07:33:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:18:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	check_expansion(char *str)
 		return (0);
 	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '_')
+		if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?')
 			i++;
 		if (str[i] == '{' || str[i] == '(')
 			return (0);

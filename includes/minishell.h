@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/08 02:11:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 14:21:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-# define SQUOTE 4
-# define DQUOTE 5
+# define SQUOTE '\''
+# define DQUOTE '\"'
 # define PIPELINE "|"
 # define GREAT ">"
 # define DGREAT ">>"
@@ -96,6 +96,7 @@ typedef struct s_token
 	int				iter;
 	int				cur;
 	int				count;
+	int				quote;
 }	t_token;
 
 //* Tokenizer

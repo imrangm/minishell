@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   p_test.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/29 06:20:04 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 13:40:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	test_scan(char	*input)
 		printf("%d- C: %c T: %d\n", i, scan->chars[i]->c, scan->chars[i]->t);
 		i++;
 	}
+	free_chars(scan->chars, scan->len);
+	ft_free(scan);
 }
 
 void	test_tokenize(t_scan *source)
@@ -43,9 +45,11 @@ void	test_tokenize(t_scan *source)
 	tokens = tokenize(source);
 	while (i < count)
 	{
-		printf("%d: \" %s \"\n", tokens[i]->type, tokens[i]->value);
+		printf("%d: \" %s \" Q: %d\n", tokens[i]->type, tokens[i]->value,
+			tokens[i]->quote);
 		i++;
 	}
+	free_tokens(tokens);
 }
 
 static void	indent(size_t spaces)

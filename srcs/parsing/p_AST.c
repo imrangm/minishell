@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 02:17:24 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 13:46:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 	}
 	else
 		(*n)->value = ft_strdup(current_token(toks));
-	if ((token->type == WORD || token->type == DQUOTE)
-		&& ft_strchr(token->value, '$'))
+	if ((token->type == WORD && (token->quote == 0 || token->quote == 2)
+			&& ft_strchr(token->value, '$')))
 	{
 		*exp = check_expansion(ft_strchr(token->value, '$'));
 	}
