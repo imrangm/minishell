@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/06 14:01:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 06:44:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ t_node	*set_location(char *rem, char *args)
 	start->val = (int)(start->value - args);
 	start->id = "START";
 	i = 1;
-	while (ft_isalnum(start->value[i++]) && start->value[i]
-		&& start->value[i] != '\"' && start->value[i] != '\''
-		&& !ft_isspace(start->value[i]));
+	while (start->value[i])
+	{
+		if (start->value[i] == '\"' || start->value[i] == '\''
+			|| ft_isspace(start->value[i]))
+			break ;
+		i++;
+	}
 	end->val = start->val + i - 1;
 	end->id = "END";
 	loc->left_node = start;

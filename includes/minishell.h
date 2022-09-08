@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 19:26:09 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 02:11:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void		test_tokenize(t_scan *source);
 void		test_scan(char	*input);
 
 //* Utility
+int			check_expansion(char *str);
 int			check_io(char *prev, char *current);
 int			is_builtin(char **args);
 void		exec_builtin(char *line, char **args, t_data *data);

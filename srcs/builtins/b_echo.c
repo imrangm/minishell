@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 15:42:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 07:03:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ int	b_echo(char **args, t_data *data)
 	int	normal_mode;
 
 	i = 1;
-	if (ft_strcmp(data->line, "echo") == 0)
+	(void) data;
+	normal_mode = 1;
+	if (args[1])
+		normal_mode = !is_n_flag(args[1]);
+	else
 	{
 		write(1, "\n", 1);
 		return (0);
 	}
-	normal_mode = !is_n_flag(args[1]);
-	(void) data;
 	while (args[i] && is_n_flag(args[i]))
 		i++;
 	while (args[i])

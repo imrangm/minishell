@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/06 17:01:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 02:17:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 	if ((token->type == WORD || token->type == DQUOTE)
 		&& ft_strchr(token->value, '$'))
 	{
-		*exp = 1;
+		*exp = check_expansion(ft_strchr(token->value, '$'));
 	}
 	(*n)->id = "ARGS";
 }
