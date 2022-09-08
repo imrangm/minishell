@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/08 14:21:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:27:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@
 # define REDIR 3
 # define SQUOTE '\''
 # define DQUOTE '\"'
-# define PIPELINE "|"
-# define GREAT ">"
-# define DGREAT ">>"
-# define LESS "<"
-# define DLESS "<<"
-# define UNKNWN 9
+# define LINE '|'
+# define GREAT '>'
+# define LESS '<'
 
 typedef struct s_node
 {

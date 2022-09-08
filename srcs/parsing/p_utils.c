@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 14:18:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:31:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,8 @@
 
 int	check_io(char *prev, char *current)
 {
-	return (((ft_strncmp(prev, DGREAT, 2) == 0
-				|| ft_strncmp(prev, GREAT, 1) == 0)
-			&& ((ft_strncmp(current, DLESS, 2) == 0)
-				|| (ft_strncmp(current, LESS, 1) == 0)))
-		|| ((ft_strncmp(prev, DLESS, 2) == 0
-				|| ft_strncmp(prev, LESS, 1) == 0)
-			&& ((ft_strncmp(current, DGREAT, 2) == 0)
-				|| (ft_strncmp(current, GREAT, 1) == 0))));
+	return ((prev[0] == GREAT && current[0] == LESS)
+		|| (prev[0] == LESS && current[0] == GREAT));
 }
 
 int	check_error(t_node *node, t_data *data)

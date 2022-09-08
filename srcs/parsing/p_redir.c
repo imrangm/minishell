@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   p_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 15:27:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:18:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 
 	lf = (*left)->value;
 	rt = (*right)->value;
-	if (ft_strncmp(lf, GREAT, 1) == 0)
+	if (lf[0] == GREAT)
 		empty_file(rt);
-	else if (ft_strncmp(lf, DLESS, 2) == 0 && ft_strncmp(current, LESS, 1) == 0)
+	else if (ft_strlen(lf) == 2 && lf[0] == LESS
+		&& ft_strlen(current) == 1 && current[0] == LESS)
 	{
 		text = read_line(rt);
 		free(text);
 	}
-	else if (ft_strncmp(lf, LESS, 1) == 0 && ft_strncmp(lf, DLESS, 2))
+	else if (ft_strlen(lf) == 1 && lf[0] == LESS
+		&& ft_strlen(current) == 2 && current[0] == LESS)
 	{
 		if (access(rt, F_OK) == -1)
 		{
