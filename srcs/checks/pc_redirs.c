@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_redirs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/24 16:40:44 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 19:25:40 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/07 16:37:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	error(char *msg)
-{
-	ft_putstr_fd(msg, 2);
-	return (1);
-}
 
 static int	handle_single(char *str, int i)
 {
@@ -35,7 +29,7 @@ static int	handle_double(char *str, int i)
 {
 	if (((str[i] == '>' && str[i + 1] == '>' && (str[i + 2] == '|'
 					|| str[i + 2] == '<' || str[i + 2] == '>')))
-		|| (str[i] == '>' && str[i + 1] == '>'
+		|| (str[i] == '<' && str[i + 1] == '<'
 			&& (str[i + 2] == '|' || str[i + 2] == '<'
 				|| str[i + 2] == '>')))
 	{
