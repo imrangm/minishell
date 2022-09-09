@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 14:19:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:00:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	end_param(char *value)
 	while (value[i])
 	{
 		if (value[i] == '\"' || value[i] == '\''
-			|| ft_isspace(value[i]))
+			|| ft_isspace(value[i]) || value[i] == '$')
 			break ;
 		i++;
 	}
