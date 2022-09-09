@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:31:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:38:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	check_expansion(char *str)
 			i++;
 		if (str[i] == '{' || str[i] == '(')
 			return (0);
-		if (ft_isspace(str[i]) || str[i] == '\"' || str[i] == '\'')
+		if (ft_isspace(str[i]) || str[i] == '\"' || str[i] == '\''
+			|| str[i] == '$')
 			break ;
 	}
 	return (1);

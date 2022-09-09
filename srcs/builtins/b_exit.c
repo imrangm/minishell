@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 16:06:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:36:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	b_exit(char **args, t_data *data)
 		|| (arg_count == 2 && ft_strlen(args[1]) && !ft_aredigits(args[1])))
 	{
 		ft_putendl_fd("Error: numeric argument required", 2);
-		data->last_exit_status = 2;
+		data->last_exit_status = 255;
 	}
 	else
 		data->last_exit_status = 0;

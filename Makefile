@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/09 16:04:05 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/09 16:28:39 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,10 @@ fclean: clean
 re: fclean all
 
 valgrind: re $(clear)
+	@echo "\033[0;32mRunning in Valgrind.\033[0m"
+	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
+
+v: $(clear)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 
