@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/22 11:30:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 16:05:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ void	b_exit(char *line, char **args, t_data *data)
 		data->last_exit_status = 0;
 	if (!data->last_exit_status)
 		ft_putendl_fd("exit", 1);
-	free(line);
+	(void) line;
+	// free(line);
 	ft_free_2d(args);
 	free_data(data);
+	free_nodes(data->root);
 	exit(data->last_exit_status);
 }

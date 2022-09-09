@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_signal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 16:32:40 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 15:43:31 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void	signal_handler_ii(int signum)
 	rl_replace_line("", 0);
 }
 
+// void	signal_handler_iii(int signum)
+// {
+// 	(void) signum;
+// 	printf("\n");
+// 	rl_on_new_line();
+// 	rl_replace_line("", 0);
+// }
+
 //* Default Minishell loop signal set is 0.
 void	set_signalset(int sigmode)
 {
@@ -42,4 +50,9 @@ void	set_signalset(int sigmode)
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, &signal_handler_ii);
 	}
+	// else if (sigmode == 2)
+	// {
+	// 	signal(SIGQUIT, SIG_DFL);
+	// 	signal(SIGINT, &signal_handler_ii);
+	// }
 }
