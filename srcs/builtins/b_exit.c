@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 16:05:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:06:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_num_check(char *str)
 	return (0);
 }
 
-void	b_exit(char *line, char **args, t_data *data)
+void	b_exit(char **args, t_data *data)
 {
 	int	arg_count;
 
@@ -56,8 +56,6 @@ void	b_exit(char *line, char **args, t_data *data)
 		data->last_exit_status = 0;
 	if (!data->last_exit_status)
 		ft_putendl_fd("exit", 1);
-	(void) line;
-	// free(line);
 	ft_free_2d(args);
 	free_data(data);
 	free_nodes(data->root);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_file.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:09:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:08:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	if (is_builtin(args))
-		exec_builtin(line, args, data);
+		exec_builtin(args, data);
 	else
 		exec_cmd(args, data);
 	close_fds(fd);

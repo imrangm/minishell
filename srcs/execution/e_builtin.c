@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_builtin.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 14:04:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 02:37:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:07:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_and_exit(char **args, t_data *data)
 	exit(data->last_exit_status);
 }
 
-void	exec_builtin(char *line, char **args, t_data *data)
+void	exec_builtin(char **args, t_data *data)
 
 {
 	if (!ft_strcmp(args[0], "export") && args[1])
@@ -47,7 +47,7 @@ void	exec_builtin(char *line, char **args, t_data *data)
 	else if (!ft_strcmp(args[0], "unset"))
 		b_unset(args, data);
 	else if (!ft_strcmp(args[0], "exit"))
-		b_exit(line, args, data);
+		b_exit(args, data);
 	else if (!ft_strcmp(args[0], "cd"))
 		b_cd(args, data);
 	else if (!ft_strcmp(args[0], "echo"))

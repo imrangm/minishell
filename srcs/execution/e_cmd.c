@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/05 03:21:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:07:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ int	is_parent_function(char **args)
 	return (0);
 }
 
-void	exec_cmd_parent(char *line, char **args, t_data *data)
+void	exec_cmd_parent(char **args, t_data *data)
 {
 	if (!ft_strcmp(args[0], "export"))
 		b_export(args, data);
 	else if (!ft_strcmp(args[0], "unset"))
 		b_unset(args, data);
 	else if (!ft_strcmp(args[0], "exit"))
-		b_exit(line, args, data);
+		b_exit(args, data);
 	else if (!ft_strcmp(args[0], "cd"))
 		b_cd(args, data);
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 15:48:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:07:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void		test_scan(char	*input);
 int			check_expansion(char *str);
 int			check_io(char *prev, char *current);
 int			is_builtin(char **args);
-void		exec_builtin(char *line, char **args, t_data *data);
+void		exec_builtin(char **args, t_data *data);
 int			exec_sys_cmd(char **args, t_data *data);
 void		exec_cmd(char **args, t_data *data);
 void		exec_file_cmd(char **args, t_data *data);
@@ -176,7 +176,7 @@ char		*find_exec(char *prg, char	**paths);
 char		*get_cmd_path(char **args, t_data *data);
 void		master_execute(char *line, t_data *data);
 void		exec_cmd_child(char **args, t_data *data);
-void		exec_cmd_parent(char *line, char **args, t_data *data);
+void		exec_cmd_parent(char **args, t_data *data);
 
 //* Pipes
 void		pipes(t_pipe **p);
@@ -226,7 +226,7 @@ char		**strip_quotes(char **elements, int element_count);
 //* Builtins
 int			b_pwd(t_data *data);
 int			b_cd(char **args, t_data *data);
-void		b_exit(char *line, char **args, t_data *data);
+void		b_exit(char **args, t_data *data);
 int			b_echo(char **args, t_data *data);
 void		b_unset(char **args, t_data *data);
 void		b_export(char **args, t_data *data);

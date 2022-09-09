@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 02:35:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:08:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	master_execute(char *line, t_data *data)
 
 	args = smart_split(line);
 	if (is_builtin(args))
-		exec_builtin(line, args, data);
+		exec_builtin(args, data);
 	else
 		create_child_process(args, data);
 	ft_free_2d(args);
