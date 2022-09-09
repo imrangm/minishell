@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 16:07:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:22:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define LINE '|'
 # define GREAT '>'
 # define LESS '<'
+
+int	g_child_pid;
 
 typedef struct s_node
 {
@@ -221,7 +223,6 @@ int			pc_valid(char *str, t_data *data);
 //* Parsing Extractors
 char		**smart_split(char *str);
 char		**pe_split_path(char *s, char c);
-char		**strip_quotes(char **elements, int element_count);
 
 //* Builtins
 int			b_pwd(t_data *data);
@@ -249,8 +250,7 @@ int			cd_special(void);
 
 //* Signals
 void		set_signalset(int sigmode);
-void		handle_signals_main(int signum);
-void		handle_signals_else(int signum);
+void		quit_signal_handler(int signum);
 
 //* Misc
 char		*expand_line(char *line, t_data *data);

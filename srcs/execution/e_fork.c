@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 06:21:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 17:46:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ void	child_process(int *pids, int **pipes, t_pipe **p)
 				mid_child(&i, pids, pipes, p);
 			if (i == p[0]->nchild - 1)
 				last_child(pids, pipes, p);
+		}
+		else
+		{
+			g_child_pid = pids[i];
+			signal(SIGQUIT, &quit_signal_handler);
 		}
 		i++;
 	}

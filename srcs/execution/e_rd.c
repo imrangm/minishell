@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_rd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 06:39:58 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:13:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	here_pipe(t_pipe *p)
 	if (fdi == -1)
 		return (-1);
 	text = read_line(p->rd.heredoc);
-	write(fdi, text, strlen(text));
+	write(fdi, text, ft_strlen(text));
 	close(fdi);
 	if (p->rd.lastin == 'h')
 	{

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 16:08:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:10:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	file_heredoc(char **args, t_data *data)
 {
-	int		f;
+	int	f;
 
 	f = open("tmp", O_RDONLY, 0);
 	if (f == -1)
@@ -50,7 +50,9 @@ void	file_parent(int *pid, t_data *data)
 	int	wstatus;
 	int	code;
 
-	waitpid(pid[0], &wstatus, 0);
+	g_child_pid = *pid;
+	signal(SIGQUIT, &quit_signal_handler);
+	waitpid(*pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
@@ -63,15 +65,15 @@ void	file_parent(int *pid, t_data *data)
 
 void	file_process(int *fd, char *line, t_redirs *rd, t_data *data)
 {
-	int		pid[2];
+	int	pid;
 
-	pid[0] = fork();
-	if (pid[0] == -1)
+	pid = fork();
+	if (pid == -1)
 		exit (1);
-	if (pid[0] == 0)
+	if (pid == 0)
 		file_child(fd, line, rd, data);
 	else
-		file_parent(pid, data);
+		file_parent(&pid, data);
 }
 
 void	create_file(char *line, t_redirs *rd, t_data *data)

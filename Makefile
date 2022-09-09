@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/09 16:28:39 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/09 19:22:18 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS=		main.c \
 			extractors/pe_env.c \
 			extractors/pe_splits.c \
 			extractors/pe_splitpath.c \
-			extractors/pe_quotes.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \

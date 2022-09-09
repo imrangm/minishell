@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 14:49:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:13:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,14 @@ char	*validate_cmd(char *cmd, t_data *data)
 		ft_putstr_fd("Error: Command not found\n", 2);
 		data->last_exit_status = 127;
 		ft_free(cmd);
+		ft_free(data->line);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
 		ft_free(cmd);
+		ft_free(data->line);
 	}
 	return (cmd);
 }

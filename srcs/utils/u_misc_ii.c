@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/08 13:21:05 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:15:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*read_line(char *lim)
 	char	*final;
 	int		bytes;
 
-	set_signalset(0);
+	set_signalset(2);
 	line = ft_strdup("");
 	final = ft_strdup("");
 	bytes = 0;
