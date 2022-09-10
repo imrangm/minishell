@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node.c                                             :+:      :+:    :+:   */
+/*   p_node.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 08:06:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/02 11:22:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/10 09:47:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_node	*error_node(char *msg)
 	return (err);
 }
 
-void	expansion_node(t_node **n)
+void	expansion_node(t_node **n, t_token **toks)
 {
 	(*n)->type = 1;
 	(*n)->left_node = malloc(sizeof(t_node));
@@ -46,5 +46,5 @@ void	expansion_node(t_node **n)
 	ft_free((*n)->value);
 	(*n)->left_node->id = "RAW";
 	(*n)->left_node->type = 0;
-	(*n)->right_node = add_expansions((*n)->left_node);
+	(*n)->right_node = add_expansions((*n)->left_node, toks);
 }

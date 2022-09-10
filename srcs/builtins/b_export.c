@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/18 18:22:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 19:44:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	b_export(char **args, t_data *data)
 		right = get_export_value_side(args[i], 0);
 		if (is_in_plus_mode(args[i]) && f)
 			join_env_values(left, right, data);
-		else if (strchr(args[i], '=') && f)
+		else if (ft_strchr(args[i], '=') && f)
 			modify_env(left, right, data);
 		else if (f)
 			modify_env(ft_strdup(args[i]), NULL, data);

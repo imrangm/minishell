@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 19:12:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:02:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*trim_line(char *line)
 	char	*trimmed;
 
 	i = 0;
+	trimmed = NULL;
 	while (line[i] && ft_isspace(line[i]))
 		i++;
 	if (line[i])

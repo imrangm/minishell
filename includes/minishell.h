@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 19:22:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/10 16:59:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct s_token
 	int				cur;
 	int				count;
 	int				quote;
+	int				expand;
+	int				pos;
 }	t_token;
 
 //* Tokenizer
@@ -119,12 +121,12 @@ int			process_redirection(t_node **left, t_node **right, char *current);
 t_node		*node(t_token **toks);
 t_node		*pair_node(t_node *left, t_node *right, char *id);
 t_node		*error_node(char *msg);
-void		expansion_node(t_node **n);
+void		expansion_node(t_node **n, t_token **toks);
 int			check_error(t_node *node, t_data *data);
 
 //* Expansion
-t_node		*attach_exp(char *cmd, char *rem, char *value, int expansions);
-t_node		*add_expansions(t_node *args);
+t_node		*attach_exp(char *cmd, char *value, int expansions, t_token **toks);
+t_node		*add_expansions(t_node *args, t_token **toks);
 void		expander(t_node	*raw, t_data *data);
 char		*update_cmd(int start, int end, char *cmd, char *param);
 void		finalize(t_node *cmd);
@@ -148,6 +150,8 @@ void		test_tokenize(t_scan *source);
 void		test_scan(char	*input);
 
 //* Utility
+int			count_exp(char *value);
+int			next_exp(t_token **toks);
 int			check_expansion(char *str);
 int			check_io(char *prev, char *current);
 int			is_builtin(char **args);

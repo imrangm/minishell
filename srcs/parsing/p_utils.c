@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 17:01:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/10 16:52:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,41 @@ int	check_expansion(char *str)
 			break ;
 	}
 	return (1);
+}
+
+int	count_exp(char *value)
+{
+	int	i;
+	int	e;
+
+	i = 0;
+	e = 0;
+	while (value[i])
+	{
+		printf("char : %c\n", value[i]);
+		if (value[i] == '$')
+		{
+			e++;
+			printf("e: %d\n", e);
+		}
+		i++;
+	}
+	return (e);
+}
+
+int	next_exp(t_token **toks)
+{
+	int	i;
+
+	i = 0;
+	while (i < toks[0]->count)
+	{
+		if (toks[i]->expand)
+		{
+			toks[i]->expand = 0;
+			break ;
+		}
+		i++;
+	}
+	return (i);
 }
