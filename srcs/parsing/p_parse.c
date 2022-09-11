@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 17:06:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:54:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	parse(t_data *data)
 	ft_free(src);
 	free_tokens(toks);
 	data->root = node;
-	// print_ast(node, 0);
+	print_ast(node, 0);
 	count = count_pipes(line);
 	data->error = 0;
 	check_error(node, data);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 16:52:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:16:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	count_exp(char *value)
 	e = 0;
 	while (value[i])
 	{
-		printf("char : %c\n", value[i]);
+		// printf("char : %c\n", value[i]);
 		if (value[i] == '$')
 		{
 			e++;
-			printf("e: %d\n", e);
+			// printf("e: %d\n", e);
 		}
 		i++;
 	}
@@ -86,7 +86,7 @@ int	next_exp(t_token **toks)
 	{
 		if (toks[i]->expand)
 		{
-			toks[i]->expand = 0;
+			toks[i]->expand--;
 			break ;
 		}
 		i++;

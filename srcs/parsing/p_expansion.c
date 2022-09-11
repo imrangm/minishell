@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 17:07:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:52:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	count_expansions(t_token **toks)
 	while (i < toks[0]->count)
 	{
 		if (toks[i]->expand)
-			e++;
+			e += toks[i]->expand;
 		i++;
 	}
 	// printf("count: %d\n", e);
@@ -44,13 +44,28 @@ int	end_param(char *value)
 	return (i);
 }
 
+int	get_new_pos(char *value, int end)
+{
+	int	i;
+
+	i = end;
+	printf("value str: %s\n", value);
+	while (value[i++])
+	{
+		printf("value : %c\n", value[i]);
+		if (value[i] == '$')
+			break ;
+	}
+	return (i);
+}
+
 t_node	*set_location(t_token *toks)
 {
 	t_node	*loc;
 	t_node	*start;
 	t_node	*end;
+	char	*tmp;
 	int		i;
-	int		move_pos;
 
 	loc = malloc(sizeof(t_node));
 	start = malloc(sizeof(t_node));
@@ -60,9 +75,24 @@ t_node	*set_location(t_token *toks)
 	ft_memset(end, 0, sizeof(t_node));
 	loc->type = 1;
 	loc->id = "LOCATION";
-	start->value = ft_strchr(toks->value, '$');
-	move_pos = (int)(start->value - toks->value);
-	start->val = toks->pos + move_pos;
+	if (!toks->move)
+	{
+		start->value = ft_strchr(toks->value, '$');
+		toks->move = ft_strlen(toks->value) - ft_strlen(start->value);
+		toks->pos += toks->move;
+		if (!toks->move)
+			toks->move = 1;
+	}
+	else
+	{
+		tmp = ft_substr(toks->value, toks->move,
+				ft_strlen(toks->value) - toks->move);
+		start->value = ft_strchr(tmp, '$');
+		ft_free(tmp);
+		toks->move = ft_strlen(toks->value) - ft_strlen(start->value);
+		toks->pos += toks->move;
+	}
+	start->val = toks->pos;
 	start->id = "START";
 	i = end_param(start->value);
 	end->val = start->val + i - 1;
@@ -106,8 +136,10 @@ t_node	*add_expansions(t_node *args, t_token **toks)
 	char	*value;
 	int		start;
 	int		end;
+	int		i;
 
-	loc = set_location(toks[next_exp(toks)]);
+	i = next_exp(toks);
+	loc = set_location(toks[i]);
 	start = loc->left_node->val;
 	end = loc->right_node->val;
 	value = ft_substr(args->value, start + 1, end - start);

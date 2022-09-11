@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/10 16:59:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 10:58:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_token
 	int				quote;
 	int				expand;
 	int				pos;
+	int				move;
 }	t_token;
 
 //* Tokenizer

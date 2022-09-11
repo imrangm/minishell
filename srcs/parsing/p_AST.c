@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 17:06:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 11:54:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 	if (token->quote != 1 && ft_strchr(token->value, '$'))
 	{
 		*exp = check_expansion(ft_strchr(token->value, '$'));
-		token->expand = *exp;
+		if (*exp)
+			token->expand = count_exp(token->value);
 	}
 	if ((*n)->value)
 	{
@@ -56,7 +57,7 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 		if (token->expand)
 		{
 			token->pos = ft_strlen((*n)->value);
-			// printf("expansion pos: %d\n", token->pos);
+			// printf("exp: %d pos: %d\n", token->expand, token->pos);
 		}
 		(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
 	}
