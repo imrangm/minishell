@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:23:06 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 13:27:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 14:04:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	modify_env(char *var_name, char *value, t_data *data)
 	ft_free(value);
 }
 
-static void	init_(char *i, char *j)
+static void	init_(int *i, int *j)
 {
 	*i = 0;
 	*j = 0;

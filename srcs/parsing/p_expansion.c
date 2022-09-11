@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 15:51:17 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 11:52:30 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:04:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	end_param(char *value)
 	int	i;
 
 	i = 1;
-	while (value[i])
+	while (value[i++])
 	{
 		if (value[i] == '\"' || value[i] == '\''
 			|| ft_isspace(value[i]) || value[i] == '$')
 			break ;
-		i++;
+		// i++;
 	}
 	return (i);
 }
@@ -85,17 +85,22 @@ t_node	*set_location(t_token *toks)
 	}
 	else
 	{
+		// printf("first move: %d\n", toks->move);
 		tmp = ft_substr(toks->value, toks->move,
 				ft_strlen(toks->value) - toks->move);
+		// printf("tok: %s, move: %d\n", toks->value, toks->move);
 		start->value = ft_strchr(tmp, '$');
 		ft_free(tmp);
 		toks->move = ft_strlen(toks->value) - ft_strlen(start->value);
+		// printf("value: %s, next move: %d\n", start->value, toks->move);
 		toks->pos += toks->move;
 	}
 	start->val = toks->pos;
 	start->id = "START";
 	i = end_param(start->value);
-	end->val = start->val + i - 1;
+	// printf("start str: %s\n", start->value);
+	end->val = (start->val + i) - 1;
+	// toks->pos = end->val;
 	end->id = "END";
 	loc->left_node = start;
 	loc->right_node = end;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 19:36:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 07:28:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:11:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ char	*get_param(char *value, t_data *data)
 		data->last_exit_status = 0;
 	}
 	else
+	{
 		param = get_env_value(value, data);
+		if (!param)
+			return (ft_strdup(""));
+	}
 	return (param);
 }
 

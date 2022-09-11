@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 13:23:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 15:02:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,25 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 	}
 	if ((*n)->value)
 	{
-		(*n)->value = ft_strjoin_and_free((*n)->value, " ");
-		if (token->expand)
+		if (token->space)
 		{
-			token->pos = ft_strlen((*n)->value);
-			// printf("exp: %d pos: %d\n", token->expand, token->pos);
+			(*n)->value = ft_strjoin_and_free((*n)->value, " ");
+			if (token->expand)
+			{
+				token->pos = ft_strlen((*n)->value);
+				// printf("exp: %d pos: %d\n", token->expand, token->pos);
+			}
+			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
 		}
-		(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+		else
+		{
+			if (token->expand)
+			{
+				token->pos = ft_strlen((*n)->value);
+				// printf("exp: %d pos: %d\n", token->expand, token->pos);
+			}
+			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+		}
 	}
 	else
 		(*n)->value = ft_strdup(current_token(toks));

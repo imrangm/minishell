@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 12:08:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:31:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ typedef struct s_token
 	int				expand;
 	int				pos;
 	int				move;
+	int				space;
 }	t_token;
 
 //* Tokenizer
 t_scan		*scan_input(char *input);
 t_token		**tokenize(t_scan *src);
 int			count_tokens(t_scan *src);
+void		change_type(t_scan *scan);
 
 //* Parsing
 int			has_more_tokens(t_token **toks);

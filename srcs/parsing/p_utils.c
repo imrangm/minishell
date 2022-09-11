@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 13:23:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:29:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int	check_error(t_node *node, t_data *data)
 	return (0);
 }
 
-int	check_expansion(char *str) //! Incomplete
+int	check_expansion(char *str) //! Incomplete "'$_NAME?{}'"
 {
 	int	i;
 	int	q;
 
 	i = 0;
 	q = 0;
+	// printf("Entered check_expansion\n");
 	while (str[i])
 	{
 		if (ft_isquote(str[i]) && !q)
@@ -53,12 +54,10 @@ int	check_expansion(char *str) //! Incomplete
 			q = 0;
 		else if (q != '\'')
 		{
-			if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?')
-				i++;
-			if (str[i] == '{' || str[i] == '(')
-				return (0);
-			if (ft_isspace(str[i]) || str[i] == '\"' || str[i] == '\'')
+			if (ft_isquote(str[i]) || str[i] == '$')
 				break ;
+			if (str[i] != '_' && str[i] != '?' && !ft_isalnum(str[i]))
+				return (0);
 		}
 		i++;
 	}
@@ -69,17 +68,19 @@ int	count_exp(char *value)
 {
 	int	i;
 	int	e;
+	int	q;
 
 	i = 0;
 	e = 0;
+	q = 0;
 	while (value[i])
 	{
-		// printf("char : %c\n", value[i]);
-		if (value[i] == '$')
-		{
+		if (ft_isquote(value[i]) && !q)
+			q = value[i];
+		else if (q == value[i])
+			q = 0;
+		else if (q != '\'' && value[i] == '$')
 			e++;
-			// printf("e: %d\n", e);
-		}
 		i++;
 	}
 	return (e);

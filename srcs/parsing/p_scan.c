@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 12:21:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:37:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ int	set_type(char c, t_type *chars)
 	else
 		chars->t = WORD;
 	return (chars->t);
+}
+
+void	change_type(t_scan *scan)
+{
+	int	i;
+	
+	i = 0;
+	while (i < scan->len)
+	{
+		if (scan->chars[i]->t == SQUOTE || scan->chars[i]->t == DQUOTE)
+			scan->chars[i]->t = WORD;
+		i++;
+	}
 }
 
 void	init_chars(t_type **chars, int len)
