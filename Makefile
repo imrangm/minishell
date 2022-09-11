@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/09 19:22:18 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/11 20:14:17 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,6 @@ SRCS=		main.c \
 			parsing/p_utils.c \
 			parsing/p_free.c \
 			parsing/p_test.c \
-			parsing/p_expansion.c \
-			parsing/p_expander.c \
 			checks/pc_valid.c \
 			checks/pc_export.c \
 			checks/pc_redirs.c \

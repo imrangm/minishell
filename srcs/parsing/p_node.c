@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 08:06:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 19:27:13 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:13:44 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,4 @@ t_node	*error_node(char *msg)
 	err->type = 2;
 	err->id = "ERROR";
 	return (err);
-}
-
-void	expansion_node(t_node **n, t_token **toks)
-{
-	(*n)->type = 1;
-	(*n)->left_node = malloc(sizeof(t_node));
-	ft_memset((*n)->left_node, 0, sizeof(t_node));
-	(*n)->left_node->value = ft_strdup((*n)->value);
-	ft_free((*n)->value);
-	(*n)->left_node->id = "RAW";
-	(*n)->left_node->type = 0;
-	(*n)->right_node = add_expansions((*n)->left_node, toks);
 }

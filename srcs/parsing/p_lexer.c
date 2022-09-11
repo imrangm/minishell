@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 19:37:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:14:35 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void	init_token(t_token *tokens)
 	tokens->cur = 0;
 	tokens->count = 0;
 	tokens->quote = 0;
-	tokens->expand = 0;
-	tokens->pos = 0;
-	tokens->move = 0;
 	tokens->space = 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 15:02:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:17:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,20 @@ t_node	*parse_pipeline(t_token **toks)
 	return (pair_node(left, right, "PIPELINE"));
 }
 
-void	parse_command_left(t_node **n, int *exp, t_token **toks)
+void	parse_command_left(t_node **n, t_token **toks)
 {
 	t_token	*token;
 
 	token = toks[toks[0]->iter];
-	if (token->quote != 1 && ft_strchr(token->value, '$'))
-	{
-		*exp = check_expansion(token->value); // Passing the entire token instead of the pointer to the first $ in the token
-		if (*exp)
-			token->expand = count_exp(token->value);
-	}
 	if ((*n)->value)
 	{
 		if (token->space)
 		{
 			(*n)->value = ft_strjoin_and_free((*n)->value, " ");
-			if (token->expand)
-			{
-				token->pos = ft_strlen((*n)->value);
-				// printf("exp: %d pos: %d\n", token->expand, token->pos);
-			}
 			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
 		}
 		else
-		{
-			if (token->expand)
-			{
-				token->pos = ft_strlen((*n)->value);
-				// printf("exp: %d pos: %d\n", token->expand, token->pos);
-			}
 			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
-		}
 	}
 	else
 		(*n)->value = ft_strdup(current_token(toks));
@@ -107,7 +89,7 @@ void	parse_command_right(t_node **n, t_token **toks)
 	}
 }
 
-t_node	*command_return(t_node **lf, t_node **rt, int *exp, t_token **toks)
+t_node	*command_return(t_node **lf, t_node **rt, t_token **toks)
 {
 	if (!(*lf)->id)
 	{
@@ -116,21 +98,12 @@ t_node	*command_return(t_node **lf, t_node **rt, int *exp, t_token **toks)
 		(*lf)->id = "COMMAND";
 		return (*lf);
 	}
-	if (!(*rt)->id && *exp)
-	{
-		(*lf)->id = "RAW";
-		ft_free(*rt);
-		(*rt) = add_expansions(*lf, toks);
-		return (pair_node(*lf, *rt, "COMMAND"));
-	}
 	if (!(*rt)->id)
 	{
 		(*lf)->id = "COMMAND";
 		ft_free(*rt);
 		return (*lf);
 	}
-	if (*exp)
-		expansion_node(lf, toks);
 	return (pair_node(*lf, *rt, "COMMAND"));
 }
 
@@ -150,7 +123,7 @@ t_node	*parse_command(t_token **toks)
 		if (look_ahead(toks) != REDIR)
 		{
 			next_token(toks);
-			parse_command_left(&left, &expansion_mode, toks);
+			parse_command_left(&left, toks);
 		}
 		if (look_ahead(toks) == REDIR)
 		{
@@ -158,5 +131,5 @@ t_node	*parse_command(t_token **toks)
 			parse_command_right(&right, toks);
 		}
 	}
-	return (command_return(&left, &right, &expansion_mode, toks));
+	return (command_return(&left, &right, toks));
 }
