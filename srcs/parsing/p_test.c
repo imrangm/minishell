@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_test.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 13:40:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:28:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ void	test_tokenize(t_scan *source)
 	count = count_tokens(source);
 	printf("------------------------\n");
 	printf("%d Tokens\n", count);
+	printf("------------------------\n");
 	tokens = tokenize(source);
 	while (i < count)
 	{
-		printf("%d: \" %s \" Q: %d\n", tokens[i]->type, tokens[i]->value,
+		printf("%d: [%s]\tQ: %d\n", tokens[i]->type, tokens[i]->value,
 			tokens[i]->quote);
 		i++;
 	}

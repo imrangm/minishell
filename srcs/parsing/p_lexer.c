@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 11:00:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:31:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	init_token(t_token *tokens)
 
 int	count_tokens(t_scan *src)
 {
-	int		i;
-	int		count;
-	int		t;
+	int	i;
+	int	t;
+	int	count;
 
 	i = 0;
 	t = src->chars[i]->t;
@@ -60,6 +60,7 @@ char	*extract_token(t_scan *src)
 	pos = src->pos;
 	len = src->len;
 	type = src->chars[pos]->t;
+	if (type == SQUOTE || type )
 	while (pos < len && src->chars[pos]->t == type)
 	{
 		buf[0] = src->chars[pos]->c;

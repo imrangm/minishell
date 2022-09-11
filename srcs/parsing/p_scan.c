@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 19:45:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:21:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ int	set_type(char c, t_type *chars)
 		chars->t = PIPE;
 	else if (c == '>' || c == '<')
 		chars->t = REDIR;
+	else if (c == '\'')
+		chars->t = SQUOTE;
+	else if (c == '\"')
+		chars->t = DQUOTE;
 	else
 		chars->t = WORD;
 	return (chars->t);
@@ -45,18 +49,18 @@ void	assign_type(char *input, t_scan *scan)
 {
 	int	i;
 	int	q;
-	// int	type;
+	int	type;
 
 	i = 0;
 	q = 0;
 	while (input[i])
 	{
-		set_type(input[i], scan->chars[i]);
-		if (input[i] == '\'' || input[i] == '\"')
+		type = set_type(input[i], scan->chars[i]);
+		if (type == SQUOTE || type == DQUOTE)
 		{
 			if (!q)
-				q = WORD;
-			else if (q == WORD)
+				q = type;
+			else if (q == type)
 				q = 0;
 		}
 		if (q)

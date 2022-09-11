@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 11:54:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:39:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_node	*parse_command(t_token **toks)
 	expansion_mode = 0;
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
-		if (look_ahead(toks) == WORD)
+		if (look_ahead(toks) != REDIR)
 		{
 			next_token(toks);
 			parse_command_left(&left, &expansion_mode, toks);

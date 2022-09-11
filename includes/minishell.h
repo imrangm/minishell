@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 10:58:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 12:08:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-# define SQUOTE '\''
-# define DQUOTE '\"'
+# define SQUOTE 4
+# define DQUOTE 5
 # define LINE '|'
 # define GREAT '>'
 # define LESS '<'
