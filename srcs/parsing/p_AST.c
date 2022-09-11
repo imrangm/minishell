@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 12:39:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:23:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parse_command_left(t_node **n, int *exp, t_token **toks)
 	token = toks[toks[0]->iter];
 	if (token->quote != 1 && ft_strchr(token->value, '$'))
 	{
-		*exp = check_expansion(ft_strchr(token->value, '$'));
+		*exp = check_expansion(token->value); // Passing the entire token instead of the pointer to the first $ in the token
 		if (*exp)
 			token->expand = count_exp(token->value);
 	}

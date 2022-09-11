@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/10 18:16:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:23:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,29 @@ int	check_error(t_node *node, t_data *data)
 	return (0);
 }
 
-int	check_expansion(char *str)
+int	check_expansion(char *str) //! Incomplete
 {
 	int	i;
+	int	q;
 
-	i = 1;
-	if (ft_isdigit(str[i]))
-		return (0);
-	while (str[i] && str[i] != '$')
+	i = 0;
+	q = 0;
+	while (str[i])
 	{
-		if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?')
-			i++;
-		if (str[i] == '{' || str[i] == '(')
-			return (0);
-		if (ft_isspace(str[i]) || str[i] == '\"' || str[i] == '\'')
-			break ;
+		if (ft_isquote(str[i]) && !q)
+			q = str[i];
+		else if (q == str[i])
+			q = 0;
+		else if (q != '\'')
+		{
+			if (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?')
+				i++;
+			if (str[i] == '{' || str[i] == '(')
+				return (0);
+			if (ft_isspace(str[i]) || str[i] == '\"' || str[i] == '\'')
+				break ;
+		}
+		i++;
 	}
 	return (1);
 }
