@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:18:28 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 10:48:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 {
 	char	*lf;
 	char	*rt;
-	char	*text;
 
 	lf = (*left)->value;
 	rt = (*right)->value;
@@ -24,10 +23,7 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 		empty_file(rt);
 	else if (ft_strlen(lf) == 2 && lf[0] == LESS
 		&& ft_strlen(current) == 1 && current[0] == LESS)
-	{
-		text = read_line(rt);
-		free(text);
-	}
+		ft_readline(rt);
 	else if (ft_strlen(lf) == 1 && lf[0] == LESS
 		&& ft_strlen(current) == 2 && current[0] == LESS)
 	{

@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/11 20:14:17 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/12 11:06:52 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,10 @@ SRCS=		main.c \
 			utils/u_struct.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
+			utils/u_token.c \
 			utils/u_misc.c \
 			utils/u_misc_ii.c \
+			utils/u_misc_iii.c \
 			utils/u_pipe.c
 
 CC =		gcc

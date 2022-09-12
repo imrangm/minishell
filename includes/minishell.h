@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 20:19:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:37:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ typedef struct s_token
 }	t_token;
 
 //* Tokenizer
+void		set_quote(t_token *token);
 t_scan		*scan_input(char *input);
-t_token		**tokenize(t_scan *src);
+t_token		**tokenize(t_scan *src, int i);
 int			count_tokens(t_scan *src);
 void		change_type(t_scan *scan);
 
@@ -142,6 +143,7 @@ void		test_tokenize(t_scan *source);
 void		test_scan(char	*input);
 
 //* Utility
+void		init_token(t_token *tokens);
 int			check_io(char *prev, char *current);
 int			is_builtin(char **args);
 void		exec_builtin(char **args, t_data *data);
@@ -246,8 +248,8 @@ void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
 
 //* Misc
-char		*expand_line(char *line, t_data *data);
-char		*cmd_copy(char *input);
+int			check_bytes(int bytes);
+void		ft_readline(char *lim);
 int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);
 int			word_count(char *input);

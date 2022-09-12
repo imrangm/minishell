@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 19:37:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 10:13:35 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	set_type(char c, t_type *chars)
 void	change_type(t_scan *scan)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < scan->len)
 	{

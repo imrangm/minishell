@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 12:28:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:08:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	test_tokenize(t_scan *source)
 	printf("------------------------\n");
 	printf("%d Tokens\n", count);
 	printf("------------------------\n");
-	tokens = tokenize(source);
+	tokens = tokenize(source, 0);
 	while (i < count)
 	{
 		printf("%d: [%s]\tQ: %d\n", tokens[i]->type, tokens[i]->value,

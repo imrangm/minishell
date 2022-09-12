@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 17:46:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:10:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ void	parent(int *pids, int **pipes, t_pipe **p)
 	ps_free(pipes, pids, p);
 }
 
-void	child_process(int *pids, int **pipes, t_pipe **p)
+void	child_process(int *pids, int **pipes, t_pipe **p, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < p[0]->nchild)
 	{
 		pids[i] = fork();
@@ -81,6 +78,6 @@ void	create_process(int **pipes, t_pipe **p)
 		ps_free_all(pipes, p);
 		perror("Malloc failed");
 	}
-	child_process(pids, pipes, p);
+	child_process(pids, pipes, p, 0);
 	parent(pids, pipes, p);
 }
