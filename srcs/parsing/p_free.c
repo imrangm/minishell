@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   p_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 13:42:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:15:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,8 @@ void	free_tokens(t_token **toks)
 
 void	free_node(t_node *node)
 {
-	if (ft_strncmp(node->id, "START", 5) == 0
-		|| ft_strncmp(node->id, "END", 3) == 0)
-	{
-		ft_free(node);
-	}
-	else
-	{
-		ft_free(node->value);
-		ft_free(node);
-	}
+	ft_free(node->value);
+	ft_free(node);
 }
 
 void	free_nodes(t_node *root)
@@ -69,8 +61,6 @@ void	free_nodes(t_node *root)
 	{
 		free_nodes(root->left_node);
 		free_nodes(root->right_node);
-		if (ft_strncmp(root->id, "PARAM", 5) == 0)
-			ft_free(root->value);
 		ft_free(root);
 	}
 	else if (root && root->type == 2)

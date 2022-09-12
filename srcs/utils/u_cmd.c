@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/20 12:11:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 19:13:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,21 @@ char	*find_exec(char *cmd, char **paths)
 	return (NULL);
 }
 
-char	*validate_cmd(char *cmd, char **args, t_data *data)
+char	*validate_cmd(char *cmd, t_data *data)
 {
 	if (!cmd || access(cmd, F_OK) == -1)
 	{
 		ft_putstr_fd("Error: Command not found\n", 2);
 		data->last_exit_status = 127;
-		free_data(data);
-		ft_free_2d(args);
 		ft_free(cmd);
-		exit (127);
+		ft_free(data->line);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
-		free_data(data);
-		ft_free_2d(args);
 		ft_free(cmd);
-		exit (126);
+		ft_free(data->line);
 	}
 	return (cmd);
 }
@@ -83,7 +79,9 @@ char	*get_cmd_path(char **args, t_data *data)
 	char	*cmd;
 
 	if (ft_strchr(args[0], '/'))
+	{
 		return (args[0]);
+	}
 	path_env_val = get_env_value("PATH", data);
 	if (!path_env_val)
 		return (NULL);
@@ -92,5 +90,5 @@ char	*get_cmd_path(char **args, t_data *data)
 	if (!paths)
 		return (NULL);
 	cmd = find_exec(args[0], paths);
-	return (validate_cmd(cmd, args, data));
+	return (validate_cmd(cmd, data));
 }

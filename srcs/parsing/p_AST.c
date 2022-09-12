@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AST.c                                              :+:      :+:    :+:   */
+/*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 14:06:31 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 20:17:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ t_node	*parse_pipeline(t_token **toks)
 	t_node	*left;
 	t_node	*right;
 
+	if (look_ahead(toks) == PIPE)
+		return (error_node(ft_strjoin("unexpected token near: ",
+					current_token(toks))));
 	left = parse_command(toks);
 	if (!has_more_tokens(toks) || look_ahead(toks) != PIPE)
-	{
 		return (left);
-	}
 	if (look_ahead(toks) == PIPE)
 	{
 		next_token(toks);
@@ -39,23 +40,23 @@ t_node	*parse_pipeline(t_token **toks)
 	return (pair_node(left, right, "PIPELINE"));
 }
 
-void	parse_command_left(t_node **n, int *exp, t_token **toks)
+void	parse_command_left(t_node **n, t_token **toks)
 {
 	t_token	*token;
 
 	token = toks[toks[0]->iter];
 	if ((*n)->value)
 	{
-		(*n)->value = ft_strjoin_and_free((*n)->value, " ");
-		(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+		if (token->space)
+		{
+			(*n)->value = ft_strjoin_and_free((*n)->value, " ");
+			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+		}
+		else
+			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
 	}
 	else
 		(*n)->value = ft_strdup(current_token(toks));
-	if ((token->type == WORD || token->type == DQUOTE)
-		&& ft_strchr(token->value, '$'))
-	{
-		*exp = 1;
-	}
 	(*n)->id = "ARGS";
 }
 
@@ -69,7 +70,9 @@ void	parse_command_right(t_node **n, t_token **toks)
 	if ((*n)->right_node)
 	{
 		pr = process_redirection(&(*n)->left_node,
-				&(*n)->right_node);
+				&(*n)->right_node, current_token(toks));
+		if (pr == -1)
+			return ;
 		if (check_io((*n)->left_node->value, current_token(toks)))
 		{
 			(*n)->id = "IO";
@@ -86,7 +89,7 @@ void	parse_command_right(t_node **n, t_token **toks)
 	}
 }
 
-t_node	*command_return(t_node **lf, t_node **rt, int *exp, t_token **toks)
+t_node	*command_return(t_node **lf, t_node **rt, t_token **toks)
 {
 	if (!(*lf)->id)
 	{
@@ -95,21 +98,12 @@ t_node	*command_return(t_node **lf, t_node **rt, int *exp, t_token **toks)
 		(*lf)->id = "COMMAND";
 		return (*lf);
 	}
-	if (!(*rt)->id && *exp)
-	{
-		(*lf)->id = "RAW";
-		ft_free(*rt);
-		(*rt) = add_expansions(*lf);
-		return (pair_node(*lf, *rt, "COMMAND"));
-	}
 	if (!(*rt)->id)
 	{
 		(*lf)->id = "COMMAND";
 		ft_free(*rt);
 		return (*lf);
 	}
-	if (*exp)
-		expansion_node(lf);
 	return (pair_node(*lf, *rt, "COMMAND"));
 }
 
@@ -129,7 +123,7 @@ t_node	*parse_command(t_token **toks)
 		if (look_ahead(toks) != REDIR)
 		{
 			next_token(toks);
-			parse_command_left(&left, &expansion_mode, toks);
+			parse_command_left(&left, toks);
 		}
 		if (look_ahead(toks) == REDIR)
 		{
@@ -137,5 +131,5 @@ t_node	*parse_command(t_token **toks)
 			parse_command_right(&right, toks);
 		}
 	}
-	return (command_return(&left, &right, &expansion_mode, toks));
+	return (command_return(&left, &right, toks));
 }

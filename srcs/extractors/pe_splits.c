@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/16 18:30:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 19:21:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	get_element_count(char *str)
 {
@@ -61,8 +61,6 @@ static int	get_next_word_len(char *str)
 		len++;
 		i++;
 	}
-	// printf("word in gnw_len = |%s|\n", str);
-	// printf("%d\n", len);
 	return (len);
 }
 
@@ -82,7 +80,6 @@ static char	**get_elements(char *str, char **elements, int element_count)
 	{
 		element_size = get_next_word_len(str);
 		j = ft_skipspaces(str);
-		// printf("j = %d | element size - j = %d\n", j, element_size - j);
 		elements[i] = ft_substr(str, j, element_size);
 		s = j + element_size + 1;
 		tmp = ft_substr(str, s, (ft_strlen(str) - element_size) + 1);
@@ -99,17 +96,10 @@ char	**smart_split(char *str)
 {
 	int		element_count;
 	char	**elements;
-	char	**stripped_elements;
 
 	element_count = get_element_count(str);
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
 	elements = get_elements(ft_strdup(str), elements, element_count);
-	// Expand here
-	stripped_elements = strip_quotes(elements, element_count);
-	// printf("\n\n---[Elements %d]---\n\n", element_count);
-	// for (int i = 0; stripped_elements[i]; i++) //! Remember to remove.
-	// 	printf("Element %i = |%s|\n", i, stripped_elements[i]);
-	// printf("\n---[Elements]---\n\n");
-	return (stripped_elements);
+	return (elements);
 }

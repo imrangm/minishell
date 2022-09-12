@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 02:19:31 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/21 16:57:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/11 13:26:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ char	*get_env_value(char *str, t_data *data)
 	i = 0;
 	while (data->envp[i])
 	{
-		if (!ft_strchr(data->envp[i], '='))
-			return (ft_strdup(" "));
+		if (!ft_strncmp(str, data->envp[i], ft_counttochars(str, '=', '\0'))
+			&& !ft_strchr(data->envp[i], '='))
+			return (ft_strdup(""));
 		if (!ft_strncmp(str, data->envp[i], ft_counttochars(str, '+', '='))
 			&& data->envp[i][ft_strlen(str)] == '=')
 			return (ft_substr(ft_strchr(data->envp[i], '='),

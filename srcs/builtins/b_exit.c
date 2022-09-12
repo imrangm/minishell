@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/22 11:30:42 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/09 16:36:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_num_check(char *str)
 	return (0);
 }
 
-void	b_exit(char *line, char **args, t_data *data)
+void	b_exit(char **args, t_data *data)
 {
 	int	arg_count;
 
@@ -50,14 +50,14 @@ void	b_exit(char *line, char **args, t_data *data)
 		|| (arg_count == 2 && ft_strlen(args[1]) && !ft_aredigits(args[1])))
 	{
 		ft_putendl_fd("Error: numeric argument required", 2);
-		data->last_exit_status = 2;
+		data->last_exit_status = 255;
 	}
 	else
 		data->last_exit_status = 0;
 	if (!data->last_exit_status)
 		ft_putendl_fd("exit", 1);
-	free(line);
 	ft_free_2d(args);
 	free_data(data);
+	free_nodes(data->root);
 	exit(data->last_exit_status);
 }

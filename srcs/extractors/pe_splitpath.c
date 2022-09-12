@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splitpath.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:42:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/06/11 17:26:53 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/06 14:34:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	separator(char c, char charset)
 {

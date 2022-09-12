@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:18:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/18 18:28:55 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/06 14:33:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	pc_pipe(char *line)
 {

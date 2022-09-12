@@ -6,37 +6,30 @@
 #    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/08/28 12:02:09 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/11 20:14:17 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=		minishell
 
 SRCS=		main.c \
-			parsing-new/AST.c \
-			parsing-new/redir.c \
-			parsing-new/node.c \
-			parsing-new/process.c \
-			parsing-new/lexer.c \
-			parsing-new/parse.c \
-			parsing-new/scan.c \
-			parsing-new/utils.c \
-			parsing-new/free.c \
-			parsing-new/test.c \
-			parsing-new/expansion.c \
-			parsing-new/expander.c \
-			parsing/checks/pc_valid.c \
-			parsing/checks/pc_export.c \
-			parsing/checks/pc_redirs.c \
-			parsing/checks/pc_pipe.c \
-			parsing/extractors/pe_rd.c \
-			parsing/extractors/pe_env.c \
-			parsing/extractors/pe_splitrd.c \
-			parsing/extractors/pe_splitpp.c \
-			parsing/extractors/pe_splits.c \
-			parsing/extractors/pe_splitpath.c \
-			parsing/extractors/pe_quotes.c \
-			parsing/extractors/pe_expand.c \
+			parsing/p_AST.c \
+			parsing/p_redir.c \
+			parsing/p_node.c \
+			parsing/p_process.c \
+			parsing/p_lexer.c \
+			parsing/p_parse.c \
+			parsing/p_scan.c \
+			parsing/p_utils.c \
+			parsing/p_free.c \
+			parsing/p_test.c \
+			checks/pc_valid.c \
+			checks/pc_export.c \
+			checks/pc_redirs.c \
+			checks/pc_pipe.c \
+			extractors/pe_env.c \
+			extractors/pe_splits.c \
+			extractors/pe_splitpath.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \
@@ -46,20 +39,22 @@ SRCS=		main.c \
 			builtins/b_exit.c \
 			execution/e_exec.c \
 			execution/e_cmd.c \
-			execution/e_process.c \
 			execution/e_pipe.c \
 			execution/e_fork.c \
 			execution/e_child.c \
 			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
+			execution/e_builtin.c \
+			execution/e_fds.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
 			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_misc.c \
-			utils/u_misc_ii.c
+			utils/u_misc_ii.c \
+			utils/u_pipe.c
 
 CC =		gcc
 
@@ -73,7 +68,7 @@ CC =		gcc
 
 # 42 Flags
 LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # Linux Flags
 # LDFLAGS =	-lreadline
@@ -105,6 +100,10 @@ fclean: clean
 re: fclean all
 
 valgrind: re $(clear)
+	@echo "\033[0;32mRunning in Valgrind.\033[0m"
+	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
+
+v: $(clear)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 

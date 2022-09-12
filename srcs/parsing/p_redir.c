@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   p_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 18:05:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/08 15:18:28 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	process_redirection(t_node **left, t_node **right)
+int	process_redirection(t_node **left, t_node **right, char *current)
 {
 	char	*lf;
 	char	*rt;
+	char	*text;
 
 	lf = (*left)->value;
 	rt = (*right)->value;
-	if (ft_strncmp(lf, DGREAT, 2) == 0)
+	if (lf[0] == GREAT)
 		empty_file(rt);
-	if (ft_strncmp(lf, GREAT, 1) == 0)
-		empty_file(rt);
-	if (ft_strncmp(lf, DLESS, 2) == 0)
-		read_line(rt);
-	if (ft_strncmp(lf, LESS, 1) == 0)
+	else if (ft_strlen(lf) == 2 && lf[0] == LESS
+		&& ft_strlen(current) == 1 && current[0] == LESS)
 	{
-		if (access(rt, F_OK))
+		text = read_line(rt);
+		free(text);
+	}
+	else if (ft_strlen(lf) == 1 && lf[0] == LESS
+		&& ft_strlen(current) == 2 && current[0] == LESS)
+	{
+		if (access(rt, F_OK) == -1)
 		{
 			ft_free(*right);
 			*right = error_node(ft_strjoin_and_free(rt,
@@ -91,31 +95,31 @@ void	add_redir(t_redirs *rd, char *op, char *fname)
 	if (ft_strncmp(op, ">>", 2) == 0)
 	{
 		rd->append = fname;
-		rd->lastout = 'a';
+		rd->lastout = O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC;
 	}
 	else if (ft_strncmp(op, ">", 1) == 0)
 	{
 		rd->outfile = fname;
-		rd->lastout = 'o';
+		rd->lastout = O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC;
 	}
 	else if (ft_strncmp(op, "<<", 2) == 0)
 	{
 		rd->heredoc = fname;
-		rd->lastin = 'h';
+		rd->lastin = O_CREAT | O_RDWR | O_TRUNC;
 	}
 	else if (ft_strncmp(op, "<", 1) == 0)
 	{
 		rd->infile = fname;
-		rd->lastin = 'i';
+		rd->lastin = O_RDONLY | O_CLOEXEC;
 	}
 }
 
 t_redirs	get_redir(t_node *rd)
 {
 	char		*fname;
-	char		*fname_in;
-	char		*fname_out;
+	char		*fname_io;
 	char		*op;
+	char		*op_io;
 	t_redirs	redirs;
 
 	init_rd(&redirs);
@@ -128,11 +132,11 @@ t_redirs	get_redir(t_node *rd)
 	if (rd->left_node->type == 1)
 	{
 		op = rd->left_node->left_node->value;
-		fname_in = rd->left_node->right_node->value;
-		add_redir(&redirs, op, fname_in);
-		op = rd->right_node->left_node->value;
-		fname_out = rd->right_node->right_node->value;
-		add_redir(&redirs, op, fname_out);
+		fname = rd->left_node->right_node->value;
+		add_redir(&redirs, op, fname);
+		op_io = rd->right_node->left_node->value;
+		fname_io = rd->right_node->right_node->value;
+		add_redir(&redirs, op_io, fname_io);
 	}
 	return (redirs);
 }

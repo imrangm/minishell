@@ -6,19 +6,39 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/28 12:01:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 21:02:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	end_pipe(char **line)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim((*line), " ");
+	if ((*line)[ft_strlen(tmp) - 1] == '|')
+		line_update(line);
+	ft_free(tmp);
+}
+
+char	*trim_line(char *line)
+{
+	int		i;
+	char	*trimmed;
+
+	i = 0;
+	trimmed = NULL;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	if (line[i])
+		trimmed = ft_substr(line, i, (ft_strlen(line) - i) + 1);
+	return (trimmed);
+}
+
 void	minishell(t_data *data)
 {
 	char	*line;
-	t_scan	*src;
-	t_token	**toks;
-	t_node	*node;
-	int		count;
 
 	while (isatty(STDIN_FILENO))
 	{
@@ -29,29 +49,18 @@ void	minishell(t_data *data)
 			free_data(data);
 			break ;
 		}
+		if (check_space(line))
+			continue ;
 		if (line[0])
 		{
+			end_pipe(&line);
 			add_history(line);
-			/* new parser */
-			src = scan_input(line);
-			// test_scan(line);
-			toks = tokenize(src);
-			// test_tokenize(src);
-			node = parse(toks);
-			print_ast(node, 0);
-			count = visit(node, 0);
-			execute(node, count, data);
-			free_chars(src->chars, src->len);
-			ft_free(src);
-			free_tokens(toks);
-			free_nodes(node);
-			// 	printf("----------------------------\n");
-			// free_node(node);
-			/* old parser */
-			// if (pc_valid(line, data))
-			// 	execute_line(line, data);
+			data->line = trim_line(line);
+			if (pc_valid(data->line, data))
+				parse(data);
 		}
-		free(line);
+		ft_free(data->line);
+		ft_free(line);
 	}
 }
 

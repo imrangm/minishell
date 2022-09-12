@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/08/19 16:07:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/06 19:17:17 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	pc_mode(char *str, char mode)
 {
@@ -108,7 +108,7 @@ int	pc_valid(char *line, t_data *data)
 	if (ft_arespaces(line))
 		return (0);
 	if (pc_quotes(line) || pc_chars(line) || pc_redirs(line)
-		|| pc_end(line) || pc_pipe(line) || pc_redir(line))
+		|| pc_end(line) || pc_pipe(line))
 	{
 		data->last_exit_status = 1;
 		return (0);

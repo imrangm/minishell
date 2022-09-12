@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scan.c                                             :+:      :+:    :+:   */
+/*   p_scan.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/26 20:59:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:37:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ int	set_type(char c, t_type *chars)
 		return (chars->t);
 	else if (ft_isspace(c))
 		chars->t = SPACES;
-	else if (ft_isalnum(c) || c == '-'
-		|| c == '$' || c == '?')
-		chars->t = WORD;
 	else if (c == '|')
 		chars->t = PIPE;
 	else if (c == '>' || c == '<')
@@ -31,8 +28,21 @@ int	set_type(char c, t_type *chars)
 	else if (c == '\"')
 		chars->t = DQUOTE;
 	else
-		chars->t = UNKNWN;
+		chars->t = WORD;
 	return (chars->t);
+}
+
+void	change_type(t_scan *scan)
+{
+	int	i;
+	
+	i = 0;
+	while (i < scan->len)
+	{
+		if (scan->chars[i]->t == SQUOTE || scan->chars[i]->t == DQUOTE)
+			scan->chars[i]->t = WORD;
+		i++;
+	}
 }
 
 void	init_chars(t_type **chars, int len)
@@ -69,7 +79,7 @@ void	assign_type(char *input, t_scan *scan)
 		if (q)
 		{
 			scan->chars[i]->t = q;
-			type = set_type(input[i], scan->chars[i]);
+			set_type(input[i], scan->chars[i]);
 		}
 		i++;
 	}

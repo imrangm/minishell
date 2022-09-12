@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/16 18:28:39 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/05 06:11:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	close_fds(int *fd)
-{
-	if (fd[0] != 0)
-		close(fd[0]);
-	if (fd[1] != 1)
-		close(fd[1]);
-}
 
 int	word_count(char *input)
 {
@@ -60,11 +52,6 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	size_t	j;
 	char	*str;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char));
-		*s1 = '\0';
-	}
 	str = (char *) malloc ((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (str == NULL)
 		return (NULL);
@@ -96,4 +83,26 @@ int	char_is_separator(char c, char *charset)
 	if (c == '\0')
 		return (1);
 	return (0);
+}
+
+int	count_pipes(char *line)
+{
+	int	i;
+	int	p;
+	int	q;
+
+	i = 0;
+	p = 0;
+	q = 0;
+	while (line[i])
+	{
+		if (ft_isquote(line[i]) && !q)
+			q = line[i];
+		else if (line[i] == q)
+			q = 0;
+		else if (line[i] == '|')
+			p++;
+		i++;
+	}
+	return (p);
 }

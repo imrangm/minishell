@@ -3,86 +3,123 @@
 /*                                                        :::      ::::::::   */
 /*   e_child.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/08/27 16:06:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/09 16:08:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	first_child(char **arg, int **pipes, t_pipe **p)
+static void	exit_pipe(char **arg, int *pids, int **pipes, t_pipe **p)
 {
-	int			i;
-	int			j;
+	t_data		*data;
 
-	i = 0;
-	j = 0;
-	while (j < p[0]->nchild - 1)
-	{
-		close(pipes[j][0]);
-		if (i != j)
-			close(pipes[j][1]);
-		j++;
-	}
-	redir_in(p, i);
-	if (!redir_out(p, i))
-		dup2(pipes[i][1], STDOUT_FILENO);
-	close(pipes[i][1]);
-	if (is_parent_function(arg))
-		exit (0);
-	if (exec_cmd_child(arg, p[0]->data) == -1)
-		err_print(127, p[0]->data);
+	data = p[0]->data;
+	ps_free(pipes, pids, p);
+	ft_free(data->line);
+	free_and_exit(arg, data);
 }
 
-void	mid_child(int *i, char **arg, int **pipes, t_pipe **p)
+static void	exec_pipe(char **arg, int *pids, int **pipes, t_pipe **p)
 {
-	int	j;
-	int	n;
-
-	j = 0;
-	n = p[0]->nchild;
-	while (j < n - 1)
+	if (is_parent_function(arg))
+		exit_pipe(arg, pids, pipes, p);
+	if (is_builtin(arg))
 	{
-		if (*i - 1 != j)
-			close(pipes[j][0]);
-		if (*i != j)
-			close(pipes[j][1]);
-		j++;
+		exec_builtin(arg, p[0]->data);
+		exit_pipe(arg, pids, pipes, p);
 	}
-	if (!redir_in(p, (*i)))
+	else
+	{
+		exec_cmd(arg, p[0]->data);
+		exit_pipe(arg, pids, pipes, p);
+	}
+}
+
+void	first_child(int *pids, int **pipes, t_pipe **p)
+{
+	int			i;
+	char		**arg;
+	int			ret;
+
+	i = 0;
+	arg = smart_split(p[0]->fcmd);
+	close_pipes_first(pipes, p, i);
+	ret = redir_in(p, i);
+	if (ret == -1)
+	{
+		file_error(p);
+		close(pipes[i][1]);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	ret = redir_out(p, i);
+	if (ret == -1)
+	{
+		file_error(p);
+		close(pipes[i][1]);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	if (!ret)
+		dup2(pipes[i][1], STDOUT_FILENO);
+	close(pipes[i][1]);
+	exec_pipe(arg, pids, pipes, p);
+}
+
+void	mid_child(int *i, int *pids, int **pipes, t_pipe **p)
+{
+	char	**arg;
+	int		ret;
+
+	arg = smart_split(p[*i]->fcmd);
+	close_pipes_mid(pipes, p, *i);
+	ret = redir_in(p, (*i));
+	if (ret == -1)
+	{
+		file_error_mid(pipes, p, *i);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	if (!ret)
 		dup2(pipes[(*i) - 1][0], STDIN_FILENO);
-	if (!redir_out(p, (*i)))
+	ret = redir_out(p, (*i));
+	if (ret == -1)
+	{
+		file_error_mid(pipes, p, *i);
+		exit_pipe(arg, pids, pipes, p);
+	}
+	if (!ret)
 		dup2(pipes[*i][1], STDOUT_FILENO);
 	close(pipes[(*i) - 1][0]);
 	close(pipes[*i][1]);
-	if (is_parent_function(arg))
-		exit (0);
-	if (exec_cmd_child(arg, p[0]->data) == -1)
-		err_print(127, p[0]->data);
+	exec_pipe(arg, pids, pipes, p);
 }
 
-void	last_child(char **arg, int **pipes, t_pipe **p)
+void	last_child(int *pids, int **pipes, t_pipe **p)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	**arg;
+	int		ret;
 
 	i = p[0]->nchild - 1;
-	j = 0;
-	while (j < p[0]->nchild - 1)
+	arg = smart_split(p[i]->fcmd);
+	close_pipes_last(pipes, p, i);
+	ret = redir_in(p, i);
+	if (ret == -1)
 	{
-		if (i - 1 != j)
-			close(pipes[j][0]);
-		close(pipes[j][1]);
-		j++;
+		file_error(p);
+		close(pipes[i - 1][0]);
+		exit_pipe(arg, pids, pipes, p);
 	}
-	if (!redir_in(p, i))
+	if (!ret)
 		dup2(pipes[i - 1][0], STDIN_FILENO);
-	redir_out(p, i);
+	ret = redir_out(p, i);
+	if (ret == -1)
+	{
+		file_error(p);
+		close(pipes[i - 1][0]);
+		exit_pipe(arg, pids, pipes, p);
+	}
 	close(pipes[i - 1][0]);
-	if (is_parent_function(arg))
-		exit (0);
-	if (exec_cmd_child(arg, p[0]->data) == -1)
-		err_print(127, p[0]->data);
+	exec_pipe(arg, pids, pipes, p);
 }
