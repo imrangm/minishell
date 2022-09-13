@@ -1,56 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_test.c                                           :+:      :+:    :+:   */
+/*   p_print.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:08:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:42:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	test_scan(char	*input)
+void	print_chars(t_scan	*scan)
 {
-	int		len;
-	t_scan	*scan;
-	int		i;
+	int			len;
+	int			i;
 
-	len = ft_strlen(input);
+	len = scan->len;
 	printf("------------------------\n");
 	printf("%d Chars\n", len);
-	scan = scan_input(input);
 	i = 0;
 	while (i < len)
 	{
 		printf("%d- C: %c T: %d\n", i, scan->chars[i]->c, scan->chars[i]->t);
 		i++;
 	}
-	free_chars(scan->chars, scan->len);
-	ft_free(scan);
 }
 
-void	test_tokenize(t_scan *source)
+void	print_tokens(t_token **tokens)
 {
-	t_token	**tokens;
 	int		i;
-	int		count;
 
 	i = 0;
-	count = count_tokens(source);
 	printf("------------------------\n");
-	printf("%d Tokens\n", count);
+	printf("%d Tokens\n", tokens[0]->count);
 	printf("------------------------\n");
-	tokens = tokenize(source, 0);
-	while (i < count)
+	while (i < tokens[0]->count)
 	{
-		printf("%d: [%s]\tQ: %d\n", tokens[i]->type, tokens[i]->value,
-			tokens[i]->quote);
+		printf("%d: [%s]\n", tokens[i]->type, tokens[i]->value);
 		i++;
 	}
-	free_tokens(tokens);
 }
 
 static void	indent(size_t spaces)

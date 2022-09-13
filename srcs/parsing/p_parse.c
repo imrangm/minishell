@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:08:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:41:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	parse(t_data *data)
 	line = data->line;
 	src = scan_input(line);
 	toks = tokenize(src, 0);
+	print_tokens(toks);
 	node = parse_pipeline(toks);
 	free_chars(src->chars, src->len);
 	ft_free(src);

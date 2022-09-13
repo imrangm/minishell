@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/12 11:37:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:42:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ void		free_nodes(t_node *root);
 void		free_pair(t_node *left, t_node *right);
 
 //* Parser Tests
+void		print_chars(t_scan	*scan);
+void		print_tokens(t_token **tokens);
 void		print_ast(t_node *node, size_t spaces);
 void		test_parse(t_token **toks);
 void		test_tokenize(t_scan *source);

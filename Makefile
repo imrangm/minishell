@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/12 11:06:52 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/13 14:43:22 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS=		main.c \
 			parsing/p_scan.c \
 			parsing/p_utils.c \
 			parsing/p_free.c \
-			parsing/p_test.c \
+			parsing/p_print.c \
 			checks/pc_valid.c \
 			checks/pc_export.c \
 			checks/pc_redirs.c \
@@ -65,12 +65,12 @@ CC =		gcc
 # CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
-# LDFLAGS =	-lreadline -L ./libs/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
+LDFLAGS =	-lreadline -L ./libs/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 # 42 Flags
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # Linux Flags
 # LDFLAGS =	-lreadline

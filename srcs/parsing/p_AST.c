@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 20:17:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:41:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,11 @@ t_node	*parse_command(t_token **toks)
 {
 	t_node	*left;
 	t_node	*right;
-	int		expansion_mode;
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	ft_memset(left, 0, sizeof(t_node));
 	ft_memset(right, 0, sizeof(t_node));
-	expansion_mode = 0;
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
 		if (look_ahead(toks) != REDIR)

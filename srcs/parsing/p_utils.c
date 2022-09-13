@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:03:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 15:31:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,43 +38,44 @@ int	check_error(t_node *node, t_data *data)
 	return (0);
 }
 
-static void	init_(int *i, int *t, int *count, t_scan *src)
-{
-	*i = 0;
-	*t = src->chars[*i]->t;
-	*count = 1;
-}
-
-static void	handle_quote(t_scan *src, int *q, int *i, int *count)
-{
-	*q = src->chars[*i]->c;
-	(*count)++;
-}
-
 int	count_tokens(t_scan *src)
 {
 	int	i;
 	int	t;
 	int	count;
 	int	q;
+	int	nq;
 
-	init_(&i, &t, &count, src);
+	i = 0;
+	t = src->chars[i]->t;
+	count = 0;
 	q = 0;
+	nq = 0;
 	while (i < src->len)
 	{
 		if (ft_isquote(src->chars[i]->c) && !q)
-			handle_quote(src, &q, &i, &count);
+		{
+			q = src->chars[i]->c;
+			if (nq && nq == q)
+			{
+				nq = 0;
+				count++;
+			}
+		}
 		else if (q == src->chars[i]->c)
+		{
+			nq = q;
 			q = 0;
-		else if (src->chars[i]->t != t && src->chars[i]->t != SQUOTE
-			&& src->chars[i]->t != DQUOTE)
+		}
+		if (src->chars[i]->t != t)
 		{
 			t = src->chars[i]->t;
-			if (!t)
+			while (!t)
 				continue ;
 			count++;
 		}
 		i++;
 	}
+	printf("count: %d\n", count);
 	return (count);
 }

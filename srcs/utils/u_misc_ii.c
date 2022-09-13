@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/12 12:37:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:44:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ void	ft_readline(char *lim)
 	free(text);
 }
 
-static void	init_rl(char *line, char *final, char *buf, int *bytes)
-{
-	set_signalset(2);
-	line = ft_strdup("");
-	final = ft_strdup("");
-	*bytes = 0;
-	ft_memset(buf, 0, 2);
-	write(1, "> ", 2);
-}
-
-static void	term_rl(char *final, char *line)
-{
-	write(1, "> ", 2);
-	final = ft_strjoin_and_free(final, line);
-	ft_free(line);
-	line = strdup("");
-}
-
 char	*read_line(char *lim)
 {
 	char	buf[2];
@@ -52,7 +34,12 @@ char	*read_line(char *lim)
 	char	*final;
 	int		bytes;
 
-	init_rl(line, final, buf, &bytes);
+	set_signalset(2);
+	line = ft_strdup("");
+	final = ft_strdup("");
+	bytes = 0;
+	ft_memset(buf, 0, 2);
+	write(1, "> ", 2);
 	while (1)
 	{
 		bytes = read(0, buf, 1);
@@ -67,7 +54,10 @@ char	*read_line(char *lim)
 				break ;
 			if (check_bytes(bytes))
 				break ;
-			term_rl(final, line);
+			write(1, "> ", 2);
+			final = ft_strjoin_and_free(final, line);
+			ft_free(line);
+			line = strdup("");
 		}
 	}
 	ft_free(line);

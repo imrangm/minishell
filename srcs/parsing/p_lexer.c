@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_lexer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:43:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:57:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ char	*update_token(char *tok, char c)
 	return (tok);
 }
 
-static void	init_(char *tok, int *pos, int *len, t_scan *src)
-{
-	tok = ft_strdup("");
-	*pos = src->pos;
-	*len = src->len;
-}
-
 char	*extract_token(t_scan *src)
 {
 	int		type;
@@ -38,7 +31,9 @@ char	*extract_token(t_scan *src)
 	int		q;
 
 	tok = NULL;
-	init_(tok, &pos, &len, src);
+	tok = ft_strdup("");
+	pos = src->pos;
+	len = src->len;
 	type = src->chars[pos]->t;
 	q = 0;
 	while (pos < len && src->chars[pos]->t == type)
@@ -76,6 +71,7 @@ t_token	**tokenize(t_scan *src, int i)
 	int		start;
 	int		count;
 	char	*val;
+	int		sp;
 
 	count = count_tokens(src);
 	tokens = malloc(sizeof(t_token) * count);
@@ -84,13 +80,16 @@ t_token	**tokenize(t_scan *src, int i)
 	while (i < count)
 	{
 		if (src->chars[src->pos]->t == 0)
-			tokens[i]->space = 1;
+			sp = 1;
+		else
+			sp = 0;
 		while (src->chars[src->pos]->t == 0)
 			src->pos++;
 		start = src->pos;
 		val = extract_token(src);
 		tokens[i] = create_token(val, src->chars[start]->t);
-		set_quote(tokens[i]);
+		if (sp)
+			tokens[i]->space = sp;
 		i++;
 	}
 	tokens[0]->count = count;
