@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 14:41:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:09:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,26 @@ void	next_token(t_token **toks)
 void	parse(t_data *data)
 {	
 	t_scan	*src;
-	t_token	**toks;
-	t_node	*node;
-	int		count;
+	t_token	*tok;
+	// t_node	*node;
+	// int		count;
 	char	*line;
 
 	set_signalset(1);
 	line = data->line;
 	src = scan_input(line);
-	toks = tokenize(src, 0);
-	print_tokens(toks);
-	node = parse_pipeline(toks);
+	tok = tokenize(src);
+	print_tokens_ll(tok);
+	// node = parse_pipeline(tok);
 	free_chars(src->chars, src->len);
 	ft_free(src);
-	free_tokens(toks);
-	data->root = node;
-	count = count_pipes(line);
-	data->error = 0;
-	check_error(node, data);
-	if (!data->error)
-		process_tree(node, count, data);
-	data->error = 0;
-	free_nodes(data->root);
+	// free_tokens(tok);
+	// data->root = node;
+	// count = count_pipes(line);
+	// data->error = 0;
+	// check_error(node, data);
+	// if (!data->error)
+	// 	process_tree(node, count, data);
+	// data->error = 0;
+	// free_nodes(data->root);
 }

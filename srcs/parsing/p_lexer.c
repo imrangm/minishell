@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 14:57:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:06:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,27 @@ t_token	*create_token(char *input, int type)
 	token->type = type;
 	token->value = ft_strdup(input);
 	ft_free(input);
+	token->next = NULL;
 	return (token);
 }
 
-t_token	**tokenize(t_scan *src, int i)
+t_token	*tokenize(t_scan *src)
 {
-	t_token	**tokens;
+	t_token	*token;
+	t_token	*top;
+	t_token	*last;
 	int		start;
-	int		count;
+	// int		count;
 	char	*val;
 	int		sp;
+	// int		i;
 
-	count = count_tokens(src);
-	tokens = malloc(sizeof(t_token) * count);
+	// count = count_tokens(src);
+	// tokens = malloc(sizeof(t_token) * count);
 	src->pos = 0;
-	i = 0;
-	while (i < count)
+	top = NULL;
+	// i = 0;
+	while (src->pos < src->len)
 	{
 		if (src->chars[src->pos]->t == 0)
 			sp = 1;
@@ -87,11 +92,16 @@ t_token	**tokenize(t_scan *src, int i)
 			src->pos++;
 		start = src->pos;
 		val = extract_token(src);
-		tokens[i] = create_token(val, src->chars[start]->t);
+		token = create_token(val, src->chars[start]->t);
 		if (sp)
-			tokens[i]->space = sp;
-		i++;
+			token->space = sp;
+		if (!top)
+			top = token;
+		else
+			last->next = token;
+		last = token;
+		// i++;
 	}
-	tokens[0]->count = count;
-	return (tokens);
+	// token[0]->count = count;
+	return (top);
 }

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/13 14:42:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 19:10:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,13 @@ typedef struct s_token
 	int				count;
 	int				quote;
 	int				space;
+	struct s_token	*next;
 }	t_token;
 
 //* Tokenizer
 void		set_quote(t_token *token);
 t_scan		*scan_input(char *input);
-t_token		**tokenize(t_scan *src, int i);
+t_token		*tokenize(t_scan *src);
 int			count_tokens(t_scan *src);
 void		change_type(t_scan *scan);
 
@@ -139,10 +140,8 @@ void		free_pair(t_node *left, t_node *right);
 //* Parser Tests
 void		print_chars(t_scan	*scan);
 void		print_tokens(t_token **tokens);
+void		print_tokens_ll(t_token *token);
 void		print_ast(t_node *node, size_t spaces);
-void		test_parse(t_token **toks);
-void		test_tokenize(t_scan *source);
-void		test_scan(char	*input);
 
 //* Utility
 void		init_token(t_token *tokens);
