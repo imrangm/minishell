@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 19:06:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 20:45:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_token	*create_token(char *input, int type)
 t_token	*tokenize(t_scan *src)
 {
 	t_token	*token;
-	t_token	*top;
+	t_token	*head;
 	t_token	*last;
 	int		start;
 	// int		count;
@@ -80,7 +80,7 @@ t_token	*tokenize(t_scan *src)
 	// count = count_tokens(src);
 	// tokens = malloc(sizeof(t_token) * count);
 	src->pos = 0;
-	top = NULL;
+	head = NULL;
 	// i = 0;
 	while (src->pos < src->len)
 	{
@@ -95,13 +95,16 @@ t_token	*tokenize(t_scan *src)
 		token = create_token(val, src->chars[start]->t);
 		if (sp)
 			token->space = sp;
-		if (!top)
-			top = token;
+		if (!head)
+		{
+			token->first = 1;
+			head = token;
+		}
 		else
 			last->next = token;
 		last = token;
 		// i++;
 	}
 	// token[0]->count = count;
-	return (top);
+	return (head);
 }

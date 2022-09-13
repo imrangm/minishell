@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/13 19:10:21 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:18:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,11 @@ typedef struct s_token
 	int				count;
 	int				quote;
 	int				space;
+	int				first;
 	struct s_token	*next;
 }	t_token;
+
+
 
 //* Tokenizer
 void		set_quote(t_token *token);
@@ -106,17 +109,18 @@ t_scan		*scan_input(char *input);
 t_token		*tokenize(t_scan *src);
 int			count_tokens(t_scan *src);
 void		change_type(t_scan *scan);
+int			count_tokens_ll(t_token *tok);
 
 //* Parsing
-int			has_more_tokens(t_token **toks);
-int			look_ahead(t_token **toks);
-char		*current_token(t_token **toks);
-void		next_token(t_token **toks);
+int			has_more_tokens(t_token *tok);
+int			look_ahead(t_token *tok);
+char		*current_token(t_token *tok);
+void		next_token(t_token **tok);
 void		parse(t_data *data);
-t_node		*parse_pipeline(t_token **toks);
-t_node		*parse_command(t_token **toks);
-t_node		*parse_redirection(t_token **toks);
-t_node		*parse_io(t_node *node, t_token **toks, char *id);
+t_node		*parse_pipeline(t_token *tok);
+t_node		*parse_command(t_token *tok);
+t_node		*parse_redirection(t_token *tok);
+t_node		*parse_io(t_node *node, t_token *tok, char *id);
 int			process_redirection(t_node **left, t_node **right, char *current);
 
 //* AST

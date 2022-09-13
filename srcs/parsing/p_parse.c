@@ -6,56 +6,52 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 19:09:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/13 21:23:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	has_more_tokens(t_token **toks)
+int	has_more_tokens(t_token *tok)
 {
-	return ((toks[0]->iter + 1) < toks[0]->count);
+	if (tok->next != NULL)
+		return (1);
+	else
+		return (0);
 }
 
-int	look_ahead(t_token **toks)
+int	look_ahead(t_token *tok)
 {
-	t_token	ret;
-	int		i;
-
-	ret.value = 0;
-	ret.type = 0;
-	if (!has_more_tokens(toks))
-		return (ret.type);
-	if (!toks[0]->cur)
-		return (toks[0]->type);
-	i = toks[0]->iter;
-	ret = *toks[i + 1];
-	return (ret.type);
+	if (tok->first && !tok->cur)
+		return (tok->type);
+	if (tok->next != NULL)
+		return (tok->next->type);
+	else
+		return (0);
 }
 
-char	*current_token(t_token **toks)
+// simply read tok value
+char	*current_token(t_token *tok)
 {
-	return (toks[toks[0]->iter]->value);
+	return (tok->value);
 }
 
-void	next_token(t_token **toks)
+void	next_token(t_token **tok)
 {
-	if (toks[0]->cur && has_more_tokens(toks))
+	if ((*tok)->first && !(*tok)->cur)
 	{
-		toks[0]->iter++;
+		(*tok)->cur = 1;
+		return ;
 	}
-	if (!toks[0]->iter && has_more_tokens(toks))
-	{
-		toks[0]->iter = 0;
-		toks[0]->cur = 1;
-	}
+	else if (has_more_tokens(*tok))
+		*tok = (*tok)->next;
 }
 
 void	parse(t_data *data)
 {	
 	t_scan	*src;
 	t_token	*tok;
-	// t_node	*node;
+	t_node	*node;
 	// int		count;
 	char	*line;
 
@@ -64,9 +60,10 @@ void	parse(t_data *data)
 	src = scan_input(line);
 	tok = tokenize(src);
 	print_tokens_ll(tok);
-	// node = parse_pipeline(tok);
+	node = parse_pipeline(tok);
 	free_chars(src->chars, src->len);
 	ft_free(src);
+	print_ast(node, 0);
 	// free_tokens(tok);
 	// data->root = node;
 	// count = count_pipes(line);
