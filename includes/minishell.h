@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/13 21:18:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 08:59:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,39 +92,37 @@ typedef struct s_token
 {
 	int				type;
 	char			*value;
-	int				iter;
-	int				cur;
-	int				count;
-	int				quote;
 	int				space;
-	int				first;
 	struct s_token	*next;
 }	t_token;
 
-
+typedef struct s_toklist
+{
+	t_token		*first;
+	t_token		*current;
+	int			count;
+	int			id;
+}	t_toklist;
 
 //* Tokenizer
-void		set_quote(t_token *token);
 t_scan		*scan_input(char *input);
-t_token		*tokenize(t_scan *src);
-int			count_tokens(t_scan *src);
+t_toklist	*tokenize(t_scan *src);
 void		change_type(t_scan *scan);
-int			count_tokens_ll(t_token *tok);
+int			count_tokens(t_token *tok);
 
 //* Parsing
-int			has_more_tokens(t_token *tok);
-int			look_ahead(t_token *tok);
-char		*current_token(t_token *tok);
-void		next_token(t_token **tok);
+int			has_more_tokens(t_toklist *toks);
+int			look_ahead(t_toklist *toks);
+char		*current_token(t_toklist *toks);
+void		next_token(t_toklist *toks);
 void		parse(t_data *data);
-t_node		*parse_pipeline(t_token *tok);
-t_node		*parse_command(t_token *tok);
-t_node		*parse_redirection(t_token *tok);
-t_node		*parse_io(t_node *node, t_token *tok, char *id);
+t_node		*parse_pipeline(t_toklist *toks);
+t_node		*parse_command(t_toklist *toks);
+t_node		*parse_redirection(t_toklist *toks);
+t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
 int			process_redirection(t_node **left, t_node **right, char *current);
 
 //* AST
-t_node		*node(t_token **toks);
 t_node		*pair_node(t_node *left, t_node *right, char *id);
 t_node		*error_node(char *msg);
 int			check_error(t_node *node, t_data *data);
@@ -136,7 +134,7 @@ t_redirs	get_redir(t_node *rd);
 
 //* Free Memory
 void		free_chars(t_type **table, int len);
-void		free_tokens(t_token **toks);
+void		free_tokens(t_token *tok);
 void		free_node(t_node *node);
 void		free_nodes(t_node *root);
 void		free_pair(t_node *left, t_node *right);
@@ -149,6 +147,7 @@ void		print_ast(t_node *node, size_t spaces);
 
 //* Utility
 void		init_token(t_token *tokens);
+void		init_toklist(t_toklist *tokens);
 int			check_io(char *prev, char *current);
 int			is_builtin(char **args);
 void		exec_builtin(char **args, t_data *data);

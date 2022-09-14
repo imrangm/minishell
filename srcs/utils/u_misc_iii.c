@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_iii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:06:29 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:36:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 06:53:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@ void	line_update(char **line)
 			write(1, "> ", 2);
 		}
 	}
-}
-
-void	set_quote(t_token *token)
-{
-	if (token->value[0] == '\'')
-		token->quote = 1;
-	if (token->value[0] == '\"')
-		token->quote = 2;
 }
 
 int	check_bytes(int bytes)

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 20:44:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 06:40:36 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 	return (1);
 }
 
-t_node	*parse_redirection(t_token *tok)
+t_node	*parse_redirection(t_toklist *toks)
 {
 	t_node	*left;
 	t_node	*right;
@@ -47,21 +47,23 @@ t_node	*parse_redirection(t_token *tok)
 	right = malloc(sizeof(t_node));
 	ft_memset(left, 0, sizeof(t_node));
 	ft_memset(right, 0, sizeof(t_node));
-	left->value = ft_strdup(current_token(tok));
+	left->value = ft_strdup(current_token(toks));
 	left->id = "OP";
-	if (look_ahead(tok) != WORD)
+	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-					current_token(tok)));
+					current_token(toks)));
 		return (pair_node(left, right, "REDIR"));
 	}
-	next_token(tok);
-	right->value = ft_strdup(current_token(tok));
+	printf("value 1: %s\n", current_token(toks));
+	next_token(toks);
+	printf("value 2: %s\n", current_token(toks));
+	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
 	return (pair_node(left, right, "REDIR"));
 }
 
-t_node	*parse_io(t_node *redir, t_token *tok, char *id)
+t_node	*parse_io(t_node *redir, t_toklist *toks, char *id)
 {
 	t_node	*left;
 	t_node	*right;
@@ -71,16 +73,16 @@ t_node	*parse_io(t_node *redir, t_token *tok, char *id)
 	right = malloc(sizeof(t_node));
 	ft_memset(left, 0, sizeof(t_node));
 	ft_memset(right, 0, sizeof(t_node));
-	left->value = ft_strdup(current_token(tok));
+	left->value = ft_strdup(current_token(toks));
 	left->id = "OP";
-	if (look_ahead(tok) != WORD)
+	if (look_ahead(toks) != WORD)
 	{
 		right = error_node(ft_strjoin("unexpected token near: ",
-					current_token(tok)));
+					current_token(toks)));
 		return (pair_node(left, right, "IO"));
 	}
-	next_token(tok);
-	right->value = ft_strdup(current_token(tok));
+	next_token(toks);
+	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
 	pair_left = pair_node(left, right, id);
 	return (pair_node(pair_left, redir, "REDIR"));

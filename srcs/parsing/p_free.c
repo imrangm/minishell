@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/12 11:09:04 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 06:52:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,17 @@ void	free_chars(t_type **chars, int len)
 	free(chars);
 }
 
-void	free_tokens(t_token **toks)
+void	free_tokens(t_token *tok)
 {
-	int	i;
-	int	n;
+	t_token	*temp;
 
-	i = 0;
-	n = toks[0]->count;
-	while (i < n)
+	while (tok)
 	{
-		ft_free(toks[i]->value);
-		ft_free(toks[i]);
-		i++;
+		temp = tok;
+		tok = tok->next;
+		ft_free(temp->value);
+		ft_free(temp);
 	}
-	ft_free(toks);
 }
 
 void	free_node(t_node *node)

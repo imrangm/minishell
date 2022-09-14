@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 20:45:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:06:35 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,6 @@ char	*update_token(char *tok, char c)
 	buf[0] = c;
 	buf[1] = '\0';
 	tok = ft_strjoin_and_free(tok, buf);
-	return (tok);
-}
-
-char	*extract_token(t_scan *src)
-{
-	int		type;
-	char	*tok;
-	int		pos;
-	int		len;
-	int		q;
-
-	tok = NULL;
-	tok = ft_strdup("");
-	pos = src->pos;
-	len = src->len;
-	type = src->chars[pos]->t;
-	q = 0;
-	while (pos < len && src->chars[pos]->t == type)
-	{
-		if (ft_isquote(src->chars[pos]->c) && !q)
-			q = src->chars[pos]->c;
-		else if (q == src->chars[pos]->c)
-		{
-			tok = update_token(tok, src->chars[pos]->c);
-			pos++;
-			break ;
-		}
-		tok = update_token(tok, src->chars[pos]->c);
-		pos++;
-	}
-	src->pos = pos;
 	return (tok);
 }
 
@@ -66,22 +35,47 @@ t_token	*create_token(char *input, int type)
 	return (token);
 }
 
-t_token	*tokenize(t_scan *src)
+t_token	*extract_token(t_scan *src)
 {
-	t_token	*token;
-	t_token	*head;
-	t_token	*last;
-	int		start;
-	// int		count;
-	char	*val;
-	int		sp;
-	// int		i;
+	int		type;
+	char	*tok;
+	int		pos;
+	int		q;
 
-	// count = count_tokens(src);
-	// tokens = malloc(sizeof(t_token) * count);
+	tok = NULL;
+	tok = ft_strdup("");
+	pos = src->pos;
+	type = src->chars[pos]->t;
+	q = 0;
+	while (pos < src->len && src->chars[pos]->t == type)
+	{
+		if (ft_isquote(src->chars[pos]->c) && !q)
+			q = src->chars[pos]->c;
+		else if (q == src->chars[pos]->c)
+		{
+			tok = update_token(tok, src->chars[pos]->c);
+			pos++;
+			break ;
+		}
+		tok = update_token(tok, src->chars[pos]->c);
+		pos++;
+	}
+	src->pos = pos;
+	return (create_token(tok, type));
+}
+
+t_toklist	*tokenize(t_scan *src)
+{
+	t_token		*token;
+	t_toklist	*tokens;
+	t_token		*head;
+	t_token		*last;
+	int			sp;
+
 	src->pos = 0;
 	head = NULL;
-	// i = 0;
+	tokens = malloc(sizeof(t_toklist));
+	init_toklist(tokens);
 	while (src->pos < src->len)
 	{
 		if (src->chars[src->pos]->t == 0)
@@ -90,21 +84,15 @@ t_token	*tokenize(t_scan *src)
 			sp = 0;
 		while (src->chars[src->pos]->t == 0)
 			src->pos++;
-		start = src->pos;
-		val = extract_token(src);
-		token = create_token(val, src->chars[start]->t);
+		token = extract_token(src);
 		if (sp)
 			token->space = sp;
 		if (!head)
-		{
-			token->first = 1;
 			head = token;
-		}
 		else
 			last->next = token;
 		last = token;
-		// i++;
 	}
-	// token[0]->count = count;
-	return (head);
+	tokens->first = head;
+	return (tokens);
 }
