@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 09:28:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:10:42 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	look_ahead(t_toklist *toks)
 		return (0);
 }
 
-// simply read tok value
 char	*current_token(t_toklist *toks)
 {
 	return (toks->current->value);
@@ -41,13 +40,9 @@ char	*current_token(t_toklist *toks)
 void	next_token(t_toklist *toks)
 {
 	if (!toks->current)
-	{
 		toks->current = toks->first;
-	}
 	else if (has_more_tokens(toks))
-	{
 		toks->current = toks->current->next;
-	}
 }
 
 void	parse(t_data *data)
@@ -56,26 +51,27 @@ void	parse(t_data *data)
 	t_toklist	*toks;
 	t_token		*token;
 	t_node		*node;
-	// int		count;
 	char		*line;
 
 	set_signalset(1);
 	line = data->line;
+	/* TOKENIZER */
 	src = scan_input(line);
 	toks = tokenize(src);
 	token = toks->first;
 	print_tokens(token);
+	/* PARSER */
 	node = parse_pipeline(toks);
-	free_chars(src);
 	print_ast(node, 0);
+	free_chars(src);
 	free_tokens(token);
 	ft_free(toks);
-	// data->root = node;
-	// count = count_pipes(line);
-	// data->error = 0;
-	// check_error(node, data);
-	// if (!data->error)
-	// 	process_tree(node, count, data);
-	// data->error = 0;
-	// free_nodes(data->root);
+	/* PROCESS && EXECUTE */
+	data->root = node;
+	data->error = 0;
+	check_error(node, data);
+	if (!data->error)
+		process_tree(node, count_pipes(line), data);
+	data->error = 0;
+	free_nodes(data->root);
 }

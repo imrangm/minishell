@@ -6,27 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 06:11:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:23:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	word_count(char *input)
-{
-	int	i;
-	int	c;
-
-	i = 0;
-	c = 0;
-	while (input[i])
-	{
-		if (input[i] == ' ' && input[i + 1] != ' ')
-			c++;
-		i++;
-	}
-	return (c);
-}
 
 int	check_space(char *str)
 {
@@ -67,22 +51,6 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	str[i] = '\0';
 	ft_free(s1);
 	return (str);
-}
-
-int	char_is_separator(char c, char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (charset[i] != '\0')
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	if (c == '\0')
-		return (1);
-	return (0);
 }
 
 int	count_pipes(char *line)

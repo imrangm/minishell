@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/14 09:27:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:23:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,29 @@ typedef struct s_toklist
 	int			id;
 }	t_toklist;
 
+/* Creating new structs for AST processing */
+
+typedef struct s_cmd
+{
+	int		type;
+	char	*fcmd;
+}	t_cmd;
+
+typedef struct s_redircmd
+{
+	int			type;
+	char		*fcmd;
+	t_redirs	*rd;
+}	t_redircmd;
+
+typedef struct s_pipecmd
+{
+	int		type;
+	t_pipe	**pipe;
+	int		nchild;
+	t_data	*data;
+}	t_pipecmd;
+
 //* Tokenizer
 t_charlist	*scan_input(char *input);
 t_toklist	*tokenize(t_charlist *src);
@@ -196,12 +219,7 @@ void		close_pipes_first(int **pipes, t_pipe **p, int i);
 void		close_pipes_mid(int **pipes, t_pipe **p, int i);
 void		close_pipes_last(int **pipes, t_pipe **p, int i);
 
-//* Error and free
-void		err_print(int error, t_data *data);
-void		err_free_parent(int **pipes, int *pids, int nchild);
-void		no_err_free_parent(int **pipes, int *pids);
-void		err_kill_process(t_pipe **p);
-void		err_free_process(int **pipes, t_pipe **p);
+//* Free
 void		free_struct_pipe(t_pipe **p, int nchild);
 void		ps_free(int **pipes, int *pids, t_pipe **p);
 void		rd_free(int *fd, char **arg);
@@ -255,8 +273,6 @@ int			check_bytes(int bytes);
 void		ft_readline(char *lim);
 int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);
-int			word_count(char *input);
-int			char_is_separator(char c, char *charset);
 void		line_update(char **line);
 char		*join_env_var_and_value(char *var_name, char *value);
 

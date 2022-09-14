@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/13 14:43:22 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/14 10:21:55 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,6 @@ SRCS=		main.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
-			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_token.c \
 			utils/u_misc.c \

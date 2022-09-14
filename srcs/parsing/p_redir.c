@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 06:40:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:16:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ t_node	*parse_redirection(t_toklist *toks)
 					current_token(toks)));
 		return (pair_node(left, right, "REDIR"));
 	}
-	printf("value 1: %s\n", current_token(toks));
 	next_token(toks);
-	printf("value 2: %s\n", current_token(toks));
 	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
 	return (pair_node(left, right, "REDIR"));
