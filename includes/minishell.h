@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/14 13:23:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:53:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ typedef struct s_toklist
 	int			id;
 }	t_toklist;
 
-/* Creating new structs for AST processing */
-
 typedef struct s_cmd
 {
 	int		type;
@@ -145,7 +143,7 @@ int			has_more_tokens(t_toklist *toks);
 int			look_ahead(t_toklist *toks);
 char		*current_token(t_toklist *toks);
 void		next_token(t_toklist *toks);
-void		parse(t_data *data);
+t_node		*parse(t_data *data);
 t_node		*parse_pipeline(t_toklist *toks);
 t_node		*parse_command(t_toklist *toks);
 t_node		*parse_redirection(t_toklist *toks);
@@ -288,5 +286,7 @@ int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);
 void		line_update(char **line);
 char		*join_env_var_and_value(char *var_name, char *value);
+char		*trim_line(char *line);
+void		end_pipe(char **line);
 
 #endif

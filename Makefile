@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/14 13:06:53 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/14 16:23:11 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS=		main.c \
 			parsing/p_process.c \
 			parsing/p_execute.c \
 			parsing/p_lexer.c \
+			parsing/p_token.c \
 			parsing/p_parse.c \
 			parsing/p_scan.c \
 			parsing/p_utils.c \

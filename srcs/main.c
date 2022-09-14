@@ -3,37 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 21:02:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:52:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	end_pipe(char **line)
+void	execute_line(t_node *node, char *line, t_data *data)
 {
-	char	*tmp;
-
-	tmp = ft_strtrim((*line), " ");
-	if ((*line)[ft_strlen(tmp) - 1] == '|')
-		line_update(line);
-	ft_free(tmp);
+	data->error = 0;
+	check_error(node, data);
+	if (!data->error)
+		execute(process_command(node, count_pipes(line), data),
+			data);
+	data->error = 0;
 }
 
-char	*trim_line(char *line)
+void	parse_line(char *line, t_data *data)
 {
-	int		i;
-	char	*trimmed;
+	t_node	*node;
 
-	i = 0;
-	trimmed = NULL;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	if (line[i])
-		trimmed = ft_substr(line, i, (ft_strlen(line) - i) + 1);
-	return (trimmed);
+	end_pipe(&line);
+	add_history(line);
+	data->line = trim_line(line);
+	if (pc_valid(data->line, data))
+	{
+		node = parse(data);
+		data->root = node;
+		execute_line(node, line, data);
+		free_nodes(data->root);
+	}
 }
 
 void	minishell(t_data *data)
@@ -52,13 +54,7 @@ void	minishell(t_data *data)
 		if (check_space(line))
 			continue ;
 		if (line[0])
-		{
-			end_pipe(&line);
-			add_history(line);
-			data->line = trim_line(line);
-			if (pc_valid(data->line, data))
-				parse(data);
-		}
+			parse_line(line, data);
 		ft_free(data->line);
 		ft_free(line);
 	}
