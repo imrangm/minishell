@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/14 10:23:08 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 13:23:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define REDIR 3
 # define SQUOTE 4
 # define DQUOTE 5
+# define EXECCMD 6
+# define REDIRCMD 7
+# define PIPECMD 8
 # define LINE '|'
 # define GREAT '>'
 # define LESS '<'
@@ -109,22 +112,26 @@ typedef struct s_toklist
 typedef struct s_cmd
 {
 	int		type;
-	char	*fcmd;
 }	t_cmd;
+
+typedef struct s_execcmd
+{
+	int		type;
+	char	*fcmd;
+}	t_execcmd;
 
 typedef struct s_redircmd
 {
 	int			type;
 	char		*fcmd;
-	t_redirs	*rd;
+	t_redirs	rd;
 }	t_redircmd;
 
 typedef struct s_pipecmd
 {
 	int		type;
-	t_pipe	**pipe;
+	t_pipe	**pipes;
 	int		nchild;
-	t_data	*data;
 }	t_pipecmd;
 
 //* Tokenizer
@@ -150,10 +157,16 @@ t_node		*pair_node(t_node *left, t_node *right, char *id);
 t_node		*error_node(char *msg);
 int			check_error(t_node *node, t_data *data);
 
-//* Process and Execute
+//* Process
 void		add_redir(t_redirs *rd, char *op, char *fname);
-void		process_tree(t_node *root, int count, t_data *data);
+t_cmd		*process_command(t_node *root, int count, t_data *data);
 t_redirs	get_redir(t_node *rd);
+
+//* Execute
+t_execcmd	*exe_cmd(char *fcmd);
+t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd);
+t_pipecmd	*pipe_cmd(t_pipe **p, int nchild);
+void		execute(t_cmd *cmd, t_data *data);
 
 //* Free Memory
 void		free_chars(t_charlist *src);

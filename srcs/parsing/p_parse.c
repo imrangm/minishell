@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 10:10:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 13:15:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	parse(t_data *data)
 	data->error = 0;
 	check_error(node, data);
 	if (!data->error)
-		process_tree(node, count_pipes(line), data);
+		execute(process_command(node, count_pipes(line), data), data);
 	data->error = 0;
 	free_nodes(data->root);
 }
