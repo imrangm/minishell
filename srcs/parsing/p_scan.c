@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 10:50:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/13 15:00:36 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:23:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	set_type(char c, t_type *chars)
+int	set_type(char c, t_char *chars)
 {
 	chars->c = c;
 	if (chars->t)
@@ -32,7 +32,7 @@ int	set_type(char c, t_type *chars)
 	return (chars->t);
 }
 
-void	change_type(t_scan *scan)
+void	change_type(t_charlist *scan)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ void	change_type(t_scan *scan)
 	}
 }
 
-void	init_chars(t_type **chars, int len)
+void	init_chars(t_char **chars, int len)
 {
 	int	i;
 
@@ -58,7 +58,7 @@ void	init_chars(t_type **chars, int len)
 	}
 }
 
-void	assign_type(char *input, t_scan *scan)
+void	assign_type(char *input, t_charlist *scan)
 {
 	int	i;
 	int	q;
@@ -85,20 +85,20 @@ void	assign_type(char *input, t_scan *scan)
 	}
 }
 
-t_scan	*scan_input(char *input)
+t_charlist	*scan_input(char *input)
 {
-	int		i;
-	int		len;
-	t_scan	*scan;
+	int			i;
+	int			len;
+	t_charlist	*scan;
 
 	len = ft_strlen(input);
-	scan = malloc(sizeof (t_scan));
-	scan->chars = malloc(sizeof(t_type *) * len);
+	scan = malloc(sizeof (t_charlist));
+	scan->chars = malloc(sizeof(t_char *) * len);
 	scan->len = len;
 	i = 0;
 	while (i < len)
 	{
-		scan->chars[i] = malloc(sizeof(t_type));
+		scan->chars[i] = malloc(sizeof(t_char));
 		i++;
 	}
 	init_chars(scan->chars, len);

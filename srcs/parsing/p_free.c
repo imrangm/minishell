@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 06:52:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:26:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 /*
 to contain all free functions
 */
-void	free_chars(t_type **chars, int len)
+void	free_chars(t_charlist *src)
 {
 	int	i;
+	int	len;
 
 	i = 0;
+	len = src->len;
 	while (i < len)
 	{
-		free(chars[i]);
-		chars[i] = NULL;
+		free(src->chars[i]);
+		src->chars[i] = NULL;
 		i++;
 	}
-	free(chars);
+	ft_free(src->chars);
+	ft_free(src);
 }
 
 void	free_tokens(t_token *tok)

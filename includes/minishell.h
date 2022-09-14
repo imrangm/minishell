@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/14 08:59:42 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:27:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ typedef struct s_pipe
 	t_data		*data;
 }	t_pipe;
 
-typedef struct s_type
+typedef struct s_char
 {
 	char	c;
 	int		t;
-}	t_type;
+}	t_char;
 
-typedef struct s_scan
+typedef struct s_charlist
 {
-	t_type	**chars;
+	t_char	**chars;
 	int		len;
 	int		pos;
-}	t_scan;
+}	t_charlist;
 
 typedef struct s_token
 {
@@ -105,9 +105,9 @@ typedef struct s_toklist
 }	t_toklist;
 
 //* Tokenizer
-t_scan		*scan_input(char *input);
-t_toklist	*tokenize(t_scan *src);
-void		change_type(t_scan *scan);
+t_charlist	*scan_input(char *input);
+t_toklist	*tokenize(t_charlist *src);
+void		change_type(t_charlist *scan);
 int			count_tokens(t_token *tok);
 
 //* Parsing
@@ -133,16 +133,15 @@ void		process_tree(t_node *root, int count, t_data *data);
 t_redirs	get_redir(t_node *rd);
 
 //* Free Memory
-void		free_chars(t_type **table, int len);
+void		free_chars(t_charlist *src);
 void		free_tokens(t_token *tok);
 void		free_node(t_node *node);
 void		free_nodes(t_node *root);
 void		free_pair(t_node *left, t_node *right);
 
 //* Parser Tests
-void		print_chars(t_scan	*scan);
-void		print_tokens(t_token **tokens);
-void		print_tokens_ll(t_token *token);
+void		print_chars(t_charlist	*scan);
+void		print_tokens(t_token *token);
 void		print_ast(t_node *node, size_t spaces);
 
 //* Utility

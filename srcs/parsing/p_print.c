@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 06:43:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:27:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_chars(t_scan	*scan)
+void	print_chars(t_charlist	*scan)
 {
 	int			len;
 	int			i;
@@ -28,10 +28,10 @@ void	print_chars(t_scan	*scan)
 	}
 }
 
-void	print_tokens_ll(t_token *token)
+void	print_tokens(t_token *token)
 {
 	printf("------------------------\n");
-	printf("%d Tokens\n", 0);
+	printf("%d Tokens\n", count_tokens(token));
 	printf("------------------------\n");
 	while (token)
 	{
@@ -39,21 +39,6 @@ void	print_tokens_ll(t_token *token)
 		token = token->next;
 	}
 }
-
-// void	print_tokens(t_token **tokens)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	printf("------------------------\n");
-// 	printf("%d Tokens\n", tokens[0]->count);
-// 	printf("------------------------\n");
-// 	while (i < tokens[0]->count)
-// 	{
-// 		printf("%d: [%s]\n", tokens[i]->type, tokens[i]->value);
-// 		i++;
-// 	}
-// }
 
 static void	indent(size_t spaces)
 {

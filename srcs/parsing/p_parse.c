@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 09:03:19 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:28:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	next_token(t_toklist *toks)
 
 void	parse(t_data *data)
 {	
-	t_scan		*src;
+	t_charlist	*src;
 	t_toklist	*toks;
 	t_token		*token;
 	t_node		*node;
@@ -64,10 +64,9 @@ void	parse(t_data *data)
 	src = scan_input(line);
 	toks = tokenize(src);
 	token = toks->first;
-	print_tokens_ll(token);
+	print_tokens(token);
 	node = parse_pipeline(toks);
-	free_chars(src->chars, src->len);
-	ft_free(src);
+	free_chars(src);
 	print_ast(node, 0);
 	free_tokens(token);
 	ft_free(toks);

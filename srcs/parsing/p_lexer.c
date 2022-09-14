@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 09:06:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:27:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,23 @@ t_token	*create_token(char *input, int type)
 	token = malloc(sizeof(t_token));
 	init_token(token);
 	token->type = type;
-	token->value = ft_strdup(input);
-	ft_free(input);
+	token->value = input;
 	token->next = NULL;
 	return (token);
 }
 
-t_token	*extract_token(t_scan *src)
+t_toklist	*create_toklist(t_token *head)
+{
+	t_toklist	*tokens;
+
+	tokens = malloc(sizeof(t_toklist));
+	init_toklist(tokens);
+	tokens->first = head;
+	tokens->count = count_tokens(head);
+	return (tokens);
+}
+
+t_token	*extract_token(t_charlist *src)
 {
 	int		type;
 	char	*tok;
@@ -64,18 +74,15 @@ t_token	*extract_token(t_scan *src)
 	return (create_token(tok, type));
 }
 
-t_toklist	*tokenize(t_scan *src)
+t_toklist	*tokenize(t_charlist *src)
 {
 	t_token		*token;
-	t_toklist	*tokens;
 	t_token		*head;
 	t_token		*last;
 	int			sp;
 
 	src->pos = 0;
 	head = NULL;
-	tokens = malloc(sizeof(t_toklist));
-	init_toklist(tokens);
 	while (src->pos < src->len)
 	{
 		if (src->chars[src->pos]->t == 0)
@@ -93,6 +100,5 @@ t_toklist	*tokenize(t_scan *src)
 			last->next = token;
 		last = token;
 	}
-	tokens->first = head;
-	return (tokens);
+	return (create_toklist(head));
 }
