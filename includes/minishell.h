@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/14 16:53:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:22:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@
 
 int	g_child_pid;
 
+typedef struct s_exp
+{
+	int		start;
+	int		end;
+	char	*param;
+	char	*value;
+	int		count;
+}	t_exp;
 typedef struct s_node
 {
 	int				type;
@@ -149,6 +157,10 @@ t_node		*parse_command(t_toklist *toks);
 t_node		*parse_redirection(t_toklist *toks);
 t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
 int			process_redirection(t_node **left, t_node **right, char *current);
+
+//* Expansion
+void		expansion(t_token *token, t_data *data);
+void		expander(t_token *token, t_exp *exp, t_data *data);
 
 //* AST
 t_node		*pair_node(t_node *left, t_node *right, char *id);

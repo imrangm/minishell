@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 16:52:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 10:12:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	minishell(t_data *data)
 		if (check_space(line))
 			continue ;
 		if (line[0])
+		{
 			parse_line(line, data);
+		}
 		ft_free(data->line);
 		ft_free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 10:03:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:19:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,17 @@ void	print_chars(t_charlist	*scan)
 
 void	print_tokens(t_token *token)
 {
+	int	i;
+
+	i = 1;
 	printf("------------------------\n");
 	printf("%d Tokens\n", count_tokens(token));
 	printf("------------------------\n");
 	while (token)
 	{
-		printf("%d: [%s]\n", token->type, token->value);
+		printf("%d: (%d) [%s]\n", i, token->type, token->value);
 		token = token->next;
+		i++;
 	}
 }
 

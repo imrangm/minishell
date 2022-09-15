@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 16:20:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:57:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_node	*parse(t_data *data)
 	src = scan_input(line);
 	toks = tokenize(src);
 	token = toks->first;
+	expansion(token, data);
 	print_tokens(token);
 	/* PARSER */
 	node = parse_pipeline(toks);
