@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   e_file.c                                           :+:      :+:    :+:   */
+/*   e_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 18:10:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:40:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	file_heredoc(char **args, t_data *data)
+static void	heredoc(char **args, t_data *data)
 {
 	int	f;
 
@@ -27,13 +27,13 @@ void	file_heredoc(char **args, t_data *data)
 	unlink("tmp");
 }
 
-void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
+static void	child(int *fd, char *line, t_redirs *rd, t_data *data)
 {
 	char	**args;
 
 	args = smart_split(line);
 	if (rd->heredoc)
-		file_heredoc(args, data);
+		heredoc(args, data);
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
@@ -45,7 +45,7 @@ void	file_child(int *fd, char *line, t_redirs *rd, t_data *data)
 	free_and_exit(args, data);
 }
 
-void	file_parent(int *pid, t_data *data)
+static void	parent(int *pid, t_data *data)
 {
 	int	wstatus;
 	int	code;
@@ -63,20 +63,24 @@ void	file_parent(int *pid, t_data *data)
 	}
 }
 
-void	file_process(int *fd, char *line, t_redirs *rd, t_data *data)
+void	process_redirs(int *fd, char *line, t_redirs *rd, t_data *data)
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == -1)
-		exit (1);
+	{
+		data->last_exit_status = 140;
+		ft_putstr_fd("Error: Could not create child process\n", 2);
+		return ;
+	}
 	if (pid == 0)
-		file_child(fd, line, rd, data);
+		child(fd, line, rd, data);
 	else
-		file_parent(&pid, data);
+		parent(&pid, data);
 }
 
-void	create_file(char *line, t_redirs *rd, t_data *data)
+void	redirs(char *line, t_redirs *rd, t_data *data)
 {
 	int		fd[2];
 
@@ -89,7 +93,7 @@ void	create_file(char *line, t_redirs *rd, t_data *data)
 	}
 	else
 	{
-		file_process(fd, line, rd, data);
+		process_redirs(fd, line, rd, data);
 		close_fds(fd);
 	}
 }

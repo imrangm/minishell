@@ -3,38 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 19:17:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:23:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	pc_mode(char *str, char mode)
-{
-	int	i;
-	int	q;
-
-	i = 0;
-	q = 0;
-	while (str[i])
-	{
-		if (ft_isquote(str[i]) && !q)
-			q = str[i];
-		else if (q && str[i] == q)
-			q = 0;
-		else if (mode == 'p' && str[i] == '|' && !q)
-			return (1);
-		else if (mode == 'r' && (str[i] == '>' || str[i] == '<') && !q)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	pc_chars(char *str)
+static int	pc_chars(char *str)
 {
 	int	i;
 	int	q;
@@ -61,7 +39,7 @@ int	pc_chars(char *str)
 	return (0);
 }
 
-int	pc_quotes(char *str)
+static int	pc_quotes(char *str)
 {
 	int	i;
 	int	q;
@@ -82,7 +60,7 @@ int	pc_quotes(char *str)
 	return (1);
 }
 
-int	pc_end(char *line)
+static int	pc_end(char *line)
 {
 	int	len;
 

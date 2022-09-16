@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:16:16 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 13:27:49 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/12 11:07:58 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 	if (env_value && env_exists(lhs_arg, data))
 	{
 		joined = ft_strjoin(env_value, rhs_arg);
-		// printf("lhs_arg = $%s$\n", lhs_arg);
-		// printf("rhs_arg = $%s$\n", rhs_arg);
-		// printf("env_value = $%s$\n", env_value);
-		// printf("joined = $%s$\n", joined);
 		ft_free(env_value);
 		ft_free(rhs_arg);
 		modify_env(lhs_arg, joined, data);
@@ -33,11 +29,7 @@ static void	join_env_values(char *lhs_arg, char *rhs_arg, t_data *data)
 	else if (!get_env_value(lhs_arg, data))
 		modify_env(lhs_arg, rhs_arg, data);
 	else
-	{
-		// printf("LHS does not exist.\n");
-		// printf("LHS_ARG = %s\nRHS_ARG = %s\n", lhs_arg, rhs_arg);
 		append_env(lhs_arg, rhs_arg, data);
-	}
 }
 
 static int	is_in_plus_mode(char *str)

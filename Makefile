@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/11 20:14:17 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/16 13:40:00 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,17 @@ SRCS=		main.c \
 			parsing/p_redir.c \
 			parsing/p_node.c \
 			parsing/p_process.c \
+			parsing/p_execute.c \
 			parsing/p_lexer.c \
+			parsing/p_token.c \
+			parsing/p_toks.c \
 			parsing/p_parse.c \
 			parsing/p_scan.c \
 			parsing/p_utils.c \
 			parsing/p_free.c \
-			parsing/p_test.c \
+			parsing/p_expansion.c \
+			parsing/p_expander.c \
+			parsing/p_print.c \
 			checks/pc_valid.c \
 			checks/pc_export.c \
 			checks/pc_redirs.c \
@@ -42,19 +47,19 @@ SRCS=		main.c \
 			execution/e_pipe.c \
 			execution/e_fork.c \
 			execution/e_child.c \
-			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
+			execution/e_redir.c \
 			execution/e_builtin.c \
 			execution/e_fds.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
-			utils/u_error.c \
 			utils/u_cmd.c \
 			utils/u_misc.c \
 			utils/u_misc_ii.c \
-			utils/u_pipe.c
+			utils/u_pipe.c \
+			utils/u_readline.c
 
 CC =		gcc
 
@@ -63,12 +68,12 @@ CC =		gcc
 # CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
-# LDFLAGS =	-lreadline -L ./libs/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
+LDFLAGS =	-lreadline -L ./libs/readline/lib/
+CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 # 42 Flags
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # Linux Flags
 # LDFLAGS =	-lreadline

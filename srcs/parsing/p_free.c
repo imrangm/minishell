@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 20:15:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:26:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,34 @@
 /*
 to contain all free functions
 */
-void	free_chars(t_type **chars, int len)
+void	free_chars(t_charlist *src)
 {
 	int	i;
+	int	len;
 
 	i = 0;
+	len = src->len;
 	while (i < len)
 	{
-		free(chars[i]);
-		chars[i] = NULL;
+		free(src->chars[i]);
+		src->chars[i] = NULL;
 		i++;
 	}
-	free(chars);
+	ft_free(src->chars);
+	ft_free(src);
 }
 
-void	free_tokens(t_token **toks)
+void	free_tokens(t_token *tok)
 {
-	int	i;
-	int	n;
+	t_token	*temp;
 
-	i = 0;
-	n = toks[0]->count;
-	while (i < n)
+	while (tok)
 	{
-		ft_free(toks[i]->value);
-		ft_free(toks[i]);
-		i++;
+		temp = tok;
+		tok = tok->next;
+		ft_free(temp->value);
+		ft_free(temp);
 	}
-	ft_free(toks);
 }
 
 void	free_node(t_node *node)

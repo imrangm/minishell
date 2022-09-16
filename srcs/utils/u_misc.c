@@ -6,27 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/05 06:11:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:17:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	word_count(char *input)
-{
-	int	i;
-	int	c;
-
-	i = 0;
-	c = 0;
-	while (input[i])
-	{
-		if (input[i] == ' ' && input[i + 1] != ' ')
-			c++;
-		i++;
-	}
-	return (c);
-}
 
 int	check_space(char *str)
 {
@@ -69,22 +53,6 @@ char	*ft_strjoin_and_free(char *s1, char const *s2)
 	return (str);
 }
 
-int	char_is_separator(char c, char *charset)
-{
-	int	i;
-
-	i = 0;
-	while (charset[i] != '\0')
-	{
-		if (c == charset[i])
-			return (1);
-		i++;
-	}
-	if (c == '\0')
-		return (1);
-	return (0);
-}
-
 int	count_pipes(char *line)
 {
 	int	i;
@@ -105,4 +73,28 @@ int	count_pipes(char *line)
 		i++;
 	}
 	return (p);
+}
+
+void	end_pipe(char **line)
+{
+	char	*tmp;
+
+	tmp = ft_strtrim((*line), " ");
+	if ((*line)[ft_strlen(tmp) - 1] == '|')
+		line_update(line);
+	ft_free(tmp);
+}
+
+char	*trim_line(char *line)
+{
+	int		i;
+	char	*trimmed;
+
+	i = 0;
+	trimmed = NULL;
+	while (line[i] && ft_isspace(line[i]))
+		i++;
+	if (line[i])
+		trimmed = ft_substr(line, i, (ft_strlen(line) - i) + 1);
+	return (trimmed);
 }

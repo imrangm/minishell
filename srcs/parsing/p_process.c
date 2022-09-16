@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   p_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 20:23:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/14 13:23:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	process_pipe_left(t_node *n, t_pipe ***p, int *i)
+/* PROCESSING TREE*/
+static void	process_pipe_left(t_node *n, t_pipe ***p, int *i)
 {
 	(*p)[*i]->fcmd = n->left_node->value;
 	(*p)[*i]->rd = get_redir(n->right_node);
 }
 
-void	process_pipe_right(t_node *n, t_pipe ***p, int i)
+static void	process_pipe_right(t_node *n, t_pipe ***p, int i)
 {
 	(*p)[i]->fcmd = n->left_node->value;
 	(*p)[i]->rd = get_redir(n->right_node);
 }
 
-void	process_pipe(t_node *n, t_pipe ***p)
+static t_cmd	*process_pipe(t_node *n, t_pipe ***p, int nchild)
 {
 	int	i;
 
@@ -48,9 +49,10 @@ void	process_pipe(t_node *n, t_pipe ***p)
 	}
 	else
 		process_pipe_right(n, p, i);
+	return ((t_cmd *) pipe_cmd(*p, nchild));
 }
 
-void	process_command(t_node *n, t_data *data)
+static t_cmd	*process_redir(t_node *n)
 {
 	char		*cmd;
 	t_redirs	rd;
@@ -58,29 +60,30 @@ void	process_command(t_node *n, t_data *data)
 	init_rd(&rd);
 	cmd = n->left_node->value;
 	rd = get_redir(n->right_node);
-	create_file(cmd, &rd, data);
+	return ((t_cmd *) redir_cmd(cmd, &rd));
 }
 
-void	process_tree(t_node *root, int count, t_data *data)
+t_cmd	*process_command(t_node *root, int count, t_data *data)
 {
 	t_node		*current;
 	t_pipe		**p;
+	t_cmd		*cmd;
 
 	current = root;
 	data->root = root;
-	if (ft_strncmp(current->id, "PIPE", 4) == 0)
+	if (count)
 	{
 		p = malloc(sizeof(t_pipe *) * (count + 1));
-		process_pipe(current, &p);
+		cmd = process_pipe(current, &p, count + 1);
 		p[0]->nchild = count + 1;
 		p[0]->data = data;
-		pipes(p);
 	}
-	else if (ft_strncmp(current->id, "COMM", 4) == 0)
+	else
 	{
 		if (current->type == 0)
-			master_execute(current->value, data);
+			cmd = (t_cmd *) exe_cmd(current->value);
 		else
-			process_command(current, data);
+			cmd = process_redir(current);
 	}
+	return (cmd);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 20:17:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/15 13:15:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_node	*parse_pipeline(t_token **toks)
+t_node	*parse_pipeline(t_toklist *toks)
 {
 	t_node	*left;
 	t_node	*right;
@@ -40,27 +40,24 @@ t_node	*parse_pipeline(t_token **toks)
 	return (pair_node(left, right, "PIPELINE"));
 }
 
-void	parse_command_left(t_node **n, t_token **toks)
+static void	parse_command_left(t_node **n, t_toklist *toks)
 {
-	t_token	*token;
-
-	token = toks[toks[0]->iter];
 	if ((*n)->value)
 	{
-		if (token->space)
+		if (toks->current->space)
 		{
 			(*n)->value = ft_strjoin_and_free((*n)->value, " ");
-			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+			(*n)->value = ft_strjoin_and_free((*n)->value, current_token(toks));
 		}
 		else
-			(*n)->value = ft_strjoin_and_free((*n)->value, token->value);
+			(*n)->value = ft_strjoin_and_free((*n)->value, current_token(toks));
 	}
 	else
 		(*n)->value = ft_strdup(current_token(toks));
 	(*n)->id = "ARGS";
 }
 
-void	parse_command_right(t_node **n, t_token **toks)
+static void	parse_command_right(t_node **n, t_toklist *toks)
 {
 	int		io;
 	int		pr;
@@ -89,7 +86,7 @@ void	parse_command_right(t_node **n, t_token **toks)
 	}
 }
 
-t_node	*command_return(t_node **lf, t_node **rt, t_token **toks)
+static t_node	*command_return(t_node **lf, t_node **rt, t_toklist *toks)
 {
 	if (!(*lf)->id)
 	{
@@ -107,17 +104,15 @@ t_node	*command_return(t_node **lf, t_node **rt, t_token **toks)
 	return (pair_node(*lf, *rt, "COMMAND"));
 }
 
-t_node	*parse_command(t_token **toks)
+t_node	*parse_command(t_toklist *toks)
 {
 	t_node	*left;
 	t_node	*right;
-	int		expansion_mode;
 
 	left = malloc(sizeof(t_node));
 	right = malloc(sizeof(t_node));
 	ft_memset(left, 0, sizeof(t_node));
 	ft_memset(right, 0, sizeof(t_node));
-	expansion_mode = 0;
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
 		if (look_ahead(toks) != REDIR)

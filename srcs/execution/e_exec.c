@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 17:50:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:52:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	create_child_process(char **args, t_data *data)
 		monitor_process(pid, data);
 }
 
-void	master_execute(char *line, t_data *data)
+void	scmd(char *line, t_data *data)
 {
 	char	**args;
 

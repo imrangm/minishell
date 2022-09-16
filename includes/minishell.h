@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/11 20:19:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:31:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,36 @@
 # include <signal.h>
 # include <string.h>
 
+/* TOKEN TYPE */
 # define SPACES 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
 # define SQUOTE 4
 # define DQUOTE 5
+
+/* COMMAND TYPE */
+# define EXECCMD 6
+# define REDIRCMD 7
+# define PIPECMD 8
+
+/* SYMBOLS */
 # define LINE '|'
 # define GREAT '>'
 # define LESS '<'
+# define DGREAT '+'
+# define DLESS '-'
 
 int	g_child_pid;
 
+typedef struct s_exp
+{
+	int		start;
+	int		end;
+	char	*param;
+	char	*value;
+	int		count;
+}	t_exp;
 typedef struct s_node
 {
 	int				type;
@@ -75,108 +93,130 @@ typedef struct s_pipe
 	t_data		*data;
 }	t_pipe;
 
-typedef struct s_type
+typedef struct s_char
 {
 	char	c;
 	int		t;
-}	t_type;
+}	t_char;
 
-typedef struct s_scan
+typedef struct s_charlist
 {
-	t_type	**chars;
+	t_char	**chars;
 	int		len;
 	int		pos;
-}	t_scan;
+}	t_charlist;
 
 typedef struct s_token
 {
 	int				type;
 	char			*value;
-	int				iter;
-	int				cur;
-	int				count;
-	int				quote;
 	int				space;
+	struct s_token	*next;
 }	t_token;
 
-//* Tokenizer
-t_scan		*scan_input(char *input);
-t_token		**tokenize(t_scan *src);
-int			count_tokens(t_scan *src);
-void		change_type(t_scan *scan);
+typedef struct s_toklist
+{
+	t_token		*first;
+	t_token		*current;
+	int			count;
+	int			id;
+}	t_toklist;
+
+typedef struct s_cmd
+{
+	int		type;
+}	t_cmd;
+
+typedef struct s_execcmd
+{
+	int		type;
+	char	*fcmd;
+}	t_execcmd;
+
+typedef struct s_redircmd
+{
+	int			type;
+	char		*fcmd;
+	t_redirs	rd;
+}	t_redircmd;
+
+typedef struct s_pipecmd
+{
+	int		type;
+	t_pipe	**pipes;
+	int		nchild;
+}	t_pipecmd;
 
 //* Parsing
-int			has_more_tokens(t_token **toks);
-int			look_ahead(t_token **toks);
-char		*current_token(t_token **toks);
-void		next_token(t_token **toks);
-void		parse(t_data *data);
-t_node		*parse_pipeline(t_token **toks);
-t_node		*parse_command(t_token **toks);
-t_node		*parse_redirection(t_token **toks);
-t_node		*parse_io(t_node *node, t_token **toks, char *id);
+t_charlist	*scan_input(char *input);
+t_toklist	*tokenize(t_charlist *src);
+int			count_tokens(t_token *tok);
+int			has_more_tokens(t_toklist *toks);
+int			look_ahead(t_toklist *toks);
+char		*current_token(t_toklist *toks);
+void		next_token(t_toklist *toks);
 int			process_redirection(t_node **left, t_node **right, char *current);
 
 //* AST
-t_node		*node(t_token **toks);
-t_node		*pair_node(t_node *left, t_node *right, char *id);
-t_node		*error_node(char *msg);
-int			check_error(t_node *node, t_data *data);
-
-//* Process and Execute
+t_node		*parse(t_data *data);
+t_node		*parse_pipeline(t_toklist *toks);
+t_node		*parse_command(t_toklist *toks);
+t_node		*parse_redirection(t_toklist *toks);
+t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
 void		add_redir(t_redirs *rd, char *op, char *fname);
-void		process_tree(t_node *root, int count, t_data *data);
+t_cmd		*process_command(t_node *root, int count, t_data *data);
 t_redirs	get_redir(t_node *rd);
 
+//* Expansion
+void		expansion(t_token *token, t_data *data);
+void		expander(t_token *token, t_exp *exp, t_data *data);
+
+//* Nodes
+t_node		*pair_node(t_node *left, t_node *right, char *id);
+t_node		*error_node(char *msg);
+
+//* Parsing to Execution
+t_execcmd	*exe_cmd(char *fcmd);
+t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd);
+t_pipecmd	*pipe_cmd(t_pipe **p, int nchild);
+void		execute(t_cmd *cmd, t_data *data);
+
 //* Free Memory
-void		free_chars(t_type **table, int len);
-void		free_tokens(t_token **toks);
+void		free_chars(t_charlist *src);
+void		free_tokens(t_token *tok);
 void		free_node(t_node *node);
 void		free_nodes(t_node *root);
 void		free_pair(t_node *left, t_node *right);
 
 //* Parser Tests
+void		print_chars(t_charlist	*scan);
+void		print_tokens(t_token *token);
 void		print_ast(t_node *node, size_t spaces);
-void		test_parse(t_token **toks);
-void		test_tokenize(t_scan *source);
-void		test_scan(char	*input);
 
 //* Utility
+void		init_token(t_token *tokens);
+void		init_toklist(t_toklist *tokens);
 int			check_io(char *prev, char *current);
-int			is_builtin(char **args);
-void		exec_builtin(char **args, t_data *data);
-int			exec_sys_cmd(char **args, t_data *data);
-void		exec_cmd(char **args, t_data *data);
-void		exec_file_cmd(char **args, t_data *data);
-void		free_and_exit(char **args, t_data *data);
-char		*check_quotes(char *value, int val);
+int			check_error(t_node *node, t_data *data);
+char		op_type(char *op);
+
+//* Simple Command
+void		scmd(char *line, t_data *data);
+char		*find_exec(char *prg, char	**paths);
+char		*get_cmd_path(char **args, t_data *data);
 
 //* Redirection
-void		append(char *line);
-void		here_ops(char *line);
+void		redirs(char *line, t_redirs *rd, t_data *data);
+void		process_redirs(int *fd, char *line, t_redirs *rd, t_data *data);
 void		init_rd(t_redirs *rd);
 void		empty_file(char *file);
-void		process(char *line, t_redirs *rd);
-void		file_parent(int *pid, t_data *data);
-void		execute_rd(char *line, t_data *data);
-void		create_file(char *line, t_redirs *rd, t_data *data);
 int			fd_in(t_redirs *rd);
 int			fd_out(t_redirs *rd);
 void		close_fds(int *fd);
 
-//* General Execution
-char		*read_line(char *lim);
-int			is_parent_function(char **args);
-char		*find_exec(char *prg, char	**paths);
-char		*get_cmd_path(char **args, t_data *data);
-void		master_execute(char *line, t_data *data);
-void		exec_cmd_child(char **args, t_data *data);
-void		exec_cmd_parent(char **args, t_data *data);
-
 //* Pipes
 void		pipes(t_pipe **p);
 void		ps_free_all(int **pipes, t_pipe **p);
-int			here_pipe(t_pipe *p);
 int			count_pipes(char *line);
 int			redir_in(t_pipe **p, int i);
 int			redir_out(t_pipe **p, int i);
@@ -184,33 +224,29 @@ void		first_child(int *pids, int **pipes, t_pipe **p);
 void		mid_child(int *i, int *pids, int **pipes, t_pipe **p);
 void		last_child(int *pids, int **pipes, t_pipe **p);
 void		create_process(int **pipes, t_pipe **p);
-void		parent(int *pids, int **pipes, t_pipe **p);
 void		file_error(t_pipe **p);
 void		file_error_mid(int **pipes, t_pipe **p, int i);
 void		close_pipes_first(int **pipes, t_pipe **p, int i);
 void		close_pipes_mid(int **pipes, t_pipe **p, int i);
 void		close_pipes_last(int **pipes, t_pipe **p, int i);
 
-//* Error and free
-void		err_print(int error, t_data *data);
-void		err_free_parent(int **pipes, int *pids, int nchild);
-void		no_err_free_parent(int **pipes, int *pids);
-void		err_kill_process(t_pipe **p);
-void		err_free_process(int **pipes, t_pipe **p);
+//* Command Execution
+int			is_parent_function(char **args);
+int			is_builtin(char **args);
+void		exec_builtin(char **args, t_data *data);
+void		exec_cmd(char **args, t_data *data);
+void		free_and_exit(char **args, t_data *data);
+
+//* Free
 void		free_struct_pipe(t_pipe **p, int nchild);
 void		ps_free(int **pipes, int *pids, t_pipe **p);
 void		rd_free(int *fd, char **arg);
 void		free_data(t_data *data);
 
-//* Parsing Checkers
-int			pc_end(char *line);
-int			pc_chars(char *str);
+//* Preliminary Checkers
 int			pc_pipe(char *line);
-int			pc_quotes(char *str);
 int			pc_redirs(char *str);
-int			pc_redir(char *line);
 int			pc_export(char **args);
-int			pc_mode(char *str, char mode);
 int			pc_valid(char *str, t_data *data);
 
 //* Parsing Extractors
@@ -246,13 +282,13 @@ void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
 
 //* Misc
-char		*expand_line(char *line, t_data *data);
-char		*cmd_copy(char *input);
+char		*read_line(char *lim);
+void		ft_readline(char *lim);
 int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);
-int			word_count(char *input);
-int			char_is_separator(char c, char *charset);
 void		line_update(char **line);
 char		*join_env_var_and_value(char *var_name, char *value);
+char		*trim_line(char *line);
+void		end_pipe(char **line);
 
 #endif

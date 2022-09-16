@@ -3,16 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   e_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 17:46:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:46:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	parent(int *pids, int **pipes, t_pipe **p)
+static void	handle_signal(int pid)
+{
+	g_child_pid = pid;
+	signal(SIGQUIT, &quit_signal_handler);
+}
+
+static void	parent(int *pids, int **pipes, t_pipe **p)
 {
 	int	i;
 	int	wstatus;
@@ -40,18 +46,17 @@ void	parent(int *pids, int **pipes, t_pipe **p)
 	ps_free(pipes, pids, p);
 }
 
-void	child_process(int *pids, int **pipes, t_pipe **p)
+static void	child_process(int *pids, int **pipes, t_pipe **p, int i)
 {
-	int	i;
-
-	i = 0;
 	while (i < p[0]->nchild)
 	{
 		pids[i] = fork();
 		if (pids[i] == -1)
 		{
 			ps_free(pipes, pids, p);
-			perror("fork failed");
+			p[0]->data->last_exit_status = 140;
+			ft_putstr_fd("Error: Could not create child process\n", 2);
+			return ;
 		}
 		if (pids[i] == 0)
 		{
@@ -63,10 +68,7 @@ void	child_process(int *pids, int **pipes, t_pipe **p)
 				last_child(pids, pipes, p);
 		}
 		else
-		{
-			g_child_pid = pids[i];
-			signal(SIGQUIT, &quit_signal_handler);
-		}
+			handle_signal(pids[i]);
 		i++;
 	}
 }
@@ -81,6 +83,6 @@ void	create_process(int **pipes, t_pipe **p)
 		ps_free_all(pipes, p);
 		perror("Malloc failed");
 	}
-	child_process(pids, pipes, p);
+	child_process(pids, pipes, p, 0);
 	parent(pids, pipes, p);
 }
