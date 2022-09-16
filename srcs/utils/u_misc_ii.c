@@ -6,18 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/13 14:44:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 09:41:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	update_final(char **final, char **line)
-{
-	*final = ft_strjoin_and_free(*final, *line);
-	ft_free(*line);
-	*line = strdup("");
-}
 
 void	ft_readline(char *lim)
 {
@@ -27,39 +20,29 @@ void	ft_readline(char *lim)
 	free(text);
 }
 
-char	*read_line(char *lim)
+void	line_update(char **line)
 {
 	char	buf[2];
-	char	*line;
-	char	*final;
-	int		bytes;
+	char	*temp;
 
-	set_signalset(2);
-	line = ft_strdup("");
-	final = ft_strdup("");
-	bytes = 0;
-	ft_memset(buf, 0, 2);
 	write(1, "> ", 2);
+	temp = strdup("");
 	while (1)
 	{
-		bytes = read(0, buf, 1);
+		read(STDIN_FILENO, buf, 1);
 		buf[1] = '\0';
-		if (check_bytes(bytes))
-			break ;
-		line = ft_strjoin_and_free(line, buf);
-		if (ft_strchr(line, '\n'))
+		temp = ft_strjoin_and_free(temp, buf);
+		if (ft_strchr(temp, '\n'))
 		{
-			if (ft_strlen(line) == (ft_strlen(lim) + 1)
-				&& (ft_strncmp (line, lim, ft_strlen(lim)) == 0))
+			*line = ft_strjoin_and_free(*line, temp);
+			if (!ft_strchr(temp, '|'))
+			{
+				ft_free(temp);
 				break ;
-			if (check_bytes(bytes))
-				break ;
+			}
+			ft_free(temp);
+			temp = ft_strdup("");
 			write(1, "> ", 2);
-			final = ft_strjoin_and_free(final, line);
-			ft_free(line);
-			line = strdup("");
 		}
 	}
-	ft_free(line);
-	return (final);
 }

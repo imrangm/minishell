@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   u_token.c                                          :+:      :+:    :+:   */
+/*   p_toks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/12 11:02:56 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 08:59:26 by imustafa         ###   ########.fr       */
+/*   Created: 2022/09/14 16:15:30 by imustafa          #+#    #+#             */
+/*   Updated: 2022/09/16 09:49:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	init_token(t_token *tokens)
-{
-	tokens->type = 0;
-	tokens->value = NULL;
-	tokens->space = 0;
-}
 
 void	init_toklist(t_toklist *tokens)
 {
@@ -27,17 +20,35 @@ void	init_toklist(t_toklist *tokens)
 	tokens->id = 0;
 }
 
-int	count_tokens(t_token *tok)
+char	*current_token(t_toklist *toks)
 {
-	int		i;
-	t_token	*current;
+	return (toks->current->value);
+}
 
-	i = 0;
-	current = tok;
-	while (current)
-	{
-		current = current->next;
-		i++;
-	}
-	return (i);
+int	has_more_tokens(t_toklist *toks)
+{
+	if (!toks->current)
+		return (1);
+	else if (toks->current->next)
+		return (1);
+	else
+		return (0);
+}
+
+int	look_ahead(t_toklist *toks)
+{
+	if (!toks->current)
+		return (toks->first->type);
+	else if (toks->current->next)
+		return (toks->current->next->type);
+	else
+		return (0);
+}
+
+void	next_token(t_toklist *toks)
+{
+	if (!toks->current)
+		toks->current = toks->first;
+	else if (has_more_tokens(toks))
+		toks->current = toks->current->next;
 }
