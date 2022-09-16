@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 10:16:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:30:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 	rt = (*right)->value;
 	if (lf[0] == GREAT)
 		empty_file(rt);
-	else if (ft_strlen(lf) == 2 && lf[0] == LESS
-		&& ft_strlen(current) == 1 && current[0] == LESS)
+	else if (op_type(lf) == DLESS && op_type(current) == LESS)
 		ft_readline(rt);
-	else if (ft_strlen(lf) == 1 && lf[0] == LESS
-		&& ft_strlen(current) == 2 && current[0] == LESS)
+	else if (op_type(lf) == LESS && op_type(current) == DLESS)
 	{
 		if (access(rt, F_OK) == -1)
 		{
@@ -88,22 +86,25 @@ t_node	*parse_io(t_node *redir, t_toklist *toks, char *id)
 
 void	add_redir(t_redirs *rd, char *op, char *fname)
 {
-	if (ft_strncmp(op, ">>", 2) == 0)
+	char	type;
+
+	type = op_type(op);
+	if (type == DGREAT)
 	{
 		rd->append = fname;
 		rd->lastout = O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC;
 	}
-	else if (ft_strncmp(op, ">", 1) == 0)
+	else if (type == GREAT)
 	{
 		rd->outfile = fname;
 		rd->lastout = O_CREAT | O_RDWR | O_TRUNC | O_CLOEXEC;
 	}
-	else if (ft_strncmp(op, "<<", 2) == 0)
+	else if (type == DLESS)
 	{
 		rd->heredoc = fname;
 		rd->lastin = O_CREAT | O_RDWR | O_TRUNC;
 	}
-	else if (ft_strncmp(op, "<", 1) == 0)
+	else if (type == LESS)
 	{
 		rd->infile = fname;
 		rd->lastin = O_RDONLY | O_CLOEXEC;

@@ -6,13 +6,13 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:40:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 09:41:05 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:14:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_bytes(int bytes)
+static int	check_bytes(int bytes)
 {
 	if (!bytes)
 	{
@@ -22,7 +22,7 @@ int	check_bytes(int bytes)
 	return (0);
 }
 
-int	check_line(char *line, char *lim)
+static int	check_line(char *line, char *lim)
 {
 	if (ft_strlen(line) == (ft_strlen(lim) + 1)
 		&& (ft_strncmp (line, lim, ft_strlen(lim)) == 0))
@@ -32,7 +32,7 @@ int	check_line(char *line, char *lim)
 	return (0);
 }
 
-void	update_final(char **final, char **line)
+static void	update_final(char **final, char **line)
 {
 	*final = ft_strjoin_and_free(*final, *line);
 	ft_free(*line);
@@ -40,7 +40,7 @@ void	update_final(char **final, char **line)
 	write(1, "> ", 2);
 }
 
-void	init_readline(char **line, char **final, int *bytes)
+static void	init_readline(char **line, char **final, int *bytes)
 {
 	*line = ft_strdup("");
 	*final = ft_strdup("");

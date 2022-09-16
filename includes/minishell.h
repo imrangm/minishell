@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/15 18:22:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:31:54 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,25 @@
 # include <signal.h>
 # include <string.h>
 
+/* TOKEN TYPE */
 # define SPACES 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
 # define SQUOTE 4
 # define DQUOTE 5
+
+/* COMMAND TYPE */
 # define EXECCMD 6
 # define REDIRCMD 7
 # define PIPECMD 8
+
+/* SYMBOLS */
 # define LINE '|'
 # define GREAT '>'
 # define LESS '<'
+# define DGREAT '+'
+# define DLESS '-'
 
 int	g_child_pid;
 
@@ -140,39 +147,35 @@ typedef struct s_pipecmd
 	int		nchild;
 }	t_pipecmd;
 
-//* Tokenizer
+//* Parsing
 t_charlist	*scan_input(char *input);
 t_toklist	*tokenize(t_charlist *src);
-void		change_type(t_charlist *scan);
 int			count_tokens(t_token *tok);
-
-//* Parsing
 int			has_more_tokens(t_toklist *toks);
 int			look_ahead(t_toklist *toks);
 char		*current_token(t_toklist *toks);
 void		next_token(t_toklist *toks);
+int			process_redirection(t_node **left, t_node **right, char *current);
+
+//* AST
 t_node		*parse(t_data *data);
 t_node		*parse_pipeline(t_toklist *toks);
 t_node		*parse_command(t_toklist *toks);
 t_node		*parse_redirection(t_toklist *toks);
 t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
-int			process_redirection(t_node **left, t_node **right, char *current);
+void		add_redir(t_redirs *rd, char *op, char *fname);
+t_cmd		*process_command(t_node *root, int count, t_data *data);
+t_redirs	get_redir(t_node *rd);
 
 //* Expansion
 void		expansion(t_token *token, t_data *data);
 void		expander(t_token *token, t_exp *exp, t_data *data);
 
-//* AST
+//* Nodes
 t_node		*pair_node(t_node *left, t_node *right, char *id);
 t_node		*error_node(char *msg);
-int			check_error(t_node *node, t_data *data);
 
-//* Process
-void		add_redir(t_redirs *rd, char *op, char *fname);
-t_cmd		*process_command(t_node *root, int count, t_data *data);
-t_redirs	get_redir(t_node *rd);
-
-//* Execute
+//* Parsing to Execution
 t_execcmd	*exe_cmd(char *fcmd);
 t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd);
 t_pipecmd	*pipe_cmd(t_pipe **p, int nchild);
@@ -194,40 +197,26 @@ void		print_ast(t_node *node, size_t spaces);
 void		init_token(t_token *tokens);
 void		init_toklist(t_toklist *tokens);
 int			check_io(char *prev, char *current);
-int			is_builtin(char **args);
-void		exec_builtin(char **args, t_data *data);
-int			exec_sys_cmd(char **args, t_data *data);
-void		exec_cmd(char **args, t_data *data);
-void		exec_file_cmd(char **args, t_data *data);
-void		free_and_exit(char **args, t_data *data);
-char		*check_quotes(char *value, int val);
+int			check_error(t_node *node, t_data *data);
+char		op_type(char *op);
+
+//* Simple Command
+void		scmd(char *line, t_data *data);
+char		*find_exec(char *prg, char	**paths);
+char		*get_cmd_path(char **args, t_data *data);
 
 //* Redirection
-void		append(char *line);
-void		here_ops(char *line);
+void		redirs(char *line, t_redirs *rd, t_data *data);
+void		process_redirs(int *fd, char *line, t_redirs *rd, t_data *data);
 void		init_rd(t_redirs *rd);
 void		empty_file(char *file);
-void		process(char *line, t_redirs *rd);
-void		file_parent(int *pid, t_data *data);
-void		execute_rd(char *line, t_data *data);
-void		create_file(char *line, t_redirs *rd, t_data *data);
 int			fd_in(t_redirs *rd);
 int			fd_out(t_redirs *rd);
 void		close_fds(int *fd);
 
-//* General Execution
-char		*read_line(char *lim);
-int			is_parent_function(char **args);
-char		*find_exec(char *prg, char	**paths);
-char		*get_cmd_path(char **args, t_data *data);
-void		master_execute(char *line, t_data *data);
-void		exec_cmd_child(char **args, t_data *data);
-void		exec_cmd_parent(char **args, t_data *data);
-
 //* Pipes
 void		pipes(t_pipe **p);
 void		ps_free_all(int **pipes, t_pipe **p);
-int			here_pipe(t_pipe *p);
 int			count_pipes(char *line);
 int			redir_in(t_pipe **p, int i);
 int			redir_out(t_pipe **p, int i);
@@ -235,12 +224,18 @@ void		first_child(int *pids, int **pipes, t_pipe **p);
 void		mid_child(int *i, int *pids, int **pipes, t_pipe **p);
 void		last_child(int *pids, int **pipes, t_pipe **p);
 void		create_process(int **pipes, t_pipe **p);
-void		parent(int *pids, int **pipes, t_pipe **p);
 void		file_error(t_pipe **p);
 void		file_error_mid(int **pipes, t_pipe **p, int i);
 void		close_pipes_first(int **pipes, t_pipe **p, int i);
 void		close_pipes_mid(int **pipes, t_pipe **p, int i);
 void		close_pipes_last(int **pipes, t_pipe **p, int i);
+
+//* Command Execution
+int			is_parent_function(char **args);
+int			is_builtin(char **args);
+void		exec_builtin(char **args, t_data *data);
+void		exec_cmd(char **args, t_data *data);
+void		free_and_exit(char **args, t_data *data);
 
 //* Free
 void		free_struct_pipe(t_pipe **p, int nchild);
@@ -248,15 +243,10 @@ void		ps_free(int **pipes, int *pids, t_pipe **p);
 void		rd_free(int *fd, char **arg);
 void		free_data(t_data *data);
 
-//* Parsing Checkers
-int			pc_end(char *line);
-int			pc_chars(char *str);
+//* Preliminary Checkers
 int			pc_pipe(char *line);
-int			pc_quotes(char *str);
 int			pc_redirs(char *str);
-int			pc_redir(char *line);
 int			pc_export(char **args);
-int			pc_mode(char *str, char mode);
 int			pc_valid(char *str, t_data *data);
 
 //* Parsing Extractors
@@ -292,7 +282,7 @@ void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
 
 //* Misc
-int			check_bytes(int bytes);
+char		*read_line(char *lim);
 void		ft_readline(char *lim);
 int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);

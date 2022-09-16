@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_rd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/09 18:13:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:06:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	empty_file(char *file)
 	close(fd);
 }
 
-int	here_pipe(t_pipe *p)
+static int	here_pipe(t_pipe *p)
 {
 	int		fdi;
 	char	*text;

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:06:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 16:10:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:48:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	execute(t_cmd *cmd, t_data *data)
 	if (cmd->type == EXECCMD)
 	{
 		exec = (t_execcmd *) cmd;
-		master_execute(exec->fcmd, data);
+		scmd(exec->fcmd, data);
 	}
 	if (cmd->type == REDIRCMD)
 	{
 		redir = (t_redircmd *) cmd;
-		create_file(redir->fcmd, &redir->rd, data);
+		redirs(redir->fcmd, &redir->rd, data);
 	}
 	if (cmd->type == PIPECMD)
 	{

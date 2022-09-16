@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 08:59:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 11:36:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,20 @@ int	check_error(t_node *node, t_data *data)
 		data->error = 1;
 		return (1);
 	}
+	return (0);
+}
+
+char	op_type(char *op)
+{
+	if (ft_strlen(op) == 2 && op[0] == LESS)
+		return (DLESS);
+	if (ft_strlen(op) == 2 && op[0] == GREAT)
+		return (DGREAT);
+	if (ft_strlen(op) == 1 && op[0] == LESS)
+		return (LESS);
+	if (ft_strlen(op) == 1 && op[0] == GREAT)
+		return (GREAT);
+	if (ft_strlen(op) == 1 && op[0] == LINE)
+		return (LINE);
 	return (0);
 }

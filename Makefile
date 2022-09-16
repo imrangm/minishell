@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/15 18:56:04 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/16 13:40:00 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS=		main.c \
 			parsing/p_execute.c \
 			parsing/p_lexer.c \
 			parsing/p_token.c \
+			parsing/p_toks.c \
 			parsing/p_parse.c \
 			parsing/p_scan.c \
 			parsing/p_utils.c \
@@ -46,20 +47,19 @@ SRCS=		main.c \
 			execution/e_pipe.c \
 			execution/e_fork.c \
 			execution/e_child.c \
-			execution/e_file.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
+			execution/e_redir.c \
 			execution/e_builtin.c \
 			execution/e_fds.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
 			utils/u_struct.c \
 			utils/u_cmd.c \
-			utils/u_token.c \
 			utils/u_misc.c \
 			utils/u_misc_ii.c \
-			utils/u_misc_iii.c \
-			utils/u_pipe.c
+			utils/u_pipe.c \
+			utils/u_readline.c
 
 CC =		gcc
 
