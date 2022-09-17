@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 18:47:05 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 11:36:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:36:18 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	check_error(t_node *node, t_data *data)
 {
 	if (node->type == 1)
 	{
-		check_error(node->left_node, data);
-		check_error(node->right_node, data);
+		check_error(node->left, data);
+		check_error(node->right, data);
 	}
 	else if (node->type == 2)
 	{

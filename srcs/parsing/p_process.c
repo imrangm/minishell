@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 13:23:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:35:19 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 /* PROCESSING TREE*/
 static void	process_pipe_left(t_node *n, t_pipe ***p, int *i)
 {
-	(*p)[*i]->fcmd = n->left_node->value;
-	(*p)[*i]->rd = get_redir(n->right_node);
+	(*p)[*i]->fcmd = n->left->value;
+	(*p)[*i]->rd = get_redir(n->right);
 }
 
 static void	process_pipe_right(t_node *n, t_pipe ***p, int i)
 {
-	(*p)[i]->fcmd = n->left_node->value;
-	(*p)[i]->rd = get_redir(n->right_node);
+	(*p)[i]->fcmd = n->left->value;
+	(*p)[i]->rd = get_redir(n->right);
 }
 
 static t_cmd	*process_pipe(t_node *n, t_pipe ***p, int nchild)
@@ -34,11 +34,11 @@ static t_cmd	*process_pipe(t_node *n, t_pipe ***p, int nchild)
 	{
 		(*p)[i] = malloc(sizeof(t_pipe));
 		init_rd(&(*p)[i]->rd);
-		if (n->left_node->type == 0)
-			(*p)[i]->fcmd = n->left_node->value;
+		if (n->left->type == 0)
+			(*p)[i]->fcmd = n->left->value;
 		else
-			process_pipe_left(n->left_node, p, &i);
-		n = n->right_node;
+			process_pipe_left(n->left, p, &i);
+		n = n->right;
 		i++;
 	}
 	(*p)[i] = malloc(sizeof(t_pipe));
@@ -58,8 +58,8 @@ static t_cmd	*process_redir(t_node *n)
 	t_redirs	rd;
 
 	init_rd(&rd);
-	cmd = n->left_node->value;
-	rd = get_redir(n->right_node);
+	cmd = n->left->value;
+	rd = get_redir(n->right);
 	return ((t_cmd *) redir_cmd(cmd, &rd));
 }
 

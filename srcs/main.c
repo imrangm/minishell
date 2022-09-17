@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/15 10:12:06 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:02:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	parse_line(char *line, t_data *data)
 	if (pc_valid(data->line, data))
 	{
 		node = parse(data);
+		print_ast(node, 1);
 		data->root = node;
 		execute_line(node, line, data);
 		free_nodes(data->root);

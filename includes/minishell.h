@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/16 13:31:54 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:17:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@
 # define DQUOTE 5
 
 /* COMMAND TYPE */
-# define EXECCMD 6
-# define REDIRCMD 7
-# define PIPECMD 8
+# define SCMD 6
+# define RCMD 7
+# define PCMD 8
 
 /* SYMBOLS */
 # define LINE '|'
@@ -52,16 +52,14 @@ typedef struct s_exp
 	int		end;
 	char	*param;
 	char	*value;
-	int		count;
 }	t_exp;
 typedef struct s_node
 {
 	int				type;
 	char			*id;
 	char			*value;
-	int				val;
-	struct s_node	*left_node;
-	struct s_node	*right_node;
+	struct s_node	*left;
+	struct s_node	*right;
 }	t_node;	
 
 typedef struct s_data
@@ -144,7 +142,6 @@ typedef struct s_pipecmd
 {
 	int		type;
 	t_pipe	**pipes;
-	int		nchild;
 }	t_pipecmd;
 
 //* Parsing

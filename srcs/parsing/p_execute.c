@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:06:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 11:48:46 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 15:51:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_execcmd	*exe_cmd(char *fcmd)
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = EXECCMD;
+	cmd->type = SCMD;
 	cmd->fcmd = fcmd;
 	return (cmd);
 }
@@ -31,7 +31,7 @@ t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd)
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = REDIRCMD;
+	cmd->type = RCMD;
 	cmd->fcmd = fcmd;
 	cmd->rd = *rd;
 	return (cmd);
@@ -43,7 +43,7 @@ t_pipecmd	*pipe_cmd(t_pipe **p, int nchild)
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = PIPECMD;
+	cmd->type = PCMD;
 	cmd->pipes = p;
 	cmd->nchild = nchild;
 	return (cmd);
@@ -57,19 +57,19 @@ void	free_command(t_cmd *cmd)
 	t_redircmd	*redir;
 	t_pipecmd	*pipe;
 
-	if (cmd->type == EXECCMD)
+	if (cmd->type == SCMD)
 	{
 		exec = (t_execcmd *) cmd;
 		ft_free(exec->fcmd);
 		ft_free(exec);
 	}
-	if (cmd->type == REDIRCMD)
+	if (cmd->type == RCMD)
 	{
 		redir = (t_redircmd *) cmd;
 		ft_free(redir->fcmd);
 		ft_free(redir);
 	}
-	if (cmd->type == PIPECMD)
+	if (cmd->type == PCMD)
 	{
 		pipe = (t_pipecmd *) cmd;
 		ft_free(pipe);
@@ -84,17 +84,17 @@ void	execute(t_cmd *cmd, t_data *data)
 	t_redircmd	*redir;
 	t_pipecmd	*pipe;
 
-	if (cmd->type == EXECCMD)
+	if (cmd->type == SCMD)
 	{
 		exec = (t_execcmd *) cmd;
 		scmd(exec->fcmd, data);
 	}
-	if (cmd->type == REDIRCMD)
+	if (cmd->type == RCMD)
 	{
 		redir = (t_redircmd *) cmd;
 		redirs(redir->fcmd, &redir->rd, data);
 	}
-	if (cmd->type == PIPECMD)
+	if (cmd->type == PCMD)
 	{
 		pipe = (t_pipecmd *) cmd;
 		pipes(pipe->pipes);

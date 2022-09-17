@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/15 13:17:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:58:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,17 @@ void	end_pipe(char **line)
 char	*trim_line(char *line)
 {
 	int		i;
+	int		len;
 	char	*trimmed;
 
 	i = 0;
 	trimmed = NULL;
+	len = ft_strlen(line);
 	while (line[i] && ft_isspace(line[i]))
 		i++;
+	while (ft_isspace(line[len - 1]))
+		len--;
 	if (line[i])
-		trimmed = ft_substr(line, i, (ft_strlen(line) - i) + 1);
+		trimmed = ft_substr(line, i, len - i);
 	return (trimmed);
 }
