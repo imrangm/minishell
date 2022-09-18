@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/16 13:12:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:21:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_builtin(char **args)
 	return (0);
 }
 
-void	exec_builtin(char **args, t_data *data)
+void	builtin(char **args, t_data *data)
 
 {
 	if (!ft_strcmp(args[0], "export") && args[1])
@@ -65,7 +65,7 @@ void	exec_builtin(char **args, t_data *data)
 		b_env(data->envp, 1);
 }
 
-void	exec_cmd(char **args, t_data *data)
+void	cmd(char **args, t_data *data)
 {
 	char	*cmd_path;
 
@@ -80,10 +80,11 @@ void	exec_cmd(char **args, t_data *data)
 	}
 }
 
-void	free_and_exit(char **args, t_data *data)
+void	free_and_exit(char **args, t_cmd *cmd, t_data *data)
 {
 	ft_free_2d(args);
 	free_data(data);
 	free_nodes(data->root);
+	ft_free(cmd);
 	exit(data->last_exit_status);
 }

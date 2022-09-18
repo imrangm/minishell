@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/16 09:41:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:52:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ void	ft_readline(char *lim)
 
 	text = read_line(lim);
 	free(text);
+}
+
+int	check_io(char *prev, char *current)
+{
+	return ((prev[0] == GREAT && current[0] == LESS)
+		|| (prev[0] == LESS && current[0] == GREAT));
 }
 
 void	line_update(char **line)
@@ -45,4 +51,37 @@ void	line_update(char **line)
 			write(1, "> ", 2);
 		}
 	}
+}
+
+int	check_error(t_node *node, t_data *data)
+{
+	if (node->type == 1)
+	{
+		check_error(node->left, data);
+		check_error(node->right, data);
+	}
+	else if (node->type == 2)
+	{
+		ft_putstr_fd(node->value, 2);
+		ft_putchar_fd('\n', 2);
+		data->last_exit_status = 1;
+		data->error = 1;
+		return (1);
+	}
+	return (0);
+}
+
+char	op_type(char *op)
+{
+	if (ft_strlen(op) == 2 && op[0] == LESS)
+		return (DLESS);
+	if (ft_strlen(op) == 2 && op[0] == GREAT)
+		return (DGREAT);
+	if (ft_strlen(op) == 1 && op[0] == LESS)
+		return (LESS);
+	if (ft_strlen(op) == 1 && op[0] == GREAT)
+		return (GREAT);
+	if (ft_strlen(op) == 1 && op[0] == LINE)
+		return (LINE);
+	return (0);
 }

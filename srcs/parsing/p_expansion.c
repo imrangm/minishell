@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/17 09:51:57 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:38:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	check_exp(char *str)
 		return (0);
 	tmp = ft_strchr(str, '$');
 	if (tmp[1] && (ft_isspace(tmp[1]) || ft_isquote(tmp[1])
-		|| ft_isdigit(tmp[1]) || tmp[1] == '(' || tmp[1] == '{'))
+			|| ft_isdigit(tmp[1]) || tmp[1] == '(' || tmp[1] == '{'))
 		return (0);
 	return (1);
 }
@@ -86,7 +86,11 @@ void	expansion(t_token *token, t_data *data)
 			{
 				expansion = find_exp(token->value);
 				if (i == count && expansion->end == expansion->start)
+				{
+					ft_free(expansion->param);
+					ft_free(expansion);
 					break ;
+				}
 				expander(token, expansion, data);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/17 17:02:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:36:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	execute_line(t_node *node, char *line, t_data *data)
 {
-	data->error = 0;
 	check_error(node, data);
 	if (!data->error)
-		execute(process_command(node, count_pipes(line), data),
-			data);
+		execute(process_command(node, count_pipes(line), data));
 	data->error = 0;
 }
 
@@ -70,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	data.last_exit_status = 0;
+	data.error = 0;
 	init_envp(envp, &data);
 	minishell(&data);
 }
