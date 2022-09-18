@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 19:21:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:53:34 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,12 @@ char	**smart_split(char *str)
 {
 	int		element_count;
 	char	**elements;
+	char	**stripped_elements;
 
 	element_count = get_element_count(str);
 	elements = malloc(sizeof(char *) * (element_count + 1));
 	elements[element_count] = 0;
 	elements = get_elements(ft_strdup(str), elements, element_count);
-	return (elements);
+	stripped_elements = strip_quotes(elements, element_count);
+	return (stripped_elements);
 }

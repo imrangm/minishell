@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
+#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/18 07:27:35 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/18 17:55:35 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS=		main.c \
 			extractors/pe_env.c \
 			extractors/pe_splits.c \
 			extractors/pe_splitpath.c \
+			extractors/pe_quotes.c \
 			builtins/b_env.c \
 			builtins/b_pwd.c \
 			builtins/b_echo.c \

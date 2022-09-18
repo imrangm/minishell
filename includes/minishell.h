@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/18 07:23:35 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:52:56 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_node
 	char			*value;
 	struct s_node	*left;
 	struct s_node	*right;
-}	t_node;	
+}	t_node;
 
 typedef struct s_data
 {
@@ -240,6 +240,7 @@ int			pc_valid(char *str, t_data *data);
 //* Parsing Extractors
 char		**smart_split(char *str);
 char		**pe_split_path(char *s, char c);
+char		**strip_quotes(char **elements, int element_count);
 
 //* Builtins
 int			b_pwd(t_data *data);
@@ -269,7 +270,7 @@ int			cd_special(void);
 void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
 
-//* Utility 
+//* Utility
 char		*read_line(char *lim);
 void		ft_readline(char *lim);
 int			check_io(char *prev, char *current);
