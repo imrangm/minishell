@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 19:13:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:25:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char	*validate_cmd(char *cmd, t_data *data)
 	return (cmd);
 }
 
-//! Change this to accept only one string containing the cmd
 char	*get_cmd_path(char **args, t_data *data)
 {
 	char	*path_env_val;

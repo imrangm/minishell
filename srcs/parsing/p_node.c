@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_node.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 08:06:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/11 20:13:44 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:34:35 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_node	*pair_node(t_node *left, t_node *right, char *id)
 	ft_memset(new, 0, sizeof(t_node));
 	new->id = id;
 	new->type = 1;
-	new->left_node = left;
-	new->right_node = right;
+	new->left = left;
+	new->right = right;
 	return (new);
 }
 

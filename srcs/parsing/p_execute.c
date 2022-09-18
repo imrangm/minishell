@@ -6,98 +6,57 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:06:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 11:48:46 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:23:09 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* CONSTRUCTOR FUNCTIONS */
-
-t_execcmd	*exe_cmd(char *fcmd)
+t_execcmd	*exec_cmd(char *fcmd, t_data *data)
 {
 	t_execcmd	*cmd;
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = EXECCMD;
+	cmd->type = SCMD;
 	cmd->fcmd = fcmd;
+	cmd->data = data;
 	return (cmd);
 }
 
-t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd)
+t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd, t_data *data)
 {
 	t_redircmd	*cmd;
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = REDIRCMD;
+	cmd->type = RCMD;
 	cmd->fcmd = fcmd;
 	cmd->rd = *rd;
+	cmd->data = data;
 	return (cmd);
 }
 
-t_pipecmd	*pipe_cmd(t_pipe **p, int nchild)
+t_pipecmd	*pipe_cmd(t_pipe **p, int nchild, t_data *data)
 {
 	t_pipecmd	*cmd;
 
 	cmd = malloc(sizeof(*cmd));
 	ft_memset(cmd, 0, sizeof(*cmd));
-	cmd->type = PIPECMD;
-	cmd->pipes = p;
+	cmd->type = PCMD;
+	cmd->p = p;
 	cmd->nchild = nchild;
+	cmd->data = data;
 	return (cmd);
 }
 
-/* DESTRUCTOR FUNCTION */
-
-void	free_command(t_cmd *cmd)
+void	execute(t_cmd *cmd)
 {
-	t_execcmd	*exec;
-	t_redircmd	*redir;
-	t_pipecmd	*pipe;
-
-	if (cmd->type == EXECCMD)
-	{
-		exec = (t_execcmd *) cmd;
-		ft_free(exec->fcmd);
-		ft_free(exec);
-	}
-	if (cmd->type == REDIRCMD)
-	{
-		redir = (t_redircmd *) cmd;
-		ft_free(redir->fcmd);
-		ft_free(redir);
-	}
-	if (cmd->type == PIPECMD)
-	{
-		pipe = (t_pipecmd *) cmd;
-		ft_free(pipe);
-	}
-}
-
-/* EXECUTOR FUNCTION */
-
-void	execute(t_cmd *cmd, t_data *data)
-{
-	t_execcmd	*exec;
-	t_redircmd	*redir;
-	t_pipecmd	*pipe;
-
-	if (cmd->type == EXECCMD)
-	{
-		exec = (t_execcmd *) cmd;
-		scmd(exec->fcmd, data);
-	}
-	if (cmd->type == REDIRCMD)
-	{
-		redir = (t_redircmd *) cmd;
-		redirs(redir->fcmd, &redir->rd, data);
-	}
-	if (cmd->type == PIPECMD)
-	{
-		pipe = (t_pipecmd *) cmd;
-		pipes(pipe->pipes);
-	}
+	if (cmd->type == SCMD)
+		scmd((t_execcmd *) cmd);
+	if (cmd->type == RCMD)
+		redirs((t_redircmd *) cmd);
+	if (cmd->type == PCMD)
+		pipes((t_pipecmd *) cmd);
 	ft_free(cmd);
 }

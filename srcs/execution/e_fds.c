@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/08 15:11:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 08:04:24 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,19 @@ int	fd_in(t_redirs *rd)
 	if (rd->heredoc)
 	{
 		fd = open("tmp", rd->lastin, 0644);
+		if (fd == -1)
+			return (-1);
 		text = read_line(rd->heredoc);
 		write(fd, text, strlen(text));
 		close(fd);
 		ft_free(text);
 	}
 	else if (rd->infile)
+	{
 		fd = open(rd->infile, rd->lastin);
+		if (fd == -1)
+			return (-1);
+	}
 	return (fd);
 }
 
@@ -37,9 +43,17 @@ int	fd_out(t_redirs *rd)
 
 	fd = STDOUT_FILENO;
 	if (rd->outfile)
+	{
 		fd = open(rd->outfile, rd->lastout, 0644);
+		if (fd == -1)
+			return (-1);
+	}
 	else if (rd->append)
+	{
 		fd = open(rd->append, rd->lastout, 0644);
+		if (fd == -1)
+			return (-1);
+	}
 	return (fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/14 09:26:04 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:34:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	free_nodes(t_node *root)
 	}
 	else if (root && root->type == 1)
 	{
-		free_nodes(root->left_node);
-		free_nodes(root->right_node);
+		free_nodes(root->left);
+		free_nodes(root->right);
 		ft_free(root);
 	}
 	else if (root && root->type == 2)

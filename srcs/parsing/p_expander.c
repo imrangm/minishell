@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:19:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/15 18:20:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 06:37:46 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ static void	update_tok(t_exp *exp, t_token *token)
 	token->value = final;
 }
 
+static void	free_expansion(t_exp *exp)
+{
+	ft_free(exp->param);
+	ft_free(exp->value);
+	ft_free(exp);
+}
+
 void	expander(t_token *tok, t_exp *exp, t_data *data)
 {
 	char	*param;
@@ -60,4 +67,5 @@ void	expander(t_token *tok, t_exp *exp, t_data *data)
 	}
 	exp->value = value;
 	update_tok(exp, tok);
+	free_expansion(exp);
 }

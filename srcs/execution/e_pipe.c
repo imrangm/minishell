@@ -3,62 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   e_pipe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:20:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/06 13:57:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:10:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	ps_free_main(t_pipe **p)
+static void	ps_free_main(t_pipecmd *pcmd)
 {
-	free_data(p[0]->data);
-	free_nodes(p[0]->data->root);
-	p[0]->data->last_exit_status = 1;
-	free_struct_pipe(p, p[0]->nchild);
+	free_data(pcmd->data);
+	free_nodes(pcmd->data->root);
+	free_pipe(pcmd);
+	pcmd->data->last_exit_status = 1;
+	ft_free(pcmd);
 }
 
-static void	ps_free_pipes(int **pipes, t_pipe **p)
+static void	ps_free_pipes(int **pipes, t_pipecmd *pcmd)
 {
 	ft_free(pipes);
-	ps_free_main(p);
+	ps_free_main(pcmd);
 }
 
-void	ps_free_all(int **pipes, t_pipe **p)
+void	ps_free_all(int **pipes, t_pipecmd *pcmd)
 {
 	int		i;
 	int		nchild;
 
 	i = 0;
-	nchild = p[0]->nchild;
+	nchild = pcmd->nchild;
 	while (i < nchild)
 	{
 		ft_free(pipes[i]);
 		i++;
 	}
-	ps_free_pipes(pipes, p);
+	ps_free_pipes(pipes, pcmd);
 }
 
-static int	**create_pipes(t_pipe **p)
+static int	**create_pipes(t_pipecmd *pcmd)
 {
 	int		**pipes;
 	int		i;
 
 	i = 0;
-	pipes = malloc(sizeof(int *) * (p[0]->nchild));
+	pipes = malloc(sizeof(int *) * (pcmd->nchild));
 	if (!pipes)
 	{
-		ps_free_main(p);
+		ps_free_main(pcmd);
 		perror("Malloc failed");
 	}
-	while (i < p[0]->nchild)
+	while (i < pcmd->nchild)
 	{
 		pipes[i] = malloc(sizeof(int) * 2);
 		if (!pipes[i])
 		{
-			ps_free_pipes(pipes, p);
+			ps_free_pipes(pipes, pcmd);
 			perror("Malloc failed");
 		}
 		i++;
@@ -66,21 +67,21 @@ static int	**create_pipes(t_pipe **p)
 	return (pipes);
 }
 
-void	pipes(t_pipe **p)
+void	pipes(t_pipecmd *pcmd)
 {
 	int		i;
 	int		**pipes;
 
 	i = 0;
-	pipes = create_pipes(p);
-	while (i < p[0]->nchild - 1)
+	pipes = create_pipes(pcmd);
+	while (i < pcmd->nchild - 1)
 	{
 		if (pipe(pipes[i]) == -1)
 		{
-			ps_free_all(pipes, p);
+			ps_free_all(pipes, pcmd);
 			perror("Pipe failed");
 		}
 		i++;
 	}
-	create_process(pipes, p);
+	create_process(pipes, pcmd);
 }

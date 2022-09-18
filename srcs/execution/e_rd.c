@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 13:06:24 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 08:00:56 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,17 @@ static int	here_pipe(t_pipe *p)
 	int		fdi;
 	char	*text;
 
-	fdi = open("tmp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+	fdi = open("tmp", p->rd.lastin, 0644);
 	if (fdi == -1)
 		return (-1);
 	text = read_line(p->rd.heredoc);
 	write(fdi, text, ft_strlen(text));
 	close(fdi);
-	if (p->rd.lastin == 'h')
-	{
-		fdi = open("tmp", O_RDONLY, 0);
-		if (fdi == -1)
-			return (-1);
-		dup2(fdi, STDIN_FILENO);
-	}
-	else
-	{
-		fdi = open(p->rd.infile, O_RDONLY, 0);
-		dup2(fdi, STDIN_FILENO);
-	}
+	ft_free(text);
+	fdi = open("tmp", O_RDONLY, 0);
+	if (fdi == -1)
+		return (-1);
+	dup2(fdi, STDIN_FILENO);
 	close(fdi);
 	return (1);
 }
@@ -66,7 +59,9 @@ int	redir_in(t_pipe **p, int i)
 	if (p[i]->rd.heredoc)
 	{
 		ret = here_pipe(p[i]);
-		return (ret);
+		if (ret == -1)
+			return (-1);
+		return (1);
 	}
 	else if (p[i]->rd.infile)
 	{
@@ -77,8 +72,7 @@ int	redir_in(t_pipe **p, int i)
 		close(fd);
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 int	redir_out(t_pipe **p, int i)

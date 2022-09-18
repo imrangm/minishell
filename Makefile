@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/16 13:40:00 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/18 07:27:35 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRCS=		main.c \
 			parsing/p_toks.c \
 			parsing/p_parse.c \
 			parsing/p_scan.c \
-			parsing/p_utils.c \
 			parsing/p_free.c \
 			parsing/p_expansion.c \
 			parsing/p_expander.c \
@@ -31,7 +30,6 @@ SRCS=		main.c \
 			checks/pc_valid.c \
 			checks/pc_export.c \
 			checks/pc_redirs.c \
-			checks/pc_pipe.c \
 			extractors/pe_env.c \
 			extractors/pe_splits.c \
 			extractors/pe_splitpath.c \
@@ -50,7 +48,6 @@ SRCS=		main.c \
 			execution/e_signal.c \
 			execution/e_rd.c \
 			execution/e_redir.c \
-			execution/e_builtin.c \
 			execution/e_fds.c \
 			utils/u_env.c \
 			utils/u_env_ii.c \
@@ -68,16 +65,16 @@ CC =		gcc
 # CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
 
 # M1 Flags
-LDFLAGS =	-lreadline -L ./libs/readline/lib/
-CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
+# LDFLAGS =	-lreadline -L ./libs/readline/lib/
+# CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
 
 # 42 Flags
 # LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
 # CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
 
 # Linux Flags
-# LDFLAGS =	-lreadline
-# CFLAGS =	-Wall -Wextra -Werror -g3
+LDFLAGS =	-lreadline
+CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/15 11:19:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/17 16:34:45 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	print_ast(t_node *node, size_t spaces)
 	if (node->type == 1)
 	{
 		printf("%s:\n", node->id);
-		print_ast(node->left_node, spaces + 3);
-		print_ast(node->right_node, spaces + 3);
+		print_ast(node->left, spaces + 3);
+		print_ast(node->right, spaces + 3);
 	}
 	if (node->type == 2)
 		printf("%s: %s\n", node->id, node->value);

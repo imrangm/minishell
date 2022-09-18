@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 11:52:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:22:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,34 @@ char	*get_export_value_side(char *str, int lhs)
 	return (NULL);
 }
 
-static void	create_child_process(char **args, t_data *data)
+static void	create_child_process(char **args, t_execcmd *exec)
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == -1)
 	{
-		data->last_exit_status = 140;
+		exec->data->last_exit_status = 140;
 		ft_putstr_fd("Error: Could not create child process\n", 2);
 		return ;
 	}
 	if (pid == 0)
 	{
-		exec_cmd(args, data);
-		free_and_exit(args, data);
+		cmd(args, exec->data);
+		free_and_exit(args, (t_cmd *) exec, exec->data);
 	}
 	else
-		monitor_process(pid, data);
+		monitor_process(pid, exec->data);
 }
 
-void	scmd(char *line, t_data *data)
+void	scmd(t_execcmd *exec)
 {
 	char	**args;
 
-	args = smart_split(line);
+	args = smart_split(exec->fcmd);
 	if (is_builtin(args))
-		exec_builtin(args, data);
+		builtin(args, exec->data);
 	else
-		create_child_process(args, data);
+		create_child_process(args, exec);
 	ft_free_2d(args);
 }

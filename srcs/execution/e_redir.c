@@ -6,43 +6,44 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 13:40:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/18 07:22:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	heredoc(char **args, t_data *data)
+static void	heredoc(char **args, t_redircmd *redir)
 {
 	int	f;
 
 	f = open("tmp", O_RDONLY, 0);
 	if (f == -1)
 	{
-		data->last_exit_status = 1;
-		free_and_exit(args, data);
+		redir->data->last_exit_status = 1;
+		free_and_exit(args, (t_cmd *) redir, redir->data);
 	}
 	dup2(f, STDIN_FILENO);
 	close(f);
 	unlink("tmp");
 }
 
-static void	child(int *fd, char *line, t_redirs *rd, t_data *data)
+static void	child(int *fd, t_redircmd *redir)
 {
 	char	**args;
 
-	args = smart_split(line);
-	if (rd->heredoc)
-		heredoc(args, data);
+	args = smart_split(redir->fcmd);
+	if (redir->rd.heredoc)
+		heredoc(args, redir);
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	if (is_builtin(args))
-		exec_builtin(args, data);
+		builtin(args, redir->data);
 	else
-		exec_cmd(args, data);
+		cmd(args, redir->data);
 	close_fds(fd);
-	free_and_exit(args, data);
+	ft_free(redir->data->line);
+	free_and_exit(args, (t_cmd *) redir, redir->data);
 }
 
 static void	parent(int *pid, t_data *data)
@@ -63,37 +64,37 @@ static void	parent(int *pid, t_data *data)
 	}
 }
 
-void	process_redirs(int *fd, char *line, t_redirs *rd, t_data *data)
+void	process_redirs(int *fd, t_redircmd *redir)
 {
 	int	pid;
 
 	pid = fork();
 	if (pid == -1)
 	{
-		data->last_exit_status = 140;
+		redir->data->last_exit_status = 140;
 		ft_putstr_fd("Error: Could not create child process\n", 2);
 		return ;
 	}
 	if (pid == 0)
-		child(fd, line, rd, data);
+		child(fd, redir);
 	else
-		parent(&pid, data);
+		parent(&pid, redir->data);
 }
 
-void	redirs(char *line, t_redirs *rd, t_data *data)
+void	redirs(t_redircmd *redir)
 {
 	int		fd[2];
 
-	fd[0] = fd_in(rd);
-	fd[1] = fd_out(rd);
+	fd[0] = fd_in(&redir->rd);
+	fd[1] = fd_out(&redir->rd);
 	if (fd[0] == -1 || fd[1] == -1)
 	{
 		perror("File error");
-		data->last_exit_status = 1;
+		redir->data->last_exit_status = 1;
 	}
 	else
 	{
-		process_redirs(fd, line, rd, data);
+		process_redirs(fd, redir);
 		close_fds(fd);
 	}
 }
