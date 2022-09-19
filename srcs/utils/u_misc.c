@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 18:58:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:03:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,19 @@ int	count_pipes(char *line)
 	return (p);
 }
 
-void	end_pipe(char **line)
+int	end_pipe(char *line)
 {
 	char	*tmp;
 
-	tmp = ft_strtrim((*line), " ");
-	if ((*line)[ft_strlen(tmp) - 1] == '|')
-		line_update(line);
+	tmp = ft_strtrim((line), " ");
+	if ((line)[ft_strlen(tmp) - 1] == '|')
+	{
+		ft_putendl_fd("End pipes are not accepted.", 2);
+		ft_free(tmp);
+		return (1);
+	}
 	ft_free(tmp);
+	return (0);
 }
 
 char	*trim_line(char *line)

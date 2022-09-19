@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 09:48:00 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 12:04:04 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	parse_line(char *line, t_data *data)
 {
 	t_node	*node;
 
-	end_pipe(&line);
 	add_history(line);
+	if (end_pipe(line))
+		return ;
 	data->line = trim_line(line);
 	if (pc_valid(data->line, data))
 	{
@@ -54,10 +55,7 @@ void	minishell(t_data *data)
 		if (check_space(line))
 			continue ;
 		if (line[0])
-		{
 			parse_line(line, data);
-		}
-		ft_free(data->line);
 		ft_free(line);
 	}
 }
