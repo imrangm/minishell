@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/18 17:52:56 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/19 10:16:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,9 @@ int			look_ahead(t_toklist *toks);
 char		*current_token(t_toklist *toks);
 void		next_token(t_toklist *toks);
 int			process_redirection(t_node **left, t_node **right, char *current);
-void		expansion(t_token *token, t_data *data);
-void		expander(t_token *token, t_exp *exp, t_data *data);
+int			expansion(t_toklist *toklist, t_token *token, t_data *data);
+int			expander(t_toklist *toks, t_token *token, t_exp *exp, t_data *data);
+int			check_exp(char *str);
 
 //* AST
 t_node		*parse(t_data *data);
@@ -222,7 +223,7 @@ void		close_pipes_last(int **pipes, t_pipecmd *pcmd, int i);
 //* Command Execution
 int			is_parent_function(char **args);
 int			is_builtin(char **args);
-void		builtin(char **args, t_data *data);
+void		builtin(char **args, t_cmd *cmd, t_data *data);
 void		cmd(char **args, t_data *data);
 void		free_and_exit(char **args, t_cmd *cmd, t_data *data);
 
@@ -232,7 +233,6 @@ void		ps_free(int **pipes, int *pids, t_pipecmd *pcmd);
 void		free_data(t_data *data);
 
 //* Preliminary Checkers
-int			pc_pipe(char *line);
 int			pc_redirs(char *str);
 int			pc_export(char **args);
 int			pc_valid(char *str, t_data *data);
@@ -245,7 +245,7 @@ char		**strip_quotes(char **elements, int element_count);
 //* Builtins
 int			b_pwd(t_data *data);
 int			b_cd(char **args, t_data *data);
-void		b_exit(char **args, t_data *data);
+void		b_exit(char **args, t_cmd *cmd, t_data *data);
 int			b_echo(char **args, t_data *data);
 void		b_unset(char **args, t_data *data);
 void		b_export(char **args, t_data *data);

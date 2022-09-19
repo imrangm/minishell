@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/18 17:55:35 by nmadi            ###   ########.fr        #
+#    Updated: 2022/09/19 10:12:12 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,21 +61,13 @@ SRCS=		main.c \
 
 CC =		gcc
 
-# # Homebrew Flags
-# LDFLAGS =	-lreadline -L /opt/homebrew/opt/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -g3 -I /opt/homebrew/opt/readline/include/
-
-# M1 Flags
-# LDFLAGS =	-lreadline -L ./libs/readline/lib/
-# CFLAGS=	-Wall -Wextra -Werror -I ./libs/readline/include/
-
 # 42 Flags
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/ -g3
+LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
 LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror -g3
+CFLAGS =	-Wall -Wextra -Werror
 
 LIBFT_A =	./libs/libft/libft.a
 

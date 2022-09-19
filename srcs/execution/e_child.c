@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_child.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:21:58 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:22:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	exec_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd)
 		exit_pipe(arg, pids, pipes, pcmd);
 	if (is_builtin(arg))
 	{
-		builtin(arg, pcmd->data);
+		builtin(arg, (t_cmd *) pcmd, pcmd->data);
 		exit_pipe(arg, pids, pipes, pcmd);
 	}
 	else

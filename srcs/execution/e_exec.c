@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:22:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:22:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	scmd(t_execcmd *exec)
 
 	args = smart_split(exec->fcmd);
 	if (is_builtin(args))
-		builtin(args, exec->data);
+		builtin(args, (t_cmd *) exec, exec->data);
 	else
 		create_child_process(args, exec);
 	ft_free_2d(args);

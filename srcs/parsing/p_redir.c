@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/17 17:09:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:55:47 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 {
 	char	*lf;
 	char	*rt;
-	
+
 	lf = (*left)->value;
 	rt = (*right)->value;
 	if (lf[0] == GREAT)

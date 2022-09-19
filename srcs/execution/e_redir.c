@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:22:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:22:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	child(int *fd, t_redircmd *redir)
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
 	if (is_builtin(args))
-		builtin(args, redir->data);
+		builtin(args, (t_cmd *) redir, redir->data);
 	else
 		cmd(args, redir->data);
 	close_fds(fd);

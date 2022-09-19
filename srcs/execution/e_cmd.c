@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/18 07:21:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:24:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_builtin(char **args)
 	return (0);
 }
 
-void	builtin(char **args, t_data *data)
+void	builtin(char **args, t_cmd *cmd, t_data *data)
 
 {
 	if (!ft_strcmp(args[0], "export") && args[1])
@@ -52,7 +52,7 @@ void	builtin(char **args, t_data *data)
 	else if (!ft_strcmp(args[0], "unset"))
 		b_unset(args, data);
 	else if (!ft_strcmp(args[0], "exit"))
-		b_exit(args, data);
+		b_exit(args, cmd, data);
 	else if (!ft_strcmp(args[0], "cd"))
 		b_cd(args, data);
 	else if (!ft_strcmp(args[0], "echo"))
