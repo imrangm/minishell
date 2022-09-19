@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 12:03:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 16:07:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_toklist
 {
 	t_token		*first;
 	t_token		*current;
+	int			done;
 	int			count;
 	int			id;
 }	t_toklist;

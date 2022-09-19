@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 11:25:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 15:25:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 
 	lf = (*left)->value;
 	rt = (*right)->value;
-	if (lf[0] == GREAT && access(rt, F_OK))
+	if (op_type(lf) == DGREAT && access(rt, F_OK))
+		empty_file(rt);
+	else if (op_type(lf) == GREAT)
 		empty_file(rt);
 	else if (op_type(lf) == DLESS && current[0] == LESS)
 		ft_readline(rt);

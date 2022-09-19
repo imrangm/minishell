@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 13:47:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:42:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	execute_line(t_node *node, char *line, t_data *data)
 	{
 		cmd = process_command(node, count_pipes(line), data);
 		if (!cmd)
+		{
+			printf("cmd is NULL\n");
 			return ;
-		execute(process_command(node, count_pipes(line), data));
+		}
+		execute(cmd);
 	}
 	data->error = 0;
 }
@@ -41,7 +44,8 @@ void	parse_line(char *line, t_data *data)
 		if (!node)
 			return ;
 		data->root = node;
-		execute_line(node, line, data);
+		print_ast(data->root, 1);
+		execute_line(data->root, line, data);
 		free_nodes(data->root);
 	}
 }
@@ -64,6 +68,7 @@ void	minishell(t_data *data)
 		if (line[0])
 			parse_line(line, data);
 		ft_free(line);
+		ft_free(data->line);
 	}
 }
 

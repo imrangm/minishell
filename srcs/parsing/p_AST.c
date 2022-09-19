@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 06:50:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:44:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 
 static t_node	*command_return(t_node **lf, t_node **rt, t_toklist *toks)
 {
+	// if ((*rt)->value[0] == '<')
+	// 	printf("X\n");
 	if (!(*lf)->id)
 	{
 		ft_free(*rt);
@@ -115,6 +117,7 @@ t_node	*parse_command(t_toklist *toks)
 	ft_memset(right, 0, sizeof(t_node));
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
+		// printf("tok value: %s\n", current_token(toks));
 		if (look_ahead(toks) != REDIR)
 		{
 			next_token(toks);
