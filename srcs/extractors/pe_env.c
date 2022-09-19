@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pe_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:19:28 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/06 14:34:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:28:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	init_envp(char **envp, t_data *data)
 {
 	data->pwd = NULL;
 	data->envp = clone_env(envp, 0);
-	delete_env("OLDPWD", data);
+	if (env_exists("OLDPWD", data))
+		delete_env("OLDPWD", data);
 	set_shlvl(data);
 	modify_env(ft_strdup("OLDPWD"), NULL, data);
 	modify_env(ft_strdup("PWD"), getcwd(NULL, 0), data);

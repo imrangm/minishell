@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:34:30 by nmadi             #+#    #+#             */
-/*   Updated: 2022/06/13 18:27:52 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/19 11:29:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	b_unset(char **args, t_data *data)
 	while (args[i])
 	{
 		if (ft_strncmp(args[i], "_", ft_counttochars(args[i], '=', '\0')))
-			delete_env(args[i], data);
+		{
+			if (env_exists(args[i], data))
+				delete_env(args[i], data);
+		}
 		i++;
 	}
 }
