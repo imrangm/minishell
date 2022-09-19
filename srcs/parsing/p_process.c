@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:23:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:51:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ t_cmd	*process_command(t_node *root, int count, t_data *data)
 	else if (current->type == 1)
 		cmd = process_redir(current, data);
 	else
+	{
+		if (data->line[0] == '<' || data->line[0] == '>')
+		{
+			ft_putendl_fd("Error: No command given", 2);
+			return (NULL);
+		}
 		cmd = (t_cmd *) exec_cmd(current->value, data);
+	}
 	return (cmd);
 }

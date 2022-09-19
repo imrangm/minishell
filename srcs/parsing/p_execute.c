@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_execute.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:06:37 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:23:09 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:48:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,16 @@ t_pipecmd	*pipe_cmd(t_pipe **p, int nchild, t_data *data)
 void	execute(t_cmd *cmd)
 {
 	if (cmd->type == SCMD)
+	{
 		scmd((t_execcmd *) cmd);
+	}
 	if (cmd->type == RCMD)
+	{
 		redirs((t_redircmd *) cmd);
+	}
 	if (cmd->type == PCMD)
+	{
 		pipes((t_pipecmd *) cmd);
+	}
 	ft_free(cmd);
 }
