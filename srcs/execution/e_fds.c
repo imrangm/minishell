@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_fds.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 08:04:24 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:33:48 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	fd_in(t_redirs *rd)
 		if (fd == -1)
 			return (-1);
 		text = read_line(rd->heredoc);
-		write(fd, text, strlen(text));
+		write(fd, text, ft_strlen(text));
 		close(fd);
 		ft_free(text);
 	}
