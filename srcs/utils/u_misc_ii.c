@@ -6,25 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 03:10:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:41:50 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	ft_readline(char *lim)
-{
-	char	*text;
-
-	text = read_line(lim);
-	free(text);
-}
-
-int	check_io(char *prev, char *current)
-{
-	return ((prev[0] == GREAT && current[0] == LESS)
-		|| (prev[0] == LESS && current[0] == GREAT));
-}
 
 int	check_error(t_node *node, t_data *data)
 {
@@ -44,28 +30,32 @@ int	check_error(t_node *node, t_data *data)
 	return (0);
 }
 
-char	op_type(char *op)
+char	*read_pipe(char *line)
 {
-	if (ft_strlen(op) == 2 && op[0] == LESS)
-		return (DLESS);
-	if (ft_strlen(op) == 2 && op[0] == GREAT)
-		return (DGREAT);
-	if (ft_strlen(op) == 1 && op[0] == LESS)
-		return (LESS);
-	if (ft_strlen(op) == 1 && op[0] == GREAT)
-		return (GREAT);
-	if (ft_strlen(op) == 1 && op[0] == LINE)
-		return (LINE);
-	return (0);
-}
+	char	buf[2];
+	char	*temp;
 
-void	free_redirs(t_redircmd *redir)
-{
-	t_data	*data;
-
-	data = redir->data;
-	ft_free(redir);
-	free_data(data);
-	free_nodes(data->root);
-	exit(data->last_exit_status);
+	set_signalset(2);
+	temp = strdup("");
+	write(1, "> ", 2);
+	while (1)
+	{
+		read(STDIN_FILENO, buf, 1);
+		buf[1] = '\0';
+		temp = ft_strjoin_and_free(temp, buf);
+		if (ft_strchr(temp, '\n'))
+		{
+			line = ft_strjoin_and_free(line, " ");
+			line = ft_strjoin_and_free(line, temp);
+			if (!ft_strchr(temp, '|'))
+			{
+				ft_free(temp);
+				break ;
+			}
+			ft_free(temp);
+			temp = ft_strdup("");
+			write(1, "> ", 2);
+		}
+	}
+	return (trim_line(line));
 }

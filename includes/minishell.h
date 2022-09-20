@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 03:10:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 05:52:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,9 +279,10 @@ int			check_error(t_node *node, t_data *data);
 char		op_type(char *op);
 int			check_space(char *str);
 char		*ft_strjoin_and_free(char *s1, char const *s2);
-void		line_update(char *line);
+char		*read_pipe(char *line);
 char		*join_env_var_and_value(char *var_name, char *value);
 char		*trim_line(char *line);
 int			end_pipe(char *line);
+char		*read_pipe(char *line);
 
 #endif

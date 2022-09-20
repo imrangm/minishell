@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/19 11:41:14 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/20 11:29:28 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRCS=		main.c \
 			utils/u_misc.c \
 			utils/u_misc_ii.c \
 			utils/u_pipe.c \
-			utils/u_readline.c
+			utils/u_readline.c \
+			utils/u_redirs.c
 
 CC =		gcc
 

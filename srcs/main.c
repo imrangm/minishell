@@ -6,35 +6,50 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:59:07 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:32:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_line(t_node *node, char *line, t_data *data)
+void	execute_line(t_data *data)
 {
 	t_cmd	*cmd;
+	t_node	*root;
+	char	*line;
 	int		p;
 
-	check_error(node, data);
+	root = data->root;
+	line = data->line;
+	check_error(root, data);
 	if (!data->error)
 	{
 		p = count_pipes(line);
-		cmd = process_command(node, p, data);
+		cmd = process_command(root, p, data);
 		execute(cmd);
 	}
 	data->error = 0;
+}
+
+void	update_line(char *line, t_data *data)
+{
+	if (end_pipe(line))
+	{
+		data->line = read_pipe(line);
+		add_history(data->line);
+	}
+	else
+	{
+		data->line = trim_line(line);
+		add_history(line);
+	}
 }
 
 void	parse_line(char *line, t_data *data)
 {
 	t_node	*node;
 
-	add_history(line);
-	if (end_pipe(line))
-		return ;
-	data->line = trim_line(line);
+	update_line(line, data);
 	if (pc_valid(data->line, data))
 	{
 		node = parse(data);
@@ -42,7 +57,7 @@ void	parse_line(char *line, t_data *data)
 			return ;
 		data->root = node;
 		print_ast(data->root, 1);
-		execute_line(data->root, line, data);
+		execute_line(data);
 		free_nodes(data->root);
 	}
 }
@@ -64,7 +79,6 @@ void	minishell(t_data *data)
 			continue ;
 		if (line[0])
 			parse_line(line, data);
-		ft_free(line);
 		ft_free(data->line);
 	}
 }
