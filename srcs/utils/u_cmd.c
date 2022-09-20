@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/17 17:25:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 11:46:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ char	*validate_cmd(char *cmd, t_data *data)
 		ft_putstr_fd("Error: Command not found\n", 2);
 		data->last_exit_status = 127;
 		ft_free(cmd);
-		ft_free(data->line);
+		if (!count_pipes(data->line))
+			ft_free(data->line);
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
 		ft_putstr_fd("Error: no permission to execute this command\n", 2);
 		data->last_exit_status = 126;
 		ft_free(cmd);
-		ft_free(data->line);
+		if (!count_pipes(data->line))
+			ft_free(data->line);
 	}
 	return (cmd);
 }

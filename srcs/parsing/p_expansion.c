@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 06:38:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:09:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	check_exp(char *str)
-{
-	char	*tmp;
-
-	if (!ft_strchr(str, '$'))
-		return (0);
-	tmp = ft_strchr(str, '$');
-	if (tmp[1] && (ft_isspace(tmp[1]) || ft_isquote(tmp[1])
-			|| ft_isdigit(tmp[1]) || tmp[1] == '(' || tmp[1] == '{'))
-		return (0);
-	return (1);
-}
 
 static int	start_param(char *str)
 {
@@ -70,14 +57,18 @@ static t_exp	*find_exp(char *str)
 	return (exp);
 }
 
-void	expansion(t_token *token, t_data *data)
+static void	free_from_expansion(t_exp *expansion)
+{
+	ft_free(expansion->param);
+	ft_free(expansion);
+}
+
+int	expansion(t_toklist *toks, t_token *token, t_data *data)
 {
 	t_exp	*expansion;
 	int		i;
-	int		count;
 
 	i = 1;
-	count = count_tokens(token);
 	while (token)
 	{
 		if (token->type == WORD || token->type == DQUOTE)
@@ -85,16 +76,18 @@ void	expansion(t_token *token, t_data *data)
 			while (check_exp(token->value))
 			{
 				expansion = find_exp(token->value);
-				if (i == count && expansion->end == expansion->start)
+				if (i == count_tokens(token)
+					&& expansion->end == expansion->start)
 				{
-					ft_free(expansion->param);
-					ft_free(expansion);
+					free_from_expansion(expansion);
 					break ;
 				}
-				expander(token, expansion, data);
+				if (expander(toks, token, expansion, data))
+					return (1);
 			}
 		}
 		token = token->next;
 		i++;
 	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:19:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 06:37:46 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:08:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,52 @@ static void	free_expansion(t_exp *exp)
 	ft_free(exp);
 }
 
-void	expander(t_token *tok, t_exp *exp, t_data *data)
+static void	quotes_error_exit(t_toklist *toks, t_exp *exp, t_data *data)
 {
-	char	*param;
+	free_expansion(exp);
+	free_tokens(toks->first);
+	ft_free(toks);
+	data->last_exit_status = 1;
+	ft_putendl_fd("Error: Quotes within env variables are not allowed.", 2);
+}
+
+int	expander(t_toklist *toks, t_token *tok, t_exp *exp, t_data *data)
+{
 	char	*value;
 
-	param = exp->param;
 	value = NULL;
-	if (ft_strncmp(param, "?", 1) == 0)
+	if (ft_strncmp(exp->param, "?", 1) == 0)
 	{
 		value = ft_itoa(data->last_exit_status);
 		data->last_exit_status = 0;
 	}
 	else
 	{
-		value = get_env_value(param, data);
+		value = get_env_value(exp->param, data);
 		if (!value)
 			value = ft_strdup("");
 	}
 	exp->value = value;
-	update_tok(exp, tok);
+	if (!ft_strchr(value, '\"') && !ft_strchr(value, '\''))
+		update_tok(exp, tok);
+	else
+	{
+		quotes_error_exit(toks, exp, data);
+		return (1);
+	}
 	free_expansion(exp);
+	return (0);
+}
+
+int	check_exp(char *str)
+{
+	char	*tmp;
+
+	if (!ft_strchr(str, '$'))
+		return (0);
+	tmp = ft_strchr(str, '$');
+	if (tmp[1] && (ft_isspace(tmp[1]) || ft_isquote(tmp[1])
+			|| ft_isdigit(tmp[1]) || tmp[1] == '(' || tmp[1] == '{'))
+		return (0);
+	return (1);
 }

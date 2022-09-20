@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:22:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:08:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,28 @@ static void	child(int *fd, t_redircmd *redir)
 {
 	char	**args;
 
-	args = smart_split(redir->fcmd);
+	if (redir->fcmd)
+		args = smart_split(redir->fcmd);
+	else
+		args = NULL;
 	if (redir->rd.heredoc)
 		heredoc(args, redir);
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);
-	if (is_builtin(args))
-		builtin(args, redir->data);
-	else
-		cmd(args, redir->data);
+	if (redir->fcmd)
+	{
+		if (is_builtin(args))
+			builtin(args, (t_cmd *) redir, redir->data);
+		else
+			cmd(args, redir->data);
+	}
 	close_fds(fd);
 	ft_free(redir->data->line);
-	free_and_exit(args, (t_cmd *) redir, redir->data);
+	if (args)
+		free_and_exit(args, (t_cmd *) redir, redir->data);
+	else
+		free_redirs(redir);
 }
 
 static void	parent(int *pid, t_data *data)

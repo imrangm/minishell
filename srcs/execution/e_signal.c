@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/09 18:23:27 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/19 10:11:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	signal_handler_iii(int signum)
 	write(1, "> ", 2);
 }
 
-//* Default Minishell loop signal set is 0.
 void	set_signalset(int sigmode)
 {
 	if (sigmode == 0)

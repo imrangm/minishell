@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 07:23:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:49:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,16 @@ static t_cmd	*process_redir(t_node *n, t_data *data)
 	t_redirs	rd;
 
 	init_rd(&rd);
-	cmd = n->left->value;
-	rd = get_redir(n->right);
+	if (ft_strcmp(n->id, "REDIR") == 0)
+	{
+		cmd = NULL;
+		rd = get_redir(n);
+	}
+	else
+	{
+		cmd = n->left->value;
+		rd = get_redir(n->right);
+	}
 	return ((t_cmd *) redir_cmd(cmd, &rd, data));
 }
 

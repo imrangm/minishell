@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/17 17:09:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:49:55 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 {
 	char	*lf;
 	char	*rt;
-	
+
 	lf = (*left)->value;
 	rt = (*right)->value;
-	if (lf[0] == GREAT)
+	if (op_type(lf) == DGREAT && access(rt, F_OK))
+		empty_file(rt);
+	else if (op_type(lf) == GREAT)
 		empty_file(rt);
 	else if (op_type(lf) == DLESS && current[0] == LESS)
 		ft_readline(rt);
@@ -92,7 +94,10 @@ void	add_redir(t_redirs *rd, char *op, char *fname)
 	if (type == DGREAT)
 	{
 		rd->append = fname;
-		rd->lastout = O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC;
+		if (access(fname, F_OK))
+			rd->lastout = O_CREAT | O_RDWR | O_APPEND | O_CLOEXEC;
+		else
+			rd->lastout = O_RDWR | O_APPEND | O_CLOEXEC;
 	}
 	else if (type == GREAT)
 	{

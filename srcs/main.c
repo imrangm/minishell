@@ -3,36 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 13:32:19 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/20 11:32:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute_line(t_node *node, char *line, t_data *data)
+void	execute_line(t_data *data)
 {
-	check_error(node, data);
+	t_cmd	*cmd;
+	t_node	*root;
+	char	*line;
+	int		p;
+
+	root = data->root;
+	line = data->line;
+	check_error(root, data);
 	if (!data->error)
-		execute(process_command(node, count_pipes(line), data));
+	{
+		p = count_pipes(line);
+		cmd = process_command(root, p, data);
+		execute(cmd);
+	}
 	data->error = 0;
+}
+
+void	update_line(char *line, t_data *data)
+{
+	if (end_pipe(line))
+	{
+		data->line = read_pipe(line);
+		add_history(data->line);
+	}
+	else
+	{
+		data->line = trim_line(line);
+		add_history(line);
+	}
 }
 
 void	parse_line(char *line, t_data *data)
 {
 	t_node	*node;
 
-	end_pipe(&line);
-	add_history(line);
-	data->line = trim_line(line);
+	update_line(line, data);
 	if (pc_valid(data->line, data))
 	{
 		node = parse(data);
-		// print_ast(node, 1);
+		if (!node)
+			return ;
 		data->root = node;
-		execute_line(node, line, data);
+		print_ast(data->root, 1);
+		execute_line(data);
 		free_nodes(data->root);
 	}
 }
@@ -53,11 +78,8 @@ void	minishell(t_data *data)
 		if (check_space(line))
 			continue ;
 		if (line[0])
-		{
 			parse_line(line, data);
-		}
 		ft_free(data->line);
-		ft_free(line);
 	}
 }
 

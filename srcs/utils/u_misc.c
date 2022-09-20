@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 18:58:47 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:39:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,20 @@ int	count_pipes(char *line)
 	return (p);
 }
 
-void	end_pipe(char **line)
+int	end_pipe(char *line)
 {
-	char	*tmp;
+	int	i;
+	int	j;
 
-	tmp = ft_strtrim((*line), " ");
-	if ((*line)[ft_strlen(tmp) - 1] == '|')
-		line_update(line);
-	ft_free(tmp);
+	i = 0;
+	j = ft_strlen(line) - 1;
+	while (ft_isspace(line[i]))
+		i++;
+	while (ft_isspace(line[j]))
+		j--;
+	if (line[j + i] == '|')
+		return (1);
+	return (0);
 }
 
 char	*trim_line(char *line)
@@ -100,5 +106,6 @@ char	*trim_line(char *line)
 		len--;
 	if (line[i])
 		trimmed = ft_substr(line, i, len - i);
+	ft_free(line);
 	return (trimmed);
 }

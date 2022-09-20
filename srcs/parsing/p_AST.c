@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 06:50:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:25:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,19 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 
 static t_node	*command_return(t_node **lf, t_node **rt, t_toklist *toks)
 {
-	if (!(*lf)->id)
+	if ((*rt)->id && !(*lf)->id)
+	{
+		ft_free(*lf);
+		return (*rt);
+	}
+	if (!(*lf)->id && !(*rt)->id)
 	{
 		ft_free(*rt);
 		(*lf)->value = ft_strdup(current_token(toks));
 		(*lf)->id = "COMMAND";
 		return (*lf);
 	}
-	if (!(*rt)->id)
+	else if (!(*rt)->id)
 	{
 		(*lf)->id = "COMMAND";
 		ft_free(*rt);
