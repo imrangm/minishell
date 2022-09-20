@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_readline.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:40:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/16 13:14:46 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:38:45 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	update_final(char **final, char **line)
 {
 	*final = ft_strjoin_and_free(*final, *line);
 	ft_free(*line);
-	*line = strdup("");
+	*line = ft_strdup("");
 	write(1, "> ", 2);
 }
 
