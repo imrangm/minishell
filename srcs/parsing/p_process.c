@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 13:51:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:49:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,16 @@ static t_cmd	*process_redir(t_node *n, t_data *data)
 	t_redirs	rd;
 
 	init_rd(&rd);
-	cmd = n->left->value;
-	rd = get_redir(n->right);
+	if (ft_strcmp(n->id, "REDIR") == 0)
+	{
+		cmd = NULL;
+		rd = get_redir(n);
+	}
+	else
+	{
+		cmd = n->left->value;
+		rd = get_redir(n->right);
+	}
 	return ((t_cmd *) redir_cmd(cmd, &rd, data));
 }
 
@@ -70,13 +78,6 @@ t_cmd	*process_command(t_node *root, int count, t_data *data)
 	else if (current->type == 1)
 		cmd = process_redir(current, data);
 	else
-	{
-		if (data->line[0] == '<' || data->line[0] == '>')
-		{
-			ft_putendl_fd("Error: No command given", 2);
-			return (NULL);
-		}
 		cmd = (t_cmd *) exec_cmd(current->value, data);
-	}
 	return (cmd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_toks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:15:30 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 18:00:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:06:13 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_toklist(t_toklist *tokens)
 {
 	tokens->first = NULL;
 	tokens->current = NULL;
-	tokens->done = 0;
 	tokens->count = 0;
 	tokens->id = 0;
 }
@@ -49,10 +48,7 @@ int	look_ahead(t_toklist *toks)
 void	next_token(t_toklist *toks)
 {
 	if (!toks->current)
-	{
 		toks->current = toks->first;
-		toks->done = 1;
-	}
 	else if (has_more_tokens(toks))
 		toks->current = toks->current->next;
 }

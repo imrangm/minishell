@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_fds.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 13:33:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:39:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	fd_out(t_redirs *rd)
 	int	fd;
 
 	fd = STDOUT_FILENO;
+	printf("out: %s\n", rd->outfile);
 	if (rd->outfile)
 	{
 		fd = open(rd->outfile, rd->lastout, 0644);

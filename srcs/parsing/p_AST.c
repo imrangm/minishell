@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 17:44:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:25:41 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,19 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 
 static t_node	*command_return(t_node **lf, t_node **rt, t_toklist *toks)
 {
-	// if ((*rt)->value[0] == '<')
-	// 	printf("X\n");
-	if (!(*lf)->id)
+	if ((*rt)->id && !(*lf)->id)
+	{
+		ft_free(*lf);
+		return (*rt);
+	}
+	if (!(*lf)->id && !(*rt)->id)
 	{
 		ft_free(*rt);
 		(*lf)->value = ft_strdup(current_token(toks));
 		(*lf)->id = "COMMAND";
 		return (*lf);
 	}
-	if (!(*rt)->id)
+	else if (!(*rt)->id)
 	{
 		(*lf)->id = "COMMAND";
 		ft_free(*rt);
@@ -117,7 +120,6 @@ t_node	*parse_command(t_toklist *toks)
 	ft_memset(right, 0, sizeof(t_node));
 	while (has_more_tokens(toks) && look_ahead(toks) != PIPE)
 	{
-		// printf("tok value: %s\n", current_token(toks));
 		if (look_ahead(toks) != REDIR)
 		{
 			next_token(toks);
