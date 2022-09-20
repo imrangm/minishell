@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:08:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 02:59:07 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 void	execute_line(t_node *node, char *line, t_data *data)
 {
 	t_cmd	*cmd;
+	int		p;
 
 	check_error(node, data);
 	if (!data->error)
 	{
-		cmd = process_command(node, count_pipes(line), data);
-		if (!cmd)
-		{
-			printf("cmd is NULL\n");
-			return ;
-		}
+		p = count_pipes(line);
+		cmd = process_command(node, p, data);
 		execute(cmd);
 	}
 	data->error = 0;

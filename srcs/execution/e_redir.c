@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:36:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:08:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	child(int *fd, t_redircmd *redir)
 
 	if (redir->fcmd)
 		args = smart_split(redir->fcmd);
+	else
+		args = NULL;
 	if (redir->rd.heredoc)
 		heredoc(args, redir);
 	else
@@ -47,7 +49,10 @@ static void	child(int *fd, t_redircmd *redir)
 	}
 	close_fds(fd);
 	ft_free(redir->data->line);
-	free_and_exit(args, (t_cmd *) redir, redir->data);
+	if (args)
+		free_and_exit(args, (t_cmd *) redir, redir->data);
+	else
+		free_redirs(redir);
 }
 
 static void	parent(int *pid, t_data *data)

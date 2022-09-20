@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 12:02:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:10:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,15 @@ char	op_type(char *op)
 	if (ft_strlen(op) == 1 && op[0] == LINE)
 		return (LINE);
 	return (0);
+}
+
+void	free_redirs(t_redircmd *redir)
+{
+	t_data	*data;
+
+	data = redir->data;
+	ft_free(redir);
+	free_data(data);
+	free_nodes(data->root);
+	exit(data->last_exit_status);
 }

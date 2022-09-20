@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 02:06:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 03:10:39 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
 
 //* Utility
+void		free_redirs(t_redircmd *redir);
 char		*read_line(char *lim);
 void		ft_readline(char *lim);
 int			check_io(char *prev, char *current);
