@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 11:32:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:48:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	update_line(char *line, t_data *data)
 	}
 	else
 	{
-		data->line = trim_line(line);
 		add_history(line);
+		data->line = trim_line(line);
 	}
 }
 
