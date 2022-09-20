@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/20 16:38:05 by nart             ###   ########.fr        #
+#    Updated: 2022/09/20 13:59:35 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,12 +63,12 @@ SRCS=		main.c \
 CC =		gcc
 
 # 42 Flags
-LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
 # Linux Flags
-# LDFLAGS =	-lreadline
-# CFLAGS =	-Wall -Wextra -Werror -g3
+LDFLAGS =	-lreadline
+CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 
