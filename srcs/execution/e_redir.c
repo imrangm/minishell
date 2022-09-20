@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 03:08:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:53:45 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	heredoc(char **args, t_redircmd *redir)
 {
 	int	f;
 
-	f = open("tmp", O_RDONLY, 0);
+	f = open(".h", O_RDONLY, 0);
 	if (f == -1)
 	{
 		redir->data->last_exit_status = 1;
@@ -24,7 +24,7 @@ static void	heredoc(char **args, t_redircmd *redir)
 	}
 	dup2(f, STDIN_FILENO);
 	close(f);
-	unlink("tmp");
+	unlink(".h");
 }
 
 static void	child(int *fd, t_redircmd *redir)
@@ -66,8 +66,6 @@ static void	parent(int *pid, t_data *data)
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
-		if (!access("tmp", F_OK))
-			unlink("tmp");
 		if (code != 0)
 			data->last_exit_status = code;
 	}

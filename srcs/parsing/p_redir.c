@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:49:55 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:54:59 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_node	*parse_redirection(t_toklist *toks)
 	left->id = "OP";
 	if (look_ahead(toks) != WORD)
 	{
+		ft_free(right);
 		right = error_node(ft_strjoin("unexpected token near: ",
 					current_token(toks)));
 		return (pair_node(left, right, "REDIR"));

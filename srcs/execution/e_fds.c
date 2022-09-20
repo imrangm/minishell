@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:39:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:53:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	fd_in(t_redirs *rd)
 	fd = STDIN_FILENO;
 	if (rd->heredoc)
 	{
-		fd = open("tmp", rd->lastin, 0644);
+		fd = open(".h", rd->lastin, 0644);
 		if (fd == -1)
 			return (-1);
 		text = read_line(rd->heredoc);
@@ -42,7 +42,6 @@ int	fd_out(t_redirs *rd)
 	int	fd;
 
 	fd = STDOUT_FILENO;
-	printf("out: %s\n", rd->outfile);
 	if (rd->outfile)
 	{
 		fd = open(rd->outfile, rd->lastout, 0644);

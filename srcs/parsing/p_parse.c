@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 17:30:48 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:54:08 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

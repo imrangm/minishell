@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 11:27:32 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 11:38:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:03:52 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ int	check_io(char *prev, char *current)
 
 char	op_type(char *op)
 {
-	if (ft_strlen(op) == 2 && op[0] == LESS)
+	int	len;
+
+	len = ft_strlen(op);
+	if (len == 2 && op[0] == LESS)
 		return (DLESS);
-	if (ft_strlen(op) == 2 && op[0] == GREAT)
+	else if (len == 2 && op[0] == GREAT)
 		return (DGREAT);
-	if (ft_strlen(op) == 1 && op[0] == LESS)
+	else if (len == 1 && op[0] == LESS)
 		return (LESS);
-	if (ft_strlen(op) == 1 && op[0] == GREAT)
+	else if (len == 1 && op[0] == GREAT)
 		return (GREAT);
 	return (0);
 }
