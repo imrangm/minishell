@@ -1,7 +1,10 @@
 Makefile
 _pdfs
+f
+ff
 includes
 libs
 minishell
 srcs
+tmp
 tmp1

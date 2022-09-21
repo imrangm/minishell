@@ -6,11 +6,14 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 11:58:20 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:06:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	process_infile(t_node **left, t_node **right, char *current);
+int	process_outfile(t_node **left, t_node **right, char *current);
 
 int	process_redirection(t_node **left, t_node **right, char *current)
 {
@@ -21,19 +24,13 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 	lf = (*left)->value;
 	rt = (*right)->value;
 	type = op_type(lf);
-	// printf("op: %d, lf: %s, rt: %s\n", type, lf, rt);
-	printf("current = %s\n", current);
 	if (type == DGREAT && current[0] == GREAT && access(rt, F_OK))
 	{
-		printf("1\n");
 		empty_file(rt);
 		return (1);
 	}
 	if (type == DGREAT && current[0] == GREAT)
-	{
-		printf("3\n");
 		return (1);
-	}
 	if (type == GREAT && current[0] == GREAT)
 	{
 		empty_file(rt);

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 12:06:09 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:08:57 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	builtin(char **args, t_cmd *cmd, t_data *data)
 	else if (!ft_strcmp(args[0], "cd") && args[1])
 		b_cd(args, data);
 	else if (!ft_strcmp(args[0], "echo"))
-		b_echo(args, data);
+		b_echo(args);
 	else if (!ft_strcmp(args[0], "pwd"))
 		b_pwd(data);
 	else if (!ft_strcmp(args[0], "env"))

@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 11:30:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:37:00 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 			free_pair((*n)->left->left, (*n)->left->right);
 			(*n)->left = parse_redirection(toks, "IO");
 		}
-		io = 1;
 	}
 }
 

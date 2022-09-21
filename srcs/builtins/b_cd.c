@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 19:32:09 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 11:33:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:55:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	update_pwds(char *pwd, t_data *data)
 
 	rhs = NULL;
 	if (data->last_exit_status)
+	{
+		ft_free(pwd);
 		return ;
+	}
 	if (env_exists("OLDPWD", data))
 	{
 		if (env_exists("PWD", data))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc_ii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 11:41:50 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:33:40 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ int	check_error(t_node *node, t_data *data)
 		return (1);
 	}
 	return (0);
+}
+
+static void	u_read_pipe(char *temp)
+{
+	ft_free(temp);
+	temp = ft_strdup("");
+	write(1, "> ", 2);
 }
 
 char	*read_pipe(char *line)
@@ -52,9 +59,7 @@ char	*read_pipe(char *line)
 				ft_free(temp);
 				break ;
 			}
-			ft_free(temp);
-			temp = ft_strdup("");
-			write(1, "> ", 2);
+			u_read_pipe(temp);
 		}
 	}
 	return (trim_line(line));
