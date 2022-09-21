@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:52:15 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:31:33 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,7 @@ void		file_error_mid(int **pipes, t_pipecmd *pcmd, int i);
 void		close_pipes_first(int **pipes, t_pipecmd *pcmd, int i);
 void		close_pipes_mid(int **pipes, t_pipecmd *pcmd, int i);
 void		close_pipes_last(int **pipes, t_pipecmd *pcmd, int i);
+void		cmd_pipe(char **args, t_data *data);
 
 //* Command Execution
 int			is_parent_function(char **args);

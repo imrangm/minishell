@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_child.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:51:22 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:54:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:31:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd)
 	}
 	else if (arg)
 	{
-		cmd(arg, pcmd->data);
+		cmd_pipe(arg, pcmd->data);
 		exit_pipe(arg, pids, pipes, pcmd);
 	}
 	else
