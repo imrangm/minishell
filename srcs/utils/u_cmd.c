@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 13:31:33 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:46:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,16 @@ char	*validate_cmd(char *cmd, t_data *data)
 	return (cmd);
 }
 
+static char	*handle_empty_path(char *path_env_val, t_data *data)
+{
+	ft_free(path_env_val);
+	ft_putstr_fd("Error: Command not found\n", 2);
+	data->last_exit_status = 127;
+	if (!count_pipes(data->line))
+		ft_free(data->line);
+	return (NULL);
+}
+
 char	*get_cmd_path(char **args, t_data *data)
 {
 	char	*path_env_val;
@@ -80,11 +90,13 @@ char	*get_cmd_path(char **args, t_data *data)
 	char	*cmd;
 
 	if (ft_strchr(args[0], '/'))
-	{
 		return (args[0]);
-	}
 	if (env_exists("PATH", data))
+	{
 		path_env_val = get_env_value("PATH", data);
+		if (!ft_strcmp(path_env_val, ""))
+			return (handle_empty_path(path_env_val, data));
+	}
 	else
 	{
 		data->last_exit_status = 127;

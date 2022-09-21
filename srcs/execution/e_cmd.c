@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 16:31:16 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/21 16:46:13 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,4 @@ void	cmd_pipe(char **args, t_data *data)
 			ft_free(cmd_path);
 		}
 	}
-}
-
-void	free_and_exit(char **args, t_cmd *cmd, t_data *data)
-{
-	ft_free_2d(args);
-	free_data(data);
-	free_nodes(data->root);
-	ft_free(cmd);
-	exit(data->last_exit_status);
 }
