@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 17:30:17 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:58:20 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,29 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 	lf = (*left)->value;
 	rt = (*right)->value;
 	type = op_type(lf);
-	printf("op: %d, lf: %s, rt: %s\n", type, lf, rt);
-	if (type == DGREAT && access(rt, F_OK))
+	// printf("op: %d, lf: %s, rt: %s\n", type, lf, rt);
+	printf("current = %s\n", current);
+	if (type == DGREAT && current[0] == GREAT && access(rt, F_OK))
+	{
+		printf("1\n");
 		empty_file(rt);
-	if (type == GREAT)
+		return (1);
+	}
+	if (type == DGREAT && current[0] == GREAT)
+	{
+		printf("3\n");
+		return (1);
+	}
+	if (type == GREAT && current[0] == GREAT)
+	{
 		empty_file(rt);
+		return (1);
+	}
 	if (type == DLESS && current[0] == LESS)
+	{
 		ft_readline(rt);
+		return (1);
+	}
 	if (type == LESS && current[0] == LESS)
 	{
 		if (access(rt, F_OK) == -1)
@@ -37,11 +53,13 @@ int	process_redirection(t_node **left, t_node **right, char *current)
 						" : No such file or directory"));
 			return (-1);
 		}
+		else
+			return (1);
 	}
-	return (1);
+	return (0);
 }
 
-t_node	*parse_redirection(t_toklist *toks)
+t_node	*parse_redirection(t_toklist *toks, char *id)
 {
 	t_node	*left;
 	t_node	*right;
@@ -52,20 +70,21 @@ t_node	*parse_redirection(t_toklist *toks)
 	ft_memset(right, 0, sizeof(t_node));
 	left->value = ft_strdup(current_token(toks));
 	left->id = "OP";
-	if (look_ahead(toks) != WORD)
+	if (look_ahead(toks) != WORD && look_ahead(toks) != SQUOTE
+		&& look_ahead(toks) != DQUOTE)
 	{
 		ft_free(right);
 		right = error_node(ft_strjoin("unexpected token near: ",
 					current_token(toks)));
-		return (pair_node(left, right, "REDIR"));
+		return (pair_node(left, right, id));
 	}
 	next_token(toks);
 	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
-	return (pair_node(left, right, "REDIR"));
+	return (pair_node(left, right, id));
 }
 
-t_node	*parse_io(t_node *redir, t_toklist *toks, char *id)
+t_node	*parse_io(t_node *redir, t_toklist *toks)
 {
 	t_node	*left;
 	t_node	*right;
@@ -86,7 +105,7 @@ t_node	*parse_io(t_node *redir, t_toklist *toks, char *id)
 	next_token(toks);
 	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
-	pair_left = pair_node(left, right, id);
+	pair_left = pair_node(left, right, "IO");
 	return (pair_node(pair_left, redir, "REDIR"));
 }
 

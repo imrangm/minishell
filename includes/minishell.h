@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 05:52:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:01:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_token
 	int				type;
 	char			*value;
 	int				space;
+	int				exp;
 	struct s_token	*next;
 }	t_token;
 
@@ -166,8 +167,8 @@ int			check_exp(char *str);
 t_node		*parse(t_data *data);
 t_node		*parse_pipeline(t_toklist *toks);
 t_node		*parse_command(t_toklist *toks);
-t_node		*parse_redirection(t_toklist *toks);
-t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
+t_node		*parse_redirection(t_toklist *toks, char *id);
+t_node		*parse_io(t_node *node, t_toklist *toks);
 t_cmd		*process_command(t_node *root, int count, t_data *data);
 t_redirs	get_redir(t_node *rd);
 void		add_redir(t_redirs *rd, char *op, char *fname);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 10:09:13 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:03:25 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ int	expansion(t_toklist *toks, t_token *token, t_data *data)
 	i = 1;
 	while (token)
 	{
-		if (token->type == WORD || token->type == DQUOTE)
+		if (token->type == REDIR)
+			token->next->exp = 0;
+		if ((token->type == WORD || token->type == DQUOTE) && token->exp == 1)
 		{
 			while (check_exp(token->value))
 			{
