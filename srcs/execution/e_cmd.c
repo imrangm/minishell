@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 16:46:13 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/21 17:47:06 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	cmd(char **args, t_data *data)
 		{
 			data->last_exit_status = 127;
 			ft_putstr_fd("Error: Unable to execute\n", 2);
-			ft_free(cmd_path);
+			// ft_free(cmd_path);
 			ft_free(data->line);
 		}
 	}
@@ -92,7 +92,7 @@ void	cmd_pipe(char **args, t_data *data)
 		{
 			data->last_exit_status = 127;
 			ft_putstr_fd("Error: Unable to execute\n", 2);
-			ft_free(cmd_path);
+			// ft_free(cmd_path);
 		}
 	}
 }

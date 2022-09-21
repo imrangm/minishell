@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 17:25:12 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:44:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ char	*get_cmd_path(char **args, t_data *data)
 	{
 		data->last_exit_status = 127;
 		ft_putendl_fd("Error: PATH not set", 2);
-		ft_free(data->line);
 		return (NULL);
 	}
 	paths = split_path(path_env_val);
