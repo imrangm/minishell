@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:25:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:40:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 	pr = 0;
 	if ((*n)->right)
 	{
+		printf("tok value: %s\n", current_token(toks));
 		pr = process_redirection(&(*n)->left, &(*n)->right,
 				current_token(toks));
 		if (pr == -1)

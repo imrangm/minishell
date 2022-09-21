@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 11:27:32 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 14:03:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:15:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,27 @@ void	ft_readline(char *lim)
 
 int	check_io(char *prev, char *current)
 {
-	return ((prev[0] == GREAT && current[0] == LESS)
-		|| (prev[0] == LESS && current[0] == GREAT));
+	if (prev && current)
+	{
+		return ((prev[0] == GREAT && current[0] == LESS)
+			|| (prev[0] == LESS && current[0] == GREAT));
+	}
+	return (0);
 }
 
 char	op_type(char *op)
 {
-	int	len;
-
-	len = ft_strlen(op);
-	if (len == 2 && op[0] == LESS)
-		return (DLESS);
-	else if (len == 2 && op[0] == GREAT)
-		return (DGREAT);
-	else if (len == 1 && op[0] == LESS)
-		return (LESS);
-	else if (len == 1 && op[0] == GREAT)
-		return (GREAT);
+	if (op)
+	{
+		if (op[1] && op[0] == LESS)
+			return (DLESS);
+		else if (op[1] && op[0] == GREAT)
+			return (DGREAT);
+		else if (op[0] == LESS)
+			return (LESS);
+		else if (op[0] == GREAT)
+			return (GREAT);
+	}
 	return (0);
 }
 
