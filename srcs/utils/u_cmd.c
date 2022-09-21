@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 16:56:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/21 17:25:12 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*get_cmd_path(char **args, t_data *data)
 	char	*cmd;
 
 	if (ft_strchr(args[0], '/'))
-		return (args[0]);
+		return (ft_strdup(args[0]));
 	if (env_exists("PATH", data))
 	{
 		path_env_val = get_env_value("PATH", data);

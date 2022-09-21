@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/21 17:11:50 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/21 17:20:15 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ CC =		gcc
 
 # Linux Flags
 LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -g3
 
 LIBFT_A =	./libs/libft/libft.a
 
