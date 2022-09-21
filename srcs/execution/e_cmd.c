@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 17:48:14 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:51:51 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	cmd(char **args, t_data *data)
 			data->last_exit_status = 127;
 			ft_putstr_fd("Error: Unable to execute\n", 2);
 			ft_free(data->line);
+			if (ft_strchr(cmd_path, '/'))
+				ft_free(cmd_path);
 		}
 	}
 }
@@ -91,6 +93,8 @@ void	cmd_pipe(char **args, t_data *data)
 		{
 			data->last_exit_status = 127;
 			ft_putstr_fd("Error: Unable to execute\n", 2);
+			if (ft_strchr(cmd_path, '/'))
+				ft_free(cmd_path);
 		}
 	}
 }
