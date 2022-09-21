@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 17:16:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:37:29 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	count_pipes(char *line)
 			q = line[i];
 		else if (line[i] == q)
 			q = 0;
-		else if (line[i] == '|')
+		else if (line[i] == '|' && !q)
 			p++;
 		i++;
 	}
