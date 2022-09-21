@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:19:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 14:29:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:31:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ int	expander(t_toklist *toks, t_token *tok, t_exp *exp, t_data *data)
 
 	value = NULL;
 	if (ft_strncmp(exp->param, "?", 1) == 0)
-	{
 		value = ft_itoa(data->last_exit_status);
-		data->last_exit_status = 0;
-	}
 	else
 	{
 		value = get_env_value(exp->param, data);
