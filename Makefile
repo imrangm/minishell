@@ -6,7 +6,7 @@
 #    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/21 15:55:43 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/21 17:11:50 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ CC =		gcc
 
 # Linux Flags
 LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror -g3
+CFLAGS =	-Wall -Wextra -Werror
 
 LIBFT_A =	./libs/libft/libft.a
 
@@ -105,7 +105,7 @@ valgrind: re $(clear)
 
 v: $(clear)
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
-	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
+	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
 
 run: re clean
 	@clear && ./minishell
