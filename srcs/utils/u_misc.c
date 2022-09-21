@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_misc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 11:39:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:16:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int	end_pipe(char *line)
 
 	i = 0;
 	j = ft_strlen(line) - 1;
-	while (ft_isspace(line[i]))
+	while (line[i] && ft_isspace(line[i]))
 		i++;
-	while (ft_isspace(line[j]))
+	while (j != -1 && ft_isspace(line[j]))
 		j--;
-	if (line[j + i] == '|')
+	if (j + i < (int) ft_strlen(line) && line[j + i] == '|')
 		return (1);
 	return (0);
 }
