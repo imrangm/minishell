@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:43:26 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 17:37:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:17:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,11 @@ int	count_pipes(char *line)
 int	end_pipe(char *line)
 {
 	int	i;
-	int	j;
 
-	i = 0;
-	j = ft_strlen(line) - 1;
-	while (line[i] && ft_isspace(line[i]))
-		i++;
-	while (j != -1 && ft_isspace(line[j]))
-		j--;
-	if (j + i < (int) ft_strlen(line) && line[j + i] == '|')
+	i = ft_strlen(line) - 1;
+	while (i != -1 && ft_isspace(line[i]))
+		i--;
+	if (i != -1 && line[i] == '|')
 		return (1);
 	return (0);
 }
