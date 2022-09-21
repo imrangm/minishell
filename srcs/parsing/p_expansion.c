@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:47:30 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 16:26:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	expansion(t_toklist *toks, t_token *token, t_data *data)
 			while (check_exp(token->value))
 			{
 				expansion = find_exp(token->value);
-				end_exp(i, expansion, token);
+				if (end_exp(i, expansion, token))
+					break ;
 				if (expander(toks, token, expansion, data))
 					return (1);
 			}
