@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:54:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:55:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipecmd *pcmd)
 	char	**arg;
 	int		ret;
 
-	arg = determine_arg(&i, pcmd);
+	arg = determine_arg(i, pcmd);
 	close_pipes_mid(pipes, pcmd, *i);
 	ret = redir_in(pcmd->p, (*i));
 	if (ret == -1)
