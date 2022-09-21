@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:50:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 12:03:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:23:27 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_token(t_token *tokens)
 	tokens->exp = 1;
 }
 
-int	count_tokens(t_token *tok)
+int	ctoks(t_token *tok)
 {
 	int		i;
 	t_token	*current;

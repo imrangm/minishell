@@ -6,39 +6,11 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 12:03:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:47:30 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	start_param(char *str)
-{
-	char	*tmp;
-	int		start;
-
-	tmp = ft_strchr(str, '$');
-	start = ft_strlen(str) - ft_strlen(tmp);
-	return (start);
-}
-
-static int	end_param(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[1] && str[1] == '?')
-		return (2);
-	while (str[i++])
-	{
-		if (i == (int) ft_strlen(str))
-			break ;
-		if (str[i] == '\"' || str[i] == '\'' || str[i] == '?'
-			|| ft_isspace(str[i]) || str[i] == '$' || str[i] == '=')
-			break ;
-	}
-	return (i);
-}
 
 static t_exp	*find_exp(char *str)
 {
@@ -57,10 +29,20 @@ static t_exp	*find_exp(char *str)
 	return (exp);
 }
 
-static void	free_from_expansion(t_exp *expansion)
+void	set_exp(t_token *token)
 {
-	ft_free(expansion->param);
-	ft_free(expansion);
+	if (token->type == REDIR)
+		token->next->exp = 0;
+}
+
+int	end_exp(int i, t_exp *expansion, t_token *token)
+{
+	if (i == ctoks(token) && expansion->end == expansion->start)
+	{
+		free_expansion(expansion);
+		return (1);
+	}
+	return (0);
 }
 
 int	expansion(t_toklist *toks, t_token *token, t_data *data)
@@ -71,19 +53,13 @@ int	expansion(t_toklist *toks, t_token *token, t_data *data)
 	i = 1;
 	while (token)
 	{
-		if (token->type == REDIR)
-			token->next->exp = 0;
+		set_exp(token);
 		if ((token->type == WORD || token->type == DQUOTE) && token->exp == 1)
 		{
 			while (check_exp(token->value))
 			{
 				expansion = find_exp(token->value);
-				if (i == count_tokens(token)
-					&& expansion->end == expansion->start)
-				{
-					free_from_expansion(expansion);
-					break ;
-				}
+				end_exp(i, expansion, token);
 				if (expander(toks, token, expansion, data))
 					return (1);
 			}

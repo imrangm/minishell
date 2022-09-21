@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 13:07:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:17:10 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_toklist	*tokenizer(t_data *data)
 	src = scan_input(line);
 	toks = tokenize(src);
 	token = toks->first;
-	// print_tokens(token);
 	free_chars(src);
 	if (expansion(toks, token, data))
 		return (NULL);

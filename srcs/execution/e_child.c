@@ -3,34 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   e_child.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 07:52:33 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 15:35:10 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:54:03 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	exit_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd)
+char	**determine_arg(int *i, t_pipecmd *pcmd)
 {
-	ps_free(pipes, pids, pcmd);
-	ft_free(pcmd->data->line);
-	free_and_exit(arg, (t_cmd *) pcmd, pcmd->data);
-}
-
-static void	exec_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd)
-{
-	if (is_builtin(arg))
-	{
-		builtin(arg, (t_cmd *) pcmd, pcmd->data);
-		exit_pipe(arg, pids, pipes, pcmd);
-	}
+	if (pcmd->p[*i]->fcmd)
+		return (smart_split(pcmd->p[*i]->fcmd));
 	else
-	{
-		cmd(arg, pcmd->data);
-		exit_pipe(arg, pids, pipes, pcmd);
-	}
+		return (NULL);
 }
 
 void	first_child(int *pids, int **pipes, t_pipecmd *pcmd)
@@ -40,7 +27,7 @@ void	first_child(int *pids, int **pipes, t_pipecmd *pcmd)
 	int			i;
 
 	i = 0;
-	arg = smart_split(pcmd->p[i]->fcmd);
+	arg = determine_arg(&i, pcmd);
 	close_pipes_first(pipes, pcmd, i);
 	ret = redir_in(pcmd->p, i);
 	if (ret == -1)
@@ -67,7 +54,7 @@ void	mid_child(int *i, int *pids, int **pipes, t_pipecmd *pcmd)
 	char	**arg;
 	int		ret;
 
-	arg = smart_split(pcmd->p[*i]->fcmd);
+	arg = determine_arg(&i, pcmd);
 	close_pipes_mid(pipes, pcmd, *i);
 	ret = redir_in(pcmd->p, (*i));
 	if (ret == -1)
@@ -97,7 +84,7 @@ void	last_child(int *pids, int **pipes, t_pipecmd *pcmd)
 	int		ret;
 
 	i = pcmd->nchild - 1;
-	arg = smart_split(pcmd->p[i]->fcmd);
+	arg = determine_arg(&i, pcmd);
 	close_pipes_last(pipes, pcmd, i);
 	ret = redir_in(pcmd->p, i);
 	if (ret == -1)
