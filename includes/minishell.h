@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/20 05:52:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 10:37:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ char		**strip_quotes(char **elements, int element_count);
 int			b_pwd(t_data *data);
 int			b_cd(char **args, t_data *data);
 void		b_exit(char **args, t_cmd *cmd, t_data *data);
-int			b_echo(char **args, t_data *data);
+int			b_echo(char **args);
 void		b_unset(char **args, t_data *data);
 void		b_export(char **args, t_data *data);
 int			b_env(char **envp, int export_mode);
