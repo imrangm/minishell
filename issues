@@ -1,3 +1,0 @@
-leak when PATH is not defined or correctly defined
-leak -> x | ""
-leak -> x | x | "" |

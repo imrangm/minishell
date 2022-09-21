@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 16:46:20 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/21 16:56:20 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**split_path(char *path)
 
 	i = 0;
 	j = 0;
-	paths = pe_split_path(&path[5], ':');
+	paths = pe_split_path(path, ':');
 	while (paths[i])
 	{
 		j = ft_strlen(paths[i]);
