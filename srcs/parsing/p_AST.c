@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 17:40:03 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:59:26 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,23 @@ static void	parse_command_right(t_node **n, t_toklist *toks)
 
 	io = 0;
 	pr = 0;
-	if ((*n)->right)
+	if ((*n)->right && ft_strcmp((*n)->id, "REDIR") == 0)
 	{
-		printf("tok value: %s\n", current_token(toks));
 		pr = process_redirection(&(*n)->left, &(*n)->right,
 				current_token(toks));
 		if (pr == -1)
 			return ;
-		if (check_io((*n)->left->value, current_token(toks)))
-		{
-			(*n)->id = "IO";
-			(*n) = parse_io((*n), toks, "IO");
-			io = 1;
-		}
+		u_check_io(n, toks, &io);
 	}
 	if (!io)
 	{
 		if (pr)
 			free_pair((*n)->left, (*n)->right);
 		ft_free(*n);
-		(*n) = parse_redirection(toks);
+		(*n) = parse_redirection(toks, "REDIR");
 	}
+	else
+		process_io(n, toks);
 }
 
 static t_node	*command_return(t_node **lf, t_node **rt, t_toklist *toks)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 22:34:51 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 10:37:55 by nmadi            ###   ########.fr       */
+/*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
+/*   Updated: 2022/09/21 15:52:15 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_token
 	int				type;
 	char			*value;
 	int				space;
+	int				exp;
 	struct s_token	*next;
 }	t_token;
 
@@ -152,7 +153,7 @@ t_charlist	*scan_input(char *input);
 t_toklist	*tokenize(t_charlist *src);
 void		init_token(t_token *tokens);
 void		init_toklist(t_toklist *tokens);
-int			count_tokens(t_token *tok);
+int			ctoks(t_token *tok);
 int			has_more_tokens(t_toklist *toks);
 int			look_ahead(t_toklist *toks);
 char		*current_token(t_toklist *toks);
@@ -166,8 +167,8 @@ int			check_exp(char *str);
 t_node		*parse(t_data *data);
 t_node		*parse_pipeline(t_toklist *toks);
 t_node		*parse_command(t_toklist *toks);
-t_node		*parse_redirection(t_toklist *toks);
-t_node		*parse_io(t_node *node, t_toklist *toks, char *id);
+t_node		*parse_redirection(t_toklist *toks, char *id);
+t_node		*parse_io(t_node *node, t_toklist *toks);
 t_cmd		*process_command(t_node *root, int count, t_data *data);
 t_redirs	get_redir(t_node *rd);
 void		add_redir(t_redirs *rd, char *op, char *fname);
@@ -177,6 +178,8 @@ t_execcmd	*exec_cmd(char *fcmd, t_data *data);
 t_redircmd	*redir_cmd(char *fcmd, t_redirs *rd, t_data *data);
 t_pipecmd	*pipe_cmd(t_pipe **p, int nchild, t_data *data);
 void		execute(t_cmd *cmd);
+void		process_io(t_node **n, t_toklist *toks);
+void		u_check_io(t_node **n, t_toklist *toks, int *io);
 
 //* Free Memory
 void		free_chars(t_charlist *src);
@@ -203,6 +206,12 @@ void		empty_file(char *file);
 int			fd_in(t_redirs *rd);
 int			fd_out(t_redirs *rd);
 void		close_fds(int *fd);
+void		add_redir(t_redirs *rd, char *op, char *fname);
+t_redirs	get_redir(t_node *rd);
+void		free_redirs_pipe(t_pipecmd *pcmd);
+void		exit_pipe_rd(int *pids, int **pipes, t_pipecmd *pcmd);
+void		exit_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd);
+void		exec_pipe(char **arg, int *pids, int **pipes, t_pipecmd *pcmd);
 
 //* Pipes
 void		pipes(t_pipecmd *pcmd);
@@ -284,5 +293,9 @@ char		*join_env_var_and_value(char *var_name, char *value);
 char		*trim_line(char *line);
 int			end_pipe(char *line);
 char		*read_pipe(char *line);
+int			start_param(char *str);
+int			end_param(char *str);
+void		free_expansion(t_exp *exp);
+void		free_expansion_all(t_exp *exp);
 
 #endif

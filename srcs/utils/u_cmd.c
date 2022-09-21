@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 11:46:39 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:31:33 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,15 @@ char	*get_cmd_path(char **args, t_data *data)
 	{
 		return (args[0]);
 	}
-	path_env_val = get_env_value("PATH", data);
-	if (!path_env_val)
+	if (env_exists("PATH", data))
+		path_env_val = get_env_value("PATH", data);
+	else
+	{
+		data->last_exit_status = 127;
+		ft_putendl_fd("Error: PATH not set", 2);
+		ft_free(data->line);
 		return (NULL);
+	}
 	paths = split_path(path_env_val);
 	ft_free(path_env_val);
 	if (!paths)

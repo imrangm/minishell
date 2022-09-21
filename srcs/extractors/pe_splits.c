@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pe_splits.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 00:14:53 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/18 17:53:34 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/21 15:17:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_element_count(char *str)
 	i = 0;
 	quote = 0;
 	element_count = 0;
-	if (!ft_isspace(str[0]))
+	if (str && !ft_isspace(str[0]))
 		element_count++;
 	while (str[i])
 	{
