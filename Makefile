@@ -69,7 +69,7 @@ CC =		gcc
 
 
 ifeq ($(shell uname -s), Linux)
-	CFLAGS =	-Wall -Wextra -Werror
+	CFLAGS =	-Wall -Wextra -Werror -g3
 	LDFLAGS =	-lreadline
 endif
 
