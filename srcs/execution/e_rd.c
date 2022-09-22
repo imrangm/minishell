@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_rd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 08:00:56 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:54:34 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@ void	empty_file(char *file)
 static int	here_pipe(t_pipe *p)
 {
 	int		fdi;
+	int		f[2];
 	char	*text;
 
-	fdi = open("tmp", p->rd.lastin, 0644);
-	if (fdi == -1)
+	if (pipe(f) == -1)
 		return (-1);
 	text = read_line(p->rd.heredoc);
-	write(fdi, text, ft_strlen(text));
-	close(fdi);
+	ft_putstr_fd(text, f[1]);
+	fdi = f[0];
 	ft_free(text);
-	fdi = open("tmp", O_RDONLY, 0);
-	if (fdi == -1)
-		return (-1);
+	close(f[1]);
 	dup2(fdi, STDIN_FILENO);
 	close(fdi);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 16:26:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/22 13:58:43 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,21 @@ static t_exp	*find_exp(char *str)
 
 void	set_exp(t_token *token)
 {
+	char	*tmp;
+
 	if (token->type == REDIR)
+	{
+		tmp = ft_strdup(token->next->value);
+		ft_free(token->next->value);
+		token->next->value = quote_removal(tmp);
+		ft_free(tmp);
 		token->next->exp = 0;
+	}
 }
 
-int	end_exp(int i, t_exp *expansion, t_token *token)
+int	end_exp(int i, t_exp *expansion, t_toklist *toks)
 {
-	if (i == ctoks(token) && expansion->end == expansion->start)
+	if (i == count_tokens(toks->first) && expansion->end == expansion->start)
 	{
 		free_expansion(expansion);
 		return (1);
@@ -59,7 +67,7 @@ int	expansion(t_toklist *toks, t_token *token, t_data *data)
 			while (check_exp(token->value))
 			{
 				expansion = find_exp(token->value);
-				if (end_exp(i, expansion, token))
+				if (end_exp(i, expansion, toks))
 					break ;
 				if (expander(toks, token, expansion, data))
 					return (1);

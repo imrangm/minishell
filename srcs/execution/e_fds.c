@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:08:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:44:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:38:21 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ int	fd_in(t_redirs *rd)
 {
 	char	*text;
 	int		fd;
+	int		p[2];
 
 	fd = STDIN_FILENO;
 	if (rd->heredoc)
 	{
-		fd = open(".h", rd->lastin, 0644);
-		if (fd == -1)
+		if (pipe(p) == -1)
 			return (-1);
 		text = read_line(rd->heredoc);
-		write(fd, text, ft_strlen(text));
-		close(fd);
+		ft_putstr_fd(text, p[1]);
+		fd = p[0];
 		ft_free(text);
+		close(p[1]);
 	}
 	else if (rd->infile)
 	{

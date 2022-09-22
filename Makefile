@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
+#    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/22 16:10:33 by nmadi            ###   ########.fr        #
+#    Updated: 2022/09/22 13:39:11 by imustafa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRCS=		main.c \
 			utils/u_AST.c \
 			utils/u_expansion.c \
 			utils/u_readline.c \
-			utils/u_redirs.c
+			utils/u_redirs.c \
+			utils/u_quote.c
 
 CC =		gcc
 

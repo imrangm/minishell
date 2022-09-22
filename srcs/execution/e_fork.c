@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/18 02:35:41 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:18:53 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 		if (code != 0)
 			pcmd->data->last_exit_status = code;
 	}
-	if (access("tmp", F_OK))
-		unlink("tmp");
 	ps_free(pipes, pids, pcmd);
 }
 
