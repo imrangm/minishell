@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   e_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 14:53:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:39:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	heredoc(char **args, t_redircmd *redir)
-{
-	int	f;
-
-	f = open(".h", O_RDONLY, 0);
-	if (f == -1)
-	{
-		redir->data->last_exit_status = 1;
-		free_and_exit(args, (t_cmd *) redir, redir->data);
-	}
-	dup2(f, STDIN_FILENO);
-	close(f);
-	unlink(".h");
-}
 
 static void	child(int *fd, t_redircmd *redir)
 {
@@ -36,7 +21,7 @@ static void	child(int *fd, t_redircmd *redir)
 	else
 		args = NULL;
 	if (redir->rd.heredoc)
-		heredoc(args, redir);
+		dup2(fd[0], STDIN_FILENO);
 	else
 		dup2(fd[0], STDIN_FILENO);
 	dup2(fd[1], STDOUT_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 09:38:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/22 13:41:22 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ t_charlist	*scan_input(char *input);
 t_toklist	*tokenize(t_charlist *src);
 void		init_token(t_token *tokens);
 void		init_toklist(t_toklist *tokens);
-int			ctoks(t_token *tok);
+int			count_tokens(t_token *tok);
 int			has_more_tokens(t_toklist *toks);
 int			look_ahead(t_toklist *toks);
 char		*current_token(t_toklist *toks);
@@ -298,5 +298,6 @@ int			start_param(char *str);
 int			end_param(char *str);
 void		free_expansion(t_exp *exp);
 void		free_expansion_all(t_exp *exp);
+char		*quote_removal(char *str);
 
 #endif

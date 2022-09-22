@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 07:00:10 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 14:23:25 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:32:23 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_tokens(t_token *token)
 
 	i = 1;
 	printf("------------------------\n");
-	printf("%d Tokens\n", ctoks(token));
+	printf("%d Tokens\n", count_tokens(token));
 	printf("------------------------\n");
 	while (token)
 	{

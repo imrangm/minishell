@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 19:07:08 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 14:23:29 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:32:38 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_toklist	*create_toklist(t_token *head)
 	tokens = malloc(sizeof(t_toklist));
 	init_toklist(tokens);
 	tokens->first = head;
-	tokens->count = ctoks(head);
+	tokens->count = count_tokens(head);
 	return (tokens);
 }
 
