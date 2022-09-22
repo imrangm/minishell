@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_AST.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:00:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 14:59:26 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:30:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ t_node	*parse_pipeline(t_toklist *toks)
 	t_node	*right;
 
 	if (look_ahead(toks) == PIPE)
+	{
 		return (error_node(ft_strjoin("unexpected token near: ",
 					current_token(toks))));
+	}
 	left = parse_command(toks);
 	if (!has_more_tokens(toks) || look_ahead(toks) != PIPE)
 		return (left);
@@ -28,6 +30,7 @@ t_node	*parse_pipeline(t_toklist *toks)
 		next_token(toks);
 		if (look_ahead(toks) == PIPE)
 		{
+			ft_free(left->value);
 			ft_free(left);
 			return (error_node(ft_strjoin("unexpected token near: ",
 						current_token(toks))));

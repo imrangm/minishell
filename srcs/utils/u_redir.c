@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:48:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 15:50:37 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:07:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ t_redirs	get_redir(t_node *rd)
 	t_redirs	redirs;
 
 	init_rd(&redirs);
-	if (rd->left->type == 0)
+	if (rd->left && rd->left->type == 0)
 	{
+		printf("X\n");
 		op = rd->left->value;
 		fname = rd->right->value;
 		add_redir(&redirs, op, fname);
 	}
-	if (rd->left->type == 1)
+	if (rd->left && rd->left->type == 1)
 	{
 		op = rd->left->left->value;
 		fname = rd->left->right->value;

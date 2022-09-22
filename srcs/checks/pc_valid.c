@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pc_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/17 15:57:16 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:32:38 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,35 @@ static int	pc_end(char *line)
 	}
 	return (0);
 }
+
+// static int	pc_pipe(char *line)
+// {
+// 	int	i;
+// 	int	q;
+// 	int	p;
+
+// 	i = 0;
+// 	q = 0;
+// 	p = 0;
+// 	while (line[i])
+// 	{
+// 		if (ft_isquote(line[i]) && !q)
+// 			q = line[i];
+// 		else if (q && line[i] == q)
+// 			q = 0;
+// 		else if (!q && line[i] == '|')
+// 			p = 1;
+// 		else if (p)
+// 		{
+// 			if (line[i])
+// 			{
+
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 int	pc_valid(char *line, t_data *data)
 {

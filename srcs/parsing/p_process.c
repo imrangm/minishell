@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_process.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:21:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/20 02:49:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:05:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	pipe_redir(t_node *n, t_pipe ***p, int i)
 {
+
 	(*p)[i]->fcmd = n->left->value;
 	(*p)[i]->rd = get_redir(n->right);
 }

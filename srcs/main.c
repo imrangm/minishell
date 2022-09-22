@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 17:17:24 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/22 18:03:50 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ void	execute_line(t_data *data)
 	data->error = 0;
 }
 
+void	update_line(char *line, t_data *data)
+{
+	if (end_pipe(line))
+	{
+		data->line = read_pipe(line);
+		add_history(data->line);
+	}
+	else
+	{
+		add_history(line);
+		data->line = trim_line(line);
+	}
+}
+
 void	parse_line(char *line, t_data *data)
 {
 	t_node	*node;
 
-	add_history(line);
-	data->line = trim_line(line);
-	if (end_pipe(data->line))
-	{
-		ft_putendl_fd("Error: end of pipe detected", 2);
-		return ;
-	}
+	update_line(line, data);
 	if (pc_valid(data->line, data))
 	{
 		node = parse(data);

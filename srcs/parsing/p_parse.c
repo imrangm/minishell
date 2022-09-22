@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_parse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:23:24 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 13:56:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/22 18:03:11 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_toklist	*tokenizer(t_data *data)
 	src = scan_input(line);
 	toks = tokenize(src);
 	token = toks->first;
+	print_tokens(token);
 	free_chars(src);
 	if (expansion(toks, token, data))
 		return (NULL);
@@ -39,7 +40,7 @@ t_node	*parse(t_data *data)
 	if (!toks)
 		return (NULL);
 	node = parse_pipeline(toks);
-	print_ast(node, 1);
+	// print_ast(node, 1);
 	free_tokens(toks->first);
 	ft_free(toks);
 	return (node);

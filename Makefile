@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/22 13:39:11 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/22 17:19:19 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ CC =		gcc
 
 
 ifeq ($(shell uname -s), Linux)
-	CFLAGS =	-Wall -Wextra -Werror -g3
+	CFLAGS =	-Wall -Wextra -Werror
 	LDFLAGS =	-lreadline
 endif
 
@@ -103,7 +103,7 @@ fclean: clean
 
 re: fclean all
 
-valgrind: re
+valgrind:
 	@clear
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
