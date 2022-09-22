@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/22 05:41:32 by nmadi            ###   ########.fr        #
+#    Updated: 2022/09/22 16:10:33 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ CC =		gcc
 
 
 ifeq ($(shell uname -s), Linux)
-	CFLAGS =	-Wall -Wextra -Werror
+	CFLAGS =	-Wall -Wextra -Werror -g3
 	LDFLAGS =	-lreadline
 endif
 
