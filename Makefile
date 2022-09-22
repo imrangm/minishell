@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/08 17:38:26 by imran             #+#    #+#              #
-#    Updated: 2022/09/21 18:32:27 by imustafa         ###   ########.fr        #
+#    Updated: 2022/09/22 05:41:32 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,13 +66,16 @@ SRCS=		main.c \
 
 CC =		gcc
 
-# 42 Flags
-# LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
-# CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
 
-# Linux Flags
-LDFLAGS =	-lreadline
-CFLAGS =	-Wall -Wextra -Werror -g3
+ifeq ($(shell uname -s), Linux)
+	CFLAGS =	-Wall -Wextra -Werror
+	LDFLAGS =	-lreadline
+endif
+
+ifeq ($(shell uname -s), Darwin)
+	CFLAGS	=	-Wall -Wextra -Werror -I /usr/local/Cellar/readline/8.1/include/
+	LDFLAGS	=	-lreadline -L /usr/local/Cellar/readline/8.1/lib/
+endif
 
 LIBFT_A =	./libs/libft/libft.a
 
@@ -99,15 +102,9 @@ fclean: clean
 
 re: fclean all
 
-valgrind: re $(clear)
-	@echo "\033[0;32mRunning in Valgrind.\033[0m"
-	@valgrind --leak-check=full --track-fds=yes --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
-
-v: $(clear)
+valgrind: re
+	@clear
 	@echo "\033[0;32mRunning in Valgrind.\033[0m"
 	@valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=.ignore_readline ./minishell
-
-run: re clean
-	@clear && ./minishell
 
 .PHONY: all clean fclean re
