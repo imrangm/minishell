@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 13:52:53 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/23 17:52:47 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ void		free_data(t_data *data);
 int			pc_redirs(char *str);
 int			pc_export(char **args);
 int			pc_valid(char *str, t_data *data);
+int			pc_start(char *line, t_data *data);
 
 //* Parsing Extractors
 char		**smart_split(char *str);

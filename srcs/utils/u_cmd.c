@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_cmd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 17:44:38 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:18:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*validate_cmd(char *cmd, t_data *data)
 {
 	if (!cmd || access(cmd, F_OK) == -1)
 	{
-		ft_putstr_fd("Error: Command not found\n", 2);
+		ft_putendl_fd("minishell: command not found", 2);
 		data->last_exit_status = 127;
 		ft_free(cmd);
 		if (!count_pipes(data->line))
@@ -64,7 +64,7 @@ char	*validate_cmd(char *cmd, t_data *data)
 	}
 	else if (access(cmd, X_OK) == -1)
 	{
-		ft_putstr_fd("Error: no permission to execute this command\n", 2);
+		ft_putendl_fd("minishell: Permission denied", 2);
 		data->last_exit_status = 126;
 		ft_free(cmd);
 		if (!count_pipes(data->line))

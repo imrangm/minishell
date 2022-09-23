@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 19:41:20 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/23 17:45:09 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/23 17:54:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,26 @@ static int	pc_end(char *line)
 	len = ft_strlen(line) - 1;
 	while (ft_isspace(line[len]))
 		len--;
-	if (line[0] == '|')
-	{
-		ft_putstr_fd("Error: First character must not be a pipe symbol.\n", 2);
-		return (1);
-	}
-	else if (line[len] == '>' || line[len] == '<')
+	if (line[len] == '>' || line[len] == '<')
 	{
 		ft_putstr_fd(
 			"Error: Last character must not be a redirection symbol.\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+int	pc_start(char *line, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && ft_isspace(line[i]) && line[i] != '|')
+		i++;
+	if (line[i] == '|')
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		data->last_exit_status = 1;
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 18:03:50 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/23 17:57:05 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	execute_line(t_data *data)
 
 void	update_line(char *line, t_data *data)
 {
-	if (end_pipe(line))
+	if (!pc_start(line, data) && end_pipe(line))
 	{
 		data->line = read_pipe(line);
 		add_history(data->line);
@@ -50,7 +50,7 @@ void	parse_line(char *line, t_data *data)
 	t_node	*node;
 
 	update_line(line, data);
-	if (pc_valid(data->line, data))
+	if (data->line[0] != '|' && pc_valid(data->line, data))
 	{
 		node = parse(data);
 		if (!node)
