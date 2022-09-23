@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   u_quote.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:34:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 13:42:18 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:30:01 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_strippedstr_size(char *str)
 			q = 0;
 		else
 			s++;
-        i++;
+		i++;
 	}
 	return (s + 1);
 }
