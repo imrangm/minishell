@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 16:11:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 16:12:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,5 @@ int			start_param(char *str);
 int			end_param(char *str);
 char		*quote_removal(char *str);
 void		ps_fork_error(int *pids, int **pipes, t_pipecmd *pcmd);
-
 
 #endif
