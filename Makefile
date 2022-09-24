@@ -6,7 +6,7 @@
 #    By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/24 16:11:16 by nmadi             #+#    #+#              #
-#    Updated: 2022/09/24 16:11:17 by nmadi            ###   ########.fr        #
+#    Updated: 2022/09/24 16:37:17 by nmadi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,12 +88,12 @@ SRCS_DIR =	./srcs
 
 OBJS =		$(addprefix $(SRCS_DIR)/, $(SRCS:c=o))
 
+all: $(NAME)
+	echo "\033[0;32mCompiled minishell.\033[0m"
+
 $(NAME): $(OBJS)
 	$(MAKE) -C ./libs/libft/
 	$(CC) $(OBJS) $(LIBFT_A) $(LDFLAGS) -o $(NAME)
-	@echo "\033[0;32mCompiled minishell.\033[0m"
-
-all: $(NAME)
 
 clean:
 	rm -rf $(OBJS)
