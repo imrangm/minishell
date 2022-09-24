@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:13:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 12:24:45 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 12:52:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,21 @@ char	*end_of_line(char *line, char *temp)
 
 void	add_line(char **line, char **temp)
 {
-	line = ft_strjoin_and_free(line, " ");
-	line = ft_strjoin_and_free(line, temp);
+	*line = ft_strjoin_and_free(*line, " ");
+	*line = ft_strjoin_and_free(*line, *temp);
 }
 
 int	check_input(char **temp)
 {
-	if (end_pipe(temp) && !pipe_only(temp))
+	if (end_pipe(*temp) && !pipe_only(*temp))
 	{
-		ft_free(temp);
-		temp = ft_strdup("");
+		ft_free(*temp);
+		*temp = ft_strdup("");
 		write(1, "> ", 2);
 	}
 	else
 	{
-		ft_free(temp);
+		ft_free(*temp);
 		return (1);
 	}
 	return (0);
