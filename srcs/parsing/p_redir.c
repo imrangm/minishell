@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 14:17:52 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:19:02 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,6 @@ t_node	*parse_redirection(t_toklist *toks, char *id)
 		return (pair_node(left, right, id));
 	}
 	next_token(toks);
-	if (!ft_strlen(current_token(toks)))
-	{
-		ft_free(right);
-		right = error_node(ft_strjoin("File name missing",
-					current_token(toks)));
-		return (pair_node(left, right, id));
-	}
 	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
 	return (pair_node(left, right, id));
@@ -127,13 +120,6 @@ t_node	*parse_io(t_node *redir, t_toklist *toks)
 		return (pair_node(left, right, "IO"));
 	}
 	next_token(toks);
-	if (!ft_strlen(current_token(toks)))
-	{
-		ft_free(right);
-		right = error_node(ft_strjoin("File name missing",
-					current_token(toks)));
-		return (pair_node(left, right, "IO"));
-	}
 	right->value = ft_strdup(current_token(toks));
 	right->id = "FILE";
 	pair_left = pair_node(left, right, "IO");

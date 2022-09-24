@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 14:54:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:07:40 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ void	init_rd(t_redirs *rd)
 	rd->lastout = 0;
 }
 
-void	empty_file(char *file)
+int	empty_file(char *file)
 {
 	int	fd;
 
 	fd = open(file, O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("File error");
+		return (1);
+	}
 	close(fd);
+	return (0);
 }
 
 static int	here_pipe(t_pipe *p)
@@ -42,8 +48,8 @@ static int	here_pipe(t_pipe *p)
 	ft_putstr_fd(text, f[1]);
 	fdi = f[0];
 	ft_free(text);
-	close(f[1]);
 	dup2(fdi, STDIN_FILENO);
+	close(f[1]);
 	close(fdi);
 	return (1);
 }

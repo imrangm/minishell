@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:36:19 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 09:22:59 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 12:54:35 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void	b_exit(char **args, t_cmd *cmd, t_data *data)
 		data->last_exit_status = 0;
 	if (!data->last_exit_status)
 		ft_putendl_fd("exit", 1);
-	ft_free(data->line);
-	free_and_exit(args, cmd, data);
+	if (cmd->type != PCMD)
+	{
+		ft_free(data->line);
+		free_and_exit(args, cmd, data);
+	}
 }
