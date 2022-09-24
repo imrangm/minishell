@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:25:02 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 13:12:32 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:52:48 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parse_line(char *line, t_data *data)
 		if (!node)
 			return ;
 		data->root = node;
-		print_ast(node, 2);
+		// print_ast(node, 2);
 		execute_line(data);
 		free_nodes(data->root);
 	}

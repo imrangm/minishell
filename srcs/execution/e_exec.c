@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_exec.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/19 09:22:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:35:25 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,18 @@ void	quit_signal_handler(int signum)
 static void	monitor_process(int pid, t_data *data)
 {
 	int	wstatus;
+	int	signal_caught;
 	int	code;
 
 	g_child_pid = pid;
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(pid, &wstatus, 0);
+	signal_caught = WTERMSIG(wstatus);
+	if (signal_caught == 2) // SIGINT
+		data->last_exit_status = 130;
+	else if (signal_caught == 3)
+		data->last_exit_status = 131;
+
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);

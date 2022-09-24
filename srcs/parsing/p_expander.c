@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_expander.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:19:06 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/21 17:31:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:24:54 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	expander(t_toklist *toks, t_token *tok, t_exp *exp, t_data *data)
 	else
 	{
 		quotes_error_exit(toks, exp, data);
+		ft_free(value);
 		return (1);
 	}
 	free_expansion_all(exp);

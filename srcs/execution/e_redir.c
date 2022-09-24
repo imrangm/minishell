@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_redir.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 14:39:01 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:54:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ static void	child(int *fd, t_redircmd *redir)
 static void	parent(int *pid, t_data *data)
 {
 	int	wstatus;
+	int	signal_caught;
 	int	code;
 
 	g_child_pid = *pid;
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(*pid, &wstatus, 0);
+	signal_caught = WTERMSIG(wstatus);
+	if (signal_caught == 2) // SIGINT
+		data->last_exit_status = 130;
+	else if (signal_caught == 3) // SIGQUIT
+		data->last_exit_status = 131;
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);

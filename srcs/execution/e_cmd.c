@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/24 13:56:04 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 14:17:02 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	cmd(char **args, t_data *data)
 		if (execve(cmd_path, args, data->envp) == -1)
 		{
 			data->last_exit_status = 127;
-			ft_putstr_fd("Error: Unable to execute\n", 2);
+			ft_putstr_fd("minishell: command not found\n", 2);
 			ft_free(data->line);
 			if (ft_strchr(cmd_path, '/'))
 				ft_free(cmd_path);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 14:18:53 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 14:56:46 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 {
 	int	i;
 	int	wstatus;
+	int	signal_caught;
 	int	code;
 
 	i = 0;
@@ -42,6 +43,11 @@ static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 	i = 0;
 	while (i < pcmd->nchild)
 		waitpid(pids[i++], &wstatus, 0);
+	signal_caught = WTERMSIG(wstatus);
+	if (signal_caught == 2) // SIGINT
+		pcmd->data->last_exit_status = 130;
+	else if (signal_caught == 3) // SIGQUIT
+		pcmd->data->last_exit_status = 131;
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
@@ -74,7 +80,11 @@ static void	child_process(int *pids, int **pipes, t_pipecmd *pcmd)
 				last_child(pids, pipes, pcmd);
 		}
 		else
+		{
+			if (pcmd->p[i]->rd.heredoc)
+				waitpid(pids[i], NULL, 0);
 			handle_signal(pids[i]);
+		}
 		i++;
 	}
 }
