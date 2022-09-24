@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:48:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 18:07:01 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 13:50:50 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ t_redirs	get_redir(t_node *rd)
 	init_rd(&redirs);
 	if (rd->left && rd->left->type == 0)
 	{
-		printf("X\n");
 		op = rd->left->value;
 		fname = rd->right->value;
 		add_redir(&redirs, op, fname);
