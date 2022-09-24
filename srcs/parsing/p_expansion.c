@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:58:49 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 13:58:43 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:59:11 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	set_exp(t_token *token)
 		ft_free(token->next->value);
 		token->next->value = quote_removal(tmp);
 		ft_free(tmp);
-		token->next->exp = 0;
+		if (op_type(token->value) == DLESS)
+			token->next->exp = 0;
 	}
 }
 
