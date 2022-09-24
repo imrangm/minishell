@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/24 11:44:42 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 13:19:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:41:37 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,16 @@ int	process_outfile(t_node **left, t_node **right, char *current)
 	type = op_type(lf);
 	if (type == DGREAT && current[0] == GREAT && access(rt, F_OK))
 	{
-		empty_file(rt);
+		if (empty_file(rt))
+			return (-1);
 		return (1);
 	}
 	if (type == DGREAT && current[0] == GREAT)
 		return (1);
 	if (type == GREAT && current[0] == GREAT)
 	{
-		empty_file(rt);
+		if (empty_file(rt))
+			return (-1);
 		return (1);
 	}
 	return (0);
@@ -67,11 +69,16 @@ int	process_outfile(t_node **left, t_node **right, char *current)
 
 int	process_redirection(t_node **left, t_node **right, char *current)
 {
+	int	ret_in;
+	int	ret_out;
+
 	if ((*left)->type == 2 || (*right)->type == 2)
 		return (-1);
-	if (process_infile(left, right, current))
-		return (1);
-	if (process_outfile(left, right, current))
+	ret_in = process_infile(left, right, current);
+	ret_out = process_outfile(left, right, current);
+	if (ret_in == -1 || ret_out == -1)
+		return (-1);
+	else if (ret_in || ret_out)
 		return (1);
 	return (0);
 }
