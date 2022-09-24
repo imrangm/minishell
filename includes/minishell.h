@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
+/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/23 17:52:47 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 13:09:01 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ char		*get_cmd_path(char **args, t_data *data);
 void		redirs(t_redircmd *redir);
 void		process_redirs(int *fd, t_redircmd *redir);
 void		init_rd(t_redirs *rd);
-void		empty_file(char *file);
+int			empty_file(char *file);
 int			fd_in(t_redirs *rd);
 int			fd_out(t_redirs *rd);
 void		close_fds(int *fd);
