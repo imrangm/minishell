@@ -6,30 +6,16 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 15:01:57 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:23:55 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	handle_signal(int pid)
-{
-	g_glb.child_pid = pid;
-	signal(SIGQUIT, &quit_signal_handler);
-}
-
-static void	ps_fork_error(int *pids, int **pipes, t_pipecmd *pcmd)
-{
-	ps_free(pipes, pids, pcmd);
-	pcmd->data->last_exit_status = 140;
-	ft_putstr_fd("Error: Could not create child process\n", 2);
-}
-
 static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 {
 	int	i;
 	int	wstatus;
-	int	signal_caught;
 	int	code;
 
 	i = 0;
@@ -43,11 +29,7 @@ static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 	i = 0;
 	while (i < pcmd->nchild)
 		waitpid(pids[i++], &wstatus, 0);
-	signal_caught = WTERMSIG(wstatus);
-	if (signal_caught == 2) // SIGINT
-		pcmd->data->last_exit_status = 130;
-	else if (signal_caught == 3) // SIGQUIT
-		pcmd->data->last_exit_status = 131;
+	handle_termsig(wstatus, pcmd->data);
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);
@@ -80,11 +62,7 @@ static void	child_process(int *pids, int **pipes, t_pipecmd *pcmd)
 				last_child(pids, pipes, pcmd);
 		}
 		else
-		{
-			if (pcmd->p[i]->rd.heredoc)
-				waitpid(pids[i], NULL, 0);
-			handle_signal(pids[i]);
-		}
+			handle_signal_and_heredoc(pcmd, pids, i);
 		i++;
 	}
 }

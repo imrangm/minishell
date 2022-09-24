@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 15:02:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:24:10 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,12 @@ void	quit_signal_handler(int signum)
 static void	monitor_process(int pid, t_data *data)
 {
 	int	wstatus;
-	int	signal_caught;
 	int	code;
 
 	g_glb.child_pid = pid;
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(pid, &wstatus, 0);
-
-	//!
-	signal_caught = WTERMSIG(wstatus);
-	if (signal_caught == 2) // SIGINT
-		data->last_exit_status = 130;
-	else if (signal_caught == 3) // SIGQUIT
-		data->last_exit_status = 131;
-	//!
-
+	handle_termsig(wstatus, data);
 	if (WIFEXITED(wstatus))
 	{
 		code = WEXITSTATUS(wstatus);

@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 15:02:18 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:16:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	parent(int *pid, t_data *data)
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(*pid, &wstatus, 0);
 	signal_caught = WTERMSIG(wstatus);
-	if (signal_caught == 2) // SIGINT
+	if (signal_caught == 2)
 		data->last_exit_status = 130;
-	else if (signal_caught == 3) // SIGQUIT
+	else if (signal_caught == 3)
 		data->last_exit_status = 131;
 	if (WIFEXITED(wstatus))
 	{
