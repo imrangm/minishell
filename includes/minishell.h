@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 13:56:00 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:01:17 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@
 # define DGREAT '+'
 # define DLESS '-'
 
-int	g_child_pid;
+// int	g_child_pid;
+
+typedef struct s_glb
+{
+	int	*last_exit_status;
+	int	child_pid;
+}	t_glb;
+
+t_glb g_glb;
 
 typedef struct s_exp
 {

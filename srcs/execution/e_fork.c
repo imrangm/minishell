@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 14:56:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:01:57 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	handle_signal(int pid)
 {
-	g_child_pid = pid;
+	g_glb.child_pid = pid;
 	signal(SIGQUIT, &quit_signal_handler);
 }
 

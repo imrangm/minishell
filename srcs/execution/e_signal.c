@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_signal.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 00:43:58 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/19 10:11:02 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 15:03:51 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	signal_handler(int signum)
 {
 	(void) signum;
+	*(g_glb.last_exit_status) = 1;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

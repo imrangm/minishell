@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:31:55 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 14:35:25 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:02:12 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	quit_signal_handler(int signum)
 {
 	(void) signum;
 	printf("Quit: 3\n");
-	kill(g_child_pid, SIGQUIT);
+	kill(g_glb.child_pid, SIGQUIT);
 }
 
 static void	monitor_process(int pid, t_data *data)
@@ -25,14 +25,17 @@ static void	monitor_process(int pid, t_data *data)
 	int	signal_caught;
 	int	code;
 
-	g_child_pid = pid;
+	g_glb.child_pid = pid;
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(pid, &wstatus, 0);
+
+	//!
 	signal_caught = WTERMSIG(wstatus);
 	if (signal_caught == 2) // SIGINT
 		data->last_exit_status = 130;
-	else if (signal_caught == 3)
+	else if (signal_caught == 3) // SIGQUIT
 		data->last_exit_status = 131;
+	//!
 
 	if (WIFEXITED(wstatus))
 	{

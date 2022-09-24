@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 14:54:12 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 15:02:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	parent(int *pid, t_data *data)
 	int	signal_caught;
 	int	code;
 
-	g_child_pid = *pid;
+	g_glb.child_pid = *pid;
 	signal(SIGQUIT, &quit_signal_handler);
 	waitpid(*pid, &wstatus, 0);
 	signal_caught = WTERMSIG(wstatus);
