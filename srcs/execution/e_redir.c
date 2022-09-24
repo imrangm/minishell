@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 10:42:52 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 16:10:55 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 18:04:24 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ static void	parent(int *pid, t_data *data)
 		code = WEXITSTATUS(wstatus);
 		if (code != 0)
 			data->last_exit_status = code;
+		else
+			data->last_exit_status = 0;
 	}
 }
 

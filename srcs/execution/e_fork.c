@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:45:18 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 16:10:56 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 18:04:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	parent(int *pids, int **pipes, t_pipecmd *pcmd)
 		code = WEXITSTATUS(wstatus);
 		if (code != 0)
 			pcmd->data->last_exit_status = code;
+		else
+			pcmd->data->last_exit_status = 0;
 	}
 	ps_free(pipes, pids, pcmd);
 }
