@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 11:32:49 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/24 16:10:46 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:39:21 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ void	free_and_exit(char **args, t_cmd *cmd, t_data *data)
 	free_nodes(data->root);
 	ft_free(cmd);
 	exit(data->last_exit_status);
+}
+
+int	ft_num_check(char *str)
+{
+	int					i;
+	unsigned long long	result;
+
+	i = 0;
+	result = 0;
+	if (!str)
+		return (0);
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (ft_strlen(str) - i > 19)
+		return (1);
+	while (ft_isdigit(str[i]))
+		result = result * 10 + (str[i++] - '0');
+	if (ft_strcmp(str, "-9223372036854775808") && result > 9223372036854775807)
+		return (1);
+	return (0);
 }
