@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:59:33 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/24 16:10:44 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 17:52:00 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ char	*get_cmd_path(char **args, t_data *data)
 	{
 		data->last_exit_status = 127;
 		ft_putendl_fd("Error: PATH not set", 2);
+		if (!count_pipes(data->line))
+			ft_free(data->line);
 		return (NULL);
 	}
 	paths = split_path(path_env_val);
