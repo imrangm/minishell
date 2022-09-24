@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   e_rd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 13:07:40 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:06:27 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	empty_file(char *file)
 
 	fd = open(file, O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-	{
-		perror("File error");
 		return (1);
-	}
 	close(fd);
 	return (0);
 }
