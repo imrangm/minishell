@@ -6,24 +6,11 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 00:15:14 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/24 14:17:02 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 16:05:43 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	is_parent_function(char **args)
-{
-	if (!ft_strcmp(args[0], "export") && args[1])
-		return (1);
-	else if (!ft_strcmp(args[0], "unset"))
-		return (1);
-	else if (!ft_strcmp(args[0], "exit"))
-		return (1);
-	else if (!ft_strcmp(args[0], "cd"))
-		return (1);
-	return (0);
-}
 
 int	is_builtin(char **args)
 {

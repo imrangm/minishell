@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:40:54 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 15:25:08 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 16:05:42 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,16 +236,17 @@ void		close_pipes_last(int **pipes, t_pipecmd *pcmd, int i);
 void		cmd_pipe(char **args, t_data *data);
 
 //* Command Execution
-int			is_parent_function(char **args);
 int			is_builtin(char **args);
 void		builtin(char **args, t_cmd *cmd, t_data *data);
 void		cmd(char **args, t_data *data);
-void		free_and_exit(char **args, t_cmd *cmd, t_data *data);
 
 //* Free
 void		free_pipe(t_pipecmd *pcmd);
 void		ps_free(int **pipes, int *pids, t_pipecmd *pcmd);
 void		free_data(t_data *data);
+void		free_and_exit(char **args, t_cmd *cmd, t_data *data);
+void		free_expansion(t_exp *exp);
+void		free_expansion_all(t_exp *exp);
 
 //* Preliminary Checkers
 int			pc_redirs(char *str);
@@ -285,8 +286,10 @@ int			cd_special(void);
 //* Signals
 void		set_signalset(int sigmode);
 void		quit_signal_handler(int signum);
+void		handle_signal_and_heredoc(t_pipecmd *pcmd, int *pids, int i);
+void		handle_termsig(int wstatus, t_data *data);
 
-//* Utility
+//* Misc
 void		free_redirs(t_redircmd *redir);
 char		*read_line(char *lim);
 void		ft_readline(char *lim);
@@ -302,11 +305,8 @@ int			end_pipe(char *line);
 char		*read_pipe(char *line);
 int			start_param(char *str);
 int			end_param(char *str);
-void		free_expansion(t_exp *exp);
-void		free_expansion_all(t_exp *exp);
 char		*quote_removal(char *str);
 void		ps_fork_error(int *pids, int **pipes, t_pipecmd *pcmd);
-void		handle_signal_and_heredoc(t_pipecmd *pcmd, int *pids, int i);
-void		handle_termsig(int wstatus, t_data *data);
+
 
 #endif
