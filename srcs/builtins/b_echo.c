@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 18:43:35 by nmadi             #+#    #+#             */
-/*   Updated: 2022/09/21 17:30:22 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:56:23 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_n_flag(char *str)
 	return (0);
 }
 
-int	b_echo(char **args)
+int	b_echo(char **args, t_data *data)
 {
 	int	i;
 	int	normal_mode;
@@ -56,5 +56,6 @@ int	b_echo(char **args)
 			printf("%s ", args[i]);
 		i++;
 	}
+	data->last_exit_status = 0;
 	return (0);
 }
