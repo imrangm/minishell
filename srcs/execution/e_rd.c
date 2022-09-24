@@ -6,7 +6,7 @@
 /*   By: imustafa <imustafa@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:46:57 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/22 14:54:34 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 12:41:16 by imustafa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static int	here_pipe(t_pipe *p)
 	ft_putstr_fd(text, f[1]);
 	fdi = f[0];
 	ft_free(text);
-	close(f[1]);
 	dup2(fdi, STDIN_FILENO);
+	close(f[1]);
 	close(fdi);
 	return (1);
 }
