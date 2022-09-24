@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   p_free.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imustafa <imustafa@student.42abudhabi.ae>  +#+  +:+       +#+        */
+/*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 13:27:00 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/17 16:34:23 by imustafa         ###   ########.fr       */
+/*   Updated: 2022/09/24 16:08:28 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-to contain all free functions
-*/
 void	free_chars(t_charlist *src)
 {
 	int	i;
