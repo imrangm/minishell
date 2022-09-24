@@ -6,7 +6,7 @@
 /*   By: nmadi <nmadi@student.42abudhabi.ae>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 12:13:15 by imustafa          #+#    #+#             */
-/*   Updated: 2022/09/24 16:10:49 by nmadi            ###   ########.fr       */
+/*   Updated: 2022/09/24 16:14:18 by nmadi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*read_pipe(char *line)
 	int		rv;
 
 	set_signalset(2);
-	temp = strdup("");
+	temp = ft_strdup("");
 	write(1, "> ", 2);
 	while (1)
 	{
